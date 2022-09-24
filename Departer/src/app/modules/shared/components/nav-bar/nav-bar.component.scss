@@ -1,0 +1,25 @@
+@import "/src/assets/styles/variables.scss";
+
+nav {
+    border-bottom: 1px solid $color-dark-gray;
+    height: 4.2rem;
+}
+.nav-bar {
+    background-color: $color-white;
+}
+.perfil {
+    border-radius: 50%;
+}
+.seta {
+    font-size: 1.8rem;
+    margin-right: 5%;
+}
+.form-control {
+    border-radius: 3px;
+}
+.form-control:focus {
+    /* outline: none; */
+    border-color: 1px solid $color-purple;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
