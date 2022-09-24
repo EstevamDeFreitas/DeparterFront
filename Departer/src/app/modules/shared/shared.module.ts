@@ -14,6 +14,7 @@ const routes: Routes = [];
   ],
     imports: [
       RouterModule.forChild(routes),
+      CommonModule,
       MatIconModule
     ],
     exports: [

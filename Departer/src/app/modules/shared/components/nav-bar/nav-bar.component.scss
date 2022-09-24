@@ -14,12 +14,46 @@ nav {
     font-size: 1.8rem;
     margin-right: 5%;
 }
-.form-control {
+
+//Input Central no Nav-bar
+.custom-input {
     border-radius: 3px;
+    color: #848484;
+    width: 100%;
+    height: 2.375rem;
+    padding: 1.5%;
+    outline: none;
+    background-color: $color-gray !important;
+    border: 1px solid rgb(212, 212, 212);
 }
-.form-control:focus {
-    /* outline: none; */
-    border-color: 1px solid $color-purple;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
+.custom-appearance {
+    outline: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    color: #848484;
+    width: 100%;
+    height: 100%;
+  }
+  /* Chrome, Safari, Edge, Opera */
+  .custom-appearance::-webkit-outer-spin-button,
+  .custom-appearance::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Firefox */
+  .custom-apperance[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  #icone:focus-within {
+    border: 1px solid $color-blue;
+  }
+  .custom-input:focus-within {
+    caret-color: 1px solid $color-purple;
+  }
+  .custom-appearance:focus {
+    caret-color: $color-purple;
+  }
+

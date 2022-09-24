@@ -1,24 +1,25 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <div class="col-4 text-end">
-                <img class="d-inline-block align-top perfil seta" src=".\assets\images\SetaGrandeNav.svg" width="32" height="32"/>
-            </div>
-            <div class="col-4">
-                <form class="d-flex" role="search">
-                    <input class="form-control" type="search" placeholder="Pesquisar" aria-label="Search">
-                </form>
-            </div>
-            <div class="col-3 text-end">
-                <img class="d-inline-block align-top perfil" src=".\assets\images\Sino.svg" width="28" height="28"/>
-            </div>
-            <div class="col-1 text-center">
-                <img class="d-inline-block align-top perfil" src=".\assets\images\Perfil.svg" width="46" height="46"/>
-            </div>
+
+        <div class="col-4 text-end">
+            <img class="d-inline-block align-top seta" src=".\assets\images\SetaGrandeNav.svg" width="32" height="32"
+                id="seta" />
         </div>
+        <div class="col-4">
+            <form class="d-flex" role="search">
+                <div id="icone" class="custom-input d-flex align-items-center">
+                    <mat-icon class="pesquisar">search</mat-icon>
+                    <input class="custom-appearance" type="search" placeholder="  Pesquisar" aria-label="Search">
+                </div>
+            </form>
+        </div>
+
+        <div class="col-3 text-end">
+            <img class="d-inline-block align-top" src=".\assets\images\Sino.svg" width="28" height="28" />
+        </div>
+        <div class="col-1 text-center">
+            <img class="d-inline-block align-top perfil" src=".\assets\images\Perfil.svg" width="46" height="46" />
+        </div>
+
     </div>
 </nav>
