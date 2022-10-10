@@ -1,12 +1,12 @@
+import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { LoginComponent } from './components/login/login.component';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
-    {path:'', component: LoginComponent, children:[
+    {path:'', component: LoginComponent},
+    {path:'cadastro', component: CadastroComponent}
 
-
-    ]}
 ];
 
 @NgModule({
@@ -14,4 +14,3 @@ const routes: Routes = [
     exports: [RouterModule]
   })
   export class AutentificacaoRoutingModule { }
-  
