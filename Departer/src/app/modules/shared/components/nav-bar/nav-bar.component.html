@@ -1,11 +1,17 @@
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="navbar navbar-expand-lg"  style="background-color: rgb(255, 255, 255);">
     <div class="container-fluid">
 
-        <div class="col-4 text-end">
+        <div class="col-3">
+            <img class="d-inline-block align-top logo" src=".\assets\images\departerLogo.png" width="160" height="66" />
+        </div>
+
+        <div class="col-1 text-end">
+            <a (click)="opened=!opened">
             <img class="d-inline-block align-top seta" src=".\assets\images\SetaGrandeNav.svg" width="32" height="32"
                 id="seta" />
+            </a>
         </div>
-        <div class="col-4">
+        <div class="col-5">
             <form class="d-flex" role="search">
                 <div id="icone" class="custom-input d-flex align-items-center">
                     <mat-icon class="pesquisar">search</mat-icon>
@@ -14,12 +20,49 @@
             </form>
         </div>
 
-        <div class="col-3 text-end">
-            <img class="d-inline-block align-top" src=".\assets\images\Sino.svg" width="28" height="28" />
-        </div>
+        <div class="col-2"></div>
+       
         <div class="col-1 text-center">
             <img class="d-inline-block align-top perfil" src=".\assets\images\Perfil.svg" width="46" height="46" />
         </div>
 
     </div>
 </nav>
+
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" mode="side">
+
+    
+        
+        <div class="caixa-menu ">
+            <div class="opcao-menu">
+                <img class="d-inline-block align-top perfil" src=".\assets\images\icone.dashboard.svg" width="20" height="20" /> Dashboard
+            </div>
+            <div class="opcao-menu mt-3">
+                <img class="d-inline-block align-top perfil" src=".\assets\images\icone.planejamento.svg" width="20" height="20" /> Planejamento
+            </div>
+            <div class="opcao-menu mt-3">
+                <img class="d-inline-block align-top perfil" src=".\assets\images\icone.atividade.svg" width="20" height="20" /> Atividades
+            </div>
+            <div class="opcao-menu mt-3">
+                <img class="d-inline-block align-top perfil" src=".\assets\images\icone.departamentos.svg" width="20" height="20" /> Departamentos
+            </div>
+            <div class="opcao-menu mt-3">
+                <img class="d-inline-block align-top perfil" src=".\assets\images\icone.horas.svg" width="20" height="20" /> Horas
+            </div>
+        </div>
+
+        <div class="caixa-menu config">
+            <div class="opcao-menu">
+                <img class="d-inline-block align-top perfil" src=".\assets\images\icone.config.svg" width="20" height="20" /> Configurações
+            </div>
+        </div>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+        <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

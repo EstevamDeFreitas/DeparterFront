@@ -4,24 +4,29 @@ import { RouterModule, Routes } from "@angular/router";
 import { PrincipalComponent } from './components/principal/principal.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 
 const routes: Routes = [];
 
 @NgModule({
     declarations: [
     PrincipalComponent,
-    NavBarComponent
+    NavBarComponent,
+  
   ],
     imports: [
       RouterModule.forChild(routes),
       CommonModule,
-      MatIconModule
+      MatIconModule,
+      MatSidenavModule
     ],
     exports: [
      PrincipalComponent,
      CommonModule,
      NavBarComponent,
-     MatIconModule
+     MatIconModule,
+     
     ],
     entryComponents: [
       

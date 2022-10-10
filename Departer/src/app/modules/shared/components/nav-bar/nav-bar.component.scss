@@ -14,6 +14,10 @@ nav {
     font-size: 1.8rem;
     margin-right: 5%;
 }
+.logo {
+  height: 4.125rem;
+  width: 10rem;
+}
 
 //Input Central no Nav-bar
 .custom-input {
@@ -57,3 +61,33 @@ nav {
     caret-color: $color-purple;
   }
 
+//Mat Side Bar
+
+mat-sidenav-container {
+  height: calc(206vh - 115vh);
+  background-color: $color-gray;
+}
+mat-sidenav {
+  width: 17.5rem !important;
+}
+::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+  background-color: $color-gray;
+}
+::ng-deep .mat-drawer:not(.mat-drawer-side) {
+  box-shadow: none;
+}
+
+//dentro do Side Bar
+.caixa-menu {
+  margin-top: 7.6rem;
+  margin-left: 2rem;
+}
+.opcao-menu {
+  font-size: 1.125rem;
+  font-family: Segoe UI, Regular;
+  font-weight: 450;
+  color: $color-black;
+}
+.config {
+  margin-top: 21.2rem;
+}
