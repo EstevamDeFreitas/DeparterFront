@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { AutentificacaoRoutingModule } from './autentificacao-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,7 +15,8 @@ import { CadastroComponent } from './components/cadastro/cadastro.component';
   imports: [
     CommonModule,
     AutentificacaoRoutingModule,
-    
+    ReactiveFormsModule,
+
   ]
 })
 export class AutentificacaoModule { }
