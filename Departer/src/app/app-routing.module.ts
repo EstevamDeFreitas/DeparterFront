@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NavBarComponent } from './modules/shared/components/nav-bar/nav-bar.component';
 
 const routes: Routes = [
     { path: "", pathMatch: "full", redirectTo: "autenticacao/login" },
     { path: '', loadChildren: () => import('./modules/autentificacao/autentificacao.module').then(m => m.AutentificacaoModule) },
-    { path: 'home', loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule) },
+    { path: 'home', component: NavBarComponent, loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule) },
+    { path: 'atividades', component: NavBarComponent, loadChildren: () => import('./modules/atividades/atividades.module').then(m => m.AtividadesModule) },
+    { path: 'administracao', component: NavBarComponent, loadChildren: () => import('./modules/administracao/administracao.module').then(m => m.AdministracaoModule) },
     { path: '**', redirectTo: '/' }
 ];
 

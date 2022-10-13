@@ -58,3 +58,10 @@ a.effect-underline:hover:after {
   -webkit-transform: scale(1);
   transform: scale(1);
 }
+
+.form-control:focus {
+  /* outline: none; */
+  border-color: $color-blue;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
