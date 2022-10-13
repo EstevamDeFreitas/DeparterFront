@@ -7,7 +7,7 @@
             <div class=" col-12 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5">
 
-                <form>
+                <form [formGroup]="loginForm">
 
                   <div class="d-flex align-items-center justify-content-center mb-4 pb-2">
                     <img class="logo" src=".\assets\images\departerLogo.png">
@@ -18,28 +18,28 @@
                   </div>
 
                   <div class="form-floating mb-4">
-                    <input type="email" id="inputEmail" class="form-control form-control-lg" placeholder="nome@email.com" />
+                    <input type="email" id="inputEmail" class="form-control form-control-lg" placeholder="nome@email.com" formControlName="email" required/>
                     <label for="inputEmail">Email</label>
                   </div>
 
                   <div class="form-floating mb-2">
-                    <input type="password" id="inputSenha" class="form-control form-control-lg" placeholder="senha"/>
+                    <input type="password" id="inputSenha" class="form-control form-control-lg" placeholder="senha" formControlName="password" required/>
                     <label for="inputSenha">Senha</label>
                   </div>
+
+                </form>
 
                   <div class="mb-3 d-flex flex-row-reverse">
                     <a class="effect-underline text-muted" href="#">Esqueceu sua senha?</a>
                   </div>
 
                   <div class="d-flex justify-content-center pt-1 mb-4">
-                    <button class="btn btn-purple col-12" type="button">Login</button>
+                    <button class="btn btn-purple col-12" type="button" (click)="login()">Login</button>
                   </div>
 
                   <p class="cadastro-text">Não possui conta?
                     <a class="effect-underline" href="#!">Cadastre-se</a>
                   </p>
-
-                </form>
 
               </div>
             </div>
