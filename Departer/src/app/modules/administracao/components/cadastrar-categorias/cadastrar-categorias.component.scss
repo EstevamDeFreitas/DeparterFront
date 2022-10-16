@@ -9,7 +9,7 @@
     width: 100%;
     background: $color-white 0% 0% no-repeat padding-box;
     border: none;
-    border-radius: 2px;
+    border-radius: $border;
     opacity: 1;
     padding: 2rem 2rem;
 }
@@ -30,31 +30,7 @@
     font-weight:900;
 }
 
-.blue-button {
-    font-family: 'Segoe UI', normal;
-    font-weight: 600;
-    font-size: 1.375rem;
-    color: $color-white;
-    background-color: $color-blue;
-    border-radius: 2px;
-    border: none;
-    width: 92%;
-    height: fit-content;
-    padding: 16px 26px;
-  }
 
-.red-button {
-    font-family: 'Segoe UI', normal;
-    font-weight: 600;
-    font-size: 1.375rem;
-    color: $color-white;
-    background-color: $color-red;
-    border-radius: 2px;
-    border: none;
-    width: 92%;
-    height: fit-content;
-    padding: 16px 26px; 
-}
 .form-control:focus {
     /* outline: none; */
     border-color: $color-blue;
@@ -63,6 +39,11 @@
   }
   .form-control {
     border-radius: 0;
+    height: 1.2rem;
+    background-color: $color-gray;
+  }
+  .label-input {
+    color: $color-dark-gray;
   }
   .form-control-lg {
     border-radius: 0;

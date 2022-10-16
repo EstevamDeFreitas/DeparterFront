@@ -9,3 +9,32 @@ html, body {
     background-color: $color-gray;
     height: 100%;
 }
+
+
+
+.red-button {
+    font-family: 'Segoe UI', normal;
+    font-weight: 600;
+    font-size: 1rem;
+    color: $color-white;
+    background-color: $color-red;
+    border-radius: $border;
+    border: none;
+    width: 100%;
+    height: fit-content;
+    padding: 10px 20px; 
+}
+
+
+.blue-button {
+    font-family: 'Segoe UI', normal;
+    font-weight: 600;
+    font-size: 1rem;
+    color: $color-white;
+    background-color: $color-blue;
+    border-radius: $border;
+    border: none;
+    width: 100%;
+    height: fit-content;
+    padding: 10px 20px; 
+}
