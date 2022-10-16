@@ -38,3 +38,46 @@ html, body {
     height: fit-content;
     padding: 10px 20px; 
 }
+
+.card {
+    margin: auto;
+    height: 77.3vh;
+    width: 100%;
+    background: $color-white 0% 0% no-repeat padding-box;
+    border: none;
+    border-radius: $border;
+    opacity: 1;
+    padding: 2rem 2rem;
+}
+.titulo {
+    font-size: 1.375rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 500;
+    color: $color-black;
+}
+
+
+.form-control:focus {
+    /* outline: none; */
+    border-color: $color-blue;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .form-control {
+    border-radius: 0;
+    height: 1.2rem;
+    background-color: $color-gray;
+  }
+  .label-input {
+    color: $color-dark-gray;
+  }
+  .form-control-lg {
+    border-radius: 0;
+  }
+  .label-text {
+    color: $color-black;
+    font-weight: 600;
+    font-family: Segoe UI, Regular;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
