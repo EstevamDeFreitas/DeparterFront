@@ -5,8 +5,10 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
-    {path:'lista-categorias', component: ListaCategoriasComponent},
+    {path: 'categorias',  children: [
+    {path:'', component: ListaCategoriasComponent},
     {path:'nova-categoria', component: CadastrarCategoriasComponent}
+    ]}
 ];
 
 @NgModule({
