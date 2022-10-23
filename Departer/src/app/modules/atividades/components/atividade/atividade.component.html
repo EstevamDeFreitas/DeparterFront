@@ -1,17 +1,111 @@
 <div class="container">
-    <div class="d-flex justify-content-between mt-5">
-        <div class="custom-flex">
-            <p class="titulo">Atividade</p>
+  <div class="d-flex justify-content-between mt-5">
+    <div class="custom-flex">
+      <p class="titulo">Atividade</p>
+    </div>
+    <div class="custom-flex">
+      <a>
+        <div class="titulo edit-button" (click)="editar()">
+          Editar
         </div>
-        <div class="custom-flex">
-            <a>
-                <div class="titulo botao" (click)="editar()">
-                    Editar
+      </a>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="row">
+      <div class="col-8">
+        <div class="ms-3">
+
+          <p class="titulo"><b>Criar documento de planejamento</b></p>
+
+          <div class="d-flex mt-3">
+            <div class="d-flex justify-content-center tags-border me-3">
+              <div class="tags">Administração</div>
+            </div>
+            <div class="d-flex justify-content-center tags-border">
+              <div class="tags">Documentação</div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <img class="image-clock" src=".\assets\images\icone.relogio.svg" width="20" height="23" />
+            <span class="text-created-date ms-2">Criada em: 22/10/2022 7:00</span>
+          </div>
+
+          <div class="side-column">
+            <div class="me-5">
+
+              <div class="mt-3">
+                <p class="sub-titulo"><b>Descrição</b></p>
+                <p class="default-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rutrum,
+                  risus
+                  sed eleifend suscipit, eros nibh dignissim mi, sit amet iaculis risus orci sed nunc. Curabitur justo
+                  odio, pharetra at ex id, scelerisque ullamcorper leo. Maecenas at consectetur magna. Ut in mi nec
+                  ligula
+                  iaculis pharetra eget sit amet sapien. Cras tempus erat et elit porta facilisis. Nunc cursus, sem nec
+                  feugiat finibus, justo urna aliquet purus, vel suscipit augue sem sit amet turpis. Etiam porttitor
+                  tellus orci, eget scelerisque dolor dapibus ut.</p>
+              </div>
+
+              <div class="mt-3">
+                <div class="d-flex justify-content-between">
+                  <p class="sub-titulo"><b>Atividades Relacionadas</b></p>
+                  <p class="add-button"><b>+ Adicionar</b></p>
                 </div>
-            </a>
+                <div class="d-flex justify-content-between mt-1">
+                  <p class="default-text">Reunião sobre o planejamento</p>
+                  <div class="progress-text">
+                    <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="10" height="23" />Fazendo
+                  </div>
+                  <div class="d-flex">
+                    <div class="progress-bar"></div>50%
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <p class="sub-titulo"><b>Historico</b></p>
+              </div>
+
+            </div>
+          </div>
+
         </div>
+      </div>
+      <div class="col-4">
+        <div class="me-3">
+
+          <div class="d-flex flex-row-reverse purple-text">
+            <span class="ps-1">Previsto para: 11/11/2022 11:30</span><img class="image-calendar"
+              src=".\assets\images\icone.planejamento.svg" width="20" height="23" />
+          </div>
+
+          <div class="d-flex purple-text flex-row-reverse mt-4">
+            <p class="text-department">Departamento de Finanças</p>
+          </div>
+
+          <div class="mt-5">
+            <div class="d-flex justify-content-between">
+              <p class="sub-titulo"><b>Responsaveis</b></p>
+              <p class="add-button"><b>+ Adicionar</b></p>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <p class="sub-titulo"><b>Progresso</b></p>
+          </div>
+
+          <div class="mt-3">
+            <div class="d-flex justify-content-between">
+              <p class="sub-titulo"><b>Horas</b></p>
+              <p class="add-button"><b>+ Adicionar</b></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
-    <div class="card mt-3">
-    </div>
+  </div>
 </div>
