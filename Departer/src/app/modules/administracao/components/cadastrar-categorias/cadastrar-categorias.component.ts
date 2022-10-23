@@ -14,7 +14,7 @@ export class CadastrarCategoriasComponent implements OnInit {
   }
 
   cancelar(){
-    this.router.navigate(['/administracao/lista-categorias']);
+    this.router.navigate(['/administracao/categorias']);
   }
 
 }
