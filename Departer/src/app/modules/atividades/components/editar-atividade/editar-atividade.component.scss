@@ -20,3 +20,40 @@
 .red-button {
     padding: 18px 20px; 
 }
+.subtitulo {
+    font-size: 1rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 500;
+    color: $color-black;
+}
+.texto {
+    font-size: 1rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 400;
+    color: $color-black;  
+}
+
+.form-control-descricao{
+    height: 12.4rem;
+}
+
+.form-control-titulo{
+    height: 1.5rem;
+}
+.horas {
+    background-color: $color-gray;
+    width: 50%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.linha {
+    display: inline;
+}
+.titulo-edicao {
+    font-size: 1.5rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 700;
+    color: $color-purple;
+}

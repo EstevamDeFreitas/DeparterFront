@@ -5,8 +5,10 @@ import { ListaAtividadesComponent } from './components/lista-atividades/lista-at
 import { NovaAtividadeComponent } from './components/nova-atividade/nova-atividade.component';
 import { EditarAtividadeComponent } from './components/editar-atividade/editar-atividade.component';
 import { AtividadeComponent } from './components/atividade/atividade.component';
-
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,11 @@ import { AtividadeComponent } from './components/atividade/atividade.component';
   ],
   imports: [
     CommonModule,
-    AtividadesRoutingModule
+    AtividadesRoutingModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule
   ]
 })
 export class AtividadesModule { }
