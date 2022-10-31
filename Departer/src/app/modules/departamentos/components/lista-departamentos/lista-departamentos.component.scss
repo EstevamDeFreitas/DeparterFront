@@ -1,0 +1,13 @@
+@import "/src/assets/styles/variables.scss";
+
+.container {
+    width: 85%;
+}
+
+.botao {
+    font-size: 1.375rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 500;
+    color: $color-purple;
+    cursor: pointer;
+}

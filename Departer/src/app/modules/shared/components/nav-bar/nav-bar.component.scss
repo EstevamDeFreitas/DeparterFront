@@ -18,7 +18,7 @@ nav {
 //Input Central no Nav-bar
 .custom-input {
     border-radius: 3px;
-    color: #848484;
+    color: $color-input-text-gray;
     width: 100%;
     height: 2.375rem;
     padding: 1.5%;
@@ -31,7 +31,7 @@ nav {
     appearance: none;
     background-color: transparent;
     border: none;
-    color: #848484;
+    color: $color-input-text-gray;
     width: 100%;
     height: 100%;
   }
