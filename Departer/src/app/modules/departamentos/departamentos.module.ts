@@ -7,13 +7,16 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatCardModule} from '@angular/material/card';
+import { TelaDepartamentosComponent } from './components/tela-departamentos/tela-departamentos.component';
 
 
 
 @NgModule({
   declarations: [
     ListaDepartamentosComponent,
-    NovoDepartamentoComponent
+    NovoDepartamentoComponent,
+    TelaDepartamentosComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +24,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCardModule
   ]
 })
 export class DepartamentosModule { }

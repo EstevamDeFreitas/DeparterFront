@@ -11,3 +11,23 @@
     color: $color-purple;
     cursor: pointer;
 }
+
+.example-card {
+    max-width: 300px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+
+  mat-card {
+    border-radius: 20px;
+  }
+
+  .texto-card {
+    font-size: 1.25rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 600;
+    color: $color-black;
+  }
