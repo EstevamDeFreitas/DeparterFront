@@ -1,3 +1,4 @@
+import { MatCardModule } from '@angular/material/card';
 import { AdministracaoRoutingModule } from './administracao-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -5,19 +6,22 @@ import { ListaCategoriasComponent } from './components/lista-categorias/lista-ca
 import { CadastrarCategoriasComponent } from './components/cadastrar-categorias/cadastrar-categorias.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { AdministracaoComponent } from './components/administracao/administracao.component';
 
 
 
 @NgModule({
   declarations: [
     ListaCategoriasComponent,
-    CadastrarCategoriasComponent
+    CadastrarCategoriasComponent,
+    AdministracaoComponent
   ],
   imports: [
     CommonModule,
     AdministracaoRoutingModule,
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatCardModule
   ]
 })
 export class AdministracaoModule { }

@@ -1,0 +1,57 @@
+@import "/src/assets/styles/variables.scss";
+
+.container {
+    width: 85%;
+}
+
+.botao {
+    font-size: 1.375rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 500;
+    color: $color-purple;
+    cursor: pointer;
+}
+.simbolo {
+    font-weight:900;
+}
+.blue-button {
+    padding: 18px 20px; ;
+}
+.superTitulo {
+    font-size: 2rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 600;
+    color: $color-black;
+}
+.subtitulo {
+    font-size: 1rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 500;
+    color: $color-black;
+}
+.texto {
+    font-size: 1rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 400;
+    color: $color-black;  
+}
+
+.example-card {
+    max-width: 300px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+
+  mat-card {
+    border-radius: 20px;
+  }
+
+  .texto-card {
+    font-size: 1.25rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 600;
+    color: $color-black;
+  }
