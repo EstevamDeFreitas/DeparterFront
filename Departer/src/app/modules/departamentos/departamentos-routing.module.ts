@@ -1,3 +1,4 @@
+import { DetalhesDepartamentosComponent } from './components/detalhes-departamentos/detalhes-departamentos.component';
 import { TelaDepartamentosComponent } from './components/tela-departamentos/tela-departamentos.component';
 import { NovoDepartamentoComponent } from './components/novo-departamento/novo-departamento.component';
 import { ListaDepartamentosComponent } from './components/lista-departamentos/lista-departamentos.component';
@@ -9,7 +10,8 @@ const routes: Routes = [
     {path:'', component: LoginComponent},
     {path:'lista-departamentos',component: ListaDepartamentosComponent},
     {path:'novo-departamento',component: NovoDepartamentoComponent},
-    {path:'geral-departamentos',component: TelaDepartamentosComponent}
+    {path:'geral-departamentos',component: TelaDepartamentosComponent},
+    {path:'detalhes-departamentos', component: DetalhesDepartamentosComponent}
 ];
 
 @NgModule({

@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
 import { TelaDepartamentosComponent } from './components/tela-departamentos/tela-departamentos.component';
+import { DetalhesDepartamentosComponent } from './components/detalhes-departamentos/detalhes-departamentos.component';
 
 
 
@@ -16,7 +17,8 @@ import { TelaDepartamentosComponent } from './components/tela-departamentos/tela
   declarations: [
     ListaDepartamentosComponent,
     NovoDepartamentoComponent,
-    TelaDepartamentosComponent
+    TelaDepartamentosComponent,
+    DetalhesDepartamentosComponent
   ],
   imports: [
     CommonModule,
