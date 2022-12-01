@@ -1,15 +1,15 @@
 <section class="vh-100 image">
-  <div class="container py-5 h-100">
+  <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-5">
         <div class="card">
           <div class="row g-0">
-            <div class=" col-12 d-flex align-items-center">
+            <div class="col-12 d-flex align-items-center">
               <div class="card-body p-2 p-lg-3">
 
                 <form [formGroup]="loginForm">
 
-                  <div class="d-flex align-items-center justify-content-center mb-4 pb-2">
+                  <div class="d-flex align-items-center justify-content-center mb-3 pb-2">
                     <img class="logo" src=".\assets\images\departerLogo.png">
                   </div>
 
@@ -17,14 +17,23 @@
                     <h1 class="login-text" >Fazer Login</h1>
                   </div>
 
-                  <div class="form-floating mb-4">
-                    <input type="email" id="inputEmail" class="form-control form-control-lg" placeholder="nome@email.com" formControlName="email" required/>
+                  <div class="form-floating mb-3">
+                    <input type="email" id="inputEmail" class="form-control form-control-lg" [ngClass]="{'is-invalid': f.email.errors && f.email.touched}" placeholder="nome@email.com" formControlName="email" required/>
                     <label for="inputEmail">Email</label>
+                    <div *ngIf="f.email.errors?.required && f.email.touched" class="invalid-feedback">
+                      E-mail é obrigatorio.
+                    </div>
+                    <div *ngIf="f.email.errors?.email && f.email.touched" class="invalid-feedback">
+                      Endereço de E-mail inválido.
+                    </div>
                   </div>
 
                   <div class="form-floating mb-2">
-                    <input type="password" id="inputSenha" class="form-control form-control-lg" placeholder="senha" formControlName="password" required/>
+                    <input type="password" id="inputSenha" class="form-control form-control-lg" [ngClass]="cssValidator(f.senha)" placeholder="senha" formControlName="senha" required/>
                     <label for="inputSenha">Senha</label>
+                    <div *ngIf="f.senha.errors?.required && f.senha.touched" class="invalid-feedback">
+                      Senha é obrigatorio.
+                    </div>
                   </div>
 
                 </form>
@@ -38,7 +47,7 @@
                   </div>
 
                   <p class="cadastro-text">Não possui conta?
-                    <a class="effect-underline" href="#!">Cadastre-se</a>
+                    <a class="effect-underline" href="../cadastro">Cadastre-se</a>
                   </p>
 
               </div>

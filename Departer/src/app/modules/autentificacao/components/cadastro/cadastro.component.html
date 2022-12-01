@@ -4,37 +4,63 @@
       <div class="col col-xl-5">
         <div class="card">
           <div class="row g-0">
-            <div class=" col-12 d-flex align-items-center">
-              <div class="card-body p-2 p-lg-3">
+            <div class="col-12 d-flex align-items-center">
+              <div class="card-body p-1 p-md-3">
 
-                <form>
+                <form [formGroup]="registerForm">
 
-                  <div class="d-flex align-items-center justify-content-center mb-4 pb-2">
+                  <div class="d-flex align-items-center justify-content-center mb-md-3 pb-2">
                     <img class="logo" src="../../../../../assets/images/departerLogo.png">
                   </div>
 
-                  <div class="d-flex justify-content-center mb-2 pb-2">
-                    <h1 class="login-text" >Fazer Cadastro</h1>
+                  <div class="d-flex justify-content-center mb-md-2 pb-2">
+                    <h1 class="login-text">Fazer Cadastro</h1>
                   </div>
 
-                  <div class="form-floating mb-4">
-                    <input type="email" id="inputNome" class="form-control form-control-lg" placeholder="fulano" />
+                  <div class="form-floating mb-3">
+                    <input type="text" id="inputNome" class="form-control form-control-lg"
+                      [ngClass]="cssValidator(f.nome)" placeholder="fulano" formControlName="nome" />
                     <label for="inputNome">Nome</label>
+                    <div *ngIf="f.nome.errors?.required && f.nome.touched" class="invalid-feedback">
+                      Nome é obrigatorio.
+                    </div>
+                    <div *ngIf="f.nome.errors?.minLength && f.nome.touched" class="invalid-feedback">
+                      Nome deve ter mais que 5 caracteres.
+                    </div>
                   </div>
 
-                  <div class="form-floating mb-4">
-                    <input type="email" id="inputEmail" class="form-control form-control-lg" placeholder="nome@email.com" />
+                  <div class="form-floating mb-3">
+                    <input type="email" id="inputEmail" class="form-control form-control-lg"
+                      [ngClass]="cssValidator(f.email)" placeholder="nome@email.com" formControlName="email" />
                     <label for="inputEmail">Email</label>
+                    <div *ngIf="f.email.errors?.required && f.email.touched" class="invalid-feedback">
+                      E-mail é obrigatorio.
+                    </div>
+                    <div *ngIf="f.email.errors?.email && f.email.touched" class="invalid-feedback">
+                      Endereço de E-mail inválido.
+                    </div>
                   </div>
 
-                  <div class="d-flex mb-4">
+                  <div class="d-flex mb-3">
                     <div class="form-floating me-3">
-                      <input type="password" id="inputSenha" class="form-control form-control-lg" placeholder="senha"/>
+                      <input type="password" id="inputSenha" class="form-control form-control-lg" [ngClass]="cssValidator(f.senha)" placeholder="senha" formControlName="senha"/>
                       <label for="inputSenha">Senha</label>
+                      <div *ngIf="f.senha.errors?.required && f.senha.touched" class="invalid-feedback">
+                        Senha é obrigatorio.
+                      </div>
+                      <div *ngIf="f.senha.errors?.minlength && f.senha.touched" class="invalid-feedback">
+                        Senha deve conter no mínimo 6 caracteres.
+                      </div>
                     </div>
                     <div class="form-floating">
-                      <input type="password" id="inputConfirmaSenha" class="form-control form-control-lg" placeholder="senha"/>
+                      <input type="password" id="inputConfirmaSenha" class="form-control form-control-lg" [ngClass]="cssValidator(f.confirmarSenha)" placeholder="senha" formControlName="confirmarSenha"/>
                       <label for="inputConfirmaSenha">Confirmar Senha</label>
+                      <div *ngIf="f.confirmarSenha.errors?.required" class="invalid-feedback">
+                        Confirmar senha é obrigatorio.
+                      </div>
+                      <div *ngIf="f.confirmarSenha.errors?.mustMatch" class="invalid-feedback">
+                        As duas senhas devem ser iguais.
+                      </div>
                     </div>
                   </div>
 
@@ -43,7 +69,7 @@
                   </div>
 
                   <p class="cadastro-text">Ja possui conta?
-                    <a class="effect-underline" href="#!">Fazer Login</a>
+                    <a class="effect-underline" href="/">Fazer Login</a>
                   </p>
 
                 </form>
