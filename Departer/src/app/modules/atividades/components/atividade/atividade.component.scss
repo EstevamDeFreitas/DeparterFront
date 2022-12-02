@@ -9,10 +9,20 @@
   overflow: auto;
 }
 
+.text-department {
+  font-size: 1.475rem;
+  text-decoration: underline;
+
+}
+
 @media (max-width: 576px)
 {
   .w-xm-100{
     width: 100%;
+  }
+
+  .text-department {
+    text-decoration: none;
   }
 }
 
@@ -42,12 +52,6 @@
   position: relative;
   bottom: 0.1rem;
   filter: invert(14%) sepia(63%) saturate(7064%) hue-rotate(254deg) brightness(95%) contrast(93%);
-}
-
-.text-department {
-  font-size: 1.475rem;
-  text-decoration: underline;
-
 }
 
 .tags-border{
