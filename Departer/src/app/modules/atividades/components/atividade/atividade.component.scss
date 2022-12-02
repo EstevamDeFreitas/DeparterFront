@@ -181,7 +181,7 @@
 // ------------------------------------------- Box de Scroll -------------------------------------------
 
 .box-scroll {
-  height: 105px;
+  height: 6.563rem;
   overflow-y: auto !important;
   overflow-x: hidden;
 }
@@ -189,7 +189,7 @@
 @media (max-width: 576px)
 {
   .box-scroll {
-    height: 105px;
+    height: 6.563rem;
     overflow-y: auto !important;
     overflow-x: auto;
   }
