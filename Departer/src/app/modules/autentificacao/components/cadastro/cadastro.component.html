@@ -1,8 +1,8 @@
-<section class="vh-100 image">
+<section class="image">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-5">
-        <div class="card">
+        <div class="card mb-5 mb-sm-0">
           <div class="row g-0">
             <div class="col-12 d-flex align-items-center">
               <div class="card-body p-1 p-md-3">
@@ -41,25 +41,32 @@
                     </div>
                   </div>
 
-                  <div class="d-flex mb-3">
-                    <div class="form-floating me-3">
-                      <input type="password" id="inputSenha" class="form-control form-control-lg" [ngClass]="cssValidator(f.senha)" placeholder="senha" formControlName="senha"/>
-                      <label for="inputSenha">Senha</label>
-                      <div *ngIf="f.senha.errors?.required && f.senha.touched" class="invalid-feedback">
-                        Senha é obrigatorio.
-                      </div>
-                      <div *ngIf="f.senha.errors?.minlength && f.senha.touched" class="invalid-feedback">
-                        Senha deve conter no mínimo 6 caracteres.
+                  <div class="row">
+                    <div class="col-12 col-sm-6 mb-3">
+                      <div class="form-floating">
+                        <input type="password" id="inputSenha" class="form-control form-control-lg"
+                          [ngClass]="cssValidator(f.senha)" placeholder="senha" formControlName="senha" />
+                        <label for="inputSenha">Senha</label>
+                        <div *ngIf="f.senha.errors?.required && f.senha.touched" class="invalid-feedback">
+                          Senha é obrigatorio.
+                        </div>
+                        <div *ngIf="f.senha.errors?.minlength && f.senha.touched" class="invalid-feedback">
+                          Senha deve conter no mínimo 6 caracteres.
+                        </div>
                       </div>
                     </div>
-                    <div class="form-floating">
-                      <input type="password" id="inputConfirmaSenha" class="form-control form-control-lg" [ngClass]="cssValidator(f.confirmarSenha)" placeholder="senha" formControlName="confirmarSenha"/>
-                      <label for="inputConfirmaSenha">Confirmar Senha</label>
-                      <div *ngIf="f.confirmarSenha.errors?.required" class="invalid-feedback">
-                        Confirmar senha é obrigatorio.
-                      </div>
-                      <div *ngIf="f.confirmarSenha.errors?.mustMatch" class="invalid-feedback">
-                        As duas senhas devem ser iguais.
+                    <div class="col-12 col-sm-6 mb-3">
+                      <div class="form-floating">
+                        <input type="password" id="inputConfirmaSenha" class="form-control form-control-lg"
+                          [ngClass]="cssValidator(f.confirmarSenha)" placeholder="senha"
+                          formControlName="confirmarSenha" />
+                        <label for="inputConfirmaSenha">Confirmar Senha</label>
+                        <div *ngIf="f.confirmarSenha.errors?.required" class="invalid-feedback">
+                          Confirmar senha é obrigatorio.
+                        </div>
+                        <div *ngIf="f.confirmarSenha.errors?.mustMatch" class="invalid-feedback">
+                          As duas senhas devem ser iguais.
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -82,3 +89,4 @@
     </div>
   </div>
 </section>
+
