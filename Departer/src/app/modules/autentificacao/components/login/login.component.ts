@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   public login(): void {
     if(this.loginForm.valid){
-      this.authService.login({email: this.loginForm.controls['email'].value, senha:this.loginForm.controls['senha'].value}).subscribe({
+      this.authService.login(this.loginForm.value).subscribe({
         next: (res) =>{
           AuthService.setToken(res.data);
         },
