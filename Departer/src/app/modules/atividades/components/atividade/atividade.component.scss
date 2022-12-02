@@ -64,10 +64,14 @@
   font-size: 1.1rem;
 }
 
-.side-column{
-  height: 32rem;
-  border-right: 0.1rem solid #B3B3B3;
+@media (min-width: 576px)
+{
+  .side-column{
+    height: 100%;
+    border-right: 0.1rem solid #B3B3B3;
+  }
 }
+
 
 .image-circle{
   position: relative;
@@ -160,4 +164,5 @@
 
 .card{
   height: 100%;
+  overflow: auto;
 }
