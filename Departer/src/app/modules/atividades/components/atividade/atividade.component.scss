@@ -178,6 +178,24 @@
   display: none;
 }
 
+// ------------------------------------------- Box de Scroll -------------------------------------------
+
+.box-scroll {
+  height: 105px;
+  overflow-y: auto;
+}
+
+.box-scroll {
+  height: 105px;
+  overflow-y: auto;
+}
+
+.overflow-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
 
 
 
