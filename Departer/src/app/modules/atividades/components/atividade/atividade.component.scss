@@ -182,12 +182,17 @@
 
 .box-scroll {
   height: 105px;
-  overflow-y: auto;
+  overflow-y: auto !important;
+  overflow-x: hidden;
 }
 
-.box-scroll {
-  height: 105px;
-  overflow-y: auto;
+@media (max-width: 576px)
+{
+  .box-scroll {
+    height: 105px;
+    overflow-y: auto !important;
+    overflow-x: auto;
+  }
 }
 
 .overflow-text {
@@ -196,6 +201,7 @@
   text-overflow: ellipsis;
 
 }
+
 
 
 
