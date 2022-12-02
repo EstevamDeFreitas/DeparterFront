@@ -4,6 +4,18 @@
     width: 85%;
 }
 
+.card {
+  height: 100%;
+  overflow: auto;
+}
+
+@media (max-width: 576px)
+{
+  .w-xm-100{
+    width: 100%;
+  }
+}
+
 .edit-button {
     font-size: 1.375rem;
     font-family: Segoe UI, Regular;
@@ -162,7 +174,6 @@
   display: none;
 }
 
-.card{
-  height: 100%;
-  overflow: auto;
-}
+
+
+
