@@ -31,14 +31,14 @@ export class LoginComponent implements OnInit {
   public formValidation(){
     this.loginForm = new FormGroup({
       email : new FormControl('', [Validators.required, Validators.email]),
-      senha : new FormControl('', [Validators.required, Validators.minLength(8)]),
+      senha : new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
 
 
   public login(): void {
     if(this.loginForm.valid){
-      this.authService.login({email: this.loginForm.controls['email'].value, password:this.loginForm.controls['senha'].value}).subscribe({
+      this.authService.login({email: this.loginForm.controls['email'].value, senha:this.loginForm.controls['senha'].value}).subscribe({
         next: (res) =>{
           AuthService.setToken(res.data);
         },
