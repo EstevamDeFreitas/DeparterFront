@@ -17,4 +17,8 @@ export class NovaAtividadeComponent implements OnInit {
     this.router.navigate(['/atividades/lista-atividades']);
   }
 
+  public atividadeCriada(): void {
+    this.router.navigate(['/atividades/atividade'])
+  }
+
 }
