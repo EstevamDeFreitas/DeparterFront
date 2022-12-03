@@ -1,0 +1,27 @@
+@import "/src/assets/styles/variables.scss";
+
+.container {
+    width: 85%;
+}
+
+.botao {
+    font-size: 1.375rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 500;
+    color: $color-purple;
+    cursor: pointer;
+}
+.card {
+    height: max-content;
+}
+.form-control {
+    height: 2.625rem;
+    color: $color-input-text-gray;
+}
+.label-text {
+    color: $color-black;
+    font-weight: 600;
+    font-family: Segoe UI, Regular;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+}

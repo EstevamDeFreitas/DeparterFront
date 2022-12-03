@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg"  style="background-color: rgb(255, 255, 255);">
     <div class="container-fluid">
 
-        <div class="col-3">
-            <img class="d-inline-block align-top logo" src=".\assets\images\departerLogo.png" width="160" height="66" />
+        <div class="col-3 ">
+            <img class="d-inline-block align-top" src=".\assets\images\logo.svg" width="42" height="42" />
         </div>
 
         <div class="col-1 text-end">
             <a (click)="opened=!opened">
-            <img class="d-inline-block align-top seta" src=".\assets\images\SetaGrandeNav.svg" width="32" height="32"
+            <img class="d-inline-block align-top seta clickable" src=".\assets\images\SetaGrandeNav.svg" width="32" height="32"
                 id="seta" />
             </a>
         </div>
@@ -30,30 +30,30 @@
 </nav>
 
 <mat-sidenav-container>
-    <mat-sidenav [(opened)]="opened" mode="side">
+    <mat-sidenav [(opened)]="opened" mode="over">
 
     
         
         <div class="caixa-menu ">
-            <div class="opcao-menu">
+            <div class="opcao-menu clickable">
                 <img class="d-inline-block align-top perfil" src=".\assets\images\icone.dashboard.svg" width="20" height="20" /> Dashboard
             </div>
-            <div class="opcao-menu mt-4">
+            <div class="opcao-menu clickable mt-4">
                 <img class="d-inline-block align-top perfil" src=".\assets\images\icone.planejamento.svg" width="20" height="20" /> Planejamento
             </div>
-            <div class="opcao-menu mt-4">
+            <div class="opcao-menu clickable mt-4">
                 <img class="d-inline-block align-top perfil" src=".\assets\images\icone.atividade.svg" width="20" height="20" /> Atividades
             </div>
-            <div class="opcao-menu mt-4">
+            <div class="opcao-menu clickable mt-4">
                 <img class="d-inline-block align-top perfil" src=".\assets\images\icone.departamentos.svg" width="20" height="20" /> Departamentos
             </div>
-            <div class="opcao-menu mt-4">
+            <div class="opcao-menu clickable mt-4">
                 <img class="d-inline-block align-top perfil" src=".\assets\images\icone.horas.svg" width="20" height="20" /> Horas
             </div>
         </div>
 
         <div class="caixa-menu config">
-            <div class="opcao-menu">
+            <div class="opcao-menu clickable">
                 <img class="d-inline-block align-top perfil" src=".\assets\images\icone.config.svg" width="20" height="20" /> Configurações
             </div>
         </div>

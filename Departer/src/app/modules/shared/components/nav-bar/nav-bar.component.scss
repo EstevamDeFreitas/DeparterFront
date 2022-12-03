@@ -14,15 +14,11 @@ nav {
     font-size: 1.8rem;
     margin-right: 5%;
 }
-.logo {
-  height: 4.125rem;
-  width: 10rem;
-}
 
 //Input Central no Nav-bar
 .custom-input {
     border-radius: 3px;
-    color: #848484;
+    color: $color-input-text-gray;
     width: 100%;
     height: 2.375rem;
     padding: 1.5%;
@@ -35,7 +31,7 @@ nav {
     appearance: none;
     background-color: transparent;
     border: none;
-    color: #848484;
+    color: $color-input-text-gray;
     width: 100%;
     height: 100%;
   }
@@ -64,17 +60,16 @@ nav {
 //Mat Side Bar
 
 mat-sidenav-container {
-  height: calc(205vh - 115vh);
+  height: calc(206vh - 115vh);
   background-color: $color-gray;
 }
 mat-sidenav {
   width: 17.5rem !important;
 }
 ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
-  background-color: $color-gray;
-}
-::ng-deep .mat-drawer:not(.mat-drawer-side) {
-  box-shadow: none;
+  background-color: #0009 !important;
+  color: #0009 !important;
+  visibility:hidden !important;
 }
 
 //dentro do Side Bar

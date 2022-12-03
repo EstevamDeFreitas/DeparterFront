@@ -8,6 +8,8 @@ const routes: Routes = [
     { path: 'home', component: NavBarComponent, loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule) },
     { path: 'atividades', component: NavBarComponent, loadChildren: () => import('./modules/atividades/atividades.module').then(m => m.AtividadesModule) },
     { path: 'administracao', component: NavBarComponent, loadChildren: () => import('./modules/administracao/administracao.module').then(m => m.AdministracaoModule) },
+    { path: 'configurações', component: NavBarComponent, loadChildren: () => import('./modules/configuracoes/configuracoes.module').then(m=>m.ConfiguracoesModule)},
+    { path: 'departamentos', component: NavBarComponent, loadChildren: () => import('./modules/departamentos/departamentos.module').then(m=>m.DepartamentosModule)},
     { path: '**', redirectTo: '/' }
 ];
 

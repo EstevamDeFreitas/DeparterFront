@@ -1,7 +1,7 @@
 <div class="container">
     <div class="d-flex justify-content-between mt-5">
         <div class="custom-flex">
-            <p class="titulo">Nova atividade</p>
+            <p class="titulo">Nova Departamento</p>
         </div>
         <div class="custom-flex">
             <a>
@@ -31,37 +31,10 @@
         </div>
 
         <div class="row mt-3">
-            <div class="col-lg-4 col-8">
-                <label class="label-text">Data de entrega</label>
-                <div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Choose a date</mat-label>
-                        <input matInput [matDatepicker]="picker">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-2 col-4">
-                <label class="label-text">Horas previstas:</label>
-                <div class="text-center">
-                    <div class="horas justify-content-center">
-                        <p class="texto">12:00</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-12">
-                <label class="label-text">Categorias:</label>
-                <div>
-                    
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row mt-3">
             <div class="col-lg-6 col-12 mb-2">
-                <label class="label-text mt-4">Equipe:</label>
+                <div class="texto">
+                    Funcionarios
+                </div>
 
                 <div class="mt-3">
                     <div class="subtitulo">
@@ -72,34 +45,45 @@
                     </div>
                 </div>
 
-                <div class="mt-3">
-                    <button class="light-button"> + Criar Atividade </button>
+                <div class="col-lg-10 col-12 mt-3">
+                
+                    <div class="input-group">
+                        <input type="text" class="form-control adicionar" placeholder="+ Adicionar funcionario">
+                    </div>
                 </div>
+
 
             </div>
 
             <div class="col-lg-6 col-12">
-                <div class="subtitulo">
-                    Com base em seu perfil...
+                <div class="texto">
+                    Regras
                 </div>
 
                 <div class="mt-3">
-                    <div class="texto">
-                        Atividades similares, indicam que é possível terminar a atividade em 7:15
+                    <div class="subtitulo">
+                        Máximo de horas diárias: 8 
                     </div>
-                    <div class="texto mt-1">
-                        Com seu calendário atual é recomendado dar inicio a atividade em 03/04/2022
+                    <div class="subtitulo mt-1">
+                        Categorias para atividades: Contabilidade, reunião, brainstorming... 
                     </div>
         
-                    <div class="texto mt-1">
-                        Essa atividade não se encaixa nos paramêtros do planejamento atual
+                    <div class="subtitulo mt-1">
+                        Máximo de horas extras por mês: 10
+                    </div>
+                </div>
+
+                <div class="col-lg-10 col-12 mt-3">
+                
+                    <div class="input-group">
+                        <input type="text" class="form-control adicionar" placeholder="+ Adicionar nova regra">
                     </div>
                 </div>
              
             </div>
         </div>
 
-        <div class="col-12 mt-3">
+        <div class="col-12 mt-5">
             <button class="blue-button"> Criar Atividade </button>
         </div>
 

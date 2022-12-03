@@ -47,9 +47,22 @@ body {
   padding: 10px 20px;
 }
 
+.light-button {
+  font-family: 'Segoe UI', normal;
+  font-weight: 600;
+  font-size: 1rem;
+  color: $color-blue;
+  background-color: $color-lightblue;
+  border-radius: $border;
+  border: none;
+  width: 80%;
+  height: fit-content;
+  padding: 10px 20px;
+}
+
 .card {
   margin: auto;
-  height: 77.3vh;
+  height: 100vh;
   width: 100%;
   background: $color-white 0% 0% no-repeat padding-box;
   border: none;
@@ -82,8 +95,9 @@ body {
 
 .form-control {
   border-radius: 0;
-  height: 1.2rem;
+  height: 1rem;
   background-color: $color-gray;
+  color: $color-input-text-gray;
 }
 
 .label-input {
@@ -98,10 +112,14 @@ body {
   color: $color-black;
   font-weight: 600;
   font-family: Segoe UI, Regular;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   margin-bottom: 0.25rem;
 }
 
 table.table>thead>tr>th {
   border-bottom: 1.8px solid $color-black !important;
+}
+
+.clickable {
+  cursor: pointer;
 }

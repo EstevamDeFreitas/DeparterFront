@@ -17,6 +17,12 @@
 .blue-button {
     padding: 18px 20px; ;
 }
+.superTitulo {
+    font-size: 2rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 600;
+    color: $color-black;
+}
 .subtitulo {
     font-size: 1rem;
     font-family: Segoe UI, Regular;
@@ -30,18 +36,22 @@
     color: $color-black;  
 }
 
-.form-control-descricao{
-    height: 12.4rem;
-}
+.example-card {
+    max-width: 300px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
 
-.form-control-titulo{
-    height: 1.5rem;
-}
-.horas {
-    background-color: $color-gray;
-    width: 50%;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+  mat-card {
+    border-radius: 20px;
+  }
+
+  .texto-card {
+    font-size: 1.25rem;
+    font-family: Segoe UI, Regular;
+    font-weight: 600;
+    color: $color-black;
+  }

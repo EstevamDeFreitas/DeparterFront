@@ -37,11 +37,27 @@
 .form-control-titulo{
     height: 1.5rem;
 }
-.horas {
-    background-color: $color-gray;
-    width: 50%;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.adicionar {
+    height: 2.625rem;
+    color: $color-input-text-gray;
+    width: 85% !important;
+}
+.adicionar::placeholder {
+    color: $color-purple;
+    font-size: 1.25rem;
+    font-weight: 525;
+}
+.label-text {
+    color: $color-black;
+    font-weight: 600;
+    font-family: Segoe UI, Regular;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+}
+.azul {
+    color: $color-blue;
+}
+.card {
+    height:max-content;
 }
