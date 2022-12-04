@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -45,6 +45,9 @@ export class LoginComponent implements OnInit {
         error: (err) => {
           this.hasError = true;
           this.errorMessage = err.error.message;
+        },
+        complete: () => {
+          this.irParaDashboard();
         }
       });
     } else {
@@ -54,6 +57,10 @@ export class LoginComponent implements OnInit {
 
   public cssValidator(campoForm: FormControl): any {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
+  }
+
+  public irParaDashboard(): void {
+    this.router.navigate(["/home/dashboard"]);
   }
 
 }
