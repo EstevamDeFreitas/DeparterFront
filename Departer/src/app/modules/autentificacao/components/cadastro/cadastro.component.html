@@ -17,63 +17,89 @@
                     <h1 class="login-text">Fazer Cadastro</h1>
                   </div>
 
-                  <div class="form-floating mb-3">
-                    <input type="text" id="inputNome" class="form-control form-control-lg"
-                      [ngClass]="cssValidator(f.nome)" placeholder="fulano" formControlName="nome" />
-                    <label for="inputNome">Nome</label>
-                    <div *ngIf="f.nome.errors?.required && f.nome.touched" class="invalid-feedback">
-                      Nome é obrigatorio.
+                  <div [hidden]="!parteCadastroInicial">
+                    <div class="form-floating mb-3">
+                      <input type="text" id="inputNome" class="form-control form-control-lg"
+                        [ngClass]="cssValidator(f.nome)" placeholder="fulano" formControlName="nome" />
+                      <label for="inputNome">Nome</label>
+                      <div *ngIf="f.nome.errors?.required && f.nome.touched" class="invalid-feedback">
+                        Nome é obrigatorio.
+                      </div>
+                      <div *ngIf="f.nome.errors?.minLength && f.nome.touched" class="invalid-feedback">
+                        Nome deve ter mais que 5 caracteres.
+                      </div>
                     </div>
-                    <div *ngIf="f.nome.errors?.minLength && f.nome.touched" class="invalid-feedback">
-                      Nome deve ter mais que 5 caracteres.
-                    </div>
-                  </div>
 
-                  <div class="form-floating mb-3">
-                    <input type="email" id="inputEmail" class="form-control form-control-lg"
-                      [ngClass]="cssValidator(f.email)" placeholder="nome@email.com" formControlName="email" />
-                    <label for="inputEmail">Email</label>
-                    <div *ngIf="f.email.errors?.required && f.email.touched" class="invalid-feedback">
-                      E-mail é obrigatorio.
+                    <div class="form-floating mb-3">
+                      <input type="email" id="inputEmail" class="form-control form-control-lg"
+                        [ngClass]="cssValidator(f.email)" placeholder="nome@email.com" formControlName="email" />
+                      <label for="inputEmail">Email</label>
+                      <div *ngIf="f.email.errors?.required && f.email.touched" class="invalid-feedback">
+                        E-mail é obrigatorio.
+                      </div>
+                      <div *ngIf="f.email.errors?.email && f.email.touched" class="invalid-feedback">
+                        Endereço de E-mail inválido.
+                      </div>
                     </div>
-                    <div *ngIf="f.email.errors?.email && f.email.touched" class="invalid-feedback">
-                      Endereço de E-mail inválido.
-                    </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-12 col-sm-6 mb-3">
-                      <div class="form-floating">
-                        <input type="password" id="inputSenha" class="form-control form-control-lg"
-                          [ngClass]="cssValidator(f.senha)" placeholder="senha" formControlName="senha" />
-                        <label for="inputSenha">Senha</label>
-                        <div *ngIf="f.senha.errors?.required && f.senha.touched" class="invalid-feedback">
-                          Senha é obrigatorio.
+                    <div class="row">
+                      <div class="col-12 col-sm-6 mb-3">
+                        <div class="form-floating">
+                          <input type="password" id="inputSenha" class="form-control form-control-lg"
+                            [ngClass]="cssValidator(f.senha)" placeholder="senha" formControlName="senha" />
+                          <label for="inputSenha">Senha</label>
+                          <div *ngIf="f.senha.errors?.required && f.senha.touched" class="invalid-feedback">
+                            Senha é obrigatorio.
+                          </div>
+                          <div *ngIf="f.senha.errors?.minlength && f.senha.touched" class="invalid-feedback">
+                            Senha deve conter no mínimo 6 caracteres.
+                          </div>
                         </div>
-                        <div *ngIf="f.senha.errors?.minlength && f.senha.touched" class="invalid-feedback">
-                          Senha deve conter no mínimo 6 caracteres.
+                      </div>
+                      <div class="col-12 col-sm-6 mb-3">
+                        <div class="form-floating">
+                          <input type="password" id="inputConfirmaSenha" class="form-control form-control-lg"
+                            [ngClass]="cssValidator(f.confirmarSenha)" placeholder="senha"
+                            formControlName="confirmarSenha" />
+                          <label for="inputConfirmaSenha">Confirmar Senha</label>
+                          <div *ngIf="f.confirmarSenha.errors?.required" class="invalid-feedback">
+                            Confirmar senha é obrigatorio.
+                          </div>
+                          <div *ngIf="f.confirmarSenha.errors?.mustMatch" class="invalid-feedback">
+                            As duas senhas devem ser iguais.
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 col-sm-6 mb-3">
-                      <div class="form-floating">
-                        <input type="password" id="inputConfirmaSenha" class="form-control form-control-lg"
-                          [ngClass]="cssValidator(f.confirmarSenha)" placeholder="senha"
-                          formControlName="confirmarSenha" />
-                        <label for="inputConfirmaSenha">Confirmar Senha</label>
-                        <div *ngIf="f.confirmarSenha.errors?.required" class="invalid-feedback">
-                          Confirmar senha é obrigatorio.
-                        </div>
-                        <div *ngIf="f.confirmarSenha.errors?.mustMatch" class="invalid-feedback">
-                          As duas senhas devem ser iguais.
-                        </div>
-                      </div>
+                    <div class="d-flex justify-content-center pt-1 mb-4">
+                      <button class="btn btn-purple col-12" type="button" (click)="checkIfUserCanContinue()">Continuar</button>
                     </div>
                   </div>
 
-                  <div class="d-flex justify-content-center pt-1 mb-4">
-                    <button class="btn btn-purple col-12" type="button" (click)="register()">Cadastrar-se</button>
+                  <div [hidden]="parteCadastroInicial">
+                    <div class="form-floating mb-3">
+                      <input type="text" id="inputApelido" class="form-control form-control-lg"
+                        [ngClass]="cssValidator(f.apelido)" placeholder="ciclano" formControlName="apelido" />
+                      <label for="inputApelido">Apelido</label>
+                      <div *ngIf="f.apelido.errors?.required && f.apelido.touched" class="invalid-feedback">
+                        Apelido é obrigatorio.
+                      </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input type="text" id="inputImagem" class="form-control form-control-lg"
+                        [ngClass]="cssValidator(f.imagem)" placeholder="url" formControlName="imagem" />
+                      <label for="inputImagem">Imagem</label>
+                      <div *ngIf="f.imagem.errors?.required && f.imagem.touched" class="invalid-feedback">
+                        Imagem é obrigatoria.
+                      </div>
+                    </div>
+                    <button class="previous-button mb-3" (click)="changeRegisterSection()">&#8592; Voltar</button>
+                    <div class="d-flex justify-content-center pt-1 mb-4">
+                      <button class="btn btn-purple col-12" type="button" (click)="register()">Cadastrar-se</button>
+                    </div>
                   </div>
+
+
 
                   <p class="cadastro-text">Ja possui conta?
                     <a class="effect-underline" href="/">Fazer Login</a>
@@ -89,4 +115,3 @@
     </div>
   </div>
 </section>
-
