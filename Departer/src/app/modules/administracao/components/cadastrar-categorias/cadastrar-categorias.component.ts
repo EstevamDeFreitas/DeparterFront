@@ -36,9 +36,7 @@ export class CadastrarCategoriasComponent implements OnInit {
 
     if(this.categoriaForm.valid){
       this.categoriaService.insereCategoria(this.categoriaForm.value).subscribe(
-        (res) => {
-          console.log(res.message);
-        },
+        (res) => {},
         (err) => {
           this.hasError = true;
           this.errorMessage = err.error.message;
@@ -59,6 +57,11 @@ export class CadastrarCategoriasComponent implements OnInit {
 
   public irParaCategorias(): void{
     this.router.navigate(['/administracao/categorias']);
+  }
+
+  public limparForm(): void {
+    this.categoriaForm.reset();
+    this.f.cor.value = "";
   }
 
 }

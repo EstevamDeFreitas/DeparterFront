@@ -21,7 +21,6 @@ export class ListaCategoriasComponent implements OnInit {
     this.categoriaService.getCategorias().subscribe(
       (res) => {
         this.categorias = res.data;
-        console.log(this.categorias)
       },
       (err) => {
         this.hasError = true;

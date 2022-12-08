@@ -14,7 +14,7 @@
 
   <div class="card mt-3">
 
-    <table class="table mb-4">
+    <table class="table table-hover mb-4">
       <thead>
         <tr>
           <th scope="col">Nome</th>
@@ -23,12 +23,10 @@
         </tr>
       </thead>
       <tbody *ngFor="let categoria of categorias">
-        <tr>
+        <tr class="align-middle">
           <td>{{categoria.nome}}</td>
           <td>
-            <div class="cor-red" [ngStyle]="{'background-color': '#'+categoria.cor}">
-
-            </div>
+            <div class="cor-red" [ngStyle]="{'background-color': '#'+categoria.cor}"></div>
           </td>
           <td>
             <div class="d-flex justify-content-center tags-border" [ngStyle]="{'background-color': '#'+categoria.cor}">
@@ -36,8 +34,6 @@
             </div>
           </td>
         </tr>
-
-
       </tbody>
     </table>
 
