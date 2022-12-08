@@ -10,18 +10,20 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoriaService {
 
+  public token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDk0YjljLTU1M2ItNDY1Mi04MTllLTEzODJlZTA0ZjdhMyIsIm5iZiI6MTY3MDUxOTg1NCwiZXhwIjoxNjcwNTM3ODU0LCJpYXQiOjE2NzA1MTk4NTR9.z4f5JTlptsWxz_PSegWH0H_QKIjwhmIK2O8to3cm59g";
+  public head_obj = new HttpHeaders().set("Authorization", "bearer "+this.token)
+
   apiUlr = environment.api + "/Categoria"
 
   constructor(private http : HttpClient) { }
 
   public getCategorias(): Observable<ResponseBase<CategoriaDto[]>> {
-    let token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDk0YjljLTU1M2ItNDY1Mi04MTllLTEzODJlZTA0ZjdhMyIsIm5iZiI6MTY3MDQ4MzU5MSwiZXhwIjoxNjcwNTAxNTkxLCJpYXQiOjE2NzA0ODM1OTF9.ZsdwsUY3SEg_Xz6wY1zb2WimJgVAv0JUQ14tHiRVPbU";
-    let head_obj = new HttpHeaders().set("Authorization", "bearer "+token)
-    return this.http.get<ResponseBase<CategoriaDto[]>>(this.apiUlr, {headers: head_obj});
+
+    return this.http.get<ResponseBase<CategoriaDto[]>>(this.apiUlr, {headers: this.head_obj});
   }
 
-  public insereCategoria(categoria: CategoriaDto): Observable<CategoriaDto> {
-    return this.http.post<CategoriaDto>(this.apiUlr, categoria)
+  public insereCategoria(categoria: CategoriaDto): Observable<ResponseBase<CategoriaDto>> {
+    return this.http.post<ResponseBase<CategoriaDto>>(this.apiUlr, categoria, {headers: this.head_obj})
   }
 
 }

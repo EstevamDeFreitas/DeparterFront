@@ -1,3 +1,5 @@
+import { CategoriaService } from './../../services/categoria.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -8,12 +10,54 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CadastrarCategoriasComponent implements OnInit {
 
-  constructor(private router: Router,private route: ActivatedRoute) { }
+  categoriaForm!: FormGroup;
 
-  ngOnInit(): void {
+  hasError = false;
+  errorMessage = "";
+
+  get f(): any {
+    return this.categoriaForm.controls;
   }
 
-  cancelar(){
+  constructor(private router: Router,private route: ActivatedRoute, private categoriaService: CategoriaService) { }
+
+  ngOnInit(): void {
+    this.formValidation()
+  }
+
+  public formValidation(){
+    this.categoriaForm = new FormGroup({
+      nome : new FormControl('', [Validators.required]),
+      cor : new FormControl('', [Validators.required]),
+    });
+  }
+
+  public cadastrarCategoria(): void {
+
+    if(this.categoriaForm.valid){
+      this.categoriaService.insereCategoria(this.categoriaForm.value).subscribe(
+        (res) => {
+          console.log(res.message);
+        },
+        (err) => {
+          this.hasError = true;
+          this.errorMessage = err.error.message;
+        },
+        () => {
+          this.irParaCategorias();
+        }
+      )
+    } else {
+      //Colocar alerta
+    }
+
+  }
+
+  public cssValidator(campoForm: FormControl): any {
+    return { 'is-invalid': campoForm.errors && campoForm.touched }
+  }
+
+  public irParaCategorias(): void{
     this.router.navigate(['/administracao/categorias']);
   }
 

@@ -4,6 +4,10 @@
     width: 85%;
 }
 
+.card {
+    height: 100%;
+}
+
 .botao {
     font-size: 1.375rem;
     font-family: Segoe UI, Regular;
@@ -11,6 +15,20 @@
     color: $color-purple;
     cursor: pointer;
 }
+
 .simbolo {
     font-weight:900;
+}
+
+.tags-border {
+    border-radius: 20px;
+    width: 120px;
+    padding: 10px
+}
+
+.box {
+ height: 120px;
+ width: 200px;
+ background-color: #F1F1F1;
+ border: solid 1px #C6C6C6
 }

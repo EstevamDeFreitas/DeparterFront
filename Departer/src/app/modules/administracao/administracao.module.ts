@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { AdministracaoRoutingModule } from './administracao-routing.module';
 import { NgModule } from '@angular/core';
@@ -21,7 +22,8 @@ import { AdministracaoComponent } from './components/administracao/administracao
     AdministracaoRoutingModule,
     MatIconModule,
     MatSidenavModule,
-    MatCardModule
+    MatCardModule,
+    ReactiveFormsModule
   ]
 })
 export class AdministracaoModule { }
