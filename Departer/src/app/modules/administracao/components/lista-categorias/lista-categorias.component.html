@@ -22,30 +22,23 @@
                 <th scope="col">Exemplo</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let categoria of categorias">
               <tr>
-                <td>Documentação</td>
+                <td>{{categoria.nome}}</td>
                 <td>
-                    <div class="cor-blue">
-                        
+                    <div class="cor-red" [ngStyle]="{'background-color': '#'+categoria.cor}">
+
                     </div>
                 </td>
                 <td>Documentação</td>
               </tr>
 
-              <tr>
-                <td>Administração</td>
-                <td>
-                    <div class="cor-red">
-                        
-                    </div>
-                </td>
-                <td>Administração</td>
-              </tr>
-            
-            
+
             </tbody>
           </table>
 
+
+
     </div>
 </div>
+
