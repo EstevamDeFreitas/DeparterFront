@@ -11,13 +11,26 @@
     color: $color-purple;
     cursor: pointer;
 }
+
 .simbolo {
     font-weight:900;
 }
+
+.card {
+    height: 100%;
+    overflow-x: auto;
+}
+
 .cor-red {
     border-radius: 50%;
     width: 26px;
     height: 26px;
+}
+
+.tags-border {
+    border-radius: 20px;
+    width: 120px;
+    padding: 10px
 }
 
 

@@ -36,9 +36,5 @@ export class ListaCategoriasComponent implements OnInit {
     this.router.navigate(['/administracao/categorias/nova-categoria']);
   }
 
-  addTeste() {
-
-    //this.categoriaService.insereCategoria(this.categoria);
-  }
 
 }

@@ -1,44 +1,47 @@
 <div class="container">
-    <div class="d-flex justify-content-between mt-5">
-        <div class="custom-flex">
-            <p class="titulo">Categorias</p>
-        </div>
-        <div class="custom-flex">
-            <a>
-                <div class="titulo botao" (click)="cadastrarCategoria()">
-                    <span class="simbolo">+</span> Nova Categoria
-                </div>
-            </a>
-        </div>
+  <div class="d-flex justify-content-between mt-5">
+    <div class="custom-flex">
+      <p class="titulo">Categorias</p>
     </div>
-
-    <div class="card mt-3">
-
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Cor</th>
-                <th scope="col">Exemplo</th>
-              </tr>
-            </thead>
-            <tbody *ngFor="let categoria of categorias">
-              <tr>
-                <td>{{categoria.nome}}</td>
-                <td>
-                    <div class="cor-red" [ngStyle]="{'background-color': '#'+categoria.cor}">
-
-                    </div>
-                </td>
-                <td>Documentação</td>
-              </tr>
-
-
-            </tbody>
-          </table>
-
-
-
+    <div class="custom-flex">
+      <a>
+        <div class="titulo botao" (click)="cadastrarCategoria()">
+          <span class="simbolo">+</span> Nova Categoria
+        </div>
+      </a>
     </div>
+  </div>
+
+  <div class="card mt-3">
+
+    <table class="table mb-4">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Cor</th>
+          <th scope="col">Exemplo</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let categoria of categorias">
+        <tr>
+          <td>{{categoria.nome}}</td>
+          <td>
+            <div class="cor-red" [ngStyle]="{'background-color': '#'+categoria.cor}">
+
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-center tags-border me-3" [ngStyle]="{'background-color': '#'+categoria.cor}">
+              <div>{{categoria.nome}}</div>
+            </div>
+          </td>
+        </tr>
+
+
+      </tbody>
+    </table>
+
+
+
+  </div>
 </div>
-
