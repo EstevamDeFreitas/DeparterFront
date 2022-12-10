@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoriaService {
 
-  public token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDk0YjljLTU1M2ItNDY1Mi04MTllLTEzODJlZTA0ZjdhMyIsIm5iZiI6MTY3MDU1NzUyNSwiZXhwIjoxNjcwNTc1NTI1LCJpYXQiOjE2NzA1NTc1MjV9.Np69vQE8lf7XT5LwMgtchTXs08b9PxQlM5s85Juf-_0";
+  public token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDk0YjljLTU1M2ItNDY1Mi04MTllLTEzODJlZTA0ZjdhMyIsIm5iZiI6MTY3MDcwMzM5NiwiZXhwIjoxNjcwNzIxMzk2LCJpYXQiOjE2NzA3MDMzOTZ9.qZuJ-vXyOi7LXqDzE9ooztsrEkcCE6vNrShmTaMzcUE";
   public head_obj = new HttpHeaders().set("Authorization", "bearer "+this.token)
 
   apiUlr = environment.api + "/Categoria"
