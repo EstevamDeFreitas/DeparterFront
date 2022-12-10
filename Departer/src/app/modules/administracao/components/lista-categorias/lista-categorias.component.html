@@ -20,12 +20,11 @@
           <th scope="col">Nome</th>
           <th scope="col">Cor</th>
           <th scope="col">Exemplo</th>
-          <th scope="col">Editar</th>
           <th scope="col">Excluir</th>
         </tr>
       </thead>
       <tbody *ngFor="let categoria of categorias">
-        <tr class="align-middle">
+        <tr class="align-middle clickable" (click)="detalhesCategoria(categoria.id)">
           <td>{{categoria.nome}}</td>
           <td>
             <div class="cor-red" [ngStyle]="{'background-color': '#'+categoria.cor}"></div>
@@ -35,7 +34,6 @@
               <div class="text-center text-break">{{categoria.nome}}</div>
             </div>
           </td>
-          <td><i class="fas fa-lg fa-edit ms-2 clickable" (click)="detalhesCategoria(categoria.id)"></i></td>
           <td><i class="fa-solid fa-lg fa-trash ms-2"></i></td>
         </tr>
       </tbody>
