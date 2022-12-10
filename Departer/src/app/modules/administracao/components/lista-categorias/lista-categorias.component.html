@@ -5,7 +5,7 @@
     </div>
     <div class="custom-flex">
       <a>
-        <div class="titulo botao" (click)="cadastrarCategoria()">
+        <div class="titulo botao" routerLink="/administracao/categorias/nova-categoria">
           <span class="simbolo">+</span> Nova Categoria
         </div>
       </a>
@@ -35,8 +35,8 @@
               <div class="text-center text-break">{{categoria.nome}}</div>
             </div>
           </td>
-          <td><i class="fa-solid fa-trash"></i></td>
-          <td></td>
+          <td><i class="fas fa-lg fa-edit ms-2 clickable" (click)="detalhesCategoria(categoria.id)"></i></td>
+          <td><i class="fa-solid fa-lg fa-trash ms-2"></i></td>
         </tr>
       </tbody>
     </table>

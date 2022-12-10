@@ -10,6 +10,7 @@ const routes: Routes = [
     path: 'categorias', children: [
       { path: '', component: ListaCategoriasComponent },
       { path: 'nova-categoria', component: CadastrarCategoriasComponent },
+      { path: `nova-categoria/:id`, component: CadastrarCategoriasComponent },
     ]
   },
   { path: 'administracao', component: AdministracaoComponent }

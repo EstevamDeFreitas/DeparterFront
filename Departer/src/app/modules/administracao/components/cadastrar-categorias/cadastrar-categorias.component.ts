@@ -1,3 +1,4 @@
+import { CategoriaDto } from './../../models/categoriaDto';
 import { CategoriaService } from './../../services/categoria.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -11,6 +12,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CadastrarCategoriasComponent implements OnInit {
 
   categoriaForm!: FormGroup;
+  categoria = {} as CategoriaDto;
+
+  estadoFormulario = "post";
 
   hasError = false;
   errorMessage = "";
@@ -19,32 +23,73 @@ export class CadastrarCategoriasComponent implements OnInit {
     return this.categoriaForm.controls;
   }
 
-  constructor(private router: Router,private route: ActivatedRoute, private categoriaService: CategoriaService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private categoriaService: CategoriaService) { }
 
   ngOnInit(): void {
-    this.formValidation()
+    this.carregarCategoria();
+    this.formValidation();
   }
 
-  public formValidation(){
+  public formValidation() {
     this.categoriaForm = new FormGroup({
-      nome : new FormControl('', [Validators.required]),
-      cor : new FormControl('', [Validators.required]),
+      nome: new FormControl('', [Validators.required]),
+      cor: new FormControl('', [Validators.required]),
     });
   }
 
-  public cadastrarCategoria(): void {
+  public carregarCategoria(): void {
+    const categoriaIdParam = this.route.snapshot.paramMap.get('id');
 
-    if(this.categoriaForm.valid){
-      this.categoriaService.insereCategoria(this.categoriaForm.value).subscribe(
-        (res) => {},
+    if (categoriaIdParam !== null) {
+      this.estadoFormulario = "put";
+
+      this.categoriaService.getCategoriaById(categoriaIdParam).subscribe(
+        (res) => {
+          this.categoria = { ...res.data }
+          this.categoriaForm.patchValue(this.categoria);
+        },
         (err) => {
           this.hasError = true;
           this.errorMessage = err.error.message;
         },
-        () => {
-          this.irParaCategorias();
-        }
+        () => { }
       )
+    }
+  }
+
+  public cadastrarCategoria(): void {
+
+    if (this.categoriaForm.valid) {
+
+      this.categoria = (this.estadoFormulario === 'post')
+        ? { ... this.categoriaForm.value }
+        : { id: this.categoria.id, ... this.categoriaForm.value };
+
+
+      if (this.estadoFormulario === 'post') {
+        this.categoriaService.postCategoria(this.categoria).subscribe(
+          (res) => { },
+          (err) => {
+            this.hasError = true;
+            this.errorMessage = err.error.message;
+          },
+          () => {
+            this.irParaCategorias();
+          }
+        )
+      } else {
+        this.categoriaService.putCategoria(this.categoria).subscribe(
+          (res) => { },
+          (err) => {
+            this.hasError = true;
+            this.errorMessage = err.error.message;
+          },
+          () => {
+            this.irParaCategorias();
+          }
+        )
+      }
+
     } else {
       //Colocar alerta
     }
@@ -55,7 +100,7 @@ export class CadastrarCategoriasComponent implements OnInit {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
 
-  public irParaCategorias(): void{
+  public irParaCategorias(): void {
     this.router.navigate(['/administracao/categorias']);
   }
 

@@ -18,12 +18,19 @@ export class CategoriaService {
   constructor(private http : HttpClient) { }
 
   public getCategorias(): Observable<ResponseBase<CategoriaDto[]>> {
-
     return this.http.get<ResponseBase<CategoriaDto[]>>(this.apiUlr, {headers: this.head_obj});
   }
 
-  public insereCategoria(categoria: CategoriaDto): Observable<ResponseBase<CategoriaDto>> {
+  public postCategoria(categoria: CategoriaDto): Observable<ResponseBase<CategoriaDto>> {
     return this.http.post<ResponseBase<CategoriaDto>>(this.apiUlr, categoria, {headers: this.head_obj})
+  }
+
+  public getCategoriaById(id: string): Observable<ResponseBase<CategoriaDto>> {
+    return this.http.get<ResponseBase<CategoriaDto>>(`${this.apiUlr}/${id}`, {headers: this.head_obj})
+  }
+
+  public putCategoria(categoria: CategoriaDto): Observable<ResponseBase<CategoriaDto>> {
+    return this.http.put<ResponseBase<CategoriaDto>>(this.apiUlr, categoria, {headers: this.head_obj})
   }
 
 }

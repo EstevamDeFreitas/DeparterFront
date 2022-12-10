@@ -31,8 +31,8 @@ export class ListaCategoriasComponent implements OnInit {
     );
   }
 
-  cadastrarCategoria() {
-    this.router.navigate(['/administracao/categorias/nova-categoria']);
+  detalhesCategoria(id: string): void {
+    this.router.navigate([`administracao/categorias/nova-categoria/${id}`]);
   }
 
 
