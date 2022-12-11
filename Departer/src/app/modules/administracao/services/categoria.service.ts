@@ -34,4 +34,8 @@ export class CategoriaService {
     return this.http.put<ResponseBase<CategoriaDto>>(this.apiUlr, categoria, {headers: this.head_obj})
   }
 
+  public deleteCategoria(id: string): Observable<ResponseBase<String>> {
+    return this.http.delete<ResponseBase<String>>(`${this.apiUlr}/${id}`, {headers: this.head_obj})
+  }
+
 }

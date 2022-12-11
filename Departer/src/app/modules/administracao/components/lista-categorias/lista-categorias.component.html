@@ -34,7 +34,12 @@
               <div class="text-center text-break">{{categoria.nome}}</div>
             </div>
           </td>
-          <td><i class="fa-solid fa-lg fa-trash ms-2"></i></td>
+          <td>
+            <button type="button" class="btn btn-danger btn-md" tooltip="Excluir"
+              (click)="deletarCategoria($event, categoria.id)">
+              <i class="fa fa-trash "></i>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

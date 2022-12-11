@@ -15,9 +15,15 @@ export class ListaCategoriasComponent implements OnInit {
   hasError = false;
   errorMessage = "";
 
-  constructor(private router: Router, private route: ActivatedRoute, private categoriaService: CategoriaService) { }
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private categoriaService: CategoriaService) { }
 
   ngOnInit(): void {
+    this.carregarCategorias();
+  }
+
+  carregarCategorias(): void {
     this.categoriaService.getCategorias().subscribe(
       (res) => {
         this.categorias = res.data;
@@ -33,6 +39,20 @@ export class ListaCategoriasComponent implements OnInit {
 
   detalhesCategoria(id: string): void {
     this.router.navigate([`administracao/categorias/nova-categoria/${id}`]);
+  }
+
+  deletarCategoria(event: any, id: string) {
+    event.stopPropagation();
+
+    this.categoriaService.deleteCategoria(id).subscribe(
+      (res) => console.log(res.message),
+      (err) => {
+        this.hasError = true;
+        this.errorMessage = err.error.message;
+      },
+      () => this.ngOnInit()
+    );
+
   }
 
 
