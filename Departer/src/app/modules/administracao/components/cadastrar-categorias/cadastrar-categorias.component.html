@@ -17,7 +17,7 @@
         <form [formGroup]="categoriaForm">
             <div class="row mt-3">
                 <div class="col-md-9 col-12">
-                    <label class="label-text">Nome:</label>
+                    <label class="label-text">Nome</label>
                     <div class="form-floating">
                         <input type="text" id="inputCategoria" class="form-control form-control-lg"
                             placeholder="categoria" formControlName="nome" [ngClass]="cssValidator(f.nome)" />
@@ -28,13 +28,23 @@
                     </div>
                 </div>
                 <div class="col-md-3 col-12 mt-md-0 mt-3">
-                    <label class="label-text">Cor:</label>
-                    <div class="form-floating">
-                        <input type="text" id="inputCor" class="form-control form-control-lg" placeholder="categoria"
-                            formControlName="cor" [ngClass]="cssValidator(f.cor)" />
-                        <label for="inputCor" class="label-input">#ccc</label>
-                        <div *ngIf="f.cor.errors?.required && f.cor.touched" class="invalid-feedback">
-                            Cor é obrigatoria.
+                    <label class="label-text">Cor</label>
+                    <div class="dropdown">
+                        <button class="botao-cor" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                            aria-expanded="false" [ngStyle]="{'background-color': corAtual}">
+
+                        </button>
+                        <div class="dropdown-menu dropdown-multicol2" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-col ms-3 mt-2">
+                                <div *ngFor="let cor of cores; index as i;">
+                                    <div class="mini-box clickable" [ngClass]="{'mt-2': i > 0}" [ngStyle]="{'background-color': cor}" (click)="alterarCor(cor)"></div>
+                                </div>
+                            </div>
+                            <div class="dropdown-col">
+                                <div *ngFor="let cor of cores2; index as i;">
+                                    <div class="mini-box clickable" [ngClass]="{'mt-2': i > 0}" [ngStyle]="{'background-color': cor}" (click)="alterarCor(cor)"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,10 +53,10 @@
 
         <div class="d-flex justify-content-center mt-5">
             <div class="d-flex flex-column">
-                <label class="label-text">Resultado:</label>
+                <label class="label-text">Resultado</label>
                 <div class="d-flex justify-content-center align-items-center box">
                     <div class="d-flex justify-content-center tags-border"
-                        [ngStyle]="{'background-color': f.cor.value == '' ? 'transparent' : '#'+f.cor.value}">
+                        [ngStyle]="{'background-color': f.nome.value == '' ? 'transparent' : corAtual}">
                         <div class="text-center text-break">{{f.nome.value}}</div>
                     </div>
                 </div>
@@ -61,6 +71,9 @@
                 <button class="red-button" (click)="limparForm()">Limpar</button>
             </div>
         </div>
+
+
+
 
 
     </div>

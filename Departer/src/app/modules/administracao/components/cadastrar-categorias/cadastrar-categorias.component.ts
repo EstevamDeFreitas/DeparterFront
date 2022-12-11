@@ -14,6 +14,22 @@ export class CadastrarCategoriasComponent implements OnInit {
   categoriaForm!: FormGroup;
   categoria = {} as CategoriaDto;
 
+  cores: Array<string> = [
+    "#F9C5C5",
+    "#ED7878",
+    "#F84B4B",
+    "#9A1616"
+  ]
+
+  cores2: Array<string> = [
+    "#C5F9E0",
+    "#78ED84",
+    "#59F84B",
+    "#299A16"
+  ]
+
+  corAtual: string = this.cores[0];
+
   estadoFormulario = "post";
 
   hasError = false;
@@ -23,7 +39,9 @@ export class CadastrarCategoriasComponent implements OnInit {
     return this.categoriaForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private categoriaService: CategoriaService) { }
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private categoriaService: CategoriaService) { }
 
   ngOnInit(): void {
     this.carregarCategoria();
@@ -33,7 +51,6 @@ export class CadastrarCategoriasComponent implements OnInit {
   public formValidation() {
     this.categoriaForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
-      cor: new FormControl('', [Validators.required]),
     });
   }
 
@@ -47,6 +64,7 @@ export class CadastrarCategoriasComponent implements OnInit {
         (res) => {
           this.categoria = { ...res.data }
           this.categoriaForm.patchValue(this.categoria);
+          this.corAtual = this.categoria.cor;
         },
         (err) => {
           this.hasError = true;
@@ -64,6 +82,8 @@ export class CadastrarCategoriasComponent implements OnInit {
       this.categoria = (this.estadoFormulario === 'post')
         ? { ... this.categoriaForm.value }
         : { id: this.categoria.id, ... this.categoriaForm.value };
+
+        this.categoria.cor = this.corAtual;
 
 
       if (this.estadoFormulario === 'post') {
@@ -96,6 +116,10 @@ export class CadastrarCategoriasComponent implements OnInit {
 
   }
 
+  public alterarCor(cor: string){
+    this.corAtual = cor;
+  }
+
   public cssValidator(campoForm: FormControl): any {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
@@ -106,7 +130,8 @@ export class CadastrarCategoriasComponent implements OnInit {
 
   public limparForm(): void {
     this.categoriaForm.reset();
-    this.f.cor.value = "";
+    this.f.nome.value = "";
+    this.corAtual = "#F9C5C5"
   }
 
 }

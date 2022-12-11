@@ -32,3 +32,34 @@
  background-color: #F1F1F1;
  border: solid 1px #C6C6C6;
 }
+
+
+
+
+
+div.dropdown-multicol2{
+  width: 11.5em;
+}
+div.dropdown-multicol2>div.dropdown-col{
+  display:inline-block;
+  width: 44%;
+}
+
+.mini-box {
+  height: 28px;
+  width: 63px;
+}
+
+.mini-box:hover {
+  border: 1px solid black;
+}
+
+.botao-cor {
+  border: none;
+  height: 58px;
+  width: 58px;
+}
+
+.botao-cor:hover {
+  border: 0.5px solid grey;
+}

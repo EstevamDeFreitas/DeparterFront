@@ -27,10 +27,10 @@
         <tr class="align-middle clickable" (click)="detalhesCategoria(categoria.id)">
           <td>{{categoria.nome}}</td>
           <td>
-            <div class="cor-red" [ngStyle]="{'background-color': '#'+categoria.cor}"></div>
+            <div class="cor-red" [ngStyle]="{'background-color': categoria.cor}"></div>
           </td>
           <td>
-            <div class="d-flex justify-content-center tags-border" [ngStyle]="{'background-color': '#'+categoria.cor}">
+            <div class="d-flex justify-content-center tags-border" [ngStyle]="{'background-color': categoria.cor}">
               <div class="text-center text-break">{{categoria.nome}}</div>
             </div>
           </td>

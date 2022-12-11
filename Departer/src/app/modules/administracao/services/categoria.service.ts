@@ -1,3 +1,4 @@
+import { AuthService } from './../../autentificacao/services/auth.service';
 import { ResponseBase } from './../../../models/response';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoriaService {
 
-  public token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDk0YjljLTU1M2ItNDY1Mi04MTllLTEzODJlZTA0ZjdhMyIsIm5iZiI6MTY3MDcwMzM5NiwiZXhwIjoxNjcwNzIxMzk2LCJpYXQiOjE2NzA3MDMzOTZ9.qZuJ-vXyOi7LXqDzE9ooztsrEkcCE6vNrShmTaMzcUE";
+  public token= AuthService.getToken();
   public head_obj = new HttpHeaders().set("Authorization", "bearer "+this.token)
 
   apiUlr = environment.api + "/Categoria"
