@@ -19,18 +19,19 @@ export class CadastrarCategoriasComponent implements OnInit {
     "#ED7878",
     "#F84B4B",
     "#9A1616"
-  ]
+  ];
 
   cores2: Array<string> = [
     "#C5F9E0",
     "#78ED84",
     "#59F84B",
     "#299A16"
-  ]
+  ];
 
   corAtual: string = this.cores[0];
 
   estadoFormulario = "post";
+  tituloFormulario = "Nova Categoria";
 
   hasError = false;
   errorMessage = "";
@@ -59,6 +60,8 @@ export class CadastrarCategoriasComponent implements OnInit {
 
     if (categoriaIdParam !== null) {
       this.estadoFormulario = "put";
+
+      this.tituloFormulario = "Editar Categoria";
 
       this.categoriaService.getCategoriaById(categoriaIdParam).subscribe(
         (res) => {
