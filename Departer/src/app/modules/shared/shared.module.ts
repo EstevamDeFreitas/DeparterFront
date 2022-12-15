@@ -5,6 +5,7 @@ import { PrincipalComponent } from './components/principal/principal.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { ModalExcluirDesativarComponent } from './components/modal-excluir-desativar/modal-excluir-desativar.component';
 
 
 const routes: Routes = [];
@@ -13,6 +14,7 @@ const routes: Routes = [];
     declarations: [
     PrincipalComponent,
     NavBarComponent,
+    ModalExcluirDesativarComponent,
   
   ],
     imports: [
