@@ -62,6 +62,19 @@ body {
   padding: 10px 20px;
 }
 
+.white-button {
+  font-family: 'Segoe UI', normal;
+  font-weight: 600;
+  font-size: 1rem;
+  color: $color-black;
+  background-color: $color-white;
+  border-radius: $border;
+  border: none;
+  width: 100%;
+  height: fit-content;
+  padding: 10px 20px;
+}
+
 .card {
   margin: auto;
   height: 100vh;

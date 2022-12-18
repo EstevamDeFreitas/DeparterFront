@@ -3,9 +3,14 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { PrincipalComponent } from './components/principal/principal.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { FormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import { ModalExcluirDesativarComponent } from './components/modal-excluir-desativar/modal-excluir-desativar.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ModalExcluirDesativarComponent } from "./components/modal-excluir-desativar/modal-excluir-desativar.component";
+import { MatButtonModule } from "@angular/material/button";
 
 
 const routes: Routes = [];
@@ -21,7 +26,12 @@ const routes: Routes = [];
       RouterModule.forChild(routes),
       CommonModule,
       MatIconModule,
-      MatSidenavModule
+      MatSidenavModule,
+      MatDialogModule,
+      MatToolbarModule,
+      FormsModule,
+      MatButtonModule,
+      MatTabsModule
     ],
     exports: [
      PrincipalComponent,

@@ -1,0 +1,22 @@
+@import "/src/assets/styles/variables.scss";
+
+.dialog-title {
+    font-family: 'Segoe UI', bold;
+    font-size: 18px;
+    color: #5D5D5D;
+    font-weight: 600;
+  }
+  
+  .dialog-text {
+    font-family: 'Segoe UI', bold;
+    font-size: 14px;
+    font-weight: 600;
+    color: $color-black;
+  }
+  .red-button {
+    width: 90%;
+  }
+  
+  .white-button {
+    width: 90%;
+  }
