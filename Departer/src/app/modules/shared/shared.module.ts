@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
@@ -11,6 +12,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ModalExcluirDesativarComponent } from "./components/modal-excluir-desativar/modal-excluir-desativar.component";
 import { MatButtonModule } from "@angular/material/button";
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 const routes: Routes = [];
@@ -20,6 +23,7 @@ const routes: Routes = [];
     PrincipalComponent,
     NavBarComponent,
     ModalExcluirDesativarComponent,
+    SnackbarComponent,
   
   ],
     imports: [
@@ -31,18 +35,20 @@ const routes: Routes = [];
       MatToolbarModule,
       FormsModule,
       MatButtonModule,
-      MatTabsModule
+      MatTabsModule,
+      MatSnackBarModule
     ],
     exports: [
      PrincipalComponent,
      CommonModule,
      NavBarComponent,
      MatIconModule,
-     
+     SnackbarComponent
     ],
     entryComponents: [
       
-    ]
+    ],
+    providers: [SnackbarComponent]
   })
   export class SharedModule { }
   

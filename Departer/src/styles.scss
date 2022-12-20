@@ -21,6 +21,36 @@ body {
 }
 
 
+// Snackbar component
+.mat-snack-bar-container.error_new {
+  background: $color-red;
+  color: $color-white;
+
+  .mat-button-wrapper {
+    color: $color-white;
+    font-size: 100%;
+  }
+}
+.mat-snack-bar-container.success_new {
+  background: $color-darkgreen;
+  color: $color-white;
+
+  .mat-button-wrapper {
+    color: $color-white;
+    font-size: 100%;
+  }
+}
+
+.mat-snack-bar-container.default_new {
+  background: $color-blue;
+  color: $color-white;
+
+  .mat-button-wrapper {
+    color: $color-white;
+    font-size: 100%;
+  }
+}
+
 
 .red-button {
   font-family: 'Segoe UI', normal;

@@ -2,6 +2,8 @@ import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { SnackbarComponent } from 'src/app/modules/shared/components/snackbar/snackbar.component';
+import { SnackBarTheme } from 'src/app/modules/shared/models/snackbat.theme.enum';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  constructor(private authService:AuthService, private router: Router) { }
+  constructor(private authService:AuthService, private router: Router, private readonly snackbarComponent: SnackbarComponent) { }
 
 
   ngOnInit(): void {
@@ -45,8 +47,10 @@ export class LoginComponent implements OnInit {
         error: (err) => {
           this.hasError = true;
           this.errorMessage = err.error.message;
+          this.snackbarComponent.openSnackBar("Senha ou email incorreto !", SnackBarTheme.error, 3000);
         },
         complete: () => {
+          this.snackbarComponent.openSnackBar("Login realizado com sucesso !",SnackBarTheme.success,3000);
           this.irParaDashboard();
         }
       });

@@ -33,7 +33,7 @@ export class EditarAtividadeComponent implements OnInit {
     }).afterClosed().subscribe(result => {
 
       if(result==true){
-        
+      
         }
         
       

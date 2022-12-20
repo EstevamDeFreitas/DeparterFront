@@ -6,10 +6,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SnackbarComponent } from './modules/shared/components/snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule
 
   ],
-  providers: [],
+  providers: [SnackbarComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
