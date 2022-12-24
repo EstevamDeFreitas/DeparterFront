@@ -1,4 +1,4 @@
-import { FuncionarioDto } from './../../models/funcionarioDto';
+import { FuncionarioDto } from '../../../shared/models/funcionarioDto';
 import { ValidatorField } from './../../../../helpers/ValidatorField';
 import { AuthService } from './../../services/auth.service';
 import { FormGroup, FormControl, Validators, AbstractControlOptions } from '@angular/forms';

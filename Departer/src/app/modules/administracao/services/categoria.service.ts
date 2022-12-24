@@ -1,5 +1,5 @@
 import { AuthService } from './../../autentificacao/services/auth.service';
-import { ResponseBase } from './../../../models/response';
+import { ResponseBase } from '../../shared/models/response';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CategoriaDto } from './../models/categoriaDto';

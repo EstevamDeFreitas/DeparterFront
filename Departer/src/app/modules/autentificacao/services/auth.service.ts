@@ -1,5 +1,5 @@
-import { FuncionarioDto } from './../models/funcionarioDto';
-import { ResponseBase } from 'src/app/models/response';
+import { FuncionarioDto } from '../../shared/models/funcionarioDto';
+import { ResponseBase } from 'src/app/modules/shared/models/response';
 import { loginDto } from '../models/loginDto';
 import { Observable } from 'rxjs';
 import { environment } from './../../../../environments/environment';
