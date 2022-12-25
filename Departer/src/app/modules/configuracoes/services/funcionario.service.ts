@@ -22,6 +22,10 @@ export class FuncionarioService {
     return this.http.get<ResponseBase<FuncionarioDto>>(`${this.apiUlr}/account/my`, {headers: this.head_obj});
   }
 
+  public putFuncionario(funcionario: FuncionarioDto): Observable<ResponseBase<FuncionarioDto>> {
+    return this.http.put<ResponseBase<FuncionarioDto>>(this.apiUlr, funcionario, {headers: this.head_obj});
+  }
+
 
 
 }

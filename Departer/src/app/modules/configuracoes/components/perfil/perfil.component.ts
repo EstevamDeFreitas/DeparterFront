@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ValidatorField } from './../../../../helpers/ValidatorField';
 import { FormGroup, FormControl, Validators, AbstractControlOptions } from '@angular/forms';
 import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
@@ -24,9 +25,10 @@ export class PerfilComponent implements OnInit {
     return this.editUserForm.controls;
   }
 
-  constructor(private funcionarioService: FuncionarioService) { }
+  constructor(private funcionarioService: FuncionarioService, private router: Router) { }
 
   ngOnInit(): void {
+    this.modoEditar = false;
     this.getUser();
   }
 
@@ -61,6 +63,17 @@ export class PerfilComponent implements OnInit {
 
   public changeFuncionario(): void {
     if(this.editUserForm.valid){
+      let funcionarioPut = this.editUserForm.value;
+      funcionarioPut.id = this.funcionario.id;
+
+      this.funcionarioService.putFuncionario(funcionarioPut).subscribe(
+        (res) => {},
+        (err) => {
+          this.hasError = true;
+          this.errorMessage = err.error.message;
+        },
+        () => {this.ngOnInit();}
+      );
 
     } else {
       //aviso
