@@ -41,11 +41,11 @@ export class PerfilComponent implements OnInit {
         this.hasError = true;
         this.errorMessage = err.error.message;
       },
-      () => this.putValidation()
+      () => this.userValidation()
     )
   }
 
-  public putValidation(): void {
+  public userValidation(): void {
 
     const formOptions: AbstractControlOptions = {
       validators: ValidatorField.MustMatch('senha', 'confirmarSenha')
@@ -88,7 +88,7 @@ export class PerfilComponent implements OnInit {
     this.modoEditar = !this.modoEditar;
     if(this.modoEditar)
       this.nome.nativeElement.focus();
-    this.putValidation();
+    this.userValidation();
   }
 
 }
