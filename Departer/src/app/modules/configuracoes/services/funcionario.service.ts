@@ -11,19 +11,16 @@ import { Injectable } from '@angular/core';
 })
 export class FuncionarioService {
 
-  public token= AuthService.getToken();
-  public head_obj = new HttpHeaders().set("Authorization", "bearer "+this.token);
-
   apiUlr = environment.api + "/Funcionario"
 
   constructor(private http : HttpClient) { }
 
   public getFuncionarioLogado(): Observable<ResponseBase<FuncionarioDto>> {
-    return this.http.get<ResponseBase<FuncionarioDto>>(`${this.apiUlr}/account/my`, {headers: this.head_obj});
+    return this.http.get<ResponseBase<FuncionarioDto>>(`${this.apiUlr}/account/my`);
   }
 
   public putFuncionario(funcionario: FuncionarioDto): Observable<ResponseBase<FuncionarioDto>> {
-    return this.http.put<ResponseBase<FuncionarioDto>>(this.apiUlr, funcionario, {headers: this.head_obj});
+    return this.http.put<ResponseBase<FuncionarioDto>>(this.apiUlr, funcionario);
   }
 
 

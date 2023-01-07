@@ -11,31 +11,28 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoriaService {
 
-  public token= AuthService.getToken();
-  public head_obj = new HttpHeaders().set("Authorization", "bearer "+this.token)
-
   apiUlr = environment.api + "/Categoria"
 
   constructor(private http : HttpClient) { }
 
   public getCategorias(): Observable<ResponseBase<CategoriaDto[]>> {
-    return this.http.get<ResponseBase<CategoriaDto[]>>(this.apiUlr, {headers: this.head_obj});
+    return this.http.get<ResponseBase<CategoriaDto[]>>(this.apiUlr);
   }
 
   public postCategoria(categoria: CategoriaDto): Observable<ResponseBase<CategoriaDto>> {
-    return this.http.post<ResponseBase<CategoriaDto>>(this.apiUlr, categoria, {headers: this.head_obj})
+    return this.http.post<ResponseBase<CategoriaDto>>(this.apiUlr, categoria)
   }
 
   public getCategoriaById(id: string): Observable<ResponseBase<CategoriaDto>> {
-    return this.http.get<ResponseBase<CategoriaDto>>(`${this.apiUlr}/${id}`, {headers: this.head_obj})
+    return this.http.get<ResponseBase<CategoriaDto>>(`${this.apiUlr}/${id}`)
   }
 
   public putCategoria(categoria: CategoriaDto): Observable<ResponseBase<CategoriaDto>> {
-    return this.http.put<ResponseBase<CategoriaDto>>(this.apiUlr, categoria, {headers: this.head_obj})
+    return this.http.put<ResponseBase<CategoriaDto>>(this.apiUlr, categoria)
   }
 
   public deleteCategoria(id: string): Observable<ResponseBase<String>> {
-    return this.http.delete<ResponseBase<String>>(`${this.apiUlr}/${id}`, {headers: this.head_obj})
+    return this.http.delete<ResponseBase<String>>(`${this.apiUlr}/${id}`)
   }
 
 }

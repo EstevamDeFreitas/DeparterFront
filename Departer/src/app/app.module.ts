@@ -1,5 +1,7 @@
+import { AuthInterceptor } from './modules/autentificacao/services/auth.interceptor';
+import { AuthService } from './modules/autentificacao/services/auth.service';
 import { SharedModule } from './modules/shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -20,7 +22,7 @@ import { SnackbarComponent } from './modules/shared/components/snackbar/snackbar
     HttpClientModule
 
   ],
-  providers: [SnackbarComponent],
+  providers: [SnackbarComponent, AuthService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
