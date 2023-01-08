@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -8,7 +9,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class NovaAtividadeComponent implements OnInit {
 
-  constructor(private router: Router,private route: ActivatedRoute) { }
+  constructor(private router: Router,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>) { 
+    this.dateAdapter.setLocale('pt-BR');
+  }
 
   ngOnInit(): void {
   }
