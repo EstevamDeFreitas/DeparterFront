@@ -1,3 +1,5 @@
+import { ModalExcluirDesativarComponent } from './../../../shared/components/modal-excluir-desativar/modal-excluir-desativar.component';
+import { MatDialog } from '@angular/material/dialog';
 import { CategoriaDto } from './../../models/categoriaDto';
 import { CategoriaService } from './../../services/categoria.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,7 +19,8 @@ export class ListaCategoriasComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private categoriaService: CategoriaService) { }
+    private categoriaService: CategoriaService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.carregarCategorias();
@@ -41,8 +44,7 @@ export class ListaCategoriasComponent implements OnInit {
     this.router.navigate([`administracao/categorias/nova-categoria/${id}`]);
   }
 
-  deletarCategoria(event: any, id: string) {
-    event.stopPropagation();
+  deletarCategoria(id: string) {
 
     this.categoriaService.deleteCategoria(id).subscribe(
       (res) => console.log(res.message),
@@ -52,6 +54,18 @@ export class ListaCategoriasComponent implements OnInit {
       },
       () => this.ngOnInit()
     );
+
+  }
+
+  openDialog(event: any, categoria: CategoriaDto){
+    event.stopPropagation();
+    const dialogRef = this.dialog.open(ModalExcluirDesativarComponent, {data: {title: "Excluir Categoria", message: `Deseja excluir a categoria ${categoria.nome}?`, confirm: "Confirmar", cancel:"Cancelar"}});
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if(result)
+        this.deletarCategoria(categoria.id);
+
+    })
 
   }
 

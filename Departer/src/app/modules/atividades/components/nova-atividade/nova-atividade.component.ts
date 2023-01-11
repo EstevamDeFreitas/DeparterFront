@@ -1,3 +1,4 @@
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,13 +13,30 @@ export class NovaAtividadeComponent implements OnInit {
   dataAtual: Date = new Date();
   data: Date | null = null;
 
-  constructor(private router: Router,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>) { 
+  atividadeForm!: FormGroup;
+
+  get f(): any {
+    return this.atividadeForm.controls;
+  }
+
+  constructor(private router: Router,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
   ngOnInit(): void {
+    this.formValidation();
     this.maskDate();
   }
+
+  public formValidation() {
+    this.atividadeForm = new FormGroup({
+      titulo: new FormControl('', [Validators.required]),
+      descricao: new FormControl('', [Validators.required]),
+      dataEntrega: new FormControl('', [Validators.required]),
+      tempoPrevisto: new FormControl('', [Validators.required]),
+    });
+  }
+
   maskDate() {
     // Mask Date Input
     var input = document.querySelectorAll('.mask-date')[0];
@@ -45,7 +63,6 @@ export class NovaAtividadeComponent implements OnInit {
     }
     };
     dateInputMask(input);
-    // Fim Mask Date Input
   }
 
 
@@ -80,6 +97,10 @@ export class NovaAtividadeComponent implements OnInit {
   }
    */
     this.router.navigate(['/atividades/atividade'])
+  }
+
+  public cssValidator(campoForm: FormControl): any {
+    return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
 
 }

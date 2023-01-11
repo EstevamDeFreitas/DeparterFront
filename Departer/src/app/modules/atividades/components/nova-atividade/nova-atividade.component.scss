@@ -1,9 +1,16 @@
 @import "/src/assets/styles/variables.scss";
 
+/* Cards/Container */
 .container {
     width: 85%;
 }
 
+.card {
+  height: 100%;
+  overflow: auto;
+}
+
+/* Botoes */
 .botao {
     font-size: 1.375rem;
     font-family: Segoe UI, Regular;
@@ -11,37 +18,67 @@
     color: $color-purple;
     cursor: pointer;
 }
-.simbolo {
-    font-weight:900;
-}
+
 .blue-button {
     padding: 18px 20px; ;
 }
+
+/* Textos */
 .subtitulo {
     font-size: 1rem;
     font-family: Segoe UI, Regular;
     font-weight: 500;
     color: $color-black;
 }
-.texto {
-    font-size: 1rem;
-    font-family: Segoe UI, Regular;
-    font-weight: 400;
-    color: $color-black;  
+
+.default-text {
+  font-size: 1.1rem;
+  font-family: Segoe UI, Regular;
+  font-weight: 400;
+  color: $color-black;
 }
 
-.form-control-descricao{
-    height: 12.4rem;
+/* Formulario */
+.form-control-descricao {
+    height: 9rem;
 }
 
-.form-control-titulo{
-    height: 1.5rem;
+/* Tags */
+.tags-border{
+  background-color: #FFE0E0;
+  border-radius: 20px;
+  width: 120px;
 }
-.horas {
-    background-color: $color-gray;
-    width: 50%;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.tags{
+  color: #FF3A3A;
+  padding: 10px
+}
+
+.tag-add-border{
+  background-color: #F0F0F0;
+  border: none;
+  border-radius: 20px;
+  width: 120px;
+}
+
+.tag-add{
+  color: $color-purple;
+  padding: 10px
+}
+
+/* Imagens */
+.image-circle{
+  position: relative;
+  bottom: 0.1rem;
+  filter: invert(57%) sepia(90%) saturate(2182%) hue-rotate(3deg) brightness(109%) contrast(102%);
+}
+
+/* Dropdown */
+div.dropdown-multicol2{
+  width: 18.5em;
+}
+div.dropdown-multicol2>div.dropdown-col{
+  display:inline-block;
+  width: 44%;
 }
