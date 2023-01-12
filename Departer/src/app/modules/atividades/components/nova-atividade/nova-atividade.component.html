@@ -20,6 +20,9 @@
           <input type="text" id="inputCategoria" class="form-control form-control-lg" [ngClass]="cssValidator(f.titulo)"
             placeholder="categoria" formControlName="titulo" />
           <label for="inputCategoria" class="label-input">Escreva um titulo</label>
+          <div *ngIf="f.titulo.errors?.required && f.titulo.touched" class="invalid-feedback">
+            Titulo é obrigatorio.
+          </div>
         </div>
       </div>
 
@@ -29,6 +32,9 @@
           <textarea class="form-control form-control-descricao" placeholder="Leave a comment here" id="inputDescricao"
             formControlName="descricao" [ngClass]="cssValidator(f.descricao)"></textarea>
           <label for="inputDescricao" class="label-input">Escreva uma descrição</label>
+          <div *ngIf="f.descricao.errors?.required && f.descricao.touched" class="invalid-feedback">
+            Descrição é obrigatorio.
+          </div>
         </div>
       </div>
 
@@ -39,7 +45,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Escolha a data</mat-label>
               <input matInput [matDatepicker]="picker" placeholder="dd/mm/aaaa" class="mask-date" maxlength="10"
-                autocomplete="off" [min]="dataAtual" [(ngModel)]="data" (keyup.enter)="maskDate()" (input)="maskDate()"
+                autocomplete="off" [min]="dataAtual" [ngClass]="cssValidator(f.dataEntrega)" [(ngModel)]="data" (keyup.enter)="maskDate()" (input)="maskDate()"
                 (dateChange)="maskDate()" formControlName="dataEntrega">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
@@ -52,6 +58,9 @@
             <input type="text" id="inputCategoria" class="form-control form-control-lg"
               [ngClass]="cssValidator(f.tempoPrevisto)" placeholder="categoria" formControlName="tempoPrevisto" />
             <label for="inputCategoria" class="label-input">Horas / Minutos</label>
+            <div *ngIf="f.tempoPrevisto.errors?.required && f.tempoPrevisto.touched" class="invalid-feedback">
+              Previsão é obrigatorio.
+            </div>
           </div>
         </div>
         <div class="col-lg-6 col-12">
@@ -121,3 +130,4 @@
 
   </div>
 </div>
+
