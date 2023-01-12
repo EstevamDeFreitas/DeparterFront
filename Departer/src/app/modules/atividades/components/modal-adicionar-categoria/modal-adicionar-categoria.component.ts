@@ -23,7 +23,6 @@ export class ModalAdicionarCategoriaComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ModalAdicionarCategoriaComponent>, @Inject(MAT_DIALOG_DATA) public data: CategoriaDto[], private categoriaService: CategoriaService) {
     this.categoriasJaAdicionadas = data;
-    console.log(this.categoriasJaAdicionadas);
   }
 
   ngOnInit(): void {

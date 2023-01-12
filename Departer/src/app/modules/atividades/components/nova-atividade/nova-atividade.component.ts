@@ -91,6 +91,22 @@ export class NovaAtividadeComponent implements OnInit {
     });
   }
 
+  hoverNaCategoria(i: number, flag: number){
+    let categoriaSelecionadaAtual = document.getElementById(`icon${i}`) as HTMLElement;
+
+    if(flag == 1)
+      categoriaSelecionadaAtual.style.display = "inline"
+    else {
+      categoriaSelecionadaAtual.style.display = "none"
+    }
+
+  }
+
+  excluirCategoria(categoriaId: string){
+    let index = this.categorias.map(e=>e.id).indexOf(categoriaId);
+    this.categorias.splice(index, 1);
+  }
+
 
   cancelar(){
     this.router.navigate(['/atividades/lista-atividades']);
