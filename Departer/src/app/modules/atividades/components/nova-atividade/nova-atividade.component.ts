@@ -1,3 +1,4 @@
+import { CategoriaDto } from './../../../administracao/models/categoriaDto';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalAdicionarCategoriaComponent } from './../modal-adicionar-categoria/modal-adicionar-categoria.component';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -14,7 +15,7 @@ export class NovaAtividadeComponent implements OnInit {
 
   dataAtual: Date = new Date();
   data: Date | null = null;
-  categorias: string[] = [];
+  categorias: CategoriaDto[] = [];
 
   atividadeForm!: FormGroup;
 
@@ -83,7 +84,7 @@ export class NovaAtividadeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
 
-      data.forEach((element: string) => {
+      data.forEach((element: CategoriaDto) => {
         this.categorias.push(element);
       });
 

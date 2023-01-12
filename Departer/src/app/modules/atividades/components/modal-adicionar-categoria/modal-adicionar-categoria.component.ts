@@ -17,12 +17,13 @@ export class ModalAdicionarCategoriaComponent implements OnInit {
   public categoriaSegundaMetade: CategoriaDto[] = [];
 
   public categoriaSelecionadaAtual!: HTMLElement;
-  public categoriasResult: string[] = [];
-  public categoriasJaAdicionadas: string[] = [];
+  public categoriasResult: CategoriaDto[] = [];
+  public categoriasJaAdicionadas: CategoriaDto[] = [];
 
 
-  constructor(public dialogRef: MatDialogRef<ModalAdicionarCategoriaComponent>, @Inject(MAT_DIALOG_DATA) public data: string[], private categoriaService: CategoriaService) {
+  constructor(public dialogRef: MatDialogRef<ModalAdicionarCategoriaComponent>, @Inject(MAT_DIALOG_DATA) public data: CategoriaDto[], private categoriaService: CategoriaService) {
     this.categoriasJaAdicionadas = data;
+    console.log(this.categoriasJaAdicionadas);
   }
 
   ngOnInit(): void {
@@ -35,9 +36,9 @@ export class ModalAdicionarCategoriaComponent implements OnInit {
         let categoriaResponse = res.data;
 
         //Os 2 for servem para comparar as categorias que ja estao presentes na tela nova-atividade com todas as categorias do sistema, mais abaixo eh feito um splice para remover as categorias que ja estao presentes para nao haver categorias repetidas.
-        for (let categoriaId of this.categoriasJaAdicionadas) {
+        for (let categoria of this.categoriasJaAdicionadas) {
 
-          let objASerExcluido = categoriaResponse.find(element => element.id === categoriaId);
+          let objASerExcluido = categoriaResponse.find(element => element.id === categoria.id);
 
           if(objASerExcluido != undefined) {
             let index = categoriaResponse.map(e=>e.id).indexOf(objASerExcluido.id);
@@ -59,20 +60,20 @@ export class ModalAdicionarCategoriaComponent implements OnInit {
   }
 
 
-  public selecionarCategoria(index: number, flag: number, categoriaId: string) {
+  public selecionarCategoria(index: number, flag: number, categoria: CategoriaDto) {
     if (flag === 1)
       this.categoriaSelecionadaAtual = document.getElementById(`categoriaPrimeiraMetade${index}`) as HTMLElement;
     else
       this.categoriaSelecionadaAtual = document.getElementById(`categoriaSegundaMetade${index}`) as HTMLElement;
 
 
-    if (this.categoriasResult.includes(categoriaId)) {
-      let index = this.categoriasResult.indexOf(categoriaId);
+    if (this.categoriasResult.find(e => e.id === categoria.id)) {
+      let index = this.categoriasResult.map(e=>e.id).indexOf(categoria.id);
       this.categoriasResult.splice(index, 1);
       this.categoriaSelecionadaAtual.style.border = ""
     } else {
       this.categoriaSelecionadaAtual.style.border = "1px solid black"
-      this.categoriasResult.push(categoriaId);
+      this.categoriasResult.push(categoria);
     }
 
   }

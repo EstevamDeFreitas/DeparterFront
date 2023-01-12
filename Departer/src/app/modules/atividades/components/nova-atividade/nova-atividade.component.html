@@ -56,7 +56,12 @@
         </div>
         <div class="col-lg-6 col-12">
           <label class="label-text">Categorias:</label>
-
+          <div class="d-flex box-tags" *ngIf="categorias.length != 0">
+            <div class="d-flex justify-content-center tags-border clickable me-2 mb-2"
+              [ngStyle]="{'background-color': categoria.cor}" *ngFor="let categoria of categorias; let i = index;">
+              <div class="text-center text-break">{{categoria.nome}}</div>
+            </div>
+          </div>
           <div class="d-flex justify-content-center justify-content-sm-start mt-2">
             <div class="d-flex justify-content-center tag-add-border me-3 clickable" (click)="openDialog()">
               <div class="tag-add text-center text-break">+ Adicionar</div>

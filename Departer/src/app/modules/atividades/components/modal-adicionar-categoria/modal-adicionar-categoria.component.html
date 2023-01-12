@@ -17,13 +17,13 @@
     <div class="d-flex justify-content-center">
 
       <div class="d-flex flex-column me-4">
-        <div class="d-flex justify-content-center tags-border clickable mb-3" id="categoriaPrimeiraMetade{{i}}" (click)="selecionarCategoria(i, 1, categoria.id)" [ngStyle]="{'background-color': categoria.cor}" *ngFor="let categoria of categoriaPrimeiraMetade; let i = index;">
+        <div class="d-flex justify-content-center tags-border clickable mb-3" id="categoriaPrimeiraMetade{{i}}" (click)="selecionarCategoria(i, 1, categoria)" [ngStyle]="{'background-color': categoria.cor}" *ngFor="let categoria of categoriaPrimeiraMetade; let i = index;">
           <div class="text-center text-break">{{categoria.nome}}</div>
         </div>
       </div>
 
       <div class="d-flex flex-column">
-        <div class="d-flex justify-content-center tags-border clickable mb-3" id="categoriaSegundaMetade{{i}}" (click)="selecionarCategoria(i, 2, categoria.id)" [ngStyle]="{'background-color': categoria.cor}" *ngFor="let categoria of categoriaSegundaMetade; let i = index;">
+        <div class="d-flex justify-content-center tags-border clickable mb-3" id="categoriaSegundaMetade{{i}}" (click)="selecionarCategoria(i, 2, categoria)" [ngStyle]="{'background-color': categoria.cor}" *ngFor="let categoria of categoriaSegundaMetade; let i = index;">
           <div class="text-center text-break">{{categoria.nome}}</div>
         </div>
       </div>
