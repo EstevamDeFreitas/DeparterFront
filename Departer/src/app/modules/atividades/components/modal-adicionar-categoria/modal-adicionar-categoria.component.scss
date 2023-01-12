@@ -1,0 +1,42 @@
+@import "/src/assets/styles/variables.scss";
+
+.card{
+  height: 100%;
+}
+
+.dialog-title {
+  font-family: 'Segoe UI', bold;
+  font-size: 18px;
+  color: #5D5D5D;
+  font-weight: 600;
+}
+
+
+
+.tags-border{
+  border-radius: 20px;
+  width: 120px;
+  padding: 10px
+}
+
+
+.dialog-text {
+  font-family: 'Segoe UI', bold;
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-black;
+}
+
+.teste{
+  border: 1px black solid;
+}
+
+.modal-card{
+  min-width: 23rem;
+}
+
+@media(max-width: 992px){
+  .modal-card{
+    min-width: 15rem;
+  }
+}

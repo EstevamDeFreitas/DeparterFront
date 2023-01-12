@@ -1,3 +1,5 @@
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModalAdicionarCategoriaComponent } from './../modal-adicionar-categoria/modal-adicionar-categoria.component';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
@@ -12,6 +14,7 @@ export class NovaAtividadeComponent implements OnInit {
 
   dataAtual: Date = new Date();
   data: Date | null = null;
+  categorias: string[] = [];
 
   atividadeForm!: FormGroup;
 
@@ -19,13 +22,15 @@ export class NovaAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>) {
+  constructor(private router: Router,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>, public dialog: MatDialog) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
   ngOnInit(): void {
     this.formValidation();
     this.maskDate();
+
+    console.log(this.categorias == null);
   }
 
   public formValidation() {
@@ -63,6 +68,26 @@ export class NovaAtividadeComponent implements OnInit {
     }
     };
     dateInputMask(input);
+  }
+
+  openDialog(){
+
+    //TODO: Nao deixar o cara clicar para sair do modal!
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+
+    dialogConfig.data = this.categorias;
+
+    const dialogRef = this.dialog.open(ModalAdicionarCategoriaComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+
+      data.forEach((element: string) => {
+        this.categorias.push(element);
+      });
+
+    });
   }
 
 

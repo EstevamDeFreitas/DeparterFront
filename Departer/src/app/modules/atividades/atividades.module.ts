@@ -1,3 +1,5 @@
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { AtividadesRoutingModule } from './atividades-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,6 +13,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalAdicionarCategoriaComponent } from './components/modal-adicionar-categoria/modal-adicionar-categoria.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NovaAtividadeComponent,
     EditarAtividadeComponent,
     AtividadeComponent,
+    ModalAdicionarCategoriaComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +30,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
+    MatButtonModule,
     MatNativeDateModule,
     MatDialogModule,
     ReactiveFormsModule
