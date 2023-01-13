@@ -1,3 +1,5 @@
+import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
+import { ModalAdicionarFuncionariosComponent } from './../modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
 import { CategoriaDto } from './../../../administracao/models/categoriaDto';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalAdicionarCategoriaComponent } from './../modal-adicionar-categoria/modal-adicionar-categoria.component';
@@ -16,6 +18,7 @@ export class NovaAtividadeComponent implements OnInit {
   dataAtual: Date = new Date();
   data: Date | null = null;
   categorias: CategoriaDto[] = [];
+  funcionarios: FuncionarioDto[] = [];
 
   atividadeForm!: FormGroup;
 
@@ -30,8 +33,6 @@ export class NovaAtividadeComponent implements OnInit {
   ngOnInit(): void {
     this.formValidation();
     this.maskDate();
-
-    console.log(this.categorias == null);
   }
 
   public formValidation() {
@@ -71,9 +72,7 @@ export class NovaAtividadeComponent implements OnInit {
     dateInputMask(input);
   }
 
-  openDialog(){
-
-    //TODO: Nao deixar o cara clicar para sair do modal!
+  openCategoriasDialog(){
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -86,6 +85,24 @@ export class NovaAtividadeComponent implements OnInit {
 
       data.forEach((element: CategoriaDto) => {
         this.categorias.push(element);
+      });
+
+    });
+  }
+
+  openFuncionarioDialog(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+
+    dialogConfig.data = this.funcionarios;
+
+    const dialogRef = this.dialog.open(ModalAdicionarFuncionariosComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+
+      data.forEach((element: FuncionarioDto) => {
+        this.funcionarios.push(element);
       });
 
     });

@@ -23,6 +23,8 @@ export class FuncionarioService {
     return this.http.put<ResponseBase<FuncionarioDto>>(this.apiUlr, funcionario);
   }
 
-
+  public getAll(): Observable<ResponseBase<FuncionarioDto[]>>{
+    return this.http.get<ResponseBase<FuncionarioDto[]>>(this.apiUlr + '/all');
+  }
 
 }

@@ -17,6 +17,7 @@ export class ModalAdicionarCategoriaComponent implements OnInit {
   public categoriaSegundaMetade: CategoriaDto[] = [];
 
   public categoriaSelecionadaAtual!: HTMLElement;
+
   public categoriasResult: CategoriaDto[] = [];
   public categoriasJaAdicionadas: CategoriaDto[] = [];
 
@@ -34,13 +35,13 @@ export class ModalAdicionarCategoriaComponent implements OnInit {
       (res) => {
         let categoriaResponse = res.data;
 
-        //Os 2 for servem para comparar as categorias que ja estao presentes na tela nova-atividade com todas as categorias do sistema, mais abaixo eh feito um splice para remover as categorias que ja estao presentes para nao haver categorias repetidas.
+
         for (let categoria of this.categoriasJaAdicionadas) {
 
-          let objASerExcluido = categoriaResponse.find(element => element.id === categoria.id);
+          let categoriaASerExcluida = categoriaResponse.find(element => element.id === categoria.id);
 
-          if(objASerExcluido != undefined) {
-            let index = categoriaResponse.map(e=>e.id).indexOf(objASerExcluido.id);
+          if(categoriaASerExcluida != undefined) {
+            let index = categoriaResponse.map(e=>e.id).indexOf(categoriaASerExcluida.id);
             categoriaResponse.splice(index, 1);
           }
 
