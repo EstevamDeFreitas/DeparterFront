@@ -1,3 +1,4 @@
+import { AtividadeService } from './../../services/atividade.service';
 import { AtividadeFuncionarios } from './../../models/atividadeFuncionarios';
 import { DatePipe } from '@angular/common';
 import { AtividadeDto } from './../../models/atividadeDto';
@@ -26,11 +27,14 @@ export class NovaAtividadeComponent implements OnInit {
 
   atividadeForm!: FormGroup;
 
+  hasError = false;
+  errorMessage = "";
+
   get f(): any {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router,private route: ActivatedRoute,private dateAdapter: DateAdapter<Date>, public dialog: MatDialog) {
+  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
@@ -51,32 +55,32 @@ export class NovaAtividadeComponent implements OnInit {
   maskDate() {
     // Mask Date Input
     var input = document.querySelectorAll('.mask-date')[0];
-    var dateInputMask = function dateInputMask(elm: any ) {
-      if(elm !== undefined){
-      elm.addEventListener('keypress', function(e: any) {
-        if(e.keyCode < 47 || e.keyCode > 57) {
-          e.preventDefault();
-        }
-
-        var len = elm.value.length;
-        if(len !== 1 || len !== 3) {
-          if(e.keyCode == 47) {
+    var dateInputMask = function dateInputMask(elm: any) {
+      if (elm !== undefined) {
+        elm.addEventListener('keypress', function (e: any) {
+          if (e.keyCode < 47 || e.keyCode > 57) {
             e.preventDefault();
           }
-        }
-        if(len === 2) {
-          elm.value += '/';
-        }
-        if(len === 5) {
-          elm.value += '/';
-        }
-      });
-    }
+
+          var len = elm.value.length;
+          if (len !== 1 || len !== 3) {
+            if (e.keyCode == 47) {
+              e.preventDefault();
+            }
+          }
+          if (len === 2) {
+            elm.value += '/';
+          }
+          if (len === 5) {
+            elm.value += '/';
+          }
+        });
+      }
     };
     dateInputMask(input);
   }
 
-  public openCategoriasDialog(){
+  public openCategoriasDialog() {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -94,7 +98,7 @@ export class NovaAtividadeComponent implements OnInit {
     });
   }
 
-  public openFuncionarioDialog(){
+  public openFuncionarioDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
@@ -112,17 +116,17 @@ export class NovaAtividadeComponent implements OnInit {
     });
   }
 
-  public openInfoDialog(){
+  public openInfoDialog() {
 
     const dialogConfig = new MatDialogConfig();
 
     this.dialog.open(ModalInformacoesComponent, dialogConfig);
   }
 
-  public hoverNaCategoria(i: number, flag: number){
+  public hoverNaCategoria(i: number, flag: number) {
     let categoriaSelecionadaAtual = document.getElementById(`icon${i}`) as HTMLElement;
 
-    if(flag == 1)
+    if (flag == 1)
       categoriaSelecionadaAtual.style.display = "inline"
     else {
       categoriaSelecionadaAtual.style.display = "none"
@@ -130,82 +134,70 @@ export class NovaAtividadeComponent implements OnInit {
 
   }
 
-  public excluirCategoria(categoriaId: string){
-    let index = this.categorias.map(e=>e.id).indexOf(categoriaId);
+  public excluirCategoria(categoriaId: string) {
+    let index = this.categorias.map(e => e.id).indexOf(categoriaId);
     this.categorias.splice(index, 1);
   }
 
   public excluirFuncionario(funcionarioId: string): void {
-    let index = this.funcionariosLista.map(e=>e.id).indexOf(funcionarioId);
+    let index = this.funcionariosLista.map(e => e.id).indexOf(funcionarioId);
     this.funcionariosLista.splice(index, 1);
   }
 
-  public alterarPermissaoFuncionario(funcionarioId: string, event: any){
-    let index = this.funcionariosLista.map(e=>e.id).indexOf(funcionarioId);
+  public alterarPermissaoFuncionario(funcionarioId: string, event: any) {
+    let index = this.funcionariosLista.map(e => e.id).indexOf(funcionarioId);
     this.funcionariosLista[index].nivelAcesso = event.target.value - 1;
     console.log(this.funcionariosLista);
   }
 
   public atividadeCriada(): void {
-    let atividadePost: AtividadeDto =  {...this.atividadeForm.value};
+    if (this.atividadeForm.valid && this.categorias.length >= 1 && this.funcionariosLista.length >= 1) {
 
-    let data = new DatePipe('en').transform(this.f.dataEntrega.value, 'yyyy-MM-dd');
+      let atividadePost: AtividadeDto = { ...this.atividadeForm.value };
 
-    atividadePost.dataEntrega = data!;
+      let data = new DatePipe('en').transform(this.f.dataEntrega.value, 'yyyy-MM-dd');
 
-    atividadePost.categorias = this.categorias.map(e=>e.id);
+      atividadePost.dataEntrega = data!;
 
-    atividadePost.atividadeFuncionarios = [];
+      atividadePost.categorias = this.categorias.map(e => e.id);
 
-    this.funcionariosLista.forEach(element => {
-      let funcionarioToAtivFuncionarios;
+      atividadePost.atividadeFuncionarios = [];
 
-      if(element.nivelAcesso != undefined){
-        funcionarioToAtivFuncionarios = {funcionarioEmail: element.email, nivelAcesso: element.nivelAcesso};
-      } else {
-        funcionarioToAtivFuncionarios = {funcionarioEmail: element.email, nivelAcesso: 0};
-      }
+      this.funcionariosLista.forEach(element => {
+        let funcionarioToAtivFuncionarios;
 
-      atividadePost.atividadeFuncionarios.push(funcionarioToAtivFuncionarios);
-    })
+        if (element.nivelAcesso != undefined) {
+          funcionarioToAtivFuncionarios = { funcionarioEmail: element.email, nivelAcesso: element.nivelAcesso };
+        } else {
+          funcionarioToAtivFuncionarios = { funcionarioEmail: element.email, nivelAcesso: 0 };
+        }
 
-    //TODO: fazer o metodo que add a atividade no service, e enviar o atividadePost para testar se ja funciona.
+        atividadePost.atividadeFuncionarios.push(funcionarioToAtivFuncionarios);
+      })
 
+      this.atividadeService.postAtividade(atividadePost).subscribe(
+        (res) => {
+          console.log(res)
+          this.router.navigate(['/atividades/atividade']);
+        },
+        (error) => {
+          this.hasError = true;
+          this.errorMessage = error.error.message;
+        },
+        () => {},
+      )
 
-
-    /*
-    //TRATAR DATA - PADRÃO API
-
-    //CONVERTE A DATA PARA O PADRÃO AMERICANO PORÉM AGORA UTC
-    let novaData: any;
-    novaData  = this.data?.toJSON();
-   console.log(novaData);
-
-   //ESSA FUNÇÃO TEM QUE SER ADABTADA MAS VAI SERVIR CASO O PADRÃO TENHA QUE SER BRASILEIRO NO BACK
-   PADRÃO QUE ESTA 2023-1-13
-   PADRÃO BRASILEIRO 13-1-2023
-    formatDate2(date: string | null) {
-    if (date !== null && date !== '') {
-      const day: string = date.split("-")[2];
-      const month: string = date.split("-")[1];
-      const year: string = date.split("-")[0];
-
-      const newDate: string = `${day}/${month}/${year}`;
-
-      return newDate;
     } else {
-      return date;
+      //snackbar de mensagem de erro.
     }
-  }
-   */
-    //this.router.navigate(['/atividades/atividade'])
+
   }
 
   public cssValidator(campoForm: FormControl): any {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
 
-  cancelar(){
+  cancelar() {
     this.router.navigate(['/atividades/lista-atividades']);
   }
 

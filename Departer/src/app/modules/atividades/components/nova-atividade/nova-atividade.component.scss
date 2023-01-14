@@ -68,6 +68,13 @@
   overflow-x: auto;
 }
 
+th {
+  background: white;
+  position: sticky;
+  top: 0;
+}
+
+
 .hide {
   display:none;
 }
