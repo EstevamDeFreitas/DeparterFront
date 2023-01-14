@@ -46,29 +46,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Criar documento de planejamento</td>
+              <tr *ngFor="let atividade of atividades">
+                <td>{{atividade.titulo}}</td>
                 <td></td>
                 <td>Documentação</td>
                 <td>Fazendo</td>
                 <td></td>
                 <td class="tres-pontos"  (click)="irAtividade()"> <img class="d-inline-block align-top perfil" src=".\assets\images\tres-pontos.svg" width="20" height="20" /></td>
-              </tr>
-              <tr>
-                <td>Criar documento de planejamento</td>
-                <td></td>
-                <td>Documentação</td>
-                <td>Fazendo</td>
-                <td></td>
-                <td class="tres-pontos" (click)="irAtividade()"> <img class="d-inline-block align-top perfil" src=".\assets\images\tres-pontos.svg" width="20" height="20" /></td>
-              </tr>
-              <tr>
-                <td>Criar documento de planejamento</td>
-                <td></td>
-                <td>Documentação</td>
-                <td>Fazendo</td>
-                <td></td>
-                <td class="tres-pontos" (click)="irAtividade()"> <img class="d-inline-block align-top perfil" src=".\assets\images\tres-pontos.svg" width="20" height="20" /></td>
               </tr>
             </tbody>
           </table>

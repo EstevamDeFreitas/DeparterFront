@@ -1,3 +1,5 @@
+import { AtividadeDto } from './../../models/atividadeDto';
+import { AtividadeService } from './../../services/atividade.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -8,9 +10,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ListaAtividadesComponent implements OnInit {
 
-  constructor(private router: Router,private route: ActivatedRoute) { }
+  atividades: AtividadeDto[] = [];
+
+  constructor(private router: Router,private route: ActivatedRoute, private atividadeService: AtividadeService) { }
 
   ngOnInit(): void {
+    this.getAtividades();
+  }
+
+  getAtividades(){
+    this.atividadeService.getAtividades().subscribe(
+      (res) =>{
+        this.atividades = res.data;
+      },
+      () =>{}
+    )
   }
 
   novaAtividade(){
