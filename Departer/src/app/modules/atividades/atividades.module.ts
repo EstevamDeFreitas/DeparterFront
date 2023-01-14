@@ -7,14 +7,15 @@ import { ListaAtividadesComponent } from './components/lista-atividades/lista-at
 import { NovaAtividadeComponent } from './components/nova-atividade/nova-atividade.component';
 import { EditarAtividadeComponent } from './components/editar-atividade/editar-atividade.component';
 import { AtividadeComponent } from './components/atividade/atividade.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalAdicionarCategoriaComponent } from './components/modal-adicionar-categoria/modal-adicionar-categoria.component';
 import { ModalAdicionarFuncionariosComponent } from './components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
+import { ModalInformacoesComponent } from './components/modal-informacoes/modal-informacoes.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ModalAdicionarFuncionariosComponent } from './components/modal-adiciona
     AtividadeComponent,
     ModalAdicionarCategoriaComponent,
     ModalAdicionarFuncionariosComponent,
+    ModalInformacoesComponent,
   ],
   imports: [
     CommonModule,

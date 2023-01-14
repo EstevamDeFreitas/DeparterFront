@@ -33,6 +33,7 @@
 
 .default-text{
   font-size: 1.1rem;
+  font-weight: 400;
 }
 
 /* Formulario */
@@ -47,6 +48,9 @@
   padding: 10px
 }
 
+.icon {
+  transform: scale(0.8);
+}
 
 .tag-add-border{
   background-color: #F0F0F0;
@@ -83,3 +87,5 @@ div.dropdown-multicol2>div.dropdown-col{
   display:inline-block;
   width: 44%;
 }
+
+

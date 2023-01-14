@@ -30,10 +30,6 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
 
       let funcionarioResponse = result.data;
 
-      console.log(funcionarioResponse)
-      console.log(this.funcionariosJaAdicionados)
-
-
         for (let funcionario of this.funcionariosJaAdicionados) {
 
           let funcionarioASerExcluido = funcionarioResponse.find(element => element.id === funcionario.id);

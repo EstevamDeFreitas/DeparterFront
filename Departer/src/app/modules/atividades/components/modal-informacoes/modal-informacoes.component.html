@@ -1,0 +1,37 @@
+<div class="modal-card">
+  <header>
+    <mat-icon class="close" mat-dialog-close (click)="onConfirm()">close</mat-icon>
+    <div class="text-center dialog-title w-100" mat-dialog-title>
+      Como funcionam as permissões
+    </div>
+  </header>
+
+
+  <div>
+
+    <pre class="dialog-text-2">
+      Cada um dos cinco números equivalem a um tipo de permissão diferente.
+      As permissões permitem o criador a determinar o que cada usuário será permitido a fazer
+      dentro da atividade em questão. Abaixo estão os significados de cada uma:
+    </pre>
+    <pre class="dialog-text">
+        1 - Ler (O usuário pode apenas ler a atividade).
+        2 - Editar (O usuário pode ler e editar a atividade).
+        3 - Deletar (O usuário pode ler, editar e excluir a atividade).
+        4 - Compartilhar (O usuário pode ler, editar, excluir, adicionar funcionários e alterar acessos a atividade).
+        5 - Todos (O usuário pode realizar qualquer ação a atividade).
+    </pre>
+
+
+
+  </div>
+
+
+  <div class="d-flex justify-content-center mb-3" mat-dialog-actions>
+    <div class="col-lg-5 col-12">
+      <button mat-raised-button class="blue-button" (click)="onConfirm()">Confirmar</button>
+    </div>
+  </div>
+
+
+</div>

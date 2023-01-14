@@ -5,4 +5,6 @@ export class FuncionarioDto {
    senha: string = "";
    apelido: string = "";
    imagem: string = "";
+
+   nivelAcesso?: number;
 }

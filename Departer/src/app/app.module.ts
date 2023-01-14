@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackbarComponent } from './modules/shared/components/snackbar/snackbar.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { SnackbarComponent } from './modules/shared/components/snackbar/snackbar
     HttpClientModule
 
   ],
-  providers: [SnackbarComponent, AuthService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [SnackbarComponent, AuthService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},{provide: MAT_DATE_LOCALE, useValue: 'pt-br'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

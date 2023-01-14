@@ -1,3 +1,7 @@
+import { AtividadeFuncionarios } from './../../models/atividadeFuncionarios';
+import { DatePipe } from '@angular/common';
+import { AtividadeDto } from './../../models/atividadeDto';
+import { ModalInformacoesComponent } from './../modal-informacoes/modal-informacoes.component';
 import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
 import { ModalAdicionarFuncionariosComponent } from './../modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
 import { CategoriaDto } from './../../../administracao/models/categoriaDto';
@@ -18,7 +22,7 @@ export class NovaAtividadeComponent implements OnInit {
   dataAtual: Date = new Date();
   data: Date | null = null;
   categorias: CategoriaDto[] = [];
-  funcionarios: FuncionarioDto[] = [];
+  funcionariosLista: FuncionarioDto[] = [];
 
   atividadeForm!: FormGroup;
 
@@ -72,7 +76,7 @@ export class NovaAtividadeComponent implements OnInit {
     dateInputMask(input);
   }
 
-  openCategoriasDialog(){
+  public openCategoriasDialog(){
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -90,25 +94,32 @@ export class NovaAtividadeComponent implements OnInit {
     });
   }
 
-  openFuncionarioDialog(){
+  public openFuncionarioDialog(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
 
-    dialogConfig.data = this.funcionarios;
+    dialogConfig.data = this.funcionariosLista;
 
     const dialogRef = this.dialog.open(ModalAdicionarFuncionariosComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
 
       data.forEach((element: FuncionarioDto) => {
-        this.funcionarios.push(element);
+        this.funcionariosLista.push(element);
       });
 
     });
   }
 
-  hoverNaCategoria(i: number, flag: number){
+  public openInfoDialog(){
+
+    const dialogConfig = new MatDialogConfig();
+
+    this.dialog.open(ModalInformacoesComponent, dialogConfig);
+  }
+
+  public hoverNaCategoria(i: number, flag: number){
     let categoriaSelecionadaAtual = document.getElementById(`icon${i}`) as HTMLElement;
 
     if(flag == 1)
@@ -119,17 +130,49 @@ export class NovaAtividadeComponent implements OnInit {
 
   }
 
-  excluirCategoria(categoriaId: string){
+  public excluirCategoria(categoriaId: string){
     let index = this.categorias.map(e=>e.id).indexOf(categoriaId);
     this.categorias.splice(index, 1);
   }
 
+  public excluirFuncionario(funcionarioId: string): void {
+    let index = this.funcionariosLista.map(e=>e.id).indexOf(funcionarioId);
+    this.funcionariosLista.splice(index, 1);
+  }
 
-  cancelar(){
-    this.router.navigate(['/atividades/lista-atividades']);
+  public alterarPermissaoFuncionario(funcionarioId: string, event: any){
+    let index = this.funcionariosLista.map(e=>e.id).indexOf(funcionarioId);
+    this.funcionariosLista[index].nivelAcesso = event.target.value - 1;
+    console.log(this.funcionariosLista);
   }
 
   public atividadeCriada(): void {
+    let atividadePost: AtividadeDto =  {...this.atividadeForm.value};
+
+    let data = new DatePipe('en').transform(this.f.dataEntrega.value, 'yyyy-MM-dd');
+
+    atividadePost.dataEntrega = data!;
+
+    atividadePost.categorias = this.categorias.map(e=>e.id);
+
+    atividadePost.atividadeFuncionarios = [];
+
+    this.funcionariosLista.forEach(element => {
+      let funcionarioToAtivFuncionarios;
+
+      if(element.nivelAcesso != undefined){
+        funcionarioToAtivFuncionarios = {funcionarioEmail: element.email, nivelAcesso: element.nivelAcesso};
+      } else {
+        funcionarioToAtivFuncionarios = {funcionarioEmail: element.email, nivelAcesso: 0};
+      }
+
+      atividadePost.atividadeFuncionarios.push(funcionarioToAtivFuncionarios);
+    })
+
+    //TODO: fazer o metodo que add a atividade no service, e enviar o atividadePost para testar se ja funciona.
+
+
+
     /*
     //TRATAR DATA - PADRÃO API
 
@@ -155,11 +198,15 @@ export class NovaAtividadeComponent implements OnInit {
     }
   }
    */
-    this.router.navigate(['/atividades/atividade'])
+    //this.router.navigate(['/atividades/atividade'])
   }
 
   public cssValidator(campoForm: FormControl): any {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
+  }
+
+  cancelar(){
+    this.router.navigate(['/atividades/lista-atividades']);
   }
 
 }
