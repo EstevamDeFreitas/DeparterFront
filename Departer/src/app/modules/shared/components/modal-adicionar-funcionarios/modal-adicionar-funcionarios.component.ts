@@ -1,7 +1,7 @@
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
-import { FuncionarioService } from './../../../configuracoes/services/funcionario.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { FuncionarioService } from "src/app/modules/configuracoes/services/funcionario.service";
+import { FuncionarioDto } from "../../models/funcionarioDto";
 
 @Component({
   selector: 'app-modal-adicionar-funcionarios',

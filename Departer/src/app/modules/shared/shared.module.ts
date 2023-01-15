@@ -15,6 +15,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
+import { ModalAdicionarFuncionariosComponent } from './components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
+
 
 const routes: Routes = [];
 
@@ -24,6 +26,7 @@ const routes: Routes = [];
     NavBarComponent,
     ModalExcluirDesativarComponent,
     SnackbarComponent,
+    ModalAdicionarFuncionariosComponent,
   
   ],
     imports: [
