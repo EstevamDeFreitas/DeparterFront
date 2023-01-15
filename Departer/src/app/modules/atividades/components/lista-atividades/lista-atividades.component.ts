@@ -31,8 +31,8 @@ export class ListaAtividadesComponent implements OnInit {
     this.router.navigate(['/atividades/nova-atividade']);
   }
 
-  irAtividade(){
-    this.router.navigate(['/atividades/atividade']);
+  irAtividade(id: string){
+    this.router.navigate([`/atividades/atividade/${id}`]);
   }
 
 }

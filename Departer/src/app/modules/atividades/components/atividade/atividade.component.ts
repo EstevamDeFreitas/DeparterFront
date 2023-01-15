@@ -10,25 +10,30 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AtividadeComponent implements OnInit {
 
+  atividadeId: string = "";
   atividade = {} as AtividadeDto;
 
-  constructor(private router: Router,private route: ActivatedRoute, private atividadeService: AtividadeService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private atividadeService: AtividadeService) { }
 
   ngOnInit(): void {
     this.getAtividade();
   }
 
   getAtividade(): void {
-    this.atividadeService.getAtividadeById('e15211f7-c1be-455d-ba68-2bb26f63fe2d').subscribe(
-      (res)=>{
-        this.atividade = res.data;
-      },
-      ()=>{},
-    )
+     this.atividadeId = this.route.snapshot.paramMap.get('id')!;
+
+    if (this.atividadeId != null) {
+      this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
+        (res) => {
+          this.atividade = res.data;
+        },
+        () => { },
+      )
+    }
   }
 
-  editar(){
-    this.router.navigate(['/atividades/editar-atividade']);
+  editar() {
+    this.router.navigate([`/atividades/editar-atividade/${this.atividadeId}`]);
   }
 
 }

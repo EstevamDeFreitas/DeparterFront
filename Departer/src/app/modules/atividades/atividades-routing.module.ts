@@ -7,10 +7,10 @@ import { RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
     {path:'lista-atividades', component: ListaAtividadesComponent},
-    {path:'atividade',component: AtividadeComponent},
+    {path:'atividade/:id',component: AtividadeComponent},
     {path:'nova-atividade', component: NovaAtividadeComponent},
-    {path:'editar-atividade',component: EditarAtividadeComponent}
-   
+    {path:'editar-atividade/:id',component: EditarAtividadeComponent}
+
 ];
 
 @NgModule({
@@ -18,4 +18,3 @@ const routes: Routes = [
     exports: [RouterModule]
   })
   export class AtividadesRoutingModule { }
-  
