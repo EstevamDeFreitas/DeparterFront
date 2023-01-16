@@ -1,9 +1,16 @@
 @import "/src/assets/styles/variables.scss";
 
+/* Cards/Container */
 .container {
     width: 85%;
 }
 
+.card {
+  height: 100%;
+  overflow: auto;
+}
+
+/* Botoes */
 .botao {
     font-size: 1.375rem;
     font-family: Segoe UI, Regular;
@@ -11,31 +18,81 @@
     color: $color-purple;
     cursor: pointer;
 }
-.simbolo {
-    font-weight:900;
-}
+
 .blue-button {
     padding: 18px 20px; ;
 }
+
+/* Textos */
 .subtitulo {
     font-size: 1rem;
     font-family: Segoe UI, Regular;
-    font-weight: 500;
+    font-weight: 700;
     color: $color-black;
 }
-.texto {
-    font-size: 1rem;
-    font-family: Segoe UI, Regular;
-    font-weight: 400;
-    color: $color-black;  
+
+.default-text{
+  font-size: 1.1rem;
+  font-weight: 400;
 }
 
-.form-control-descricao{
-    height: 12.4rem;
+/* Formulario */
+.form-control-descricao {
+    height: 9rem;
 }
 
-.form-control-titulo{
-    height: 1.5rem;
+/* Tags */
+.tags-border{
+  border-radius: 20px;
+  min-width: 120px;
+  padding: 10px
+}
+
+.icon {
+  transform: scale(0.8);
+}
+
+.tag-add-border{
+  background-color: #F0F0F0;
+  border: none;
+  border-radius: 20px;
+  width: 120px;
+}
+
+.tag-add{
+  color: $color-purple;
+  padding: 10px
+}
+
+.box-tags{
+  overflow-x: auto;
+}
+
+th {
+  background: white;
+  position: sticky;
+  top: 0;
+}
+
+
+.hide {
+  display:none;
+}
+
+/* Imagens */
+.image-circle{
+  position: relative;
+  bottom: 0.1rem;
+  filter: invert(57%) sepia(90%) saturate(2182%) hue-rotate(3deg) brightness(109%) contrast(102%);
+}
+
+/* Dropdown */
+div.dropdown-multicol2{
+  width: 18.5em;
+}
+div.dropdown-multicol2>div.dropdown-col{
+  display:inline-block;
+  width: 44%;
 }
 
 .adicionar {
@@ -48,10 +105,21 @@
     font-size: 1.25rem;
     font-weight: 525;
 }
-.label-text {
-    color: $color-black;
+
+.btn-add {
+    font-family: 'Segoe UI', normal;
     font-weight: 600;
-    font-family: Segoe UI, Regular;
-    font-size: 0.75rem;
-    margin-bottom: 0.25rem;
+    font-size: 1rem;
+    color: $color-input-text-gray;
+    background-color: #F1F1F1;
+    border-radius: $border;
+    border: 1px solid #e1e1e1;
+    width: 100%;
+    height: fit-content;
+    padding: 10px 20px;
+}
+.btn-add:hover {
+    color: $color-purple;
+    background-color: #f1f1f1;
+    font-weight: 700;
 }

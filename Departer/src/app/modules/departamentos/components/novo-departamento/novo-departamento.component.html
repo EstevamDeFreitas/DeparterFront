@@ -13,73 +13,99 @@
     </div>
 
     <div class="card mt-3">
+        <form [formGroup]="departamentoForm">
 
-        <div class="col-12">
-            <label class="label-text">Titulo:</label>
-            <div class="form-floating">
-                <input type="text" id="inputCategoria" class="form-control form-control-lg form-control-titulo" placeholder="categoria"/>
-                <label for="inputCategoria" class="label-input">Criar Novo...</label>
-            </div>
-        </div>
+            <div class="col-12">
+                <label class="label-text">Nome do Departamento:</label>
+                <div class="form-floating">
+                  <input type="text" id="inputCategoria" class="form-control form-control-lg" [ngClass]="cssValidator(f.nome)"
+                    placeholder="categoria" formControlName="nome" />
+                  <label for="inputCategoria" class="label-input">Criar Novo...</label>
+                  <div *ngIf="f.nome.errors?.required && f.nome.touched" class="invalid-feedback">
+                    O nome do Departamento é obrigatorio.
+                  </div>
+                </div>
+              </div>
 
-        <div class="col-12 mt-3">
-            <label class="label-text">Descrição:</label>
-            <div class="form-floating">
-                <input type="text" id="inputCategoria" class="form-control form-control-lg form-control-descricao" placeholder="categoria"/>
-                <label for="inputCategoria" class="label-input">Criar Novo...</label>
-            </div>
-        </div>
+              <div class="col-12 mt-3">
+                <label class="label-text">Descrição:</label>
+                <div class="form-floating">
+                  <textarea class="form-control form-control-descricao" placeholder="Leave a comment here" id="inputDescricao"
+                    formControlName="descricao" [ngClass]="cssValidator(f.descricao)"></textarea>
+                  <label for="inputDescricao" class="label-input">Escreva uma descrição</label>
+                  <div *ngIf="f.descricao.errors?.required && f.descricao.touched" class="invalid-feedback">
+                    Descrição é obrigatorio.
+                  </div>
+                </div>
+              </div>
+
+        </form>
 
         <div class="row mt-3">
             <div class="col-lg-6 col-12 mb-2">
-                <div class="texto">
+                <div class="label-text">
                     Funcionarios
                 </div>
 
-                <div class="mt-3">
-                    <div class="subtitulo">
-                        Lucas Silva
-                    </div>
-                    <div class="subtitulo mt-1">
-                        Maria Cristina
-                    </div>
-                </div>
+                <div class="box-funcionarios">
+                    <table class="table default-text" *ngIf="funcionariosLista.length != 0">
+                      <thead style="position:sticky">
+          
+                        <th></th>
+                        <th></th>
+                        <th></th>
+          
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let funcionario of funcionariosLista; let i = index">
+                          <td>
+                            <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                          </td>
+                          <td>{{funcionario.apelido}}</td>
+                          <td>
+                            <i class="fa-regular fa-x text-danger clickable" (click)="excluirFuncionario(funcionario.id)"></i>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
 
                 <div class="col-lg-10 col-12 mt-3">
-                
-                    <div class="input-group">
-                        <input type="text" class="form-control adicionar" placeholder="+ Adicionar funcionario">
-                    </div>
+
+                    <div class="mt-4">
+                        <button class="btn-add" (click)="openFuncionarioDialog()"> + Adicionar funcionario</button>
+                      </div>
+              
+
                 </div>
 
 
             </div>
 
             <div class="col-lg-6 col-12">
-                <div class="texto">
+                <div class="label-text">
                     Regras
                 </div>
 
                 <div class="mt-3">
-                    <div class="subtitulo">
-                        Máximo de horas diárias: 8 
+                    <div class="subtitulo ">
+                        Máximo de horas diárias: 
+                        <input>
                     </div>
-                    <div class="subtitulo mt-1">
-                        Categorias para atividades: Contabilidade, reunião, brainstorming... 
-                    </div>
-        
-                    <div class="subtitulo mt-1">
+
+
+                    <div class="subtitulo mt-3">
                         Máximo de horas extras por mês: 10
                     </div>
                 </div>
 
                 <div class="col-lg-10 col-12 mt-3">
-                
+
                     <div class="input-group">
                         <input type="text" class="form-control adicionar" placeholder="+ Adicionar nova regra">
                     </div>
                 </div>
-             
+
             </div>
         </div>
 
@@ -87,6 +113,6 @@
             <button class="blue-button"> Criar Atividade </button>
         </div>
 
-      
+
     </div>
 </div>

@@ -13,9 +13,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalAdicionarCategoriaComponent } from './components/modal-adicionar-categoria/modal-adicionar-categoria.component';
-import { ModalAdicionarFuncionariosComponent } from './components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
-import { ModalInformacoesComponent } from './components/modal-informacoes/modal-informacoes.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +20,6 @@ import { ModalInformacoesComponent } from './components/modal-informacoes/modal-
     NovaAtividadeComponent,
     EditarAtividadeComponent,
     AtividadeComponent,
-    ModalAdicionarCategoriaComponent,
-    ModalAdicionarFuncionariosComponent,
-    ModalInformacoesComponent,
   ],
   imports: [
     CommonModule,

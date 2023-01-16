@@ -10,6 +10,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
 import { TelaDepartamentosComponent } from './components/tela-departamentos/tela-departamentos.component';
 import { DetalhesDepartamentosComponent } from './components/detalhes-departamentos/detalhes-departamentos.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -22,6 +23,8 @@ import { DetalhesDepartamentosComponent } from './components/detalhes-departamen
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     DepartamentosRoutingModule,
     MatDatepickerModule,
     MatFormFieldModule,
