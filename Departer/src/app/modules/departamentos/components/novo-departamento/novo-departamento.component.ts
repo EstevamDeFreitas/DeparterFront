@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
+import { ModalAdicionarFuncionariosComponent } from 'src/app/modules/shared/components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
+import { ModalInformacoesComponent } from 'src/app/modules/atividades/components/modal-informacoes/modal-informacoes.component';
 
 @Component({
   selector: 'app-novo-departamento',
@@ -37,7 +39,7 @@ export class NovoDepartamentoComponent implements OnInit {
   }
 
   public openFuncionarioDialog() {
-    /*
+    
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
@@ -52,7 +54,29 @@ export class NovoDepartamentoComponent implements OnInit {
         this.funcionariosLista.push(element);
       });
 
-    });*/
+    });
+  }
+
+  public excluirFuncionario(funcionarioId: string): void {
+    let index = this.funcionariosLista.map(e => e.id).indexOf(funcionarioId);
+    this.funcionariosLista.splice(index, 1);
+  }
+
+  public alterarPermissaoFuncionario(funcionarioId: string, event: any) {
+    let index = this.funcionariosLista.map(e => e.id).indexOf(funcionarioId);
+    this.funcionariosLista[index].nivelAcesso = event.target.value - 1;
+    console.log(this.funcionariosLista);
+  }
+  public openInfoDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    this.dialog.open(ModalInformacoesComponent, dialogConfig);
+  }
+
+  
+  public cssValidator(campoForm: FormControl): any {
+    return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
 
   cancelar(){
