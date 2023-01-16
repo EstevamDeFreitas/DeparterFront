@@ -2,16 +2,16 @@ import { AtividadeService } from './../../services/atividade.service';
 import { AtividadeFuncionarios } from './../../models/atividadeFuncionarios';
 import { DatePipe } from '@angular/common';
 import { AtividadeDto } from './../../models/atividadeDto';
-import { ModalInformacoesComponent } from './../modal-informacoes/modal-informacoes.component';
 import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
 import { CategoriaDto } from './../../../administracao/models/categoriaDto';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ModalAdicionarCategoriaComponent } from './../modal-adicionar-categoria/modal-adicionar-categoria.component';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalAdicionarFuncionariosComponent } from 'src/app/modules/shared/components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
+import { ModalInformacoesComponent } from 'src/app/modules/shared/components/modal-informacoes/modal-informacoes.component';
+import { ModalAdicionarCategoriaComponent } from 'src/app/modules/shared/components/modal-adicionar-categoria/modal-adicionar-categoria.component';
 
 @Component({
   selector: 'app-nova-atividade',

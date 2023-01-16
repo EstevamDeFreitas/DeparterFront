@@ -16,6 +16,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { ModalAdicionarFuncionariosComponent } from './components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
+import { ModalAdicionarCategoriaComponent } from './components/modal-adicionar-categoria/modal-adicionar-categoria.component';
+import { ModalInformacoesComponent } from './components/modal-informacoes/modal-informacoes.component';
 
 
 const routes: Routes = [];
@@ -27,6 +29,8 @@ const routes: Routes = [];
     ModalExcluirDesativarComponent,
     SnackbarComponent,
     ModalAdicionarFuncionariosComponent,
+    ModalAdicionarCategoriaComponent,
+    ModalInformacoesComponent,
   
   ],
     imports: [

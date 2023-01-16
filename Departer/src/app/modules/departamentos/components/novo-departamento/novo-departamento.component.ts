@@ -5,7 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
 import { ModalAdicionarFuncionariosComponent } from 'src/app/modules/shared/components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
-import { ModalInformacoesComponent } from 'src/app/modules/atividades/components/modal-informacoes/modal-informacoes.component';
+import { ModalInformacoesComponent } from 'src/app/modules/shared/components/modal-informacoes/modal-informacoes.component';
 
 @Component({
   selector: 'app-novo-departamento',
@@ -73,8 +73,7 @@ export class NovoDepartamentoComponent implements OnInit {
 
     this.dialog.open(ModalInformacoesComponent, dialogConfig);
   }
-
-  
+ 
   public cssValidator(campoForm: FormControl): any {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
