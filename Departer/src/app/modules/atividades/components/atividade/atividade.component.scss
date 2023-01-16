@@ -54,6 +54,8 @@
   filter: invert(14%) sepia(63%) saturate(7064%) hue-rotate(254deg) brightness(95%) contrast(93%);
 }
 
+
+/* Tags */
 .tags-border{
   border-radius: 20px;
   min-width: 120px;
@@ -63,6 +65,7 @@
 .box-tags{
   overflow-x: auto;
 }
+
 
 .image-clock{
   position: relative;
@@ -94,6 +97,7 @@
   filter: invert(57%) sepia(90%) saturate(2182%) hue-rotate(3deg) brightness(109%) contrast(102%);
 }
 
+/* Progress Bar */
 .progress-text{
   font-size: 0.9rem;
 }
@@ -127,6 +131,8 @@
   width: 50%;
   background: $color-green;
 }
+
+
 
 .hist-purple-text{
   color: $color-purple;
@@ -185,6 +191,12 @@
   overflow-x: hidden;
 }
 
+.box-scroll-funcionarios{
+  height: 8rem;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
 @media (max-width: 576px)
 {
   .box-scroll {
@@ -192,7 +204,15 @@
     overflow-y: auto !important;
     overflow-x: auto;
   }
+
+  .box-scroll-funcionarios{
+    height: 7rem;
+    overflow-y: auto !important;
+    overflow-x: auto;
+  }
 }
+
+
 
 .overflow-text {
   white-space: nowrap;

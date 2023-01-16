@@ -1,3 +1,4 @@
+import { FuncionarioService } from './../../../configuracoes/services/funcionario.service';
 import { AtividadeService } from './../../services/atividade.service';
 import { AtividadeFuncionarios } from './../../models/atividadeFuncionarios';
 import { DatePipe } from '@angular/common';
@@ -38,14 +39,29 @@ export class NovaAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService) {
+  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
   ngOnInit(): void {
     this.formValidation();
     this.identificarModoPost();
+    this.getFuncionarioLogado();
+
+
+
     this.maskDate();
+    this.maskHour()
+  }
+
+  public getFuncionarioLogado(): void {
+    this.funcionarioService.getFuncionarioLogado().subscribe(
+      (res) =>{
+        res.data.nivelAcesso = 4;
+        this.funcionariosLista.push(res.data)
+      },
+      () =>{},
+    )
   }
 
   public identificarModoPost(){
@@ -62,7 +78,7 @@ export class NovaAtividadeComponent implements OnInit {
       titulo: new FormControl('', [Validators.required]),
       descricao: new FormControl('', [Validators.required]),
       dataEntrega: new FormControl('', [Validators.required]),
-      tempoPrevisto: new FormControl('', [Validators.required]),
+      tempoPrevisto: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
     });
   }
 
@@ -92,6 +108,41 @@ export class NovaAtividadeComponent implements OnInit {
       }
     };
     dateInputMask(input);
+  }
+
+  maskHour() {
+    // Mask Hour Input
+    var input = document.querySelectorAll('#horas')[0];
+    var hourInputMask = function hourInputMask(elm: any) {
+      if (elm !== undefined) {
+        elm.addEventListener('keypress', function (e: any) {
+          if (e.keyCode < 47 || e.keyCode > 57) {
+            e.preventDefault();
+          }
+
+          var len = elm.value.length;
+
+          if (len !== 1 || len !== 3) {
+            if (e.keyCode == 47) {
+              e.preventDefault();
+            }
+          }
+
+          if(len == 3 && e.keyCode > 53){
+            e.preventDefault();
+          }
+
+
+          if (len === 2) {
+            elm.value += ':';
+          }
+
+        });
+      }
+    };
+
+
+    hourInputMask(input);
   }
 
   public openCategoriasDialog() {
@@ -124,6 +175,7 @@ export class NovaAtividadeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
 
       data.forEach((element: FuncionarioDto) => {
+        element.nivelAcesso = 0;
         this.funcionariosLista.push(element);
       });
 
@@ -165,12 +217,15 @@ export class NovaAtividadeComponent implements OnInit {
   }
 
   public atividadeCriada(): void {
+
     if (this.atividadeForm.valid && this.categorias.length >= 1 && this.funcionariosLista.length >= 1) {
 
       let atividadePost: AtividadeDto = { ...this.atividadeForm.value };
 
       let data = new DatePipe('en').transform(this.f.dataEntrega.value, 'yyyy-MM-dd');
       atividadePost.dataEntrega = data!;
+
+      atividadePost.tempoPrevisto = this.calcularHorasPrevistas(this.f.tempoPrevisto.value);
 
       atividadePost.categorias = this.categorias.map(e => e.id);
 
@@ -199,14 +254,21 @@ export class NovaAtividadeComponent implements OnInit {
         (error) => {
           this.hasError = true;
           this.errorMessage = error.error.message;
-        },
-        () => {},
+        }
       )
 
     } else {
       //snackbar de mensagem de erro.
     }
 
+  }
+
+  public calcularHorasPrevistas(horas: string): number {
+    let arrayHoras = horas.split('');
+
+    let resultadoFinal = (+(arrayHoras[0] + arrayHoras[1]) * 60) + +(arrayHoras[3] + arrayHoras[4]);
+
+    return resultadoFinal;
   }
 
   public cssValidator(campoForm: FormControl): any {

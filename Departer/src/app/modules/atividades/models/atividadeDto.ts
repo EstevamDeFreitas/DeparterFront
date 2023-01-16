@@ -1,4 +1,4 @@
-import { AtividadeFuncionarios } from './atividadeFuncionarios';
+import { AtividadeFuncionarios, AtividadeGetFuncionarios } from './atividadeFuncionarios';
 
 export class AtividadeDto {
   id: string = "";
@@ -10,8 +10,6 @@ export class AtividadeDto {
   categorias: string[] = [];
   atividadeFuncionarios = {} as AtividadeFuncionarios[];
 
-  atividadeCategorias? = [] as {atividadeId: 0, categoriaId: 0}[];
-
 }
 
 export class AtividadeGetDto {
@@ -22,6 +20,6 @@ export class AtividadeGetDto {
   tempoPrevisto: number = 0;
   atividadePaiId: string = "";
   atividadeCategorias = [] as {atividadeId: "", categoriaId: ""}[];
-  atividadeFuncionarios = {} as AtividadeFuncionarios[];
+  atividadeFuncionarios = {} as AtividadeGetFuncionarios[];
 
 }

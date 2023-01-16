@@ -55,11 +55,14 @@
         <div class="col-lg-2 col-4 pe-5">
           <label class="label-text">Horas Previstas</label>
           <div class="form-floating">
-            <input type="text" id="inputCategoria" class="form-control form-control-lg"
+            <input type="text" id="horas" class="form-control form-control-lg" autocomplete="off" maxlength="5" (keyup.enter)="maskHour()" (input)="maskHour()"
               [ngClass]="cssValidator(f.tempoPrevisto)" placeholder="categoria" formControlName="tempoPrevisto" />
-            <label for="inputCategoria" class="label-input">Horas / Minutos</label>
+            <label for="inputCategoria" class="label-input">Ex: 00:30 / 01:25</label>
             <div *ngIf="f.tempoPrevisto.errors?.required && f.tempoPrevisto.touched" class="invalid-feedback">
               Previsão é obrigatorio.
+            </div>
+            <div *ngIf="f.tempoPrevisto.errors?.minlength && f.tempoPrevisto.touched" class="invalid-feedback">
+              Previsão deve ter quatro caracteres. (Ex: 04:30 / Quatro horas e meia)
             </div>
           </div>
         </div>
@@ -103,21 +106,21 @@
                 <td>
                   <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
                 </td>
-                <td>{{funcionario.apelido}}</td>
+                <td>{{funcionario.apelido}} <span class="role-text ms-1" *ngIf="i == 0">Você</span></td>
                 <td class="text-center">
                   <input type="radio" name="radio{{i}}" class="me-1" value="1" id="radio1{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" checked><span class="me-2">1</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="i != 0" [disabled]="i == 0"><span class="me-2">1</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="2" id="radio2{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)"><span class="me-2">2</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [disabled]="i == 0"><span class="me-2">2</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="3" id="radio3{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)"><span class="me-2">3</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [disabled]="i == 0"><span class="me-2">3</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="4" id="radio4{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)"><span class="me-2">4</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [disabled]="i == 0"><span class="me-2">4</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="5" id="radio5{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)"><span class="me-2">5</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="i == 0"><span class="me-2">5</span>
                 </td>
                 <td>
-                  <i class="fa-regular fa-x text-danger clickable" (click)="excluirFuncionario(funcionario.id)"></i>
+                  <i class="fa-regular fa-x text-danger clickable" (click)="excluirFuncionario(funcionario.id)" [hidden]="i == 0"></i>
                 </td>
               </tr>
             </tbody>

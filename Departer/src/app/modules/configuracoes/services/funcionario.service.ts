@@ -28,7 +28,7 @@ export class FuncionarioService {
   }
 
   public getFuncionarioById(id: string): Observable<ResponseBase<FuncionarioDto>>{
-    return this.http.get<ResponseBase<FuncionarioDto>>(`${this.apiUlr}/${id}`);
+    return this.http.get<ResponseBase<FuncionarioDto>>(`${this.apiUlr}?id=${id}`);
   }
 
 }

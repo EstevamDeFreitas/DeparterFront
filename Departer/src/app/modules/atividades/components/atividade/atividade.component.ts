@@ -34,7 +34,7 @@ export class AtividadeComponent implements OnInit {
       this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
         (res) => {
           this.atividade = res.data;
-          //console.log(this.atividade)
+          console.log(this.atividade)
 
           this.getCategorias();
           this.getFuncionarios();
@@ -57,14 +57,14 @@ export class AtividadeComponent implements OnInit {
   }
 
   getFuncionarios(): void {
-    /*this.atividade.atividadeFuncionarios.forEach(e => {
-      this.funcionarioService.getFuncionarioByEmail(e.funcionarioEmail).subscribe(
+    this.atividade.atividadeFuncionarios.forEach(e => {
+      this.funcionarioService.getFuncionarioById(e.funcionarioId).subscribe(
         (res) => {
           this.funcionarios.push(res.data);
         },
         () => { }
       )
-    })*/
+    })
   }
 
   public editar() {
