@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { AtividadeDto } from './../models/atividadeDto';
+import { AtividadeDto, AtividadeGetDto } from './../models/atividadeDto';
 import { ResponseBase } from './../../shared/models/response';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
@@ -22,8 +22,8 @@ export class AtividadeService {
     return this.http.post<ResponseBase<AtividadeDto>>(this.apiUlr, atividade)
   }
 
-  public getAtividadeById(id: string): Observable<ResponseBase<AtividadeDto>> {
-    return this.http.get<ResponseBase<AtividadeDto>>(`${this.apiUlr}/${id}`);
+  public getAtividadeById(id: string): Observable<ResponseBase<AtividadeGetDto>> {
+    return this.http.get<ResponseBase<AtividadeGetDto>>(`${this.apiUlr}/${id}`);
   }
 
   public updateAtividade(atividade: AtividadeDto): Observable<ResponseBase<AtividadeDto>> {

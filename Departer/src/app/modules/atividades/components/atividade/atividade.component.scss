@@ -55,14 +55,13 @@
 }
 
 .tags-border{
-  background-color: #FFE0E0;
   border-radius: 20px;
-  width: 120px;
+  min-width: 120px;
+  padding: 10px
 }
 
-.tags{
-  color: #FF3A3A;
-  padding: 10px
+.box-tags{
+  overflow-x: auto;
 }
 
 .image-clock{

@@ -9,6 +9,7 @@ const routes: Routes = [
     {path:'lista-atividades', component: ListaAtividadesComponent},
     {path:'atividade/:id',component: AtividadeComponent},
     {path:'nova-atividade', component: NovaAtividadeComponent},
+    {path:'nova-atividade/:idAtividadePai', component: NovaAtividadeComponent},
     {path:'editar-atividade/:id',component: EditarAtividadeComponent}
 
 ];

@@ -18,15 +18,12 @@
         <div class="ms-md-3">
 
           <div class="d-flex justify-content-center d-sm-block">
-            <p class="titulo text-center text-sm-start"><b>Criar documento de planejamento</b></p>
+            <p class="titulo text-center text-sm-start"><b>{{atividade.titulo}}</b></p>
           </div>
 
-          <div class="d-flex justify-content-center justify-content-sm-start mt-3">
-            <div class="d-flex justify-content-center tags-border me-3">
-              <div class="tags text-center text-break">Administração</div>
-            </div>
-            <div class="d-flex justify-content-center tags-border">
-              <div class="tags text-center text-break">Documentação</div>
+          <div class="d-flex justify-content-center justify-content-sm-start box-tags mt-3">
+            <div class="d-flex justify-content-center tags-border me-2" [ngStyle]="{'background-color': categoria.cor}" *ngFor="let categoria of categorias; let i = index;">
+              <div class="text-center text-break">{{categoria.nome}}</div>
             </div>
           </div>
 
@@ -51,12 +48,7 @@
 
                 <p class="sub-titulo"><b>Descrição</b></p>
 
-                <p class="default-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque rutrum,
-                  risus
-                  sed eleifend suscipit, eros nibh dignissim mi, sit amet iaculis risus orci sed nunc. Curabitur justo
-                  odio, pharetra at ex id, scelerisque ullamcorper leo. Maecenas at consectetur magna. Ut in mi nec
-                  ligula
-                  iaculis pharetra eget sit amet sapien. Cras tempus erat et elit porta facilisis.
+                <p class="default-text">{{atividade.descricao}}
                 </p>
 
               </div>
@@ -65,7 +57,7 @@
 
                 <div class="d-sm-flex justify-content-sm-between text-nowrap ">
                   <p class="sub-titulo me-3"><b>Tarefas</b></p>
-                  <p class="add-button"><b>+ Adicionar</b></p>
+                  <p class="add-button" (click)="adicionarAtividadeFilho()"><b>+ Adicionar</b></p>
                 </div>
 
                 <div class="box-scroll">

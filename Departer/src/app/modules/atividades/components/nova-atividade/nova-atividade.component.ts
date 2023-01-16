@@ -22,8 +22,12 @@ export class NovaAtividadeComponent implements OnInit {
 
   dataAtual: Date = new Date();
   data: Date | null = null;
+
   categorias: CategoriaDto[] = [];
   funcionariosLista: FuncionarioDto[] = [];
+
+  atividadePaiId: string = "";
+  estadoSalvar: string = "semPai";
 
   atividadeForm!: FormGroup;
 
@@ -40,7 +44,17 @@ export class NovaAtividadeComponent implements OnInit {
 
   ngOnInit(): void {
     this.formValidation();
+    this.identificarModoPost();
     this.maskDate();
+  }
+
+  public identificarModoPost(){
+    this.atividadePaiId = this.route.snapshot.paramMap.get('idAtividadePai')!;
+
+    if (this.atividadePaiId !== null && this.atividadePaiId !== "") {
+      this.estadoSalvar = 'comPai';
+    }
+
   }
 
   public formValidation() {
@@ -156,13 +170,11 @@ export class NovaAtividadeComponent implements OnInit {
       let atividadePost: AtividadeDto = { ...this.atividadeForm.value };
 
       let data = new DatePipe('en').transform(this.f.dataEntrega.value, 'yyyy-MM-dd');
-
       atividadePost.dataEntrega = data!;
 
       atividadePost.categorias = this.categorias.map(e => e.id);
 
       atividadePost.atividadeFuncionarios = [];
-
       this.funcionariosLista.forEach(element => {
         let funcionarioToAtivFuncionarios;
 
@@ -175,10 +187,14 @@ export class NovaAtividadeComponent implements OnInit {
         atividadePost.atividadeFuncionarios.push(funcionarioToAtivFuncionarios);
       })
 
+      if(this.estadoSalvar == "comPai"){
+        atividadePost.atividadePaiId = this.atividadePaiId
+      }
+
       this.atividadeService.postAtividade(atividadePost).subscribe(
         (res) => {
           console.log(res)
-          this.router.navigate(['/atividades/atividade']);
+          this.router.navigate(['/atividades/lista-atividades']);
         },
         (error) => {
           this.hasError = true;
@@ -197,8 +213,11 @@ export class NovaAtividadeComponent implements OnInit {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
 
-  cancelar() {
-    this.router.navigate(['/atividades/lista-atividades']);
+  public cancelar() {
+    if(this.estadoSalvar == "semPai")
+      this.router.navigate(['/atividades/lista-atividades']);
+    else
+      this.router.navigate([`/atividades/atividade/${this.atividadePaiId}`]);
   }
 
 }
