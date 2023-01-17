@@ -60,7 +60,10 @@ export class NovaAtividadeComponent implements OnInit {
         res.data.nivelAcesso = 4;
         this.funcionariosLista.push(res.data)
       },
-      () =>{},
+      (err) => {
+        this.hasError = true;
+        this.errorMessage = err.error.message;
+      }
     )
   }
 
