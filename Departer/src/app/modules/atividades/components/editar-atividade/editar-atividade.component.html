@@ -98,7 +98,7 @@
         <label class="label-text">Equipe:</label>
 
         <div class="box-funcionarios">
-          <table class="table default-text" *ngIf="funcionariosLista.length != 0">
+          <table class="table default-text" *ngIf="funcionarios.length != 0">
             <thead style="position:sticky">
 
               <th></th>
@@ -109,25 +109,25 @@
 
             </thead>
             <tbody>
-              <tr *ngFor="let funcionario of funcionariosLista; let i = index">
+              <tr *ngFor="let funcionario of funcionarios; let i = index">
                 <td>
                   <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
                 </td>
-                <td>{{funcionario.apelido}} <span class="role-text ms-1" *ngIf="i == 0">Você</span></td>
+                <td>{{funcionario.apelido}}</td>
                 <td class="text-center">
                   <input type="radio" name="radio{{i}}" class="me-1" value="1" id="radio1{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="i != 0" [disabled]="i == 0"><span class="me-2">1</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 0"><span class="me-2">1</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="2" id="radio2{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [disabled]="i == 0"><span class="me-2">2</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 1"><span class="me-2">2</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="3" id="radio3{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [disabled]="i == 0"><span class="me-2">3</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 2"><span class="me-2">3</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="4" id="radio4{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [disabled]="i == 0"><span class="me-2">4</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 3"><span class="me-2">4</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="5" id="radio5{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="i == 0"><span class="me-2">5</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 4"><span class="me-2">5</span>
                 </td>
                 <td>
-                  <i class="fa-regular fa-x text-danger clickable" (click)="excluirFuncionario(funcionario.id)" [hidden]="i == 0"></i>
+                  <i class="fa-regular fa-x text-danger clickable" (click)="excluirFuncionario(funcionario.id)"></i>
                 </td>
               </tr>
             </tbody>
@@ -165,7 +165,7 @@
 
     <div class="row mt-3">
       <div class="custom-flex col-6">
-        <button class="blue-button" (click)="editarAtividade()">Editar Atividade</button>
+        <button class="blue-button" (click)="atividadeCriada()">Editar Atividade</button>
       </div>
       <div class="custom-flex col-6">
         <button class="red-button" (click)="desativarAtividade()">Desativar Atividade</button>

@@ -1,3 +1,4 @@
+import { AtividadeCategorias } from './atividadeCategorias';
 import { AtividadeFuncionarios, AtividadeGetFuncionarios } from './atividadeFuncionarios';
 
 export class AtividadeDto {
@@ -19,7 +20,7 @@ export class AtividadeGetDto {
   dataEntrega: string = "";
   tempoPrevisto: number = 0;
   atividadePaiId: string = "";
-  atividadeCategorias = [] as {atividadeId: "", categoriaId: ""}[];
+  atividadeCategorias = [] as AtividadeCategorias[];
   atividadeFuncionarios = {} as AtividadeGetFuncionarios[];
 
 }

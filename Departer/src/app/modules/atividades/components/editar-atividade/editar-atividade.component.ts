@@ -1,3 +1,7 @@
+import { AtividadeCategorias } from './../../models/atividadeCategorias';
+import { DatePipe } from '@angular/common';
+import { CategoriaService } from './../../../administracao/services/categoria.service';
+import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
 import { AtividadeGetFuncionarios } from './../../models/atividadeFuncionarios';
 import { AtividadeDto, AtividadeGetDto } from './../../models/atividadeDto';
 import { AtividadeService } from './../../services/atividade.service';
@@ -26,7 +30,7 @@ export class EditarAtividadeComponent implements OnInit {
   atividadeId: string = "";
 
   categorias: CategoriaDto[] = [];
-  funcionariosLista: FuncionarioDto[] = [];
+  funcionarios: FuncionarioDto[] = [];
 
   atividadeForm!: FormGroup;
   atividade = {} as AtividadeGetDto;
@@ -38,7 +42,7 @@ export class EditarAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router,private route: ActivatedRoute,public dialog: MatDialog,private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService) {
+  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private categoriaService: CategoriaService) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
@@ -60,7 +64,7 @@ export class EditarAtividadeComponent implements OnInit {
         let dataEntrega = new Date(res.data.dataEntrega);
         let tempoPrevisto = this.transformarMinutosEmHoras(res.data.tempoPrevisto);
 
-        this.atividadeForm.patchValue({titulo: res.data.titulo, descricao: res.data.descricao, tempoPrevisto: tempoPrevisto, dataEntrega: dataEntrega});
+        this.atividadeForm.patchValue({ titulo: res.data.titulo, descricao: res.data.descricao, tempoPrevisto: tempoPrevisto, dataEntrega: dataEntrega });
 
         this.getFuncionarios(res.data.atividadeFuncionarios);
         this.getCategorias(res.data.atividadeCategorias);
@@ -83,27 +87,27 @@ export class EditarAtividadeComponent implements OnInit {
 
   maskDate() {
     var input = document.querySelectorAll('.mask-date')[0];
-    var dateInputMask = function dateInputMask(elm: any ) {
-      if(elm !== undefined){
-      elm.addEventListener('keypress', function(e: any) {
-        if(e.keyCode < 47 || e.keyCode > 57) {
-          e.preventDefault();
-        }
-
-        var len = elm.value.length;
-        if(len !== 1 || len !== 3) {
-          if(e.keyCode == 47) {
+    var dateInputMask = function dateInputMask(elm: any) {
+      if (elm !== undefined) {
+        elm.addEventListener('keypress', function (e: any) {
+          if (e.keyCode < 47 || e.keyCode > 57) {
             e.preventDefault();
           }
-        }
-        if(len === 2) {
-          elm.value += '/';
-        }
-        if(len === 5) {
-          elm.value += '/';
-        }
-      });
-    }
+
+          var len = elm.value.length;
+          if (len !== 1 || len !== 3) {
+            if (e.keyCode == 47) {
+              e.preventDefault();
+            }
+          }
+          if (len === 2) {
+            elm.value += '/';
+          }
+          if (len === 5) {
+            elm.value += '/';
+          }
+        });
+      }
     };
     dateInputMask(input);
   }
@@ -125,7 +129,7 @@ export class EditarAtividadeComponent implements OnInit {
             }
           }
 
-          if(len == 3 && e.keyCode > 53){
+          if (len == 3 && e.keyCode > 53) {
             e.preventDefault();
           }
 
@@ -165,7 +169,7 @@ export class EditarAtividadeComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
 
-    dialogConfig.data = this.funcionariosLista;
+    dialogConfig.data = this.funcionarios;
 
     const dialogRef = this.dialog.open(ModalAdicionarFuncionariosComponent, dialogConfig);
 
@@ -173,7 +177,7 @@ export class EditarAtividadeComponent implements OnInit {
 
       data.forEach((element: FuncionarioDto) => {
         element.nivelAcesso = 0;
-        this.funcionariosLista.push(element);
+        this.funcionarios.push(element);
       });
 
     });
@@ -203,17 +207,17 @@ export class EditarAtividadeComponent implements OnInit {
   }
 
   public excluirFuncionario(funcionarioId: string): void {
-    let index = this.funcionariosLista.map(e => e.id).indexOf(funcionarioId);
-    this.funcionariosLista.splice(index, 1);
+    let index = this.funcionarios.map(e => e.id).indexOf(funcionarioId);
+    this.funcionarios.splice(index, 1);
   }
 
   public alterarPermissaoFuncionario(funcionarioId: string, event: any) {
-    let index = this.funcionariosLista.map(e => e.id).indexOf(funcionarioId);
-    this.funcionariosLista[index].nivelAcesso = event.target.value - 1;
-    console.log(this.funcionariosLista);
+    let index = this.funcionarios.map(e => e.id).indexOf(funcionarioId);
+    this.funcionarios[index].nivelAcesso = event.target.value - 1;
+    console.log(this.funcionarios);
   }
 
-  desativarAtividade(){
+  desativarAtividade() {
 
     let dataDialog = {
       title: "Você realmente deseja desativar?",
@@ -227,19 +231,74 @@ export class EditarAtividadeComponent implements OnInit {
       backdropClass: 'backdrop-blur',
       width: '600px',
       height: 'auto',
-      data:dataDialog,
+      data: dataDialog,
     }).afterClosed().subscribe(result => {
 
-      if(result==true){
+      if (result == true) {
 
-        }
+      }
 
 
     });
   }
 
-  editarAtividade(){
+  public atividadeCriada(): void {
 
+    if (this.atividadeForm.valid && this.categorias.length >= 1 && this.funcionarios.length >= 1) {
+
+      let atividadePut: AtividadeGetDto = { ...this.atividadeForm.value };
+
+      let data = new DatePipe('en').transform(this.f.dataEntrega.value, 'yyyy-MM-dd');
+      atividadePut.dataEntrega = data!;
+
+      atividadePut.tempoPrevisto = this.calcularHorasPrevistas(this.f.tempoPrevisto.value);
+
+      this.categorias.forEach((element)=>{
+        atividadePut.atividadeCategorias.push({categoriaId: element.id, atividadeId: this.atividadeId})
+      });
+
+      atividadePut.atividadeFuncionarios = [];
+      this.funcionarios.forEach(element => {
+
+        let funcionarioToAtivFuncionarios;
+
+        if (element.nivelAcesso != undefined) {
+          funcionarioToAtivFuncionarios = { funcionarioEmail: element.email, nivelAcesso: element.nivelAcesso };
+        } else {
+          funcionarioToAtivFuncionarios = { funcionarioEmail: element.email, nivelAcesso: 0 };
+        }
+
+        atividadePut.atividadeFuncionarios.push(funcionarioToAtivFuncionarios);
+
+      });
+
+      atividadePut.id = this.atividadeId;
+
+      console.log(atividadePut);
+
+      this.atividadeService.updateAtividade(atividadePut).subscribe(
+        (res) => {
+          console.log(res)
+          this.router.navigate(['/atividades/lista-atividades']);
+        },
+        (error) => {
+          this.hasError = true;
+          this.errorMessage = error.error.message;
+        }
+      )
+
+    } else {
+      //snackbar de mensagem de erro.
+    }
+
+  }
+
+  public calcularHorasPrevistas(horas: string): number {
+    let arrayHoras = horas.split('');
+
+    let resultadoFinal = (+(arrayHoras[0] + arrayHoras[1]) * 60) + +(arrayHoras[3] + arrayHoras[4]);
+
+    return resultadoFinal;
   }
 
   transformarMinutosEmHoras(minutosPrevistos: number): string {
@@ -247,11 +306,11 @@ export class EditarAtividadeComponent implements OnInit {
     let horas: number | string = Math.floor(minutosPrevistos / 60);
     let minutos: number | string = minutosPrevistos % 60;
 
-    if(horas <= 9){
+    if (horas <= 9) {
       horas = "" + 0 + horas;
     }
 
-    if(minutos <= 9){
+    if (minutos <= 9) {
       minutos = "" + 0 + minutos;
     }
 
@@ -260,11 +319,27 @@ export class EditarAtividadeComponent implements OnInit {
   }
 
   getFuncionarios(funcionariosList: AtividadeGetFuncionarios[]): void {
-    console.log(funcionariosList);
+    funcionariosList.forEach((funcionario) => {
+      this.funcionarioService.getFuncionarioById(funcionario.funcionarioId).subscribe(
+        (res) => {
+          res.data.nivelAcesso = funcionario.nivelAcesso;
+          this.funcionarios.push(res.data);
+        },
+        () => { }
+      )
+    });
+
   }
 
-  getCategorias(categoriasList: {atividadeId: "", categoriaId: ""}[]): void {
-    console.log(categoriasList);
+  getCategorias(categoriasList: AtividadeCategorias[]): void {
+    categoriasList.forEach((categoria) => {
+      this.categoriaService.getCategoriaById(categoria.categoriaId).subscribe(
+        (res) =>{
+          this.categorias.push(res.data);
+        },
+        () =>{}
+      )
+    });
 
   }
 
@@ -273,7 +348,7 @@ export class EditarAtividadeComponent implements OnInit {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
 
-  cancelar(){
+  cancelar() {
     this.router.navigate(['/atividades/lista-atividades']);
   }
 
