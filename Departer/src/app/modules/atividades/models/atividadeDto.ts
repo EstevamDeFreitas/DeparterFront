@@ -11,7 +11,6 @@ export class AtividadeDto {
   atividadeCategorias = {} as AtividadeCategorias[];
   atividadeFuncionarios = {} as AtividadeFuncionarios[];
   atividades = {} as AtividadeDto[];
-
 }
 
 export class AtividadePostDto {
@@ -23,7 +22,6 @@ export class AtividadePostDto {
   atividadePaiId: string = "";
   categorias: string[] = [];
   atividadeFuncionarios = {} as AtividadePostFuncionarios[];
-
 }
 
 

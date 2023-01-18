@@ -219,7 +219,7 @@ export class EditarAtividadeComponent implements OnInit {
     this.funcionarios[index].nivelAcesso = event.target.value - 1;
   }
 
-  desativarAtividade() {
+  public desativarAtividade() {
 
     let dataDialog = {
       title: "Você realmente deseja desativar?",
@@ -305,7 +305,7 @@ export class EditarAtividadeComponent implements OnInit {
     return resultadoFinal;
   }
 
-  transformarMinutosEmHoras(minutosPrevistos: number): string {
+  public transformarMinutosEmHoras(minutosPrevistos: number): string {
 
     let horas: number | string = Math.floor(minutosPrevistos / 60);
     let minutos: number | string = minutosPrevistos % 60;
@@ -322,7 +322,7 @@ export class EditarAtividadeComponent implements OnInit {
 
   }
 
-  getFuncionarios(funcionariosList: AtividadeFuncionarios[]): void {
+  public getFuncionarios(funcionariosList: AtividadeFuncionarios[]): void {
     funcionariosList.forEach((funcionario) => {
       this.funcionarioService.getFuncionarioById(funcionario.funcionarioId).subscribe(
         (res) => {
@@ -335,7 +335,7 @@ export class EditarAtividadeComponent implements OnInit {
 
   }
 
-  getCategorias(categoriasList: AtividadeCategorias[]): void {
+  public getCategorias(categoriasList: AtividadeCategorias[]): void {
     categoriasList.forEach((categoria) => {
       this.categoriaService.getCategoriaById(categoria.categoriaId).subscribe(
         (res) =>{
@@ -353,7 +353,7 @@ export class EditarAtividadeComponent implements OnInit {
   }
 
   cancelar() {
-    this.router.navigate(['/atividades/lista-atividades']);
+    this.router.navigate([`/atividades/atividade/${this.atividadeId}`]);
   }
 
 }
