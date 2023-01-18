@@ -1,5 +1,5 @@
 import { AtividadeCategorias } from './atividadeCategorias';
-import { AtividadeFuncionarios, AtividadeGetFuncionarios } from './atividadeFuncionarios';
+import { AtividadePostFuncionarios, AtividadeFuncionarios } from './atividadeFuncionarios';
 
 export class AtividadeDto {
   id: string = "";
@@ -8,19 +8,22 @@ export class AtividadeDto {
   dataEntrega: string = "";
   tempoPrevisto: number = 0;
   atividadePaiId: string = "";
-  categorias: string[] = [];
+  atividadeCategorias = {} as AtividadeCategorias[];
   atividadeFuncionarios = {} as AtividadeFuncionarios[];
+  atividades = {} as AtividadeDto[];
 
 }
 
-export class AtividadeGetDto {
+export class AtividadePostDto {
   id: string = "";
   titulo: string = "";
   descricao: string = "";
   dataEntrega: string = "";
   tempoPrevisto: number = 0;
   atividadePaiId: string = "";
-  atividadeCategorias = [] as AtividadeCategorias[];
-  atividadeFuncionarios = {} as AtividadeGetFuncionarios[];
+  categorias: string[] = [];
+  atividadeFuncionarios = {} as AtividadePostFuncionarios[];
 
 }
+
+

@@ -1,9 +1,9 @@
-export class AtividadeFuncionarios {
+export class AtividadePostFuncionarios {
   funcionarioEmail: string = "";
   nivelAcesso: number = 0;
 }
 
-export class AtividadeGetFuncionarios {
+export class AtividadeFuncionarios {
   funcionarioEmail: string = "";
   funcionarioId: string = "";
   atividadeId: string = "";

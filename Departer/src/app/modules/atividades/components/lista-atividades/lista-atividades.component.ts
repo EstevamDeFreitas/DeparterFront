@@ -1,4 +1,4 @@
-import { AtividadeDto } from './../../models/atividadeDto';
+import { AtividadePostDto } from './../../models/atividadeDto';
 import { AtividadeService } from './../../services/atividade.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ListaAtividadesComponent implements OnInit {
 
-  atividades: AtividadeDto[] = [];
+  atividades: AtividadePostDto[] = [];
 
   constructor(private router: Router,private route: ActivatedRoute, private atividadeService: AtividadeService) { }
 

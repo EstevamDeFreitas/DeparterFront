@@ -1,8 +1,7 @@
 import { FuncionarioService } from './../../../configuracoes/services/funcionario.service';
 import { AtividadeService } from './../../services/atividade.service';
-import { AtividadeFuncionarios } from './../../models/atividadeFuncionarios';
 import { DatePipe } from '@angular/common';
-import { AtividadeDto } from './../../models/atividadeDto';
+import { AtividadePostDto } from './../../models/atividadeDto';
 import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
 import { CategoriaDto } from './../../../administracao/models/categoriaDto';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -216,14 +215,13 @@ export class NovaAtividadeComponent implements OnInit {
   public alterarPermissaoFuncionario(funcionarioId: string, event: any) {
     let index = this.funcionariosLista.map(e => e.id).indexOf(funcionarioId);
     this.funcionariosLista[index].nivelAcesso = event.target.value - 1;
-    console.log(this.funcionariosLista);
   }
 
   public atividadeCriada(): void {
 
     if (this.atividadeForm.valid && this.categorias.length >= 1 && this.funcionariosLista.length >= 1) {
 
-      let atividadePost: AtividadeDto = { ...this.atividadeForm.value };
+      let atividadePost: AtividadePostDto = { ...this.atividadeForm.value };
 
       let data = new DatePipe('en').transform(this.f.dataEntrega.value, 'yyyy-MM-dd');
       atividadePost.dataEntrega = data!;

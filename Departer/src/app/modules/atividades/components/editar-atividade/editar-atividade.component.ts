@@ -1,9 +1,9 @@
+import { AtividadeFuncionarios } from './../../models/atividadeFuncionarios';
 import { AtividadeCategorias } from './../../models/atividadeCategorias';
 import { DatePipe } from '@angular/common';
 import { CategoriaService } from './../../../administracao/services/categoria.service';
 import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
-import { AtividadeGetFuncionarios } from './../../models/atividadeFuncionarios';
-import { AtividadeDto, AtividadeGetDto } from './../../models/atividadeDto';
+import { AtividadeDto } from './../../models/atividadeDto';
 import { AtividadeService } from './../../services/atividade.service';
 import { ModalInformacoesComponent } from 'src/app/modules/shared/components/modal-informacoes/modal-informacoes.component';
 import { ModalAdicionarFuncionariosComponent } from 'src/app/modules/shared/components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
@@ -31,9 +31,10 @@ export class EditarAtividadeComponent implements OnInit {
 
   categorias: CategoriaDto[] = [];
   funcionarios: FuncionarioDto[] = [];
+  atividadesFilha: AtividadeDto[] = [];
 
   atividadeForm!: FormGroup;
-  atividade = {} as AtividadeGetDto;
+  atividade = {} as AtividadeDto;
 
   hasError = false;
   errorMessage = "";
@@ -65,6 +66,8 @@ export class EditarAtividadeComponent implements OnInit {
         let tempoPrevisto = this.transformarMinutosEmHoras(res.data.tempoPrevisto);
 
         this.atividadeForm.patchValue({ titulo: res.data.titulo, descricao: res.data.descricao, tempoPrevisto: tempoPrevisto, dataEntrega: dataEntrega });
+
+        this.atividadesFilha = res.data.atividades;
 
         this.getFuncionarios(res.data.atividadeFuncionarios);
         this.getCategorias(res.data.atividadeCategorias);
@@ -214,7 +217,6 @@ export class EditarAtividadeComponent implements OnInit {
   public alterarPermissaoFuncionario(funcionarioId: string, event: any) {
     let index = this.funcionarios.map(e => e.id).indexOf(funcionarioId);
     this.funcionarios[index].nivelAcesso = event.target.value - 1;
-    console.log(this.funcionarios);
   }
 
   desativarAtividade() {
@@ -246,13 +248,16 @@ export class EditarAtividadeComponent implements OnInit {
 
     if (this.atividadeForm.valid && this.categorias.length >= 1 && this.funcionarios.length >= 1) {
 
-      let atividadePut: AtividadeGetDto = { ...this.atividadeForm.value };
+      let atividadePut: AtividadeDto = { ...this.atividadeForm.value };
+
+      atividadePut.atividades = this.atividadesFilha;
 
       let data = new DatePipe('en').transform(this.f.dataEntrega.value, 'yyyy-MM-dd');
       atividadePut.dataEntrega = data!;
 
       atividadePut.tempoPrevisto = this.calcularHorasPrevistas(this.f.tempoPrevisto.value);
 
+      atividadePut.atividadeCategorias = [];
       this.categorias.forEach((element)=>{
         atividadePut.atividadeCategorias.push({categoriaId: element.id, atividadeId: this.atividadeId})
       });
@@ -263,9 +268,9 @@ export class EditarAtividadeComponent implements OnInit {
         let funcionarioToAtivFuncionarios;
 
         if (element.nivelAcesso != undefined) {
-          funcionarioToAtivFuncionarios = { funcionarioEmail: element.email, nivelAcesso: element.nivelAcesso };
+          funcionarioToAtivFuncionarios = { funcionarioEmail: element.email, nivelAcesso: element.nivelAcesso, atividadeId: this.atividadeId, funcionarioId: element.id};
         } else {
-          funcionarioToAtivFuncionarios = { funcionarioEmail: element.email, nivelAcesso: 0 };
+          funcionarioToAtivFuncionarios = { funcionarioEmail: element.email, nivelAcesso: 0, atividadeId: this.atividadeId, funcionarioId: element.id };
         }
 
         atividadePut.atividadeFuncionarios.push(funcionarioToAtivFuncionarios);
@@ -278,7 +283,6 @@ export class EditarAtividadeComponent implements OnInit {
 
       this.atividadeService.updateAtividade(atividadePut).subscribe(
         (res) => {
-          console.log(res)
           this.router.navigate(['/atividades/lista-atividades']);
         },
         (error) => {
@@ -318,7 +322,7 @@ export class EditarAtividadeComponent implements OnInit {
 
   }
 
-  getFuncionarios(funcionariosList: AtividadeGetFuncionarios[]): void {
+  getFuncionarios(funcionariosList: AtividadeFuncionarios[]): void {
     funcionariosList.forEach((funcionario) => {
       this.funcionarioService.getFuncionarioById(funcionario.funcionarioId).subscribe(
         (res) => {

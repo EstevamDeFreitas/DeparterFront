@@ -2,7 +2,7 @@ import { FuncionarioService } from './../../../configuracoes/services/funcionari
 import { CategoriaService } from './../../../administracao/services/categoria.service';
 import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
 import { CategoriaDto } from './../../../administracao/models/categoriaDto';
-import { AtividadeDto, AtividadeGetDto } from './../../models/atividadeDto';
+import { AtividadeDto } from './../../models/atividadeDto';
 import { AtividadeService } from './../../services/atividade.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AtividadeComponent implements OnInit {
 
   atividadeId: string = "";
-  atividade = {} as AtividadeGetDto;
+  atividade = {} as AtividadeDto;
 
   categorias: CategoriaDto[] = [];
   funcionarios: FuncionarioDto[] = [];
