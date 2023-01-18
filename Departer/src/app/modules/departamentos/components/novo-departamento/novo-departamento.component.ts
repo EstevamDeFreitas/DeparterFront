@@ -26,6 +26,73 @@ export class NovoDepartamentoComponent implements OnInit {
 
   ngOnInit(): void {
     this.formValidation();
+    this.maskHour();
+    this.maskHour2();
+  }
+
+  maskHour() {
+    // Mask Hour Input
+    var input = document.querySelectorAll('#horas')[0];
+    var hourInputMask = function hourInputMask(elm: any) {
+      if (elm !== undefined) {
+        elm.addEventListener('keypress', function (e: any) {
+          if (e.keyCode < 47 || e.keyCode > 57) {
+            e.preventDefault();
+          }
+
+          var len = elm.value.length;
+
+          if (len !== 1 || len !== 3) {
+            if (e.keyCode == 47) {
+              e.preventDefault();
+            }
+          }
+
+          if(len == 3 && e.keyCode > 53){
+            e.preventDefault();
+          }
+
+          if (len === 2) {
+            elm.value += ':';
+          }
+
+        });
+      }
+    };
+
+    hourInputMask(input);
+  }
+  maskHour2() {
+    // Mask Hour Input
+    var input = document.querySelectorAll('#horas2')[0];
+    var hourInputMask = function hourInputMask(elm: any) {
+      if (elm !== undefined) {
+        elm.addEventListener('keypress', function (e: any) {
+          if (e.keyCode < 47 || e.keyCode > 57) {
+            e.preventDefault();
+          }
+
+          var len = elm.value.length;
+
+          if (len !== 1 || len !== 3) {
+            if (e.keyCode == 47) {
+              e.preventDefault();
+            }
+          }
+
+          if(len == 3 && e.keyCode > 53){
+            e.preventDefault();
+          }
+
+          if (len === 2) {
+            elm.value += ':';
+          }
+
+        });
+      }
+    };
+
+    hourInputMask(input);
   }
 
   public formValidation() {
@@ -78,8 +145,13 @@ export class NovoDepartamentoComponent implements OnInit {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
 
+  criarDepartamento(){
+    
+  }
+
   cancelar(){
     this.router.navigate(['/departamentos/lista-departamentos']);
   }
+
 
 }
