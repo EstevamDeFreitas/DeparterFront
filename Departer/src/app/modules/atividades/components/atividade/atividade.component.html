@@ -61,108 +61,34 @@
                   <p class="add-button" (click)="adicionarAtividadeFilho()"><b>+ Adicionar</b></p>
                 </div>
 
-                <div class="box-scroll">
+                <div class="box-scroll-atividades" *ngIf="atividade.atividades && atividade.atividades.length >= 1">
 
-                  <div class="row mt-1">
-                    <div class="col-lg-6 col-8">
-                      <p class="default-text overflow-text me-2">Reunião sobre o planejamento awdawdawdwadawdadwadaw</p>
-                    </div>
-                    <div class="col-lg-3 col-4 d-flex justify-content-center">
-                      <div class="progress-text text-nowrap">
-                        <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="10"
-                          height="23" />Fazendo
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-0 d-flex justify-content-end">
-                      <div class="d-lg-flex d-none pe-2">
-                        <div class="progress-bar ms-2 me-2">
-                          <div class="percentage"></div>
-                        </div>
-                        50%
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row mt-1">
-                    <div class="col-lg-6 col-8">
-                      <p class="default-text overflow-text me-2">Reunião sobre o planejamento awdawdawdwadawdadwadaw</p>
-                    </div>
-                    <div class="col-lg-3 col-4 d-flex justify-content-center">
-                      <div class="progress-text text-nowrap">
-                        <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="10"
-                          height="23" />Fazendo
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-0 d-flex justify-content-end">
-                      <div class="d-lg-flex d-none pe-2">
-                        <div class="progress-bar ms-2 me-2">
-                          <div class="percentage"></div>
-                        </div>
-                        50%
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row mt-1">
-                    <div class="col-lg-6 col-8">
-                      <p class="default-text overflow-text me-2">Reunião sobre o planejamento awdawdawdwadawdadwadaw</p>
-                    </div>
-                    <div class="col-lg-3 col-4 d-flex justify-content-center">
-                      <div class="progress-text text-nowrap">
-                        <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="10"
-                          height="23" />Fazendo
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-0 d-flex justify-content-end">
-                      <div class="d-lg-flex d-none pe-2">
-                        <div class="progress-bar ms-2 me-2">
-                          <div class="percentage"></div>
-                        </div>
-                        50%
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row mt-1">
-                    <div class="col-lg-6 col-8">
-                      <p class="default-text overflow-text me-2">Reunião sobre o planejamento awdawdawdwadawdadwadaw</p>
-                    </div>
-                    <div class="col-lg-3 col-4 d-flex justify-content-center">
-                      <div class="progress-text text-nowrap">
-                        <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="10"
-                          height="23" />Fazendo
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-0 d-flex justify-content-end">
-                      <div class="d-lg-flex d-none pe-2">
-                        <div class="progress-bar ms-2 me-2">
-                          <div class="percentage"></div>
-                        </div>
-                        50%
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row mt-1">
-                    <div class="col-lg-6 col-8">
-                      <p class="default-text overflow-text me-2">Reunião sobre o planejamento awdawdawdwadawdadwadaw</p>
-                    </div>
-                    <div class="col-lg-3 col-4 d-flex justify-content-center">
-                      <div class="progress-text text-nowrap">
-                        <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="10"
-                          height="23" />Fazendo
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-0 d-flex justify-content-end">
-                      <div class="d-lg-flex d-none pe-2">
-                        <div class="progress-bar ms-2 me-2">
-                          <div class="percentage"></div>
-                        </div>
-                        50%
-                      </div>
-                    </div>
-                  </div>
-
+                  <table class="table table-hover">
+                    <thead>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let atividadeFilha of atividade.atividades">
+                        <td class="default-text overflow-text" style="max-width: 250px">{{atividadeFilha.titulo}}</td>
+                        <td>
+                          <div class="progress-text text-nowrap">
+                            <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="10"
+                              height="23" />Fazendo
+                          </div>
+                        </td>
+                        <td>
+                          <div class="d-lg-flex d-none pe-2">
+                            <div class="progress-bar ms-2 me-2">
+                              <div class="percentage"></div>
+                            </div>
+                            50%
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
 
               </div>
@@ -300,17 +226,17 @@
 
             <div class="d-flex justify-content-between mt-2">
               <p class="default-text">Previsto</p>
-              <p class="default-text">{{atividade.tempoPrevisto}}</p>
+              <p class="default-text">{{horasPrevistasEmString}}</p>
             </div>
 
             <div class="d-flex justify-content-between mt-2">
               <p class="default-text">Utilizado</p>
-              <p class="default-text">3:30</p>
+              <p class="default-text">03:30</p>
             </div>
 
             <div class="d-flex justify-content-between mt-2">
               <p class="default-text">Minhas horas</p>
-              <p class="default-text">2:00</p>
+              <p class="default-text">02:00</p>
             </div>
 
           </div>

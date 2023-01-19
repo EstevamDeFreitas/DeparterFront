@@ -79,6 +79,32 @@ export class EditarAtividadeComponent implements OnInit {
     )
   }
 
+  public getFuncionarios(funcionariosList: AtividadeFuncionarios[]): void {
+    funcionariosList.forEach((funcionario) => {
+      this.funcionarioService.getFuncionarioById(funcionario.funcionarioId).subscribe(
+        (res) => {
+          res.data.nivelAcesso = funcionario.nivelAcesso;
+          this.funcionarios.push(res.data);
+        },
+        () => { }
+      )
+    });
+
+  }
+
+  public getCategorias(categoriasList: AtividadeCategorias[]): void {
+    categoriasList.forEach((categoria) => {
+      this.categoriaService.getCategoriaById(categoria.categoriaId).subscribe(
+        (res) =>{
+          this.categorias.push(res.data);
+        },
+        () =>{}
+      )
+    });
+
+  }
+
+
   public formValidation() {
     this.atividadeForm = new FormGroup({
       titulo: new FormControl('', [Validators.required]),
@@ -321,32 +347,6 @@ export class EditarAtividadeComponent implements OnInit {
     return '' + horas + ':' + minutos;
 
   }
-
-  public getFuncionarios(funcionariosList: AtividadeFuncionarios[]): void {
-    funcionariosList.forEach((funcionario) => {
-      this.funcionarioService.getFuncionarioById(funcionario.funcionarioId).subscribe(
-        (res) => {
-          res.data.nivelAcesso = funcionario.nivelAcesso;
-          this.funcionarios.push(res.data);
-        },
-        () => { }
-      )
-    });
-
-  }
-
-  public getCategorias(categoriasList: AtividadeCategorias[]): void {
-    categoriasList.forEach((categoria) => {
-      this.categoriaService.getCategoriaById(categoria.categoriaId).subscribe(
-        (res) =>{
-          this.categorias.push(res.data);
-        },
-        () =>{}
-      )
-    });
-
-  }
-
 
   public cssValidator(campoForm: FormControl): any {
     return { 'is-invalid': campoForm.errors && campoForm.touched }

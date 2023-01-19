@@ -59,6 +59,10 @@
   filter: invert(14%) sepia(63%) saturate(7064%) hue-rotate(254deg) brightness(95%) contrast(93%);
 }
 
+.image-tres-pontos {
+  cursor: pointer;
+}
+
 // ------------------------------------------- Text -------------------------------------------
 .overflow-text {
   white-space: nowrap;
@@ -180,6 +184,12 @@
   overflow-x: hidden;
 }
 
+.box-scroll-atividades {
+  height: 8.7rem;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
 
 // ------------------------------------------- Responsive -------------------------------------------
 @media (max-width: 576px)
@@ -192,6 +202,12 @@
 
   .box-scroll-funcionarios{
     height: 7rem;
+    overflow-y: auto !important;
+    overflow-x: auto;
+  }
+
+  .box-scroll-atividades {
+    height: 8.7rem;
     overflow-y: auto !important;
     overflow-x: auto;
   }
@@ -216,4 +232,10 @@
   }
 }
 
+
+
+.atividade-clicavel:hover {
+  background-color: #B3B3B3;
+  cursor: pointer;
+}
 

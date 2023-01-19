@@ -16,6 +16,7 @@ export class AtividadeComponent implements OnInit {
 
   atividadeId: string = "";
   atividade = {} as AtividadeDto;
+  horasPrevistasEmString: string = "";
 
   categorias: CategoriaDto[] = [];
   funcionarios: FuncionarioDto[] = [];
@@ -34,10 +35,12 @@ export class AtividadeComponent implements OnInit {
       this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
         (res) => {
           this.atividade = res.data;
-          console.log(this.atividade)
+          console.log(this.atividade);
 
           this.getCategorias();
           this.getFuncionarios();
+
+          this.horasPrevistasEmString = this.transformarMinutosEmHoras(this.atividade.tempoPrevisto);
         },
         () => { },
       )
@@ -65,6 +68,23 @@ export class AtividadeComponent implements OnInit {
         () => { }
       )
     })
+  }
+
+  public transformarMinutosEmHoras(minutosPrevistos: number): string {
+
+    let horas: number | string = Math.floor(minutosPrevistos / 60);
+    let minutos: number | string = minutosPrevistos % 60;
+
+    if (horas <= 9) {
+      horas = "" + 0 + horas;
+    }
+
+    if (minutos <= 9) {
+      minutos = "" + 0 + minutos;
+    }
+
+    return '' + horas + ':' + minutos;
+
   }
 
   public editar() {
