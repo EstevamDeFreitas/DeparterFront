@@ -123,3 +123,15 @@ div.dropdown-multicol2>div.dropdown-col{
     background-color: #f1f1f1;
     font-weight: 700;
 }
+.btn-add2 {
+  font-family: 'Segoe UI', normal;
+  font-weight: 700;
+  font-size: 1rem;
+  color: $color-purple;
+  background-color: #F1F1F1;
+  border-radius: $border;
+  border: 1px solid #e1e1e1;
+  width: 100%;
+  height: fit-content;
+  padding: 10px 20px;
+}
