@@ -3,6 +3,11 @@
 .container {
     width: 85%;
 }
+.card {
+  height: 100%;
+  overflow: auto;
+}
+
 .custom-box {
     border: 1px solid $color-white;
     border-radius: 5px;
@@ -14,7 +19,7 @@
   }
   .blue-button {
     padding: 10px 5px;
- 
+
   }
   .tres-pontos {
     cursor: pointer;
