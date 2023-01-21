@@ -14,8 +14,8 @@ export class AtividadeService {
 
   constructor(private http : HttpClient) { }
 
-  public getAtividades(): Observable<ResponseBase<AtividadePostDto[]>> {
-    return this.http.get<ResponseBase<AtividadePostDto[]>>(this.apiUlr);
+  public getAtividades(): Observable<ResponseBase<AtividadeDto[]>> {
+    return this.http.get<ResponseBase<AtividadeDto[]>>(this.apiUlr);
   }
 
   public postAtividade(atividade: AtividadePostDto): Observable<ResponseBase<AtividadePostDto>> {
