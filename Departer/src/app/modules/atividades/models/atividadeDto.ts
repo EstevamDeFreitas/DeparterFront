@@ -1,3 +1,5 @@
+import { FuncionarioDto } from './../../shared/models/funcionarioDto';
+import { CategoriaDto } from './../../administracao/models/categoriaDto';
 import { AtividadeCategorias } from './atividadeCategorias';
 import { AtividadePostFuncionarios, AtividadeFuncionarios } from './atividadeFuncionarios';
 
@@ -25,3 +27,16 @@ export class AtividadePostDto {
 }
 
 
+export class AtividadeListDto {
+  id: string = "";
+  titulo: string = "";
+  descricao: string = "";
+  dataEntrega: string = "";
+  tempoPrevisto: number = 0;
+  atividadePaiId: string = "";
+  atividadeCategorias = {} as AtividadeCategorias[];
+  atividadeFuncionarios = {} as AtividadeFuncionarios[];
+
+  categorias: CategoriaDto[] = [];
+  funcionarios: FuncionarioDto[] = [];
+}

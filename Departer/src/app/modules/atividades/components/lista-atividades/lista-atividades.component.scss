@@ -21,6 +21,22 @@
     padding: 10px 5px;
 
   }
-  .tres-pontos {
-    cursor: pointer;
+
+
+  .tags-border{
+    border-radius: 20px;
+    min-width: 120px;
+    padding: 7px
+  }
+
+  .tag-add-border{
+    background-color: #D5CBFF;
+    border: none;
+    border-radius: 20px;
+    width: 40px;
+  }
+
+  .tag-add{
+    color: $color-purple;
+    padding: 7px
   }

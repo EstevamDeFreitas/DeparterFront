@@ -2,7 +2,7 @@ import { CategoriaService } from './../../../administracao/services/categoria.se
 import { AtividadeCategorias } from './../../models/atividadeCategorias';
 import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
 import { CategoriaDto } from './../../../administracao/models/categoriaDto';
-import { AtividadeDto } from './../../models/atividadeDto';
+import { AtividadeListDto } from './../../models/atividadeDto';
 import { AtividadeService } from './../../services/atividade.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,54 +14,63 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ListaAtividadesComponent implements OnInit {
 
-  atividades: AtividadeDto[] = [];
+  atividades: AtividadeListDto[] = [];
+  allCategorias: CategoriaDto[] = [];
   atividadesCategorias: CategoriaDto[] = [];
   atividadesFuncionarios: FuncionarioDto[] = [];
 
-  constructor(private router: Router,private route: ActivatedRoute, private atividadeService: AtividadeService, private categoriaService: CategoriaService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private atividadeService: AtividadeService, private categoriaService: CategoriaService) { }
 
   ngOnInit(): void {
-    this.getAtividades();
+    this.carregarTodasCategorias();
   }
 
-  getAtividades(){
+
+  getAtividades() {
     this.atividadeService.getAtividades().subscribe(
-      (res) =>{
+      (res) => {
         this.atividades = res.data;
-        console.log(this.atividades);
 
         this.atividades.forEach(atividade => {
-          this.adicionarCategorias(atividade.atividadeCategorias);
-        })
 
+          atividade.categorias = [];
+          atividade.atividadeCategorias.forEach(atividadeCategoria => {
+            for (const categoriaArray of this.allCategorias) {
+              if (atividadeCategoria.categoriaId == categoriaArray.id) {
+                atividade.categorias.push(categoriaArray);
+              }
+            }
+          });
 
+          
+        });
+        console.log(this.atividades);
       },
-      () =>{}
+      () => { }
     )
   }
 
-  adicionarCategorias(categorias: AtividadeCategorias[]){
 
-    categorias.forEach(categoria => {
-      let result: any = [];
+  carregarTodasCategorias(): void {
+    this.categoriaService.getCategorias().subscribe(
+      (res) => {
+        this.allCategorias = res.data;
 
-      this.categoriaService.getCategoriaById(categoria.categoriaId).subscribe(
-        (res) => {
-          result.push(res.data);
-        },
-        () => {}
-      )
+        this.getAtividades();
+      },
+      (err) => {
 
-      console.log(result)
-
-    })
+      },
+      () => {
+      }
+    );
   }
 
-  novaAtividade(){
+  novaAtividade() {
     this.router.navigate(['/atividades/nova-atividade']);
   }
 
-  irAtividade(id: string){
+  irAtividade(id: string) {
     this.router.navigate([`/atividades/atividade/${id}`]);
   }
 

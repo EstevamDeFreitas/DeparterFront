@@ -1,4 +1,4 @@
-import { AtividadePostDto, AtividadeDto } from './../models/atividadeDto';
+import { AtividadePostDto, AtividadeDto, AtividadeListDto } from './../models/atividadeDto';
 import { Observable } from 'rxjs';
 import { ResponseBase } from './../../shared/models/response';
 import { HttpClient } from '@angular/common/http';
@@ -14,8 +14,8 @@ export class AtividadeService {
 
   constructor(private http : HttpClient) { }
 
-  public getAtividades(): Observable<ResponseBase<AtividadeDto[]>> {
-    return this.http.get<ResponseBase<AtividadeDto[]>>(this.apiUlr);
+  public getAtividades(): Observable<ResponseBase<AtividadeListDto[]>> {
+    return this.http.get<ResponseBase<AtividadeListDto[]>>(this.apiUlr);
   }
 
   public postAtividade(atividade: AtividadePostDto): Observable<ResponseBase<AtividadePostDto>> {

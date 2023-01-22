@@ -1,62 +1,75 @@
 <div class="container">
-    <div class="col-12 mt-5">
-        <div class="titulo">
-            Atividades
+  <div class="col-12 mt-5">
+    <div class="titulo">
+      Atividades
+    </div>
+  </div>
+
+
+  <div class="row p-0">
+
+    <div class="col-lg-6 col-md-12">
+      <div class="custom-box mt-4">
+        <div>
+
         </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+      <div class="custom-box mt-4">
+        <div>
+
+        </div>
+      </div>
     </div>
 
+  </div>
 
-    <div class="row p-0">
 
-        <div class="col-lg-6 col-md-12">
-            <div class="custom-box mt-4">
-                <div>
+  <div class="card mt-4 mb-4">
 
+    <div class="d-flex justify-content-end">
+      <div class="col-3">
+        <button class="blue-button" (click)="novaAtividade()"> + Nova Atividade </button>
+      </div>
+    </div>
+
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th scope="col">Descrição</th>
+          <th scope="col">Responsáveis</th>
+          <th scope="col">Categorias</th>
+          <th scope="col">Status</th>
+          <th scope="col">Progressão</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let atividade of atividades">
+          <td class="align-middle">{{atividade.titulo}}</td>
+          <td></td>
+          <td>
+            <div class="d-flex justify-content-start">
+              <div *ngFor="let categoria of atividade.categorias; let i = index">
+                <div class="d-flex justify-content-center tags-border me-2" [ngStyle]="{'background-color': categoria.cor}" *ngIf="i<2">
+                  <div class="text-center text-break">{{categoria.nome}}</div>
                 </div>
+              </div>
+              <div class="d-flex justify-content-center tag-add-border me-2" *ngIf="atividade.categorias.length > 2">
+                <div class="text-center text-break tag-add">+{{atividade.categorias.length - 2}}</div>
+              </div>
             </div>
-        </div>
-        <div class="col-lg-6 col-md-12">
-            <div class="custom-box mt-4">
-                <div>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
-    <div class="card mt-4 mb-4">
-
-        <div class="d-flex justify-content-end">
-            <div class="col-3">
-            <button class="blue-button" (click)="novaAtividade()"> + Nova Atividade </button>
-        </div>
-        </div>
-
-        <table class="table mt-4">
-            <thead>
-              <tr>
-                <th scope="col">Descrição</th>
-                <th scope="col">Responsáveis</th>
-                <th scope="col">Categorias</th>
-                <th scope="col">Status</th>
-                <th scope="col">Progressão</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let atividade of atividades">
-                <td>{{atividade.titulo}}</td>
-                <td></td>
-                <td>Documentação</td>
-                <td>Fazendo</td>
-                <td></td>
-                <td class="tres-pontos"  (click)="irAtividade(atividade.id)"> <img class="d-inline-block align-top perfil" src=".\assets\images\tres-pontos.svg" width="20" height="20" /></td>
-              </tr>
-            </tbody>
-          </table>
+          </td>
+          <td class="align-middle">Fazendo</td>
+          <td></td>
+          <td class="align-middle"> <img class="d-inline-block align-top perfil clickable"
+              src=".\assets\images\tres-pontos.svg" width="20" height="20" (click)="irAtividade(atividade.id)"/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
 
-    </div>
+  </div>
 </div>
