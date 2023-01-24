@@ -14,8 +14,29 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
   errorMessage = "";
 
   public funcionarios: FuncionarioDto[] = [];
+  public funcionariosFiltrados: FuncionarioDto[] = [];
+
   public funcionariosResult: FuncionarioDto[] = [];
   public funcionariosJaAdicionados: FuncionarioDto[] = [];
+
+  private _filtroLista: string = "";
+
+  public get filtroLista(): string {
+    return this._filtroLista;
+  }
+
+  public set filtroLista(value: string) {
+    this._filtroLista = value;
+    this.funcionariosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.funcionarios;
+  }
+
+  public filtrarEventos(filtrarPor: string): FuncionarioDto[] {
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+
+    return this.funcionarios.filter(
+      (funcionario: any) => funcionario.apelido.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    );
+  }
 
   constructor(public dialogRef: MatDialogRef<ModalAdicionarFuncionariosComponent>, @Inject(MAT_DIALOG_DATA) public data: FuncionarioDto[], private funcionarioService: FuncionarioService) {
     this.funcionariosJaAdicionados = data;
@@ -41,6 +62,7 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
 
         }
         this.funcionarios = funcionarioResponse;
+        this.funcionariosFiltrados = this.funcionarios;
     });
   }
 
