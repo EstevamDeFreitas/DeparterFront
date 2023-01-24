@@ -15,7 +15,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ListaAtividadesComponent implements OnInit {
 
-  atividades: AtividadeListDto[] = [];
+  public atividades: AtividadeListDto[] = [];
+  public atividadesFiltradas: AtividadeListDto[] = [];
 
   allCategorias: CategoriaDto[] = [];
   allFuncionarios: FuncionarioDto[] = []
@@ -23,12 +24,51 @@ export class ListaAtividadesComponent implements OnInit {
   atividadesCategorias: CategoriaDto[] = [];
   atividadesFuncionarios: FuncionarioDto[] = [];
 
+  tipoDeFiltro: string = "titulo";
+
+  private _filtroLista: string = "";
+
+  public get filtroLista(): string {
+    return this._filtroLista;
+  }
+
+  public set filtroLista(value: string) {
+    this._filtroLista = value;
+    this.atividadesFiltradas = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.atividades;
+  }
+
+  public filtrarEventos(filtrarPor: string): AtividadeListDto[] {
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+
+    let atividadesFiltradas = [] as AtividadeListDto[];
+
+    if (this.tipoDeFiltro == "titulo") {
+      atividadesFiltradas = this.atividades.filter(
+        atividade => atividade.titulo.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+      );
+    } else if (this.tipoDeFiltro == "categoria") {
+      atividadesFiltradas = this.atividades.filter(atividade => {
+        return atividade.categorias.some(cat => cat.nome.toLowerCase().includes(filtrarPor));
+      });
+    } else if (this.tipoDeFiltro == "responsaveis"){
+      atividadesFiltradas = this.atividades.filter(atividade => {
+        return atividade.funcionarios.some(func => func.apelido.toLowerCase().includes(filtrarPor));
+      });
+    }
+
+    return atividadesFiltradas;
+
+  }
+
   constructor(private router: Router, private route: ActivatedRoute, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService) { }
 
   ngOnInit(): void {
     this.getAllFuncionarios();
   }
 
+  mudarTipoDeFiltro(tipoDeFiltro: string) {
+    this.tipoDeFiltro = tipoDeFiltro;
+  }
 
   getAtividades() {
     this.atividadeService.getAtividades().subscribe(
@@ -49,6 +89,7 @@ export class ListaAtividadesComponent implements OnInit {
 
         });
         console.log(this.atividades);
+        this.atividadesFiltradas = this.atividades;
       },
       () => { }
     )
