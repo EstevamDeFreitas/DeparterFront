@@ -30,3 +30,11 @@
     min-width: 15rem;
   }
 }
+
+
+.form-control {
+  border-radius: 0;
+  height: 2.75rem;
+  background-color: $color-gray;
+  color: $color-input-text-gray;
+}

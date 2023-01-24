@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-modal-informacoes',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalInformacoesComponent implements OnInit {
 
-  constructor() { }
+  hasError = false;
+  errorMessage = "";
+
+  constructor(public dialogRef: MatDialogRef<ModalInformacoesComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
+  }
 
   ngOnInit(): void {
+  }
+
+  onConfirm(): void {
+    this.dialogRef.close();
   }
 
 }

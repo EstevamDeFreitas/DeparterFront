@@ -1,5 +1,5 @@
+import { AtividadePostDto, AtividadeDto, AtividadeListDto } from './../models/atividadeDto';
 import { Observable } from 'rxjs';
-import { AtividadeDto, AtividadeGetDto } from './../models/atividadeDto';
 import { ResponseBase } from './../../shared/models/response';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
@@ -14,24 +14,24 @@ export class AtividadeService {
 
   constructor(private http : HttpClient) { }
 
-  public getAtividades(): Observable<ResponseBase<AtividadeDto[]>> {
-    return this.http.get<ResponseBase<AtividadeDto[]>>(this.apiUlr);
+  public getAtividades(): Observable<ResponseBase<AtividadeListDto[]>> {
+    return this.http.get<ResponseBase<AtividadeListDto[]>>(this.apiUlr);
   }
 
-  public postAtividade(atividade: AtividadeDto): Observable<ResponseBase<AtividadeDto>> {
-    return this.http.post<ResponseBase<AtividadeDto>>(this.apiUlr, atividade)
+  public postAtividade(atividade: AtividadePostDto): Observable<ResponseBase<AtividadePostDto>> {
+    return this.http.post<ResponseBase<AtividadePostDto>>(this.apiUlr, atividade)
   }
 
-  public getAtividadeById(id: string): Observable<ResponseBase<AtividadeGetDto>> {
-    return this.http.get<ResponseBase<AtividadeGetDto>>(`${this.apiUlr}/${id}`);
+  public getAtividadeById(id: string): Observable<ResponseBase<AtividadeDto>> {
+    return this.http.get<ResponseBase<AtividadeDto>>(`${this.apiUlr}/${id}`);
   }
 
   public updateAtividade(atividade: AtividadeDto): Observable<ResponseBase<AtividadeDto>> {
     return this.http.put<ResponseBase<AtividadeDto>>(this.apiUlr, atividade);
   }
 
-  public deleteAtividade(id: string): Observable<ResponseBase<AtividadeDto>> {
-    return this.http.delete<ResponseBase<AtividadeDto>>(`${this.apiUlr}/${id}`);
+  public deleteAtividade(id: string): Observable<ResponseBase<AtividadePostDto>> {
+    return this.http.delete<ResponseBase<AtividadePostDto>>(`${this.apiUlr}/${id}`);
   }
 
 }

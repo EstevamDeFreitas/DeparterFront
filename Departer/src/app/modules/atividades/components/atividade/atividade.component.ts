@@ -2,7 +2,7 @@ import { FuncionarioService } from './../../../configuracoes/services/funcionari
 import { CategoriaService } from './../../../administracao/services/categoria.service';
 import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
 import { CategoriaDto } from './../../../administracao/models/categoriaDto';
-import { AtividadeDto, AtividadeGetDto } from './../../models/atividadeDto';
+import { AtividadeDto } from './../../models/atividadeDto';
 import { AtividadeService } from './../../services/atividade.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AtividadeComponent implements OnInit {
 
   atividadeId: string = "";
-  atividade = {} as AtividadeGetDto;
+  atividade = {} as AtividadeDto;
+  horasPrevistasEmString: string = "";
 
   categorias: CategoriaDto[] = [];
   funcionarios: FuncionarioDto[] = [];
@@ -34,10 +35,12 @@ export class AtividadeComponent implements OnInit {
       this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
         (res) => {
           this.atividade = res.data;
-          console.log(this.atividade)
+          console.log(this.atividade);
 
           this.getCategorias();
           this.getFuncionarios();
+
+          this.horasPrevistasEmString = this.transformarMinutosEmHoras(this.atividade.tempoPrevisto);
         },
         () => { },
       )
@@ -65,6 +68,23 @@ export class AtividadeComponent implements OnInit {
         () => { }
       )
     })
+  }
+
+  public transformarMinutosEmHoras(minutosPrevistos: number): string {
+
+    let horas: number | string = Math.floor(minutosPrevistos / 60);
+    let minutos: number | string = minutosPrevistos % 60;
+
+    if (horas <= 9) {
+      horas = "" + 0 + horas;
+    }
+
+    if (minutos <= 9) {
+      minutos = "" + 0 + minutos;
+    }
+
+    return '' + horas + ':' + minutos;
+
   }
 
   public editar() {

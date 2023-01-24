@@ -1,9 +1,16 @@
 @import "/src/assets/styles/variables.scss";
 
+/* Cards/Container */
 .container {
     width: 85%;
 }
 
+.card {
+  height: 100%;
+  overflow: auto;
+}
+
+/* Botoes */
 .botao {
     font-size: 1.375rem;
     font-family: Segoe UI, Regular;
@@ -11,49 +18,100 @@
     color: $color-purple;
     cursor: pointer;
 }
-.simbolo {
-    font-weight:900;
-}
+
 .blue-button {
-    padding: 18px 20px; 
+    padding: 18px 20px; ;
 }
+
 .red-button {
-    padding: 18px 20px; 
+  padding: 18px 20px;
 }
+
+/* Textos */
 .subtitulo {
     font-size: 1rem;
     font-family: Segoe UI, Regular;
     font-weight: 500;
     color: $color-black;
 }
-.texto {
-    font-size: 1rem;
-    font-family: Segoe UI, Regular;
-    font-weight: 400;
-    color: $color-black;  
-}
 
-.form-control-descricao{
-    height: 12.4rem;
-}
-
-.form-control-titulo{
-    height: 1.5rem;
-}
-.horas {
-    background-color: $color-gray;
-    width: 50%;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.linha {
-    display: inline;
-}
 .titulo-edicao {
-    font-size: 1.5rem;
-    font-family: Segoe UI, Regular;
-    font-weight: 700;
-    color: $color-purple;
+  font-size: 1.5rem;
+  font-family: Segoe UI, Regular;
+  font-weight: 700;
+  color: $color-purple;
+}
+
+
+.default-text{
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+/* Formulario */
+.form-control-descricao {
+    height: 9rem;
+}
+
+/* Tags */
+.tags-border{
+  border-radius: 20px;
+  min-width: 120px;
+  padding: 10px
+}
+
+.icon {
+  transform: scale(0.8);
+}
+
+.tag-add-border{
+  background-color: #F0F0F0;
+  border: none;
+  border-radius: 20px;
+  width: 120px;
+}
+
+.tag-add{
+  color: $color-purple;
+  padding: 10px
+}
+
+.box-tags{
+  overflow-x: auto;
+}
+
+th {
+  background: white;
+  position: sticky;
+  top: 0;
+}
+
+
+.hide {
+  display:none;
+}
+
+/* Imagens */
+.image-circle{
+  position: relative;
+  bottom: 0.1rem;
+  filter: invert(57%) sepia(90%) saturate(2182%) hue-rotate(3deg) brightness(109%) contrast(102%);
+}
+
+/* Dropdown */
+div.dropdown-multicol2{
+  width: 18.5em;
+}
+div.dropdown-multicol2>div.dropdown-col{
+  display:inline-block;
+  width: 44%;
+}
+
+
+.role-text{
+  font-size: 0.875rem;
+  color: $color-purple;
+
+  position: relative;
+  bottom: 0.2rem;
 }
