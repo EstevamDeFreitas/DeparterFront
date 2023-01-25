@@ -1,22 +1,22 @@
-import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DepartamentoService } from './../../services/departamento.service';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalAdicionarFuncionariosComponent } from 'src/app/modules/shared/components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
 import { ModalInformacoesComponent } from 'src/app/modules/shared/components/modal-informacoes/modal-informacoes.component';
+import { SnackbarComponent } from 'src/app/modules/shared/components/snackbar/snackbar.component';
+import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
 import { DepartamentoDto } from '../../models/departamentoDto';
-import { SnackBarTheme } from 'src/app/modules/shared/models/snackbat.theme.enum';
+import { DepartamentoService } from '../../services/departamento.service';
 
 @Component({
-  selector: 'app-novo-departamento',
-  templateUrl: './novo-departamento.component.html',
-  styleUrls: ['./novo-departamento.component.scss']
+  selector: 'app-editar-departamento',
+  templateUrl: './editar-departamento.component.html',
+  styleUrls: ['./editar-departamento.component.scss']
 })
-export class NovoDepartamentoComponent implements OnInit {
+export class EditarDepartamentoComponent implements OnInit {
 
+  idDepartamento: string = "";
   departamentoForm!: FormGroup;
   funcionariosLista: FuncionarioDto[] = [];
 
@@ -29,6 +29,10 @@ export class NovoDepartamentoComponent implements OnInit {
     private departamentoService: DepartamentoService,private readonly snackbarComponent: SnackbarComponent) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(x=>{
+      this.idDepartamento = x[`id`];
+    });
+    
     this.formValidation();
     this.maskHour();
     this.maskHour2();
@@ -157,35 +161,11 @@ export class NovoDepartamentoComponent implements OnInit {
     return resultadoFinal;
   }
 
-  criarDepartamento(){
-    
-    if (this.departamentoForm.valid && this.funcionariosLista.length >= 1) {
-
-      let departamentoPost: DepartamentoDto = { ...this.departamentoForm.value };
-
-
-      departamentoPost.maximoHorasDiarias = this.calcularHorasPrevistas(this.f.maximoHorasDiarias.value);
-      departamentoPost.maximoHorasMensais = this.calcularHorasPrevistas(this.f.maximoHorasMensais.value);
-
-      departamentoPost.departamentoFuncionarios = [];
-      departamentoPost.departamentoAtividades = [];
-
-
-      this.departamentoService.createDepartamento(departamentoPost).subscribe({
-        next: (response) => {
-          this.snackbarComponent.openSnackBar("Cadastro realizado com sucesso!",SnackBarTheme.success,3000);
-          this.voltar();
-        },
-        error: (response) => {
-          this.snackbarComponent.openSnackBar("Falha no Cadastro, Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
-        }
-      })
-    }
+  editarDepartamento(){
+   
   }
 
   voltar(){
-    this.router.navigate(['/departamentos/lista-departamentos']);
+    this.router.navigate(['/departamentos/detalhes-departamentos']);
   }
-
-
 }

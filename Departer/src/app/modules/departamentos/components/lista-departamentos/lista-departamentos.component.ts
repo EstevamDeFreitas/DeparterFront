@@ -37,8 +37,8 @@ export class ListaDepartamentosComponent implements OnInit {
     this.router.navigate(['/departamentos/novo-departamento']);
   }
 
-  detalhesDepartamento(){
-    this.router.navigate(['/departamentos/geral-departamentos']);
+  detalhesDepartamento(id: string){
+    this.router.navigate([`/departamentos/geral-departamentos/${id}`]);
   }
 
 }

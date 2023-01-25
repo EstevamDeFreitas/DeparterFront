@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,13 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TelaDepartamentosComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  idDepartamento: string = "";
+
+  constructor(private router: Router,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(x=>{
+      this.idDepartamento = x[`id`];
+    });
   }
 
-  detalhesDepartamento(){
-    this.router.navigate(['/departamentos/detalhes-departamentos']);
+  detalhesDepartamento(id: string){
+    this.router.navigate([`/departamentos/detalhes-departamentos/${id}`]);
   }
 
 }
