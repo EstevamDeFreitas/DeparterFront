@@ -50,7 +50,7 @@ export class ListaAtividadesComponent implements OnInit {
       atividadesFiltradas = this.atividades.filter(atividade => {
         return atividade.categorias.some(cat => cat.nome.toLowerCase().includes(filtrarPor));
       });
-    } else if (this.tipoDeFiltro == "responsaveis"){
+    } else if (this.tipoDeFiltro == "funcionario"){
       atividadesFiltradas = this.atividades.filter(atividade => {
         return atividade.funcionarios.some(func => func.apelido.toLowerCase().includes(filtrarPor));
       });

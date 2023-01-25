@@ -47,7 +47,7 @@
           <div class="dropdown-item clickable" (click)="mudarTipoDeFiltro('categoria')">Categoria</div>
         </li>
         <li>
-          <div class="dropdown-item clickable" (click)="mudarTipoDeFiltro('responsaveis')">Responsáveis</div>
+          <div class="dropdown-item clickable" (click)="mudarTipoDeFiltro('funcionario')">Funcionario</div>
         </li>
         <li>
           <div class="dropdown-item clickable" (click)="mudarTipoDeFiltro('departamento')">Departamento</div>
@@ -57,7 +57,7 @@
         </li>
       </ul>
       <input type="text" class="form-control" placeholder="Filtrar por {{tipoDeFiltro | titlecase}}"
-        [(ngModel)]="filtroLista">
+        [(ngModel)]="filtroLista" >
     </div>
 
     <table class="table">
