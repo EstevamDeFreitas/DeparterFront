@@ -25,6 +25,10 @@ export class NavBarComponent implements OnInit {
     }
   }
 
+  public irParaHoras(): void {
+    this.router.navigate(["/horas"]);
+  }
+
   public irParaAtividades(): void {
     this.router.navigate(["/atividades/lista-atividades"]);
   }

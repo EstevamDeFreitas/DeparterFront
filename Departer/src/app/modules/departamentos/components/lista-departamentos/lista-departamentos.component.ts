@@ -25,7 +25,6 @@ export class ListaDepartamentosComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.departamentos = response.data;
-        this.snackbarComponent.openSnackBar("Cadastro realizado com suceso!",SnackBarTheme.success,3000);
       },
       error: (response) => {
         this.snackbarComponent.openSnackBar("Não foi encontrado nenhum Departamento cadastrado!", SnackBarTheme.error, 3000);
