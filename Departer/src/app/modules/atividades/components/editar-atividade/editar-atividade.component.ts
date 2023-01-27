@@ -305,8 +305,6 @@ export class EditarAtividadeComponent implements OnInit {
 
       atividadePut.id = this.atividadeId;
 
-      console.log(atividadePut);
-
       this.atividadeService.updateAtividade(atividadePut).subscribe(
         (res) => {
           this.router.navigate(['/atividades/lista-atividades']);
