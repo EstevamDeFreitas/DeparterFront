@@ -18,9 +18,24 @@ export class DepartamentoService {
     return this.http.get<ResponseBase<DepartamentoDto[]>>(`${this.API}/Departamento`);
   }
 
-  public createDepartamento(atividade: DepartamentoDto): Observable<ResponseBase<DepartamentoDto>> {
-    return this.http.post<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento`, atividade);
+  public createDepartamento(departamento: DepartamentoDto): Observable<ResponseBase<DepartamentoDto>> {
+    return this.http.post<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento`, departamento);
   }
+
+  public getDepartamentoById(id: string): Observable<ResponseBase<DepartamentoDto>> {
+      return this.http.get<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento/${id}`);
+  }
+
+  public deleteDepartamentoById(id: string): Observable<ResponseBase<DepartamentoDto>> {
+    return this.http.delete<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento/${id}`);
+}
+
+public editarDepartamento(departamento: DepartamentoDto): Observable<ResponseBase<DepartamentoDto>> {
+  return this.http.put<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento`, departamento);
+}
+
+
+
 
   
 }

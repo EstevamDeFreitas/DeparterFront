@@ -17,6 +17,7 @@ import { DepartamentoService } from '../../services/departamento.service';
 export class EditarDepartamentoComponent implements OnInit {
 
   idDepartamento: string = "";
+  departamento?: DepartamentoDto;
   departamentoForm!: FormGroup;
   funcionariosLista: FuncionarioDto[] = [];
 
@@ -32,10 +33,24 @@ export class EditarDepartamentoComponent implements OnInit {
     this.route.params.subscribe(x=>{
       this.idDepartamento = x[`id`];
     });
+
+    this.carregarDepartamento();
     
     this.formValidation();
     this.maskHour();
     this.maskHour2();
+  }
+
+  carregarDepartamento(){
+
+    this.departamentoService.getDepartamentoById(this.idDepartamento).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.departamento = response.data;
+      },
+      error: (response) => {
+      }
+    })
   }
 
   maskHour() {
