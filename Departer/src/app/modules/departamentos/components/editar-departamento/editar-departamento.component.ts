@@ -6,6 +6,7 @@ import { ModalAdicionarFuncionariosComponent } from 'src/app/modules/shared/comp
 import { ModalInformacoesComponent } from 'src/app/modules/shared/components/modal-informacoes/modal-informacoes.component';
 import { SnackbarComponent } from 'src/app/modules/shared/components/snackbar/snackbar.component';
 import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
+import { SnackBarTheme } from 'src/app/modules/shared/models/snackbat.theme.enum';
 import { DepartamentoDto } from '../../models/departamentoDto';
 import { DepartamentoService } from '../../services/departamento.service';
 
@@ -17,6 +18,7 @@ import { DepartamentoService } from '../../services/departamento.service';
 export class EditarDepartamentoComponent implements OnInit {
 
   idDepartamento: string = "";
+  nomeDepartamento: string = "";
   departamento?: DepartamentoDto;
   departamentoForm!: FormGroup;
   funcionariosLista: FuncionarioDto[] = [];
@@ -34,9 +36,9 @@ export class EditarDepartamentoComponent implements OnInit {
       this.idDepartamento = x[`id`];
     });
 
+    this.formValidation();
     this.carregarDepartamento();
     
-    this.formValidation();
     this.maskHour();
     this.maskHour2();
   }
@@ -46,12 +48,31 @@ export class EditarDepartamentoComponent implements OnInit {
     this.departamentoService.getDepartamentoById(this.idDepartamento).subscribe({
       next: (response) => {
         console.log(response);
-        this.departamento = response.data;
+
+        let maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
+        let maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
+
+        this.nomeDepartamento = response.data.nome;
+        
+        this.departamentoForm.patchValue({id: this.idDepartamento, nome: this.nomeDepartamento, descricao: response.data.descricao, 
+          maximoHorasDiarias: maximoHorasDiarias, maximoHorasMensais: maximoHorasMensais });
       },
       error: (response) => {
       }
     })
   }
+
+  public formValidation() {
+   
+    this.departamentoForm = new FormGroup({
+      id: new FormControl('', [Validators.required]),
+      nome: new FormControl('', [Validators.required]),
+      descricao: new FormControl('', [Validators.required]),
+      maximoHorasDiarias: new FormControl('', [Validators.required]),
+      maximoHorasMensais: new FormControl('', [Validators.required]),
+    });
+  }
+
 
   maskHour() {
     // Mask Hour Input
@@ -118,16 +139,6 @@ export class EditarDepartamentoComponent implements OnInit {
     hourInputMask(input);
   }
 
-  public formValidation() {
-   
-    this.departamentoForm = new FormGroup({
-      nome: new FormControl('', [Validators.required]),
-      descricao: new FormControl('', [Validators.required]),
-      maximoHorasDiarias: new FormControl('', [Validators.required]),
-      maximoHorasMensais: new FormControl('', [Validators.required]),
-    });
-  }
-
   public openFuncionarioDialog() {
     
     const dialogConfig = new MatDialogConfig();
@@ -145,6 +156,24 @@ export class EditarDepartamentoComponent implements OnInit {
       });
 
     });
+  }
+
+  
+  public transformarMinutosEmHoras(minutosPrevistos: number): string {
+
+    let horas: number | string = Math.floor(minutosPrevistos / 60);
+    let minutos: number | string = minutosPrevistos % 60;
+
+    if (horas <= 9) {
+      horas = "" + 0 + horas;
+    }
+
+    if (minutos <= 9) {
+      minutos = "" + 0 + minutos;
+    }
+
+    return '' + horas + ':' + minutos;
+
   }
 
   public excluirFuncionario(funcionarioId: string): void {
@@ -177,10 +206,33 @@ export class EditarDepartamentoComponent implements OnInit {
   }
 
   editarDepartamento(){
+
+    if (this.departamentoForm.valid && this.funcionariosLista.length >= 1) {
+
+      let departamentoPost: DepartamentoDto = { ...this.departamentoForm.value };
+
+
+      departamentoPost.maximoHorasDiarias = this.calcularHorasPrevistas(this.f.maximoHorasDiarias.value);
+      departamentoPost.maximoHorasMensais = this.calcularHorasPrevistas(this.f.maximoHorasMensais.value);
+
+      departamentoPost.departamentoFuncionarios = [];
+      departamentoPost.departamentoAtividades = [];
+
+
+      this.departamentoService.editarDepartamento(departamentoPost).subscribe({
+        next: (response) => {
+          this.snackbarComponent.openSnackBar("Departamento atualizado com sucesso!",SnackBarTheme.success,3000);
+          this.voltar();
+        },
+        error: (response) => {
+          this.snackbarComponent.openSnackBar("Falha na Atualização, Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
+        }
+      })
+    }
    
   }
 
   voltar(){
-    this.router.navigate(['/departamentos/detalhes-departamentos']);
+    this.router.navigate(['/departamentos/lista-departamentos']);
   }
 }

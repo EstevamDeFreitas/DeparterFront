@@ -1,11 +1,11 @@
 <div class="container">
     <div class="d-flex justify-content-between mt-5">
         <div class="custom-flex">
-            <p class="titulo">Painel Financeiro</p>
+            <p class="titulo">{{departamento?.nome}}</p>
         </div>
         <div class="custom-flex">
             <a>
-                <div class="titulo botao clickable" (click)="editarDepartamento(idDepartamento)">
+                <div class="titulo botao clickable" (click)="irParaEditarDepartamento(idDepartamento)">
                     Editar
                 </div>
             </a>
@@ -20,8 +20,7 @@
             <label class="label-text">Descrição:</label>
             <div class="form-floating">
                 <input type="text" id="inputCategoria" class="form-control form-control-lg form-control-descricao"
-                    placeholder="categoria" disabled />
-                <label for="inputCategoria" class="label-input">Criar Novo...</label>
+                    placeholder="categoria" disabled  [ngModel]="departamento?.descricao" />
             </div>
         </div>
 
@@ -79,7 +78,7 @@
         </div>
 
         <div class="col-12 mt-5">
-            <button class="red-button"> Desativar Departamento </button>
+            <button class="red-button" (click)="excluirDepartamento()"> Desativar Departamento </button>
         </div>
 
         

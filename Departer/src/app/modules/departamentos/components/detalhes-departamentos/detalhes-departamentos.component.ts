@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarComponent } from 'src/app/modules/shared/components/snackbar/snackbar.component';
+import { SnackBarTheme } from 'src/app/modules/shared/models/snackbat.theme.enum';
 import { DepartamentoDto } from '../../models/departamentoDto';
 import { DepartamentoService } from '../../services/departamento.service';
 
@@ -38,8 +39,24 @@ export class DetalhesDepartamentosComponent implements OnInit {
     })
   }
 
-  public editarDepartamento(id: string){
+  excluirDepartamento(){
+    this.departamentoService.deleteDepartamentoById(this.idDepartamento).subscribe({
+      next: (response) => {
+        this.snackbarComponent.openSnackBar("Departamento excluido com sucesso!",SnackBarTheme.success,3000);
+        this.voltar();
+      },
+      error: (response) => {
+        this.snackbarComponent.openSnackBar("Falha na Exclusão!", SnackBarTheme.error, 3000);
+      }
+    })
+  }
+
+  public irParaEditarDepartamento(id: string){
     this.router.navigate([`/departamentos/editar-departamento/${id}`]);
+  }
+
+  voltar(){
+    this.router.navigate(['/departamentos/lista-departamentos']);
   }
 
 }
