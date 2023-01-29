@@ -41,7 +41,7 @@ nav {
     -webkit-appearance: none;
     margin: 0;
   }
-  
+
   /* Firefox */
   .custom-apperance[type=number] {
     -moz-appearance: textfield;
@@ -85,4 +85,12 @@ mat-sidenav {
 }
 .config {
   margin-top: 20rem;
+}
+
+.admin-icon-purple{
+  filter: invert(28%) sepia(99%) saturate(7078%) hue-rotate(253deg) brightness(93%) contrast(95%);
+}
+
+.admin-icon-black{
+  filter: invert(0%) sepia(72%) saturate(2244%) hue-rotate(98deg) brightness(99%) contrast(106%);
 }

@@ -1,3 +1,4 @@
+import { ModoAdminService } from './../../services/modo-admin.service';
 import { Router } from '@angular/router';
 import { Component, OnChanges, OnInit } from '@angular/core';
 
@@ -9,11 +10,13 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 export class NavBarComponent implements OnInit {
 
   opened: boolean = true;
+  modoAdmin: boolean = true;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private modoAdminService: ModoAdminService) { }
 
   ngOnInit(): void {
-
+    this.modoAdmin = this.modoAdminService.modoAdmin;
+    console.log(this.modoAdmin);
   }
 
   sideAbreFecha() {
@@ -43,6 +46,11 @@ export class NavBarComponent implements OnInit {
 
   public irParaDashboard(): void {
     this.router.navigate(["/home/dashboard"]);
+  }
+
+  alternarModoAdmin() {
+    this.modoAdminService.alterarModoAdmin(!this.modoAdmin);
+    this.modoAdmin = this.modoAdminService.modoAdmin;
   }
 
 

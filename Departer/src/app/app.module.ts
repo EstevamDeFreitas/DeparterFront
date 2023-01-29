@@ -1,3 +1,4 @@
+import { ModoAdminService } from './modules/shared/services/modo-admin.service';
 import { AuthInterceptor } from './modules/autentificacao/services/auth.interceptor';
 import { AuthService } from './modules/autentificacao/services/auth.service';
 import { SharedModule } from './modules/shared/shared.module';
