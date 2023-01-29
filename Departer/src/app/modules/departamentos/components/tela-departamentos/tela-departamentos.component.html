@@ -1,10 +1,18 @@
 <div class="container">
-    <div class="col-12 mt-5">
-        <div class="titulo">
-            {{departamento?.nome}} <img class="d-inline-block align-top perfil clickable"
-                src=".\assets\images\tres-pontos.svg" width="20" height="20" (click)="detalhesDepartamento(idDepartamento)" style="margin-left: 10px" />
+
+    <div class="d-flex justify-content-between mt-5">
+        <div class="custom-flex">
+            <p class="titulo">{{departamento?.nome}}</p>
+        </div>
+        <div class="custom-flex">
+            <a>
+                <div class="titulo botao clickable" (click)="detalhesDepartamento(idDepartamento)">
+                    + Ver Mais
+                </div>
+            </a>
         </div>
     </div>
+
 
     <div class="row">
 
@@ -27,14 +35,14 @@
 
         </div>
         <div class="col-lg-5 col-12 mt-5 text-center">
-            <div class="col-11">
-            <div class="titulo">
-                Funcionarios
-            </div>
-            <div class="card mt-4">
+            <div class="col-12">
+                <div class="titulo">
+                    Funcionarios
+                </div>
+                <div class="card mt-4">
 
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
