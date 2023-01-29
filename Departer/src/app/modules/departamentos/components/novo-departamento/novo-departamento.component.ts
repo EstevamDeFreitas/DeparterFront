@@ -180,7 +180,10 @@ export class NovoDepartamentoComponent implements OnInit {
           this.snackbarComponent.openSnackBar("Falha no Cadastro, Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
         }
       })
+    }else{
+      this.snackbarComponent.openSnackBar("Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
     }
+   
   }
 
   voltar(){

@@ -228,6 +228,8 @@ export class EditarDepartamentoComponent implements OnInit {
           this.snackbarComponent.openSnackBar("Falha na Atualização, Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
         }
       })
+    }else{
+      this.snackbarComponent.openSnackBar("Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
     }
    
   }

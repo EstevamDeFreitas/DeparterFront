@@ -1,9 +1,5 @@
 @import "/src/assets/styles/variables.scss";
 
-/* Cards/Container */
-.container {
-    width: 85%;
-}
 
 .card {
   height: 100%;
@@ -19,7 +15,7 @@
     cursor: pointer;
 }
 
-.blue-button {
+.red-button {
     padding: 18px 20px; ;
 }
 
@@ -134,4 +130,11 @@ div.dropdown-multicol2>div.dropdown-col{
   width: 100%;
   height: fit-content;
   padding: 10px 20px;
+}
+.azul {
+  color: $color-purple;
+}
+.bold {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
