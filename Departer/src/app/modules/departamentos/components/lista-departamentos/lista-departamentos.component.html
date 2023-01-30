@@ -16,7 +16,7 @@
     <div class="row mt-5">
 
         <div class="col-auto" *ngFor="let departamento of departamentos">
-        <mat-card class="example-card mt-3 clickable" (click)="detalhesDepartamento()">
+        <mat-card class="example-card mt-3 clickable" (click)="detalhesDepartamento(departamento.id)">
             <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
             <mat-card-content>
               <h1 class="text-center texto-card">

@@ -11,6 +11,7 @@ import {MatCardModule} from '@angular/material/card';
 import { TelaDepartamentosComponent } from './components/tela-departamentos/tela-departamentos.component';
 import { DetalhesDepartamentosComponent } from './components/detalhes-departamentos/detalhes-departamentos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditarDepartamentoComponent } from './components/editar-departamento/editar-departamento.component';
 
 
 
@@ -19,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ListaDepartamentosComponent,
     NovoDepartamentoComponent,
     TelaDepartamentosComponent,
-    DetalhesDepartamentosComponent
+    DetalhesDepartamentosComponent,
+    EditarDepartamentoComponent
   ],
   imports: [
     CommonModule,
