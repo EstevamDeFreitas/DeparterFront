@@ -1,0 +1,67 @@
+@import "../../../../../assets/styles/variables.scss";
+
+.image{
+
+  background-image: url("../../../../../assets/images/image.png");
+
+  background-position: center;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.card {
+  border-radius: 1rem;
+  height: 100%;
+}
+
+.logo{
+  height: 5rem;
+  width: 10.7rem;
+}
+
+.btn-purple{
+  background-color: $color-purple;
+  color: $color-white;
+}
+
+.btn-purple:hover{
+  background-color: $color-purple-darker;
+  color: $color-white;
+}
+
+a{
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  font-family: 'Dosis', sans-serif;
+}
+
+a.effect-underline:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 1em;
+  width: 100%;
+  border-bottom: 1px solid;
+  margin-top: 10px;
+  opacity: 0;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: scale(0,1);
+  transform: scale(0,1);
+}
+
+a.effect-underline:hover:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.form-control:focus {
+  /* outline: none; */
+  border-color: $color-blue;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}

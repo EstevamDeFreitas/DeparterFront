@@ -1,11 +1,11 @@
 <div class="container">
     <div class="d-flex justify-content-between mt-5">
         <div class="custom-flex">
-            <p class="titulo">Painel Financeiro</p>
+            <p class="titulo">{{departamento?.nome}}</p>
         </div>
         <div class="custom-flex">
             <a>
-                <div class="titulo botao">
+                <div class="titulo botao clickable" (click)="irParaEditarDepartamento(idDepartamento)">
                     Editar
                 </div>
             </a>
@@ -14,68 +14,88 @@
 
     <div class="card mt-3">
 
-        
-
-        <div class="col-12">
+          <div class="col-12 mt-3">
             <label class="label-text">Descrição:</label>
             <div class="form-floating">
-                <input type="text" id="inputCategoria" class="form-control form-control-lg form-control-descricao" placeholder="categoria"/>
-                <label for="inputCategoria" class="label-input">Criar Novo...</label>
+              <textarea class="form-control form-control-descricao" placeholder="Leave a comment here" id="inputDescricao"
+                [ngModel]="departamento?.descricao" disabled></textarea>
             </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col-lg-6 col-12 mb-2">
-                <div class="texto">
-                    Funcionarios
-                </div>
-
-                <div class="mt-3">
-                    <div class="subtitulo">
-                        Lucas Silva
-                    </div>
-                    <div class="subtitulo mt-1">
-                        Maria Cristina
-                    </div>
-                    <div class="subtitulo clickable azul mt-2">
-                        Ver todos
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="col-lg-6 col-12">
-                <div class="texto">
-                    Regras
-                </div>
-
-                <div class="mt-3">
-                    <div class="subtitulo">
-                        - Máximo de horas diárias: 8 
-                    </div>
-                    <div class="subtitulo mt-1">
-                        - Categorias para atividades: Contabilidade, reunião, brainstorming... 
-                    </div>
-        
-                    <div class="subtitulo mt-1">
-                        - Máximo de horas extras por mês: 10
-                    </div>
-
-                    <div class="subtitulo clickable azul mt-2">
-                        Ver todos
-                    </div>
-                </div>
-             
-            </div>
-        </div>
-
+          </div>
     
+          <div class="row mt-3">
+            <div class="col-lg-6 col-12 mb-2">
+              <div class="label-text">
+                Funcionarios
+              </div>
+    
+              <div class="box-funcionarios">
+                <table class="table default-text" *ngIf="funcionariosLista.length != 0">
+                  <thead style="position:sticky">
+    
+                    <th></th>
+                    <th></th>
+    
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let funcionario of funcionariosLista; let i = index">
+                      <td>
+                        <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                      </td>
+                      <td>{{funcionario.apelido}}</td>
+                     
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+    
+              <div class="col-lg-10 col-12 mt-3">
+    
+    
+              </div>
+    
+            </div>
+    
+            <div class="col-lg-6 col-12">
+              <div class="label-text">
+                Regras
+              </div>
+    
+              <div class="mt-3">
+                <div class="subtitulo row">
+                  <div class="col-6 mt-3">
+                    Máximo de horas diárias:
+                  </div>
+                  <div class="col-2 form-floating p-0">
+                    <input type="text" id="horas" class="form-control form-control-lg" autocomplete="off" maxlength="5"
+                      (keyup.enter)="maskHour()" (input)="maskHour()" [ngModel]="maximoHorasDiarias" disabled/>
+                
+                  
+                  </div>
+                </div>
+    
+    
+                <div class="subtitulo mt-5 row">
+                  <div class="col-6 mt-3">
+                    Máximo de horas extras por mês:
+                  </div>
+                  <div class="col-2 form-floating p-0">
+                    <input type="text" id="horas2" class="form-control form-control-lg" autocomplete="off" maxlength="5"
+                      (keyup.enter)="maskHour()" (input)="maskHour()"
+                      placeholder="categoria" [ngModel]="maximoHorasMensais" disabled/>
+    
+                  </div>
+                </div>
+    
+    
+              </div>
+            </div>
+    
+            <div class="col-12 mt-5">
+                <button class="red-button" (click)="excluirDepartamento()"> Desativar Departamento </button>
+            </div>
+    
+          </div>
+    
+      </div>
 
-        <div class="col-12 mt-5">
-            <button class="red-button"> Desativar Departamento </button>
-        </div>
-
-      
-    </div>
-</div>
+</div>   

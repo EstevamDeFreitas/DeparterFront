@@ -67,4 +67,12 @@ export class LoginComponent implements OnInit {
     this.router.navigate(["/home/dashboard"]);
   }
 
+  public irParaESqueceuSenhaEmail(){
+    this.router.navigate([`/nova-senha-email`]);
+  }
+
+  public irParaCadastro(){
+    this.router.navigate([`/cadastro`]);
+  }
+
 }

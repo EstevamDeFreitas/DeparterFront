@@ -1,22 +1,25 @@
-import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DepartamentoService } from './../../services/departamento.service';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalAdicionarFuncionariosComponent } from 'src/app/modules/shared/components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
 import { ModalInformacoesComponent } from 'src/app/modules/shared/components/modal-informacoes/modal-informacoes.component';
-import { DepartamentoDto } from '../../models/departamentoDto';
+import { SnackbarComponent } from 'src/app/modules/shared/components/snackbar/snackbar.component';
+import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
 import { SnackBarTheme } from 'src/app/modules/shared/models/snackbat.theme.enum';
+import { DepartamentoDto } from '../../models/departamentoDto';
+import { DepartamentoService } from '../../services/departamento.service';
 
 @Component({
-  selector: 'app-novo-departamento',
-  templateUrl: './novo-departamento.component.html',
-  styleUrls: ['./novo-departamento.component.scss']
+  selector: 'app-editar-departamento',
+  templateUrl: './editar-departamento.component.html',
+  styleUrls: ['./editar-departamento.component.scss']
 })
-export class NovoDepartamentoComponent implements OnInit {
+export class EditarDepartamentoComponent implements OnInit {
 
+  idDepartamento: string = "";
+  nomeDepartamento: string = "";
+  departamento?: DepartamentoDto;
   departamentoForm!: FormGroup;
   funcionariosLista: FuncionarioDto[] = [];
 
@@ -29,10 +32,47 @@ export class NovoDepartamentoComponent implements OnInit {
     private departamentoService: DepartamentoService,private readonly snackbarComponent: SnackbarComponent) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(x=>{
+      this.idDepartamento = x[`id`];
+    });
+
     this.formValidation();
+    this.carregarDepartamento();
+    
     this.maskHour();
     this.maskHour2();
   }
+
+  carregarDepartamento(){
+
+    this.departamentoService.getDepartamentoById(this.idDepartamento).subscribe({
+      next: (response) => {
+        console.log(response);
+
+        let maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
+        let maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
+
+        this.nomeDepartamento = response.data.nome;
+        
+        this.departamentoForm.patchValue({id: this.idDepartamento, nome: this.nomeDepartamento, descricao: response.data.descricao, 
+          maximoHorasDiarias: maximoHorasDiarias, maximoHorasMensais: maximoHorasMensais });
+      },
+      error: (response) => {
+      }
+    })
+  }
+
+  public formValidation() {
+   
+    this.departamentoForm = new FormGroup({
+      id: new FormControl('', [Validators.required]),
+      nome: new FormControl('', [Validators.required]),
+      descricao: new FormControl('', [Validators.required]),
+      maximoHorasDiarias: new FormControl('', [Validators.required]),
+      maximoHorasMensais: new FormControl('', [Validators.required]),
+    });
+  }
+
 
   maskHour() {
     // Mask Hour Input
@@ -99,16 +139,6 @@ export class NovoDepartamentoComponent implements OnInit {
     hourInputMask(input);
   }
 
-  public formValidation() {
-   
-    this.departamentoForm = new FormGroup({
-      nome: new FormControl('', [Validators.required]),
-      descricao: new FormControl('', [Validators.required]),
-      maximoHorasDiarias: new FormControl('', [Validators.required]),
-      maximoHorasMensais: new FormControl('', [Validators.required]),
-    });
-  }
-
   public openFuncionarioDialog() {
     
     const dialogConfig = new MatDialogConfig();
@@ -126,6 +156,24 @@ export class NovoDepartamentoComponent implements OnInit {
       });
 
     });
+  }
+
+  
+  public transformarMinutosEmHoras(minutosPrevistos: number): string {
+
+    let horas: number | string = Math.floor(minutosPrevistos / 60);
+    let minutos: number | string = minutosPrevistos % 60;
+
+    if (horas <= 9) {
+      horas = "" + 0 + horas;
+    }
+
+    if (minutos <= 9) {
+      minutos = "" + 0 + minutos;
+    }
+
+    return '' + horas + ':' + minutos;
+
   }
 
   public excluirFuncionario(funcionarioId: string): void {
@@ -157,8 +205,8 @@ export class NovoDepartamentoComponent implements OnInit {
     return resultadoFinal;
   }
 
-  criarDepartamento(){
-    
+  editarDepartamento(){
+
     if (this.departamentoForm.valid && this.funcionariosLista.length >= 1) {
 
       let departamentoPost: DepartamentoDto = { ...this.departamentoForm.value };
@@ -171,13 +219,13 @@ export class NovoDepartamentoComponent implements OnInit {
       departamentoPost.departamentoAtividades = [];
 
 
-      this.departamentoService.createDepartamento(departamentoPost).subscribe({
+      this.departamentoService.editarDepartamento(departamentoPost).subscribe({
         next: (response) => {
-          this.snackbarComponent.openSnackBar("Cadastro realizado com sucesso!",SnackBarTheme.success,3000);
+          this.snackbarComponent.openSnackBar("Departamento atualizado com sucesso!",SnackBarTheme.success,3000);
           this.voltar();
         },
         error: (response) => {
-          this.snackbarComponent.openSnackBar("Falha no Cadastro, Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
+          this.snackbarComponent.openSnackBar("Falha na Atualização, Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
         }
       })
     }else{
@@ -189,6 +237,4 @@ export class NovoDepartamentoComponent implements OnInit {
   voltar(){
     this.router.navigate(['/departamentos/lista-departamentos']);
   }
-
-
 }
