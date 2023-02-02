@@ -216,8 +216,6 @@ export class EditarDepartamentoComponent implements OnInit {
       departamentoPost.maximoHorasMensais = this.calcularHorasPrevistas(this.f.maximoHorasMensais.value);
 
       departamentoPost.departamentoFuncionarios = [];
-      departamentoPost.departamentoAtividades = [];
-
 
       this.departamentoService.editarDepartamento(departamentoPost).subscribe({
         next: (response) => {

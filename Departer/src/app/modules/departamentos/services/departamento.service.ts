@@ -1,5 +1,5 @@
 import { DepartamentoDto } from './../models/departamentoDto';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ResponseBase } from '../../shared/models/response';
@@ -34,11 +34,19 @@ export class DepartamentoService {
     return this.http.put<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento`, departamento);
   }
 
-  public createDepartamentoFuncionario(departamentoId: string,funcionarioId: string): Observable<ResponseBase<any>> {
-    return this.http.post<ResponseBase<any>>(`${this.API}/Departamento/funcionario?departamentoId=${departamentoId}&funcionarioId=${funcionarioId}`, null);
+  public createDepartamentoFuncionario(departamentoId: string,arrayFuncionario: Array<string>): Observable<ResponseBase<any>> {
+    return this.http.post<ResponseBase<any>>(`${this.API}/Departamento/funcionario?departamentoId=${departamentoId}`, arrayFuncionario);
   }
 
-  public deleteDepartamentoFuncionario(departamentoId: string,funcionarioId: string): Observable<ResponseBase<any>> {
-    return this.http.delete<ResponseBase<any>>(`${this.API}/Departamento/funcionario?departamentoId=${departamentoId}&funcionarioId=${funcionarioId}`);
+  public deleteDepartamentoFuncionario(departamentoId: string,arrayFuncionario: Array<string>) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        arrayFuncionario
+      },
+    };
+    return this.http.delete<ResponseBase<any>>(`${this.API}/Departamento/funcionario?departamentoId=${departamentoId}`, options);
   }
 }

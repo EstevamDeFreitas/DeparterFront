@@ -5,6 +5,5 @@ export class DepartamentoDto {
     maximoHorasDiarias: number = 0;
     maximoHorasMensais: number = 0;
     departamentoFuncionarios: any[] = [];
-    departamentoAtividades: any[] = [];
   }
   

@@ -18,6 +18,7 @@ import { SnackBarTheme } from 'src/app/modules/shared/models/snackbat.theme.enum
 export class NovoDepartamentoComponent implements OnInit {
 
   departamentoForm!: FormGroup;
+  funcionariosId: Array<string> = [];
   funcionariosLista: FuncionarioDto[] = [];
 
 
@@ -122,8 +123,11 @@ export class NovoDepartamentoComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
 
       data.forEach((element: FuncionarioDto) => {
+
         this.funcionariosLista.push(element);
+        this.funcionariosId.push(element.id);
       });
+
 
     });
   }
@@ -167,8 +171,17 @@ export class NovoDepartamentoComponent implements OnInit {
       departamentoPost.maximoHorasDiarias = this.calcularHorasPrevistas(this.f.maximoHorasDiarias.value);
       departamentoPost.maximoHorasMensais = this.calcularHorasPrevistas(this.f.maximoHorasMensais.value);
 
-      departamentoPost.departamentoFuncionarios = [];
-      departamentoPost.departamentoAtividades = [];
+      let listaIds : { funcionarioId: string }[] = [
+    ]
+
+      this.funcionariosId.forEach(function(entry) {
+        let singleObj: any = {};
+        singleObj['funcionarioId'] = entry;
+
+        listaIds.push(singleObj);
+    });
+
+      departamentoPost.departamentoFuncionarios = listaIds;
 
 
       this.departamentoService.createDepartamento(departamentoPost).subscribe({
@@ -180,6 +193,7 @@ export class NovoDepartamentoComponent implements OnInit {
           this.snackbarComponent.openSnackBar("Falha no Cadastro, Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
         }
       })
+
     }else{
       this.snackbarComponent.openSnackBar("Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
     }
