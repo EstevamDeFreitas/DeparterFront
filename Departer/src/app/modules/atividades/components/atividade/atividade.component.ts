@@ -95,4 +95,11 @@ export class AtividadeComponent implements OnInit {
     this.router.navigate([`/atividades/nova-atividade/${this.atividadeId}`]);
   }
 
+  public irParaAtividadeFilha(id: string){
+
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate([`/atividades/atividade/${id}`]));
+
+  }
+
 }
