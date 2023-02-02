@@ -69,7 +69,7 @@
                       <th></th>
                       <th></th>
                     </thead>
-                    <tbody>
+                    <tbody class="clickable">
                       <tr *ngFor="let atividadeFilha of atividade.atividades" (click)="irParaAtividadeFilha(atividadeFilha.id)">
                         <td class="default-text overflow-text" style="max-width: 250px">{{atividadeFilha.titulo}}</td>
                         <td>

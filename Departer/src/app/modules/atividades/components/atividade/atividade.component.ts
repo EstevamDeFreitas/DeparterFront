@@ -25,11 +25,20 @@ export class AtividadeComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService) { }
 
   ngOnInit(): void {
-    this.getAtividade();
+
+    this.route.params.subscribe(params => {
+      // Recupera o ID da atividade a partir dos parâmetros da rota
+      this.atividadeId = params['id'];
+
+      // Recarrega os dados da atividade com o novo ID
+      this.getAtividade();
+    });
+
+
+
   }
 
   getAtividade(): void {
-    this.atividadeId = this.route.snapshot.paramMap.get('id')!;
 
     if (this.atividadeId != null) {
       this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
@@ -48,6 +57,7 @@ export class AtividadeComponent implements OnInit {
   }
 
   getCategorias(): void {
+    this.categorias = [];
     this.atividade.atividadeCategorias.forEach(e => {
       this.categoriaService.getCategoriaById(e.categoriaId).subscribe(
         (res) => {
@@ -60,6 +70,7 @@ export class AtividadeComponent implements OnInit {
   }
 
   getFuncionarios(): void {
+    this.funcionarios = [];
     this.atividade.atividadeFuncionarios.forEach(e => {
       this.funcionarioService.getFuncionarioById(e.funcionarioId).subscribe(
         (res) => {
