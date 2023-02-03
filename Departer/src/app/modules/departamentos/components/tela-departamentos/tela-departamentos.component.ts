@@ -36,6 +36,10 @@ export class TelaDepartamentosComponent implements OnInit {
 
         this.departamento = response.data;
 
+        this.funcionariosLista = this.departamento.departamentoFuncionarios;
+
+        console.log(this.funcionariosLista);
+
         this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
       },

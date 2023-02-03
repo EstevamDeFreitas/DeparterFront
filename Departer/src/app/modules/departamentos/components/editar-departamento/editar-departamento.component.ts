@@ -49,6 +49,8 @@ export class EditarDepartamentoComponent implements OnInit {
       next: (response) => {
         console.log(response);
 
+        this.funcionariosLista = response.data.departamentoFuncionarios;
+
         let maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         let maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
 

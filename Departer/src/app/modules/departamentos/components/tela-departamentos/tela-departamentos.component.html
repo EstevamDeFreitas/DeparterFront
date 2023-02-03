@@ -34,15 +34,36 @@
             </div>
 
         </div>
-        <div class="col-lg-5 col-12 mt-5 text-center">
-            <div class="col-12">
+        <div class="col-lg-5 col-12 mt-5">
+            <div class="col-12 text-center">
                 <div class="titulo">
                     Funcionarios
                 </div>
+            </div>
                 <div class="card mt-4">
 
+                    <div class="box-funcionarios">
+                        <table class="table default-text table-borderless" *ngIf="funcionariosLista.length != 0">
+                          <thead style="position:sticky">
+              
+                            <th></th>
+                            <th></th>
+              
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let funcionario of funcionariosLista; let i = index">
+                              <td>
+                                <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                              </td>
+                              <td>{{funcionario.apelido}}</td>
+                             
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
                 </div>
-            </div>
+            
         </div>
     </div>
 

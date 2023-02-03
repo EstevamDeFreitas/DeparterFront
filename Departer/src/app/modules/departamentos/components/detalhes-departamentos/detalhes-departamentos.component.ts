@@ -43,6 +43,7 @@ export class DetalhesDepartamentosComponent implements OnInit {
       next: (response) => {
 
         this.departamento = response.data;
+        this.funcionariosLista = this.departamento.departamentoFuncionarios;
 
         this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
