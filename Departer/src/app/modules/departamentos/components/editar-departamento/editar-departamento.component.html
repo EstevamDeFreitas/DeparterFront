@@ -51,15 +51,17 @@
   
                 <th></th>
                 <th></th>
-                <th></th>
+               
   
               </thead>
               <tbody>
                 <tr *ngFor="let funcionario of funcionariosLista; let i = index">
-                  <td>
-                    <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                  <td class="apelidoFuncionario">
+                    <span class="apelidoFuncionario">   
+                        <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                        {{funcionario.apelido}}
+                    </span>
                   </td>
-                  <td>{{funcionario.apelido}}</td>
                   <td>
                     <i class="fa-regular fa-x text-danger clickable" (click)="excluirFuncionario(funcionario.id)"></i>
                   </td>
@@ -68,7 +70,7 @@
             </table>
           </div>
   
-          <div class="col-lg-10 col-12 mt-3">
+          <div class="col-lg-12 col-12 mt-3 text-center">
   
             <div class="mt-4">
               <button class="btn-add" (click)="openFuncionarioDialog()"> + Adicionar funcionario</button>

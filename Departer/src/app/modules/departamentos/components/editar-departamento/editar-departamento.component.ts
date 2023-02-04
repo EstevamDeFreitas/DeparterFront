@@ -1,3 +1,4 @@
+import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/departamentoFuncionariosDto';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -19,8 +20,10 @@ export class EditarDepartamentoComponent implements OnInit {
 
   idDepartamento: string = "";
   nomeDepartamento: string = "";
+  funcionariosId: Array<string> = [];
   departamento?: DepartamentoDto;
   departamentoForm!: FormGroup;
+  departamentoFuncionariosLista: DepartamentoFuncionariosDto[] = [];
   funcionariosLista: FuncionarioDto[] = [];
 
 
@@ -49,7 +52,12 @@ export class EditarDepartamentoComponent implements OnInit {
       next: (response) => {
         console.log(response);
 
-        this.funcionariosLista = response.data.departamentoFuncionarios;
+        this.departamentoFuncionariosLista = response.data.departamentoFuncionarios;
+
+        this.departamentoFuncionariosLista.forEach(element => {
+          this.funcionariosLista.push(element.funcionario);
+        })
+
 
         let maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         let maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
@@ -155,6 +163,7 @@ export class EditarDepartamentoComponent implements OnInit {
 
       data.forEach((element: FuncionarioDto) => {
         this.funcionariosLista.push(element);
+        this.funcionariosId.push(element.id);
       });
 
     });
@@ -211,15 +220,27 @@ export class EditarDepartamentoComponent implements OnInit {
 
     if (this.departamentoForm.valid && this.funcionariosLista.length >= 1) {
 
-      let departamentoPost: DepartamentoDto = { ...this.departamentoForm.value };
+      let departamentoPut: DepartamentoDto = { ...this.departamentoForm.value };
 
 
-      departamentoPost.maximoHorasDiarias = this.calcularHorasPrevistas(this.f.maximoHorasDiarias.value);
-      departamentoPost.maximoHorasMensais = this.calcularHorasPrevistas(this.f.maximoHorasMensais.value);
+      departamentoPut.maximoHorasDiarias = this.calcularHorasPrevistas(this.f.maximoHorasDiarias.value);
+      departamentoPut.maximoHorasMensais = this.calcularHorasPrevistas(this.f.maximoHorasMensais.value);
 
-      departamentoPost.departamentoFuncionarios = [];
+      let listaIds : { funcionarioId: string }[] = [
+      ]
+  
+      this.funcionariosId.forEach(function(entry) {
+          let singleObj: any = {};
+          singleObj['funcionarioId'] = entry;
+  
+          listaIds.push(singleObj);
+      });
 
-      this.departamentoService.editarDepartamento(departamentoPost).subscribe({
+      departamentoPut.departamentoFuncionarios = listaIds;
+
+      console.log(departamentoPut);
+
+      this.departamentoService.editarDepartamento(departamentoPut).subscribe({
         next: (response) => {
           this.snackbarComponent.openSnackBar("Departamento atualizado com sucesso!",SnackBarTheme.success,3000);
           this.voltar();

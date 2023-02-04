@@ -1,3 +1,4 @@
+import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/departamentoFuncionariosDto';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,7 +19,7 @@ export class DetalhesDepartamentosComponent implements OnInit {
   maximoHorasDiarias: string = "";
   maximoHorasMensais: string = "";
   departamento?: DepartamentoDto;
-  funcionariosLista: FuncionarioDto[] = [];
+  funcionariosLista: DepartamentoFuncionariosDto[] = [];
 
 
 

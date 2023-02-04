@@ -38,11 +38,12 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let funcionario of funcionariosLista; let i = index">
-                      <td>
-                        <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                      <td class="apelidoFuncionario">
+                        <span class="apelidoFuncionario">   
+                            <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                            {{funcionario.funcionario.apelido}}
+                        </span>
                       </td>
-                      <td>{{funcionario.apelido}}</td>
-                     
                     </tr>
                   </tbody>
                 </table>

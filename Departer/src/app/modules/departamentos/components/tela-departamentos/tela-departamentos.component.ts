@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { DepartamentoDto } from '../../models/departamentoDto';
 import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
+import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/departamentoFuncionariosDto';
 
 @Component({
   selector: 'app-tela-departamentos',
@@ -15,7 +16,7 @@ export class TelaDepartamentosComponent implements OnInit {
   maximoHorasDiarias: string = "";
   maximoHorasMensais: string = "";
   departamento?: DepartamentoDto;
-  funcionariosLista: FuncionarioDto[] = [];
+  funcionariosLista: DepartamentoFuncionariosDto[] = [];
 
   constructor(private router: Router,private route: ActivatedRoute,private departamentoService: DepartamentoService) { }
 
