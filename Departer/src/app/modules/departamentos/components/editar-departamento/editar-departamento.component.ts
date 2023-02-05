@@ -31,22 +31,22 @@ export class EditarDepartamentoComponent implements OnInit {
     return this.departamentoForm.controls;
   }
 
-  constructor(private router: Router,private route: ActivatedRoute,public dialog: MatDialog,
-    private departamentoService: DepartamentoService,private readonly snackbarComponent: SnackbarComponent) { }
+  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog,
+    private departamentoService: DepartamentoService, private readonly snackbarComponent: SnackbarComponent) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(x=>{
+    this.route.params.subscribe(x => {
       this.idDepartamento = x[`id`];
     });
 
     this.formValidation();
     this.carregarDepartamento();
-    
+
     this.maskHour();
     this.maskHour2();
   }
 
-  carregarDepartamento(){
+  carregarDepartamento() {
 
     this.departamentoService.getDepartamentoById(this.idDepartamento).subscribe({
       next: (response) => {
@@ -63,9 +63,11 @@ export class EditarDepartamentoComponent implements OnInit {
         let maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
 
         this.nomeDepartamento = response.data.nome;
-        
-        this.departamentoForm.patchValue({id: this.idDepartamento, nome: this.nomeDepartamento, descricao: response.data.descricao, 
-          maximoHorasDiarias: maximoHorasDiarias, maximoHorasMensais: maximoHorasMensais });
+
+        this.departamentoForm.patchValue({
+          id: this.idDepartamento, nome: this.nomeDepartamento, descricao: response.data.descricao,
+          maximoHorasDiarias: maximoHorasDiarias, maximoHorasMensais: maximoHorasMensais
+        });
       },
       error: (response) => {
       }
@@ -73,7 +75,7 @@ export class EditarDepartamentoComponent implements OnInit {
   }
 
   public formValidation() {
-   
+
     this.departamentoForm = new FormGroup({
       id: new FormControl('', [Validators.required]),
       nome: new FormControl('', [Validators.required]),
@@ -102,7 +104,7 @@ export class EditarDepartamentoComponent implements OnInit {
             }
           }
 
-          if(len == 3 && e.keyCode > 53){
+          if (len == 3 && e.keyCode > 53) {
             e.preventDefault();
           }
 
@@ -134,7 +136,7 @@ export class EditarDepartamentoComponent implements OnInit {
             }
           }
 
-          if(len == 3 && e.keyCode > 53){
+          if (len == 3 && e.keyCode > 53) {
             e.preventDefault();
           }
 
@@ -150,7 +152,7 @@ export class EditarDepartamentoComponent implements OnInit {
   }
 
   public openFuncionarioDialog() {
-    
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
@@ -163,13 +165,13 @@ export class EditarDepartamentoComponent implements OnInit {
 
       data.forEach((element: FuncionarioDto) => {
         this.funcionariosLista.push(element);
-        this.funcionariosId.push(element.id);
       });
 
     });
+
   }
 
-  
+
   public transformarMinutosEmHoras(minutosPrevistos: number): string {
 
     let horas: number | string = Math.floor(minutosPrevistos / 60);
@@ -203,7 +205,7 @@ export class EditarDepartamentoComponent implements OnInit {
 
     this.dialog.open(ModalInformacoesComponent, dialogConfig);
   }
- 
+
   public cssValidator(campoForm: FormControl): any {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
@@ -216,7 +218,7 @@ export class EditarDepartamentoComponent implements OnInit {
     return resultadoFinal;
   }
 
-  editarDepartamento(){
+  editarDepartamento() {
 
     if (this.departamentoForm.valid && this.funcionariosLista.length >= 1) {
 
@@ -226,36 +228,71 @@ export class EditarDepartamentoComponent implements OnInit {
       departamentoPut.maximoHorasDiarias = this.calcularHorasPrevistas(this.f.maximoHorasDiarias.value);
       departamentoPut.maximoHorasMensais = this.calcularHorasPrevistas(this.f.maximoHorasMensais.value);
 
-      let listaIds : { funcionarioId: string }[] = [
+      let listaIdsAdicionar: string[] = [
       ]
-  
-      this.funcionariosId.forEach(function(entry) {
-          let singleObj: any = {};
-          singleObj['funcionarioId'] = entry;
-  
-          listaIds.push(singleObj);
+
+      this.funcionariosLista.forEach(function (entry) {
+        let singleObj: any = {};
+        singleObj = entry.id;
+
+        listaIdsAdicionar.push(singleObj);
       });
 
-      departamentoPut.departamentoFuncionarios = listaIds;
 
-      console.log(departamentoPut);
+
+      departamentoPut.departamentoFuncionarios = [];
+
+      let listaIdsRetirar: string[] = [
+      ]
+
+      this.departamentoFuncionariosLista.forEach(function (entry) {
+        let singleObj: any = {};
+        singleObj = entry.funcionario.id;
+
+        listaIdsRetirar.push(singleObj);
+      });
+
+      console.log(listaIdsRetirar);
+      console.log(listaIdsAdicionar);
 
       this.departamentoService.editarDepartamento(departamentoPut).subscribe({
         next: (response) => {
-          this.snackbarComponent.openSnackBar("Departamento atualizado com sucesso!",SnackBarTheme.success,3000);
+          this.snackbarComponent.openSnackBar("Departamento atualizado com sucesso!", SnackBarTheme.success, 3000);
+
+          if (listaIdsRetirar.length > 0) {
+            this.departamentoService.deleteDepartamentoFuncionario(this.idDepartamento, listaIdsRetirar).subscribe({
+              next: (response) => {
+
+                if (listaIdsAdicionar.length > 0) {
+                  this.departamentoService.createDepartamentoFuncionario(this.idDepartamento, listaIdsAdicionar).subscribe({
+                    next: (response) => {
+                    },
+                    error: (response) => {
+
+                    }
+                  })
+                }
+
+              },
+              error: (response) => {
+
+              }
+            })
+          }
+
           this.voltar();
         },
         error: (response) => {
           this.snackbarComponent.openSnackBar("Falha na Atualização, Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
         }
       })
-    }else{
+    } else {
       this.snackbarComponent.openSnackBar("Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
     }
-   
+
   }
 
-  voltar(){
+  voltar() {
     this.router.navigate(['/departamentos/lista-departamentos']);
   }
 }

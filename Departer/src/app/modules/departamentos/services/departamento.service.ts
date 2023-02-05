@@ -39,14 +39,6 @@ export class DepartamentoService {
   }
 
   public deleteDepartamentoFuncionario(departamentoId: string,arrayFuncionario: Array<string>) {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      body: {
-        arrayFuncionario
-      },
-    };
-    return this.http.delete<ResponseBase<any>>(`${this.API}/Departamento/funcionario?departamentoId=${departamentoId}`, options);
+    return this.http.post<ResponseBase<any>>(`${this.API}/Departamento/funcionario/delete?departamentoId=${departamentoId}`, arrayFuncionario);
   }
 }
