@@ -1,5 +1,5 @@
 import { DepartamentoDto } from './../models/departamentoDto';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ResponseBase } from '../../shared/models/response';
@@ -23,19 +23,22 @@ export class DepartamentoService {
   }
 
   public getDepartamentoById(id: string): Observable<ResponseBase<DepartamentoDto>> {
-      return this.http.get<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento/${id}`);
+    return this.http.get<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento/${id}`);
   }
 
   public deleteDepartamentoById(id: string): Observable<ResponseBase<DepartamentoDto>> {
     return this.http.delete<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento/${id}`);
-}
+  }
 
-public editarDepartamento(departamento: DepartamentoDto): Observable<ResponseBase<DepartamentoDto>> {
-  return this.http.put<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento`, departamento);
-}
+  public editarDepartamento(departamento: DepartamentoDto): Observable<ResponseBase<DepartamentoDto>> {
+    return this.http.put<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento`, departamento);
+  }
 
+  public createDepartamentoFuncionario(departamentoId: string,arrayFuncionario: Array<string>): Observable<ResponseBase<any>> {
+    return this.http.post<ResponseBase<any>>(`${this.API}/Departamento/funcionario?departamentoId=${departamentoId}`, arrayFuncionario);
+  }
 
-
-
-  
+  public deleteDepartamentoFuncionario(departamentoId: string,arrayFuncionario: Array<string>) {
+    return this.http.post<ResponseBase<any>>(`${this.API}/Departamento/funcionario/delete?departamentoId=${departamentoId}`, arrayFuncionario);
+  }
 }

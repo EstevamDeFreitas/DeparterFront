@@ -28,8 +28,8 @@
                 Funcionarios
               </div>
     
-              <div class="box-funcionarios">
-                <table class="table default-text" *ngIf="funcionariosLista.length != 0">
+              <div class="box-funcionarios mt-3">
+                <table class="table default-text table-borderless" *ngIf="funcionariosLista.length != 0">
                   <thead style="position:sticky">
     
                     <th></th>
@@ -38,11 +38,12 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let funcionario of funcionariosLista; let i = index">
-                      <td>
-                        <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                      <td class="apelidoFuncionario">
+                        <span class="apelidoFuncionario">   
+                            <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                            {{funcionario.funcionario.apelido}}
+                        </span>
                       </td>
-                      <td>{{funcionario.apelido}}</td>
-                     
                     </tr>
                   </tbody>
                 </table>

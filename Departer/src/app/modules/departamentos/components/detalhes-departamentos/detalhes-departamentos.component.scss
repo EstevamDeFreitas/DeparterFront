@@ -8,37 +8,38 @@
 
 /* Botoes */
 .botao {
-    font-size: 1.375rem;
-    font-family: Segoe UI, Regular;
-    font-weight: 500;
-    color: $color-purple;
-    cursor: pointer;
+  font-size: 1.375rem;
+  font-family: Segoe UI, Regular;
+  font-weight: 500;
+  color: $color-purple;
+  cursor: pointer;
 }
 
 .red-button {
-    padding: 18px 20px; ;
+  padding: 18px 20px;
+  ;
 }
 
 /* Textos */
 .subtitulo {
-    font-size: 1rem;
-    font-family: Segoe UI, Regular;
-    font-weight: 700;
-    color: $color-black;
+  font-size: 1rem;
+  font-family: Segoe UI, Regular;
+  font-weight: 700;
+  color: $color-black;
 }
 
-.default-text{
+.default-text {
   font-size: 1.1rem;
   font-weight: 400;
 }
 
 /* Formulario */
 .form-control-descricao {
-    height: 9rem;
+  height: 9rem;
 }
 
 /* Tags */
-.tags-border{
+.tags-border {
   border-radius: 20px;
   min-width: 120px;
   padding: 10px
@@ -48,19 +49,19 @@
   transform: scale(0.8);
 }
 
-.tag-add-border{
+.tag-add-border {
   background-color: #F0F0F0;
   border: none;
   border-radius: 20px;
   width: 120px;
 }
 
-.tag-add{
+.tag-add {
   color: $color-purple;
   padding: 10px
 }
 
-.box-tags{
+.box-tags {
   overflow-x: auto;
 }
 
@@ -72,53 +73,63 @@ th {
 
 
 .hide {
-  display:none;
+  display: none;
 }
 
 /* Imagens */
-.image-circle{
+.image-circle {
   position: relative;
   bottom: 0.1rem;
   filter: invert(57%) sepia(90%) saturate(2182%) hue-rotate(3deg) brightness(109%) contrast(102%);
 }
 
 /* Dropdown */
-div.dropdown-multicol2{
+div.dropdown-multicol2 {
   width: 18.5em;
 }
-div.dropdown-multicol2>div.dropdown-col{
-  display:inline-block;
+
+div.dropdown-multicol2>div.dropdown-col {
+  display: inline-block;
   width: 44%;
 }
 
-.adicionar {
-    height: 2.625rem;
-    color: $color-input-text-gray;
-    width: 85% !important;
+.apelidoFuncionario {
+  font-weight: 625 !important;
+  font-size: 1rem;
+  font-family: Segoe UI, Regular;
 }
+
+.adicionar {
+  height: 2.625rem;
+  color: $color-input-text-gray;
+  width: 85% !important;
+}
+
 .adicionar::placeholder {
-    color: $color-purple;
-    font-size: 1.25rem;
-    font-weight: 525;
+  color: $color-purple;
+  font-size: 1.25rem;
+  font-weight: 525;
 }
 
 .btn-add {
-    font-family: 'Segoe UI', normal;
-    font-weight: 600;
-    font-size: 1rem;
-    color: $color-input-text-gray;
-    background-color: #F1F1F1;
-    border-radius: $border;
-    border: 1px solid #e1e1e1;
-    width: 100%;
-    height: fit-content;
-    padding: 10px 20px;
+  font-family: 'Segoe UI', normal;
+  font-weight: 600;
+  font-size: 1rem;
+  color: $color-input-text-gray;
+  background-color: #F1F1F1;
+  border-radius: $border;
+  border: 1px solid #e1e1e1;
+  width: 100%;
+  height: fit-content;
+  padding: 10px 20px;
 }
+
 .btn-add:hover {
-    color: $color-purple;
-    background-color: #f1f1f1;
-    font-weight: 700;
+  color: $color-purple;
+  background-color: #f1f1f1;
+  font-weight: 700;
 }
+
 .btn-add2 {
   font-family: 'Segoe UI', normal;
   font-weight: 700;
@@ -131,9 +142,11 @@ div.dropdown-multicol2>div.dropdown-col{
   height: fit-content;
   padding: 10px 20px;
 }
+
 .azul {
   color: $color-purple;
 }
+
 .bold {
   font-size: 1.5rem;
   font-weight: 700;
