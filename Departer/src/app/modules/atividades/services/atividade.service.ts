@@ -1,3 +1,4 @@
+import { ChecklistDto } from './../models/checklistDto';
 import { AtividadePostDto, AtividadeDto, AtividadeListDto } from './../models/atividadeDto';
 import { Observable } from 'rxjs';
 import { ResponseBase } from './../../shared/models/response';
@@ -32,6 +33,10 @@ export class AtividadeService {
 
   public deleteAtividade(id: string): Observable<ResponseBase<AtividadePostDto>> {
     return this.http.delete<ResponseBase<AtividadePostDto>>(`${this.apiUlr}/${id}`);
+  }
+
+  public postAtividadeCheck(checklist: ChecklistDto): Observable<ResponseBase<ChecklistDto>> {
+    return this.http.post<ResponseBase<ChecklistDto>>(`${this.apiUlr}/check`, checklist)
   }
 
 }

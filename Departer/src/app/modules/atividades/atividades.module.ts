@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalAdicionarChecklistComponent } from './components/modal-adicionar-checklist/modal-adicionar-checklist.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NovaAtividadeComponent,
     EditarAtividadeComponent,
     AtividadeComponent,
+    ModalAdicionarChecklistComponent,
   ],
   imports: [
     CommonModule,
