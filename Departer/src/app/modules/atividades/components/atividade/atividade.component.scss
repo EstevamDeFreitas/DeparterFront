@@ -178,6 +178,13 @@
   overflow-x: hidden;
 }
 
+.box-scroll-subtarefas {
+  max-height: 8.7rem;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
+
 .box-scroll-funcionarios{
   height: 8rem;
   overflow-y: auto !important;
@@ -185,7 +192,7 @@
 }
 
 .box-scroll-atividades {
-  height: 8.7rem;
+  max-height: 8.7rem;
   overflow-y: auto !important;
   overflow-x: hidden;
 }
@@ -239,3 +246,10 @@
   cursor: pointer;
 }
 
+.fa-trash {
+  color: #e04251;
+}
+
+.fa-trash:hover {
+  color: #eb1127;
+}

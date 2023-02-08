@@ -1,1 +1,48 @@
-<p>modal-adicionar-checklist works!</p>
+<div class="modal-card">
+  <header>
+    <mat-icon class="close" mat-dialog-close (click)="onCancel()">close</mat-icon>
+    <div class="text-center dialog-title w-100" mat-dialog-title>
+      <span *ngIf="estado === 'post'">Adicionar</span>
+      <span *ngIf="estado === 'put'">Alterar</span>
+      Subtarefa
+    </div>
+  </header>
+
+
+  <div mat-dialog-content>
+
+
+    <form [formGroup]="checklistForm">
+      <div class="row mt-3">
+          <div class="col-12">
+              <label class="label-text">Descrição</label>
+              <div class="form-floating">
+                  <input type="text" id="inputDesc" class="form-control"
+                      placeholder="categoria" formControlName="descricao" [ngClass]="cssValidator(f.descricao)" />
+                  <label for="inputDesc" class="label-input">Definir um horário...</label>
+                  <div *ngIf="f.descricao.errors?.required && f.descricao.touched" class="invalid-feedback">
+                      Descrição é obrigatorio.
+                  </div>
+              </div>
+          </div>
+        </div>
+      </form>
+
+
+  </div>
+
+
+  <div class="d-flex justify-content-center mt-4 mb-3" mat-dialog-actions>
+    <div class="col-lg-5 col-12 me-lg-2">
+      <button mat-raised-button class="white-button" (click)="onCancel()">Cancelar</button>
+    </div>
+    <div class="col-lg-5 col-12">
+      <button mat-raised-button class="red-button" (click)="onConfirm()">
+        <span *ngIf="estado === 'post'">Adicionar</span>
+        <span *ngIf="estado === 'put'">Alterar</span>
+      </button>
+    </div>
+  </div>
+
+
+</div>

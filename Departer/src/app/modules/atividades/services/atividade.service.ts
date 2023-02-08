@@ -39,4 +39,12 @@ export class AtividadeService {
     return this.http.post<ResponseBase<ChecklistDto>>(`${this.apiUlr}/check`, checklist)
   }
 
+  public putAtividadeCheck(checklist: ChecklistDto): Observable<ResponseBase<ChecklistDto>> {
+    return this.http.put<ResponseBase<ChecklistDto>>(`${this.apiUlr}/check`, checklist)
+  }
+
+  public deleteAtividadeCheck(idChecklist: string): Observable<ResponseBase<ChecklistDto>> {
+    return this.http.delete<ResponseBase<ChecklistDto>>(`${this.apiUlr}/check/${idChecklist}`);
+  }
+
 }

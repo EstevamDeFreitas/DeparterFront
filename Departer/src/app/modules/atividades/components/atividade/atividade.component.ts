@@ -1,3 +1,6 @@
+import { ChecklistDto } from './../../models/checklistDto';
+import { ModalAdicionarChecklistComponent } from './../modal-adicionar-checklist/modal-adicionar-checklist.component';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { FuncionarioService } from './../../../configuracoes/services/funcionario.service';
 import { CategoriaService } from './../../../administracao/services/categoria.service';
 import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
@@ -22,7 +25,7 @@ export class AtividadeComponent implements OnInit {
   funcionarios: FuncionarioDto[] = [];
 
 
-  constructor(private router: Router, private route: ActivatedRoute, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService) { }
+  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService) { }
 
   ngOnInit(): void {
 
@@ -96,6 +99,53 @@ export class AtividadeComponent implements OnInit {
 
     return '' + horas + ':' + minutos;
 
+  }
+
+  public openChecklistDialog(checklist = {} as ChecklistDto ) {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+
+    dialogConfig.data = {
+      checklist: checklist,
+      idAtividade: this.atividadeId
+    };
+
+    const dialogRef = this.dialog.open(ModalAdicionarChecklistComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+
+      if(data === true){
+        this.ngOnInit();
+      }
+
+    });
+
+
+  }
+
+  public changeChecklistStatus(checkAtual: ChecklistDto){
+
+    checkAtual.checked = !checkAtual.checked;
+
+    this.atividadeService.putAtividadeCheck(checkAtual).subscribe(
+      (res) => {},
+      (err) => {}
+    );
+
+  }
+
+  ExcluirChecklist(idCheck: string){
+    this.atividadeService.deleteAtividadeCheck(idCheck).subscribe(
+      ()=>{
+        this.ngOnInit();
+      },
+      ()=>{}
+    )
+  }
+
+  public pararPropagacao(event: any){
+    event.stopPropagation();
   }
 
   public editar() {

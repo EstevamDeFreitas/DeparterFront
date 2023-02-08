@@ -1,3 +1,4 @@
+import { ChecklistDto } from './checklistDto';
 import { FuncionarioDto } from './../../shared/models/funcionarioDto';
 import { CategoriaDto } from './../../administracao/models/categoriaDto';
 import { AtividadeCategorias } from './atividadeCategorias';
@@ -10,6 +11,7 @@ export class AtividadeDto {
   dataEntrega: string = "";
   tempoPrevisto: number = 0;
   atividadePaiId: string = "";
+  atividadeChecks = {} as ChecklistDto[];
   atividadeCategorias = {} as AtividadeCategorias[];
   atividadeFuncionarios = {} as AtividadeFuncionarios[];
   atividades = {} as AtividadeDto[];
