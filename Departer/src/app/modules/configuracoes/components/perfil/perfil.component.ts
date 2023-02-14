@@ -1,3 +1,5 @@
+import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
+import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { Router } from '@angular/router';
 import { ValidatorField } from './../../../../helpers/ValidatorField';
 import { FormGroup, FormControl, Validators, AbstractControlOptions } from '@angular/forms';
@@ -25,7 +27,7 @@ export class PerfilComponent implements OnInit {
     return this.editUserForm.controls;
   }
 
-  constructor(private funcionarioService: FuncionarioService, private router: Router) { }
+  constructor(private funcionarioService: FuncionarioService, private router: Router, private readonly snackbarComponent: SnackbarComponent) { }
 
   ngOnInit(): void {
     this.modoEditar = false;
@@ -67,10 +69,13 @@ export class PerfilComponent implements OnInit {
       funcionarioPut.id = this.funcionario.id;
 
       this.funcionarioService.putFuncionario(funcionarioPut).subscribe(
-        (res) => {},
+        (res) => {
+          this.snackbarComponent.openSnackBar("Usúario alterado com sucesso !",SnackBarTheme.success,3000);
+        },
         (err) => {
           this.hasError = true;
           this.errorMessage = err.error.message;
+          this.snackbarComponent.openSnackBar("Erro ao alterar usúario", SnackBarTheme.error, 3000);
         },
         () => {this.ngOnInit();}
       );

@@ -1,3 +1,5 @@
+import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
+import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { CategoriaDto } from './../../models/categoriaDto';
 import { CategoriaService } from './../../services/categoria.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -42,7 +44,8 @@ export class CadastrarCategoriasComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private categoriaService: CategoriaService) { }
+    private categoriaService: CategoriaService,
+    private readonly snackbarComponent: SnackbarComponent) { }
 
   ngOnInit(): void {
     this.carregarCategoria();
@@ -91,10 +94,13 @@ export class CadastrarCategoriasComponent implements OnInit {
 
       if (this.estadoFormulario === 'post') {
         this.categoriaService.postCategoria(this.categoria).subscribe(
-          (res) => { },
+          (res) => {
+            this.snackbarComponent.openSnackBar("Categoria adicionada com sucesso !",SnackBarTheme.success,3000);
+          },
           (err) => {
             this.hasError = true;
             this.errorMessage = err.error.message;
+            this.snackbarComponent.openSnackBar("Erro ao adicionar categoria !", SnackBarTheme.error, 3000);
           },
           () => {
             this.irParaCategorias();
@@ -102,10 +108,13 @@ export class CadastrarCategoriasComponent implements OnInit {
         )
       } else {
         this.categoriaService.putCategoria(this.categoria).subscribe(
-          (res) => { },
+          (res) => {
+            this.snackbarComponent.openSnackBar("Categoria alterada com sucesso !",SnackBarTheme.success,3000);
+          },
           (err) => {
             this.hasError = true;
             this.errorMessage = err.error.message;
+            this.snackbarComponent.openSnackBar("Erro ao alterar categoria !", SnackBarTheme.error, 3000);
           },
           () => {
             this.irParaCategorias();

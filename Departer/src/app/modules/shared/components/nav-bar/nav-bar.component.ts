@@ -1,3 +1,5 @@
+import { SnackBarTheme } from './../../models/snackbat.theme.enum';
+import { SnackbarComponent } from './../snackbar/snackbar.component';
 import { ModoAdminService } from './../../services/modo-admin.service';
 import { Router } from '@angular/router';
 import { Component, OnChanges, OnInit } from '@angular/core';
@@ -12,7 +14,7 @@ export class NavBarComponent implements OnInit {
   opened: boolean = true;
   modoAdmin: boolean = true;
 
-  constructor(private router: Router, private modoAdminService: ModoAdminService) { }
+  constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent) { }
 
   ngOnInit(): void {
     this.modoAdmin = this.modoAdminService.modoAdmin;
@@ -55,6 +57,11 @@ export class NavBarComponent implements OnInit {
   alternarModoAdmin() {
     this.modoAdminService.alterarModoAdmin(!this.modoAdmin);
     this.modoAdmin = this.modoAdminService.modoAdmin;
+
+    if(this.modoAdmin)
+      this.snackbarComponent.openSnackBar("Modo Administrador está ativado !",SnackBarTheme.success,3000);
+    else
+      this.snackbarComponent.openSnackBar("Modo Administrador está desativado !",SnackBarTheme.success,3000);
   }
 
 
