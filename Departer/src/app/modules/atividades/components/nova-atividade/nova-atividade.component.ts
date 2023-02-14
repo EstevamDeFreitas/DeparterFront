@@ -1,3 +1,5 @@
+import { DepartamentoDto } from './../../../departamentos/models/departamentoDto';
+import { DepartamentoService } from './../../../departamentos/services/departamento.service';
 import { FuncionarioService } from './../../../configuracoes/services/funcionario.service';
 import { AtividadeService } from './../../services/atividade.service';
 import { DatePipe } from '@angular/common';
@@ -26,8 +28,13 @@ export class NovaAtividadeComponent implements OnInit {
   categorias: CategoriaDto[] = [];
   funcionariosLista: FuncionarioDto[] = [];
 
+  departamentos: DepartamentoDto[] = [];
+  departamentoId: string = "";
+
   atividadePaiId: string = "";
   estadoSalvar: string = "semPai";
+
+
 
   atividadeForm!: FormGroup;
 
@@ -38,7 +45,7 @@ export class NovaAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService) {
+  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private departamentoService: DepartamentoService) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
@@ -58,11 +65,23 @@ export class NovaAtividadeComponent implements OnInit {
       (res) =>{
         res.data.nivelAcesso = 4;
         this.funcionariosLista.push(res.data)
+
+        this.getAllDepartamentos();
       },
       (err) => {
         this.hasError = true;
         this.errorMessage = err.error.message;
       }
+    )
+  }
+
+  public getAllDepartamentos(){
+    this.departamentoService.getDepartamentos().subscribe(
+      (res)=>{
+        this.departamentos = res.data;
+        console.log(this.departamentos);
+      },
+      ()=>{}
     )
   }
 
@@ -147,6 +166,11 @@ export class NovaAtividadeComponent implements OnInit {
     hourInputMask(input);
   }
 
+  changeDepartamento(event: any){
+    let id = event.target.value;
+    this.departamentoId = id;
+  }
+
   public openCategoriasDialog() {
 
     const dialogConfig = new MatDialogConfig();
@@ -219,7 +243,7 @@ export class NovaAtividadeComponent implements OnInit {
 
   public atividadeCriada(): void {
 
-    if (this.atividadeForm.valid && this.categorias.length >= 1 && this.funcionariosLista.length >= 1) {
+    if (this.atividadeForm.valid && this.categorias.length >= 1 && this.funcionariosLista.length >= 1 && this.departamentoId != "") {
 
       let atividadePost: AtividadePostDto = { ...this.atividadeForm.value };
 
@@ -246,6 +270,8 @@ export class NovaAtividadeComponent implements OnInit {
       if(this.estadoSalvar == "comPai"){
         atividadePost.atividadePaiId = this.atividadePaiId
       }
+
+      atividadePost.departamentoId = this.departamentoId;
 
       this.atividadeService.postAtividade(atividadePost).subscribe(
         (res) => {

@@ -10,6 +10,7 @@ export class AtividadeDto {
   descricao: string = "";
   dataEntrega: string = "";
   tempoPrevisto: number = 0;
+  departamentoId: string = "";
   atividadePaiId: string = "";
   atividadeChecks = {} as ChecklistDto[];
   atividadeCategorias = {} as AtividadeCategorias[];
@@ -22,6 +23,7 @@ export class AtividadePostDto {
   titulo: string = "";
   descricao: string = "";
   dataEntrega: string = "";
+  departamentoId: string = "";
   tempoPrevisto: number = 0;
   atividadePaiId: string = "";
   categorias: string[] = [];
