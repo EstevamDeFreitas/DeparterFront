@@ -1,9 +1,11 @@
+
 import { DepartamentoService } from './../../services/departamento.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { DepartamentoDto } from '../../models/departamentoDto';
 import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
 import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/departamentoFuncionariosDto';
+import { AtividadeDto, GetAtividadeByDepartamentoId } from '../../models/atividadeDto';
 
 @Component({
   selector: 'app-tela-departamentos',
@@ -17,6 +19,7 @@ export class TelaDepartamentosComponent implements OnInit {
   maximoHorasMensais: string = "";
   departamento?: DepartamentoDto;
   funcionariosLista: DepartamentoFuncionariosDto[] = [];
+  atividades: GetAtividadeByDepartamentoId[] = [];
 
   constructor(private router: Router,private route: ActivatedRoute,private departamentoService: DepartamentoService) { }
 
@@ -33,16 +36,24 @@ export class TelaDepartamentosComponent implements OnInit {
 
     this.departamentoService.getDepartamentoById(this.idDepartamento).subscribe({
       next: (response) => {
-        console.log(response);
 
         this.departamento = response.data;
 
         this.funcionariosLista = this.departamento.departamentoFuncionarios;
 
-        console.log(this.funcionariosLista);
-
         this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
+      },
+      error: (response) => {
+      }
+    })
+
+    this.departamentoService.getAtividadesbyDepartamentoId(this.idDepartamento).subscribe({
+      next: (response) => {
+
+        this.atividades = response.data;
+
+       
       },
       error: (response) => {
       }
