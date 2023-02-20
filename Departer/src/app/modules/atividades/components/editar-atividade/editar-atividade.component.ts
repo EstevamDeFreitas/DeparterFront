@@ -1,3 +1,5 @@
+import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
+import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { AtividadeFuncionarios } from './../../models/atividadeFuncionarios';
 import { AtividadeCategorias } from './../../models/atividadeCategorias';
 import { DatePipe } from '@angular/common';
@@ -28,6 +30,7 @@ export class EditarAtividadeComponent implements OnInit {
   data: Date | null = null;
 
   atividadeId: string = "";
+  departamentoId: string = "";
 
   categorias: CategoriaDto[] = [];
   funcionarios: FuncionarioDto[] = [];
@@ -43,7 +46,7 @@ export class EditarAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private categoriaService: CategoriaService) {
+  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private categoriaService: CategoriaService, private readonly snackbarComponent: SnackbarComponent) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
@@ -60,7 +63,6 @@ export class EditarAtividadeComponent implements OnInit {
 
     this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
       (res) => {
-        console.log(res.data)
 
         let dataEntrega = new Date(res.data.dataEntrega);
         let tempoPrevisto = this.transformarMinutosEmHoras(res.data.tempoPrevisto);
@@ -68,6 +70,8 @@ export class EditarAtividadeComponent implements OnInit {
         this.atividadeForm.patchValue({ titulo: res.data.titulo, descricao: res.data.descricao, tempoPrevisto: tempoPrevisto, dataEntrega: dataEntrega });
 
         this.atividadesFilha = res.data.atividades;
+
+        this.departamentoId = res.data.departamentoId;
 
         this.getFuncionarios(res.data.atividadeFuncionarios);
         this.getCategorias(res.data.atividadeCategorias);
@@ -304,19 +308,24 @@ export class EditarAtividadeComponent implements OnInit {
       });
 
       atividadePut.id = this.atividadeId;
+      atividadePut.departamentoId = this.departamentoId;
+
 
       this.atividadeService.updateAtividade(atividadePut).subscribe(
         (res) => {
           this.router.navigate(['/atividades/lista-atividades']);
+          this.snackbarComponent.openSnackBar("Atividade alterada com sucesso !",SnackBarTheme.success,3000);
         },
         (error) => {
           this.hasError = true;
           this.errorMessage = error.error.message;
+          console.log(error);
+          this.snackbarComponent.openSnackBar(`Erro: ${this.errorMessage} !`, SnackBarTheme.error, 3000);
         }
       )
 
     } else {
-      //snackbar de mensagem de erro.
+      this.snackbarComponent.openSnackBar("Preencha todo o formulario !", SnackBarTheme.error, 3000);
     }
 
   }

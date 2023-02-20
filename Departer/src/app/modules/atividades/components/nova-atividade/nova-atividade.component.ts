@@ -1,3 +1,5 @@
+import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
+import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { DepartamentoDto } from './../../../departamentos/models/departamentoDto';
 import { DepartamentoService } from './../../../departamentos/services/departamento.service';
 import { FuncionarioService } from './../../../configuracoes/services/funcionario.service';
@@ -45,7 +47,7 @@ export class NovaAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private departamentoService: DepartamentoService) {
+  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private departamentoService: DepartamentoService, private readonly snackbarComponent: SnackbarComponent) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
@@ -275,17 +277,18 @@ export class NovaAtividadeComponent implements OnInit {
 
       this.atividadeService.postAtividade(atividadePost).subscribe(
         (res) => {
-          console.log(res)
           this.router.navigate(['/atividades/lista-atividades']);
+          this.snackbarComponent.openSnackBar("Atividade criada com sucesso !",SnackBarTheme.success,3000);
         },
         (error) => {
           this.hasError = true;
           this.errorMessage = error.error.message;
+          this.snackbarComponent.openSnackBar("Erro ao tentar criar atividade !", SnackBarTheme.error, 3000);
         }
       )
 
     } else {
-      //snackbar de mensagem de erro.
+      this.snackbarComponent.openSnackBar("Preencha todo o formulario !", SnackBarTheme.error, 3000);
     }
 
   }

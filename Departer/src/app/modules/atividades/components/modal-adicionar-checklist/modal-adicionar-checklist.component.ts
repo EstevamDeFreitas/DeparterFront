@@ -70,7 +70,7 @@ export class ModalAdicionarChecklistComponent implements OnInit {
       if(this.estado == "post"){
         this.atividadeService.postAtividadeCheck(checklistFinal).subscribe(
           (res) => {
-
+            this.dialogRef.close("adicionada");
           },
           (err) => {
             this.hasError = true;
@@ -81,7 +81,7 @@ export class ModalAdicionarChecklistComponent implements OnInit {
         checklistFinal.id = this.checklist.id
         this.atividadeService.putAtividadeCheck(checklistFinal).subscribe(
           (res) => {
-
+            this.dialogRef.close("alterada");
           },
           (err) => {
             this.hasError = true;
@@ -90,7 +90,7 @@ export class ModalAdicionarChecklistComponent implements OnInit {
         );
       }
 
-      this.dialogRef.close(true);
+
     }
 
 

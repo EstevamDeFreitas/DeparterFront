@@ -1,3 +1,5 @@
+import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
+import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
 import { ChecklistDto } from './../../models/checklistDto';
 import { ModalAdicionarChecklistComponent } from './../modal-adicionar-checklist/modal-adicionar-checklist.component';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
@@ -25,12 +27,12 @@ export class AtividadeComponent implements OnInit {
   funcionarios: FuncionarioDto[] = [];
 
 
-  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService) { }
+  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService, private readonly snackbarComponent: SnackbarComponent) { }
 
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      // Recupera o ID da atividade a partir dos par�metros da rota
+      // Recupera o ID da atividade a partir dos parâmetros da rota
       this.atividadeId = params['id'];
 
       // Recarrega os dados da atividade com o novo ID
@@ -115,8 +117,11 @@ export class AtividadeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
 
-      if(data === true){
+      if(data != false){
         this.ngOnInit();
+        this.snackbarComponent.openSnackBar(`Subtarefa ${data} com sucesso !`,SnackBarTheme.success,3000);
+      } else {
+        this.snackbarComponent.openSnackBar("Erro ao adicionar subtarefa !",SnackBarTheme.success,3000);
       }
 
     });
@@ -139,6 +144,7 @@ export class AtividadeComponent implements OnInit {
     this.atividadeService.deleteAtividadeCheck(idCheck).subscribe(
       ()=>{
         this.ngOnInit();
+        this.snackbarComponent.openSnackBar("Subtarefa excluída com sucesso !",SnackBarTheme.success,3000);
       },
       ()=>{}
     )
