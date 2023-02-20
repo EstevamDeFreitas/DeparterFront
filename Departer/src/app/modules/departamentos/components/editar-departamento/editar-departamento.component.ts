@@ -241,6 +241,7 @@ export class EditarDepartamentoComponent implements OnInit {
 
 
       departamentoPut.departamentoFuncionarios = [];
+      departamentoPut.atividades = [];
 
       let listaIdsRetirar: string[] = [
       ]

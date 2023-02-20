@@ -81,5 +81,8 @@ export class TelaDepartamentosComponent implements OnInit {
   detalhesDepartamento(id: string){
     this.router.navigate([`/departamentos/detalhes-departamentos/${id}`]);
   }
+  irAtividade(id: string) {
+    this.router.navigate([`/atividades/atividade/${id}`]);
+  }
 
 }

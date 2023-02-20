@@ -34,7 +34,7 @@
 
               </thead>
               <tbody>
-                <tr *ngFor="let atividade of atividades; let i = index">
+                <tr *ngFor="let atividade of atividades; let i = index" class="clickable" (click)="irAtividade(atividade.atividadeId)">
                   <td class="atividadeTexto">
                     {{atividade.dataEntrega | date: 'dd/MM/yyyy'}}
                   </td>

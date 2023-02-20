@@ -39,6 +39,7 @@ export class GetAtividadeByDepartamentoId {
   descricao: string = "";
   funcionario: string = "";
   status: string = "";
+  atividadeId: string = "";
 }
 
 export class AtividadeListDto {
