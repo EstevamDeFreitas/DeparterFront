@@ -172,3 +172,12 @@ table.table>thead>tr>th {
 .container {
   width: 85%;
 }
+.aviso {
+  font-size: 1rem;
+  font-family: Segoe UI, Regular;
+  font-weight: 700;
+  color: $color-purple;
+}
+textarea {
+  resize: none;
+}

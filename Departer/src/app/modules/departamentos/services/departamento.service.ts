@@ -1,3 +1,4 @@
+import { GetAtividadeByDepartamentoId } from './../models/atividadeDto';
 import { DepartamentoDto } from './../models/departamentoDto';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -40,5 +41,9 @@ export class DepartamentoService {
 
   public deleteDepartamentoFuncionario(departamentoId: string,arrayFuncionario: Array<string>) {
     return this.http.post<ResponseBase<any>>(`${this.API}/Departamento/funcionario/delete?departamentoId=${departamentoId}`, arrayFuncionario);
+  }
+
+  public getAtividadesbyDepartamentoId(departamentoId: string): Observable<ResponseBase<GetAtividadeByDepartamentoId[]>>{
+    return this.http.get<ResponseBase<GetAtividadeByDepartamentoId[]>>(`${this.API}/Departamento/${departamentoId}/atividades/resumo`);
   }
 }
