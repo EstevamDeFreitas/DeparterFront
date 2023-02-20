@@ -71,6 +71,7 @@ export class EditarAtividadeComponent implements OnInit {
 
         this.atividadesFilha = res.data.atividades;
 
+
         this.departamentoId = res.data.departamentoId;
 
         this.getFuncionarios(res.data.atividadeFuncionarios);
@@ -310,6 +311,7 @@ export class EditarAtividadeComponent implements OnInit {
       atividadePut.id = this.atividadeId;
       atividadePut.departamentoId = this.departamentoId;
 
+      console.log(atividadePut);
 
       this.atividadeService.updateAtividade(atividadePut).subscribe(
         (res) => {
@@ -319,8 +321,7 @@ export class EditarAtividadeComponent implements OnInit {
         (error) => {
           this.hasError = true;
           this.errorMessage = error.error.message;
-          console.log(error);
-          this.snackbarComponent.openSnackBar(`Erro: ${this.errorMessage} !`, SnackBarTheme.error, 3000);
+          this.snackbarComponent.openSnackBar(`Erro ao tentar editar atividade !`, SnackBarTheme.error, 3000);
         }
       )
 
