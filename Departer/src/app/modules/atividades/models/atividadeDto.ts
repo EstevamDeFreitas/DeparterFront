@@ -1,3 +1,4 @@
+import { DepartamentoDto } from './../../departamentos/models/departamentoDto';
 import { ChecklistDto } from './checklistDto';
 import { FuncionarioDto } from './../../shared/models/funcionarioDto';
 import { CategoriaDto } from './../../administracao/models/categoriaDto';
@@ -16,6 +17,7 @@ export class AtividadeDto {
   atividadeCategorias = {} as AtividadeCategorias[];
   atividadeFuncionarios = {} as AtividadeFuncionarios[];
   atividades = {} as AtividadeDto[];
+  departamento = {} as DepartamentoDto;
 }
 
 export class AtividadePostDto {

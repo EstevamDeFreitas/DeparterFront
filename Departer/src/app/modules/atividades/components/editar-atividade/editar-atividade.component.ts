@@ -1,3 +1,4 @@
+import { DepartamentoDto } from './../../../departamentos/models/departamentoDto';
 import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
 import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { AtividadeFuncionarios } from './../../models/atividadeFuncionarios';
@@ -30,7 +31,6 @@ export class EditarAtividadeComponent implements OnInit {
   data: Date | null = null;
 
   atividadeId: string = "";
-  departamentoId: string = "";
 
   categorias: CategoriaDto[] = [];
   funcionarios: FuncionarioDto[] = [];
@@ -63,16 +63,14 @@ export class EditarAtividadeComponent implements OnInit {
 
     this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
       (res) => {
+        console.log(res.data)
 
         let dataEntrega = new Date(res.data.dataEntrega);
         let tempoPrevisto = this.transformarMinutosEmHoras(res.data.tempoPrevisto);
 
         this.atividadeForm.patchValue({ titulo: res.data.titulo, descricao: res.data.descricao, tempoPrevisto: tempoPrevisto, dataEntrega: dataEntrega });
 
-        this.atividadesFilha = res.data.atividades;
-
-
-        this.departamentoId = res.data.departamentoId;
+        this.atividade = res.data;
 
         this.getFuncionarios(res.data.atividadeFuncionarios);
         this.getCategorias(res.data.atividadeCategorias);
@@ -281,8 +279,6 @@ export class EditarAtividadeComponent implements OnInit {
 
       let atividadePut: AtividadeDto = { ...this.atividadeForm.value };
 
-      atividadePut.atividades = this.atividadesFilha;
-
       let data = new DatePipe('en').transform(this.f.dataEntrega.value, 'yyyy-MM-dd');
       atividadePut.dataEntrega = data!;
 
@@ -309,7 +305,7 @@ export class EditarAtividadeComponent implements OnInit {
       });
 
       atividadePut.id = this.atividadeId;
-      atividadePut.departamentoId = this.departamentoId;
+      atividadePut.departamentoId = this.atividade.departamentoId;
 
       console.log(atividadePut);
 
