@@ -1,61 +1,68 @@
 @import "/src/assets/styles/variables.scss";
 
 nav {
-    border-bottom: 1px solid $color-dark-gray;
-    height: 4.2rem;
+  border-bottom: 1px solid $color-dark-gray;
+  height: 4.2rem;
 }
+
 .nav-bar {
-    background-color: $color-white;
+  background-color: $color-white;
 }
+
 .perfil {
-    border-radius: 50%;
+  border-radius: 50%;
 }
+
 .seta {
-    font-size: 1.8rem;
-    margin-right: 5%;
+  font-size: 1.8rem;
+  margin-right: 5%;
 }
 
 //Input Central no Nav-bar
 .custom-input {
-    border-radius: 3px;
-    color: $color-input-text-gray;
-    width: 100%;
-    height: 2.375rem;
-    padding: 1.5%;
-    outline: none;
-    background-color: $color-gray !important;
-    border: 1px solid rgb(212, 212, 212);
+  border-radius: 3px;
+  color: $color-input-text-gray;
+  width: 100%;
+  height: 2.375rem;
+  padding: 1.5%;
+  outline: none;
+  background-color: $color-gray !important;
+  border: 1px solid rgb(212, 212, 212);
 }
+
 .custom-appearance {
-    outline: none;
-    appearance: none;
-    background-color: transparent;
-    border: none;
-    color: $color-input-text-gray;
-    width: 100%;
-    height: 100%;
-  }
-  /* Chrome, Safari, Edge, Opera */
-  .custom-appearance::-webkit-outer-spin-button,
-  .custom-appearance::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+  outline: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  color: $color-input-text-gray;
+  width: 100%;
+  height: 100%;
+}
 
-  /* Firefox */
-  .custom-apperance[type=number] {
-    -moz-appearance: textfield;
-  }
+/* Chrome, Safari, Edge, Opera */
+.custom-appearance::-webkit-outer-spin-button,
+.custom-appearance::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
-  #icone:focus-within {
-    border: 1px solid $color-blue;
-  }
-  .custom-input:focus-within {
-    caret-color: 1px solid $color-purple;
-  }
-  .custom-appearance:focus {
-    caret-color: $color-purple;
-  }
+/* Firefox */
+.custom-apperance[type=number] {
+  -moz-appearance: textfield;
+}
+
+#icone:focus-within {
+  border: 1px solid $color-blue;
+}
+
+.custom-input:focus-within {
+  caret-color: 1px solid $color-purple;
+}
+
+.custom-appearance:focus {
+  caret-color: $color-purple;
+}
 
 //Mat Side Bar
 
@@ -63,13 +70,15 @@ mat-sidenav-container {
   height: calc(206vh - 115vh);
   background-color: $color-gray;
 }
+
 mat-sidenav {
   width: 17.5rem !important;
 }
+
 ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
   background-color: #0009 !important;
   color: #0009 !important;
-  visibility:hidden !important;
+  visibility: hidden !important;
 }
 
 //dentro do Side Bar
@@ -77,20 +86,49 @@ mat-sidenav {
   margin-top: 7.6rem;
   margin-left: 2rem;
 }
+
 .opcao-menu {
   font-size: 1.125rem;
   font-family: Segoe UI, Regular;
   font-weight: 450;
   color: $color-black;
 }
+
 .config {
   margin-top: 20rem;
 }
 
-.admin-icon-purple{
+.admin-icon-purple {
   filter: invert(28%) sepia(99%) saturate(7078%) hue-rotate(253deg) brightness(93%) contrast(95%);
 }
 
-.admin-icon-black{
+.admin-icon-black {
   filter: invert(0%) sepia(72%) saturate(2244%) hue-rotate(98deg) brightness(99%) contrast(106%);
+}
+
+
+.dropdown:focus {
+
+  .dropdown-menu {
+    display: block;
+    right: 0;
+    top: 110%;
+  }
+
+  list-style: none;
+  cursor: pointer;
+}
+
+.dropdown-item {
+  font: normal normal bold 14px Segoe UI;
+  color: $color-dark-gray;
+
+  &:hover {
+    color: $color-purple-darker;
+    background-color: inherit;
+  }
+}
+
+.dropdown-menu {
+  cursor: pointer;
 }

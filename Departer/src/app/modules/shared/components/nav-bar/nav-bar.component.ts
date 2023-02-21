@@ -50,6 +50,10 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(["/configuracoes/perfil"]);
   }
 
+  public logoff(): void {
+    this.router.navigate([""]);
+  }
+
   public irParaDashboard(): void {
     this.router.navigate(["/home/dashboard"]);
   }

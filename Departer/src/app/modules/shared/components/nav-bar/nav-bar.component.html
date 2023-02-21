@@ -23,14 +23,20 @@
 
     <div class="col-2"></div>
 
-    <div class="col-1 d-flex justify-content-center">
+    <div class="col d-flex justify-content-center">
       <div class="align-self-center me-4">
-        <img class="d-inline-block clickable" src=".\assets\images\shield-svgrepo-com.svg" width="32"
-          height="32" (click)="alternarModoAdmin()" [ngClass]="{'admin-icon-purple': modoAdmin, 'admin-icon-black': !modoAdmin}">
+        <img class="d-inline-block clickable" src=".\assets\images\shield-svgrepo-com.svg" width="32" height="32"
+          (click)="alternarModoAdmin()" [ngClass]="{'admin-icon-purple': modoAdmin, 'admin-icon-black': !modoAdmin}">
       </div>
-      <div>
+      <div class="dropdown" tabindex="0" id="drop">
+
         <img class="d-inline-block clickable" src=".\assets\images\Perfil.svg" width="46" height="46"
-          (click)="irParaPerfil()" />
+        class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" />
+
+        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink" >
+          <a class="dropdown-item" (click)="irParaPerfil()">Dados do Perfil</a>
+          <a class="dropdown-item" (click)="logoff()">Sair</a>
+        </div>
       </div>
 
     </div>
@@ -43,23 +49,28 @@
 
 
 
-        <div class="caixa-menu ">
-            <div class="opcao-menu clickable" (click)="irParaDashboard()">
-                <img class="d-inline-block align-top perfil" src=".\assets\images\icone.dashboard.svg" width="20" height="20" /> Dashboard
-            </div>
-            <div class="opcao-menu clickable mt-4">
-                <img class="d-inline-block align-top perfil" src=".\assets\images\icone.planejamento.svg" width="20" height="20" /> Planejamento
-            </div>
-            <div class="opcao-menu clickable mt-4" (click)="irParaAtividades()">
-                <img class="d-inline-block align-top perfil" src=".\assets\images\icone.atividade.svg" width="20" height="20" /> Atividades
-            </div>
-            <div class="opcao-menu clickable mt-4" (click)="irParaDepartamentos()">
-                <img class="d-inline-block align-top perfil" src=".\assets\images\icone.departamentos.svg" width="20" height="20" /> Departamentos
-            </div>
-            <div class="opcao-menu clickable mt-4" (click)="irParaHoras()">
-                <img class="d-inline-block align-top perfil" src=".\assets\images\icone.horas.svg" width="20" height="20" /> Horas
-            </div>
-        </div>
+    <div class="caixa-menu ">
+      <div class="opcao-menu clickable" (click)="irParaDashboard()">
+        <img class="d-inline-block align-top perfil" src=".\assets\images\icone.dashboard.svg" width="20" height="20" />
+        Dashboard
+      </div>
+      <div class="opcao-menu clickable mt-4">
+        <img class="d-inline-block align-top perfil" src=".\assets\images\icone.planejamento.svg" width="20"
+          height="20" /> Planejamento
+      </div>
+      <div class="opcao-menu clickable mt-4" (click)="irParaAtividades()">
+        <img class="d-inline-block align-top perfil" src=".\assets\images\icone.atividade.svg" width="20" height="20" />
+        Atividades
+      </div>
+      <div class="opcao-menu clickable mt-4" (click)="irParaDepartamentos()">
+        <img class="d-inline-block align-top perfil" src=".\assets\images\icone.departamentos.svg" width="20"
+          height="20" /> Departamentos
+      </div>
+      <div class="opcao-menu clickable mt-4" (click)="irParaHoras()">
+        <img class="d-inline-block align-top perfil" src=".\assets\images\icone.horas.svg" width="20" height="20" />
+        Horas
+      </div>
+    </div>
 
     <div class="caixa-menu config">
       <div class="opcao-menu clickable">
@@ -75,4 +86,3 @@
 
   </mat-sidenav-content>
 </mat-sidenav-container>
-
