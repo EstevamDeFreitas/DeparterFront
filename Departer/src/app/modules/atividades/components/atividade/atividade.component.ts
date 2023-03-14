@@ -1,3 +1,7 @@
+import { DepartamentoService } from './../../../departamentos/services/departamento.service';
+import { HorasPostDto } from './../../models/horasDto';
+import { HorasService } from './../../services/horas.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
 import { ChecklistDto } from './../../models/checklistDto';
@@ -25,9 +29,22 @@ export class AtividadeComponent implements OnInit {
 
   categorias: CategoriaDto[] = [];
   funcionarios: FuncionarioDto[] = [];
+  funcionarioAtual = {} as FuncionarioDto;
 
+  horasForm!: FormGroup;
+  estadoHoras = false;
 
-  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService, private readonly snackbarComponent: SnackbarComponent) { }
+  atividadeHoras: string = "";
+  funcionarioHoras: string = "";
+
+  departamentoNome: string = "";
+
+  get f(): any {
+    return this.horasForm.controls;
+  }
+
+  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService, private readonly snackbarComponent: SnackbarComponent,
+    private horasService: HorasService, private departamentoService: DepartamentoService) { }
 
   ngOnInit(): void {
 
@@ -39,11 +56,13 @@ export class AtividadeComponent implements OnInit {
       this.getAtividade();
     });
 
-
+    this.getFuncionarioAtual();
+    this.maskHour();
+    this.formValidation();
 
   }
 
-  getAtividade(): void {
+  public getAtividade(): void {
 
     if (this.atividadeId != null) {
       this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
@@ -53,6 +72,8 @@ export class AtividadeComponent implements OnInit {
 
           this.getCategorias();
           this.getFuncionarios();
+          this.getAtividadeHoras();
+          this.getDepartamentoNome();
 
           this.horasPrevistasEmString = this.transformarMinutosEmHoras(this.atividade.tempoPrevisto);
         },
@@ -61,7 +82,7 @@ export class AtividadeComponent implements OnInit {
     }
   }
 
-  getCategorias(): void {
+  public getCategorias(): void {
     this.categorias = [];
     this.atividade.atividadeCategorias.forEach(e => {
       this.categoriaService.getCategoriaById(e.categoriaId).subscribe(
@@ -74,7 +95,7 @@ export class AtividadeComponent implements OnInit {
 
   }
 
-  getFuncionarios(): void {
+  public getFuncionarios(): void {
     this.funcionarios = [];
     this.atividade.atividadeFuncionarios.forEach(e => {
       this.funcionarioService.getFuncionarioById(e.funcionarioId).subscribe(
@@ -84,6 +105,73 @@ export class AtividadeComponent implements OnInit {
         () => { }
       )
     })
+  }
+
+  public getAtividadeHoras(){
+    this.horasService.getHorasByAtividadeId(this.atividadeId).subscribe(
+      (res) => {
+        let contadorDeMinutos = 0;
+        res.data.forEach(x => {
+          contadorDeMinutos += x.minutos;
+        })
+        this.atividadeHoras = this.transformarMinutosEmHoras(contadorDeMinutos);
+        this.atualizarBarraDeProgresso();
+      },
+      (err) => {},
+    )
+  }
+
+  getDepartamentoNome(): void {
+    this.departamentoService.getDepartamentoById(this.atividade.departamentoId).subscribe(
+      (res) =>{
+        this.departamentoNome = res.data.nome;
+      },
+      () =>{}
+    )
+  }
+
+  public getFuncionarioAtual(): void {
+    this.funcionarioService.getFuncionarioLogado().subscribe(
+        (res) =>{
+          this.funcionarioAtual = res.data;
+
+          this.getFuncionarioHoras();
+        },
+        () => { }
+      )
+  }
+
+  public getFuncionarioHoras(): void {
+    this.horasService.getHorasByfuncionarioId(this.funcionarioAtual.id).subscribe(
+      (res) => {
+        let contadorDeMinutos = 0;
+        res.data.forEach(x => {
+          contadorDeMinutos += x.minutos;
+        })
+        this.funcionarioHoras = this.transformarMinutosEmHoras(contadorDeMinutos);
+      },
+      () => {}
+    )
+  }
+
+  public atualizarBarraDeProgresso(): void {
+    let porcentagem = (this.calcularHorasPrevistas(this.atividadeHoras) / this.atividade.tempoPrevisto) * 100;
+
+    if(porcentagem>100){
+      porcentagem = 100;
+    }
+
+    const tagPorcentagem = document.querySelector('#percentage') as HTMLElement;
+    tagPorcentagem.innerHTML = `${Math.round(porcentagem)}%`;
+
+    const barraDeProgresso = document.querySelector('.progress-bar-bigger div') as HTMLElement;
+    barraDeProgresso.style.width = `${porcentagem}%`;
+  }
+
+  public formValidation() {
+    this.horasForm = new FormGroup({
+      minutos: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
+    });
   }
 
   public transformarMinutosEmHoras(minutosPrevistos: number): string {
@@ -101,6 +189,48 @@ export class AtividadeComponent implements OnInit {
 
     return '' + horas + ':' + minutos;
 
+  }
+
+  public calcularHorasPrevistas(horas: string): number {
+    let arrayHoras = horas.split('');
+
+    let resultadoFinal = (+(arrayHoras[0] + arrayHoras[1]) * 60) + +(arrayHoras[3] + arrayHoras[4]);
+
+    return resultadoFinal;
+  }
+
+  public maskHour() {
+    var input = document.querySelectorAll('#horas')[0];
+    var hourInputMask = function hourInputMask(elm: any) {
+      if (elm !== undefined) {
+        elm.addEventListener('keypress', function (e: any) {
+          if (e.keyCode < 47 || e.keyCode > 57) {
+            e.preventDefault();
+          }
+
+          var len = elm.value.length;
+
+          if (len !== 1 || len !== 3) {
+            if (e.keyCode == 47) {
+              e.preventDefault();
+            }
+          }
+
+          if (len == 3 && e.keyCode > 53) {
+            e.preventDefault();
+          }
+
+
+          if (len === 2) {
+            elm.value += ':';
+          }
+
+        });
+      }
+    };
+
+
+    hourInputMask(input);
   }
 
   public openChecklistDialog(checklist = {} as ChecklistDto ) {
@@ -125,8 +255,6 @@ export class AtividadeComponent implements OnInit {
       }
 
     });
-
-
   }
 
   public changeChecklistStatus(checkAtual: ChecklistDto){
@@ -140,13 +268,34 @@ export class AtividadeComponent implements OnInit {
 
   }
 
-  ExcluirChecklist(idCheck: string){
+  public ExcluirChecklist(idCheck: string){
     this.atividadeService.deleteAtividadeCheck(idCheck).subscribe(
       ()=>{
         this.ngOnInit();
         this.snackbarComponent.openSnackBar("Subtarefa excluída com sucesso !",SnackBarTheme.success,3000);
       },
       ()=>{}
+    )
+  }
+
+  public alterarEstadoHoras(){
+    this.estadoHoras = !this.estadoHoras;
+  }
+
+  public adicionarHoras(){
+    let horasPost = {} as HorasPostDto;
+
+    horasPost.minutos = this.calcularHorasPrevistas(this.f.minutos.value);
+    horasPost.atividadeId = this.atividadeId;
+    horasPost.funcionarioId = this.funcionarioAtual.id;
+    console.log(horasPost);
+
+    this.horasService.postHoras(horasPost).subscribe(
+      () => {
+        this.ngOnInit();
+        this.snackbarComponent.openSnackBar("Horas adicionadas com sucesso !",SnackBarTheme.success,3000);
+      },
+      () => {}
     )
   }
 
@@ -163,10 +312,13 @@ export class AtividadeComponent implements OnInit {
   }
 
   public irParaAtividadeFilha(id: string){
-
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
     this.router.navigate([`/atividades/atividade/${id}`]));
-
   }
+
+  public cssValidator(campoForm: FormControl): any {
+    return { 'is-invalid': campoForm.errors && campoForm.touched }
+  }
+
 
 }

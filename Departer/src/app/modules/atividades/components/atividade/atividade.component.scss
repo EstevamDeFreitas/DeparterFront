@@ -28,6 +28,14 @@
   cursor: pointer;
 }
 
+.cancel-button {
+  font-size: 1.175rem;
+  font-family: Segoe UI, Regular;
+  font-weight: 400;
+  color: $color-red;
+  cursor: pointer;
+}
+
 // ------------------------------------------- Tags -------------------------------------------
 .tags-border{
   border-radius: 20px;
@@ -136,7 +144,6 @@
 .progress-bar-bigger div{
   height: 1.1rem;
   border-radius: 0.5rem;
-  width: 50%;
   background: $color-green;
 }
 
@@ -186,7 +193,7 @@
 
 
 .box-scroll-funcionarios{
-  height: 8rem;
+  max-height: 8rem;
   overflow-y: auto !important;
   overflow-x: hidden;
 }
