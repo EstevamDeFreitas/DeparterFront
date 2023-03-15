@@ -30,4 +30,8 @@ export class HorasService {
     return this.http.get<ResponseBase<HorasGetByFuncionarioDto[]>>(`${this.apiUlr}/funcionario/${funcionarioId}`);
   }
 
+  public getHorasByfuncionarioIdAndAtividadeId(funcionarioId: string, atividadeId: string): Observable<ResponseBase<HorasGetByFuncionarioDto[]>> {
+    return this.http.get<ResponseBase<HorasGetByFuncionarioDto[]>>(`${this.apiUlr}/funcionario/${funcionarioId}/atividade/${atividadeId}`);
+  }
+
 }
