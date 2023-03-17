@@ -1,3 +1,4 @@
+import { AtividadeDto } from './atividadeDto';
 export class HorasPostDto {
   funcionarioId: string = "";
   atividadeId: string = "";
@@ -16,4 +17,6 @@ export class HorasGetByFuncionarioDto {
   funcionarioId: string = "";
   atividadeId: string = "";
   minutos: number = 0;
+  dataCriacao = {} as Date;
+  atividade = {} as AtividadeDto;
 }

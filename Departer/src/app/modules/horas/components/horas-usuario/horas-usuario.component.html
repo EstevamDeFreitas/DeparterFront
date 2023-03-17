@@ -45,7 +45,7 @@
                     <span class="descricao laranja">3h 45min restantes</span>
                 </div>
             </div>
-           
+
 
         </div>
 
@@ -63,11 +63,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="itensTabela">Criar documento de planejamento</td>
-                <td class="itensTabela">4H</td>
+              <tr *ngFor="let hora of horas">
+                <td class="itensTabela">{{hora.atividade.titulo}}</td>
+                <td class="itensTabela">{{transformarMinutosEmHoras(hora.minutos)}} </td>
                 <td class="itensTabela">Eu</td>
-                <td class="itensTabela">10/03/2023 10:18</td>
+                <td class="itensTabela">{{hora.dataCriacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
               </tr>
             </tbody>
           </table>
