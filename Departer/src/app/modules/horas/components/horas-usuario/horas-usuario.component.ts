@@ -1,3 +1,4 @@
+import { ResumoDto } from './../../../atividades/models/resumoDto';
 import { HorasGetByFuncionarioDto } from './../../../atividades/models/horasDto';
 import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
 import { HorasService } from './../../../atividades/services/horas.service';
@@ -12,6 +13,7 @@ export class HorasUsuarioComponent implements OnInit {
 
   funcionarioId: string = "";
   horas: HorasGetByFuncionarioDto[] = [];
+  horasResumo = {} as ResumoDto;
 
   constructor(private horasService: HorasService, private funcionarioService: FuncionarioService) { }
 
@@ -24,6 +26,7 @@ export class HorasUsuarioComponent implements OnInit {
       (res) => {
         this.funcionarioId = res.data.id;
         this.getHorasFuncionario();
+        this.getResumo();
       },
       (err) => {}
     )
@@ -54,6 +57,16 @@ export class HorasUsuarioComponent implements OnInit {
 
     return '' + horas + 'h ' + minutos + 'm';
 
+  }
+
+  public getResumo(): void{
+    this.horasService.getResumoHoras(this.funcionarioId).subscribe(
+      (res) =>{
+        this.horasResumo = res.data;
+        console.log(this.horasResumo);
+      },
+      () =>{}
+    )
   }
 
 }

@@ -1,7 +1,8 @@
+import { ResumoDto } from './../models/resumoDto';
 import { HorasPostDto, HorasGetByFuncionarioDto, HorasGetByAtividadeDto } from './../models/horasDto';
 import { ResponseBase } from 'src/app/modules/shared/models/response';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
 
@@ -32,6 +33,17 @@ export class HorasService {
 
   public getHorasByfuncionarioIdAndAtividadeId(funcionarioId: string, atividadeId: string): Observable<ResponseBase<HorasGetByFuncionarioDto[]>> {
     return this.http.get<ResponseBase<HorasGetByFuncionarioDto[]>>(`${this.apiUlr}/funcionario/${funcionarioId}/atividade/${atividadeId}`);
+  }
+
+  public getResumoHoras(funcionarioId?: string, departamentoId?: string): Observable<ResponseBase<ResumoDto>> {
+    let params = new HttpParams();
+    if (funcionarioId) {
+      params = params.set('funcionarioId', funcionarioId);
+    }
+    if (departamentoId) {
+      params = params.set('departamentoId', departamentoId);
+    }
+    return this.http.get<ResponseBase<ResumoDto>>(`${this.apiUlr}/resumo`, { params });
   }
 
 }
