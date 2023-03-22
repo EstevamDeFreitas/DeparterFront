@@ -96,4 +96,6 @@ export class PerfilComponent implements OnInit {
     this.userValidation();
   }
 
+  
+
 }
