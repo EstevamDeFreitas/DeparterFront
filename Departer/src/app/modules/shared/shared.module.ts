@@ -54,7 +54,8 @@ const routes: Routes = [];
      NavBarComponent,
      MatIconModule,
      SnackbarComponent,
-     ResumoHorasComponent
+     ResumoHorasComponent,
+     ResumoAtividadesComponent
     ],
     entryComponents: [
 

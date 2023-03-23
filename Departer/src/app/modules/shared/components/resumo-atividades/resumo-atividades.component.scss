@@ -1,0 +1,33 @@
+@import "/src/assets/styles/variables.scss";
+
+/* Imagens */
+.image-circle {
+    position: relative;
+    bottom: 0.1rem;
+    filter: invert(57%) sepia(90%) saturate(2182%) hue-rotate(3deg) brightness(109%) contrast(102%);
+}
+
+.atividadeTexto {
+    font-weight: 575!important;
+    font-family: Segoe UI, Regular;
+}
+.table-atividades tr:first-child td{
+    padding-top: 1.5rem;
+}
+
+tr td{
+  padding-left: 0%;
+}
+
+.more-funcionarios-circle {
+  background-color: #D5CBFF;
+  border: none;
+  border-radius: 20px;
+  width: 30px;
+  height: 28px;
+}
+
+.more-funcionarios-text {
+  color: $color-purple;
+  padding: 4px;
+}
