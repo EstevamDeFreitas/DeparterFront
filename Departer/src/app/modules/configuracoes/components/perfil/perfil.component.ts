@@ -1,3 +1,4 @@
+import { ModalEditarPerfilImgComponent } from './../modal-editar-perfil-img/modal-editar-perfil-img.component';
 import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
 import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { Router } from '@angular/router';
@@ -6,6 +7,8 @@ import { FormGroup, FormControl, Validators, AbstractControlOptions } from '@ang
 import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
 import { FuncionarioService } from './../../services/funcionario.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-perfil',
@@ -23,14 +26,19 @@ export class PerfilComponent implements OnInit {
   hasError = false;
   errorMessage = "";
 
+  image: string = "";
+  compare: boolean = false;
+
   get f(): any {
     return this.editUserForm.controls;
   }
 
-  constructor(private funcionarioService: FuncionarioService, private router: Router, private readonly snackbarComponent: SnackbarComponent) { }
+  constructor(private funcionarioService: FuncionarioService, private router: Router, private readonly snackbarComponent: SnackbarComponent, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.modoEditar = false;
+    this.compare = false;
+    this.image = "";
     this.getUser();
   }
 
@@ -59,7 +67,7 @@ export class PerfilComponent implements OnInit {
       apelido: new FormControl(this.funcionario.apelido, [Validators.required]),
       senha: new FormControl(this.funcionario.senha, [Validators.required, Validators.minLength(6)]),
       confirmarSenha: new FormControl(this.funcionario.senha, [Validators.required]),
-      imagem: new FormControl(this.funcionario.imagem, [Validators.required]),
+      imagem: new FormControl(this.funcionario.imagem),
     }, formOptions);
   }
 
@@ -67,6 +75,14 @@ export class PerfilComponent implements OnInit {
     if(this.editUserForm.valid){
       let funcionarioPut = this.editUserForm.value;
       funcionarioPut.id = this.funcionario.id;
+
+      console.log(this.compare)
+      if(this.compare){
+        funcionarioPut.imagem = this.image;
+        console.log(funcionarioPut)
+      }
+
+      console.log(funcionarioPut)
 
       this.funcionarioService.putFuncionario(funcionarioPut).subscribe(
         (res) => {
@@ -95,5 +111,34 @@ export class PerfilComponent implements OnInit {
       this.nome.nativeElement.focus();
     this.userValidation();
   }
+
+  public changeUserImg(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+
+    dialogConfig.data = this.funcionario;
+    
+    const dialogRef = this.dialog.open(ModalEditarPerfilImgComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+
+      console.log(data)
+
+      if(data == false){
+        this.compare = false;
+      }else{
+        if(data == true){
+          this.image = "";
+        }else{
+        this.image = data;
+        }
+        this.compare = true;
+      }
+    });
+
+  }
+
+  
 
 }
