@@ -1,5 +1,5 @@
 <header>
-    <mat-icon class="close" mat-dialog-close>close</mat-icon>
+    <mat-icon class="close" mat-dialog-close (click)="onCancel()">close</mat-icon>
     <div class="text-center dialog-title w-100" mat-dialog-title>
         {{ title }}
     </div>

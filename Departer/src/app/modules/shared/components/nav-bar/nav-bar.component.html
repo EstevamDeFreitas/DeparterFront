@@ -30,8 +30,10 @@
       </div>
       <div class="dropdown" tabindex="0" id="drop">
 
-        <img class="d-inline-block clickable" src=".\assets\images\Perfil.svg" width="46" height="46"
-        class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" />
+        <img *ngIf="funcionario.imagem == ''" class="d-inline-block clickable" src=".\assets\images\Perfil.svg" width="46" height="46"
+        class="nav-link dropdown-toggle imagem" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" />
+        <img *ngIf="funcionario.imagem != ''" class="d-inline-block clickable" src="{{funcionario.imagem}}" width="46" height="46"
+        class="nav-link dropdown-toggle imagem" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" />
 
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink" >
           <a class="dropdown-item" (click)="irParaPerfil()">Dados do Perfil</a>
@@ -72,12 +74,7 @@
       </div>
     </div>
 
-    <div class="caixa-menu config">
-      <div class="opcao-menu clickable">
-        <img class="d-inline-block align-top perfil" src=".\assets\images\icone.config.svg" width="20" height="20" />
-        Configurações
-      </div>
-    </div>
+
 
   </mat-sidenav>
   <mat-sidenav-content>

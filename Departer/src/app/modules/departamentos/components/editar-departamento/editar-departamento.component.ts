@@ -80,6 +80,7 @@ export class EditarDepartamentoComponent implements OnInit {
       id: new FormControl('', [Validators.required]),
       nome: new FormControl('', [Validators.required]),
       descricao: new FormControl('', [Validators.required]),
+      imagemUrl: new FormControl(''),
       maximoHorasDiarias: new FormControl('', [Validators.required]),
       maximoHorasMensais: new FormControl('', [Validators.required]),
     });
