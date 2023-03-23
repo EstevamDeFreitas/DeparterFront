@@ -29,7 +29,7 @@ export class TelaDepartamentosComponent implements OnInit {
     });
 
     this.carregarDepartamento();
-    
+
   }
 
   carregarDepartamento(){
@@ -53,14 +53,14 @@ export class TelaDepartamentosComponent implements OnInit {
 
         this.atividades = response.data;
 
-       
+
       },
       error: (response) => {
       }
     })
   }
 
-    
+
   public transformarMinutosEmHoras(minutosPrevistos: number): string {
 
     let horas: number | string = Math.floor(minutosPrevistos / 60);
