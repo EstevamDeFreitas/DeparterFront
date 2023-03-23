@@ -3,6 +3,8 @@ import { SnackbarComponent } from './../snackbar/snackbar.component';
 import { ModoAdminService } from './../../services/modo-admin.service';
 import { Router } from '@angular/router';
 import { Component, OnChanges, OnInit } from '@angular/core';
+import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
+import { FuncionarioDto } from '../../models/funcionarioDto';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,15 +13,32 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
 
+  funcionario!: FuncionarioDto;
+
   opened: boolean = true;
   modoAdmin: boolean = true;
 
-  constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent) { }
+  constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent, 
+    private funcionarioService: FuncionarioService) { }
 
   ngOnInit(): void {
     this.modoAdmin = this.modoAdminService.modoAdmin;
     console.log(this.modoAdmin);
+    this.getUser();
   }
+
+  
+  public getUser(): void {
+    this.funcionarioService.getFuncionarioLogado().subscribe(
+      (res) => {
+        this.funcionario = res.data;
+      },
+      (err) => {
+        
+      }
+    )
+  }
+
 
   sideAbreFecha() {
 
