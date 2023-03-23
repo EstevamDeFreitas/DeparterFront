@@ -42,6 +42,7 @@ export class AtividadeListDto {
   atividadePaiId: string = "";
   atividadeCategorias = {} as AtividadeCategorias[];
   atividadeFuncionarios = {} as AtividadeFuncionarios[];
+  status: number = 0;
 
   categorias: CategoriaDto[] = [];
   funcionarios: FuncionarioDto[] = [];

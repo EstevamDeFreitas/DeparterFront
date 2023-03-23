@@ -1,0 +1,29 @@
+<table class="table table-borderless">
+  <thead>
+    <th>Entrega</th>
+    <th>Descrição</th>
+    <th>Usuário</th>
+    <th>Status</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let atividade of atividades; let i = index">
+      <td class="atividadeTexto">
+        {{atividade.dataEntrega | date: 'dd/MM/yyyy'}}
+      </td>
+      <td class="atividadeTexto">
+        {{atividade.descricao}}
+      </td>
+      <td class="atividadeTexto">
+        {{atividade.funcionarios}}
+      </td>
+      <td class="atividadeTexto">
+        <img class="image-circle me-1" src=".\assets\images\icone.circulo.svg" width="10" height="23" />
+        {{atividade.status}}
+      </td>
+      <td class="align-middle"> <img class="d-inline-block align-top perfil clickable"
+        src=".\assets\images\tres-pontos.svg" width="20" height="18" (click)="irAtividade(atividade.id)" />
+      </td>
+
+    </tr>
+  </tbody>
+</table>

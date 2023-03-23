@@ -22,19 +22,16 @@
           Atividades
         </div>
         <div class="card mt-4">
-          <div class="box-departamentos">
-            
-            <table class="table default-text table-borderless table-atividades" *ngIf="atividades.length != 0">
-              <thead style="position:sticky">
 
-                <th class="col">Entrega</th>
-                <th class="col">Descrição</th>
-                <th class="col">Usuário</th>
-                <th class="col">Status</th>
-
+            <table class="table table-borderless">
+              <thead>
+                <th>Entrega</th>
+                <th>Descrição</th>
+                <th>Usuário</th>
+                <th>Status</th>
               </thead>
               <tbody>
-                <tr *ngFor="let atividade of atividades; let i = index" class="clickable" (click)="irAtividade(atividade.atividadeId)">
+                <tr *ngFor="let atividade of atividades; let i = index">
                   <td class="atividadeTexto">
                     {{atividade.dataEntrega | date: 'dd/MM/yyyy'}}
                   </td>
@@ -45,14 +42,17 @@
                     {{atividade.funcionario}}
                   </td>
                   <td class="atividadeTexto">
-                    <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                    <img class="image-circle me-1" src=".\assets\images\icone.circulo.svg" width="10" height="23" />
                     {{atividade.status}}
                   </td>
-               
+                  <td class="align-middle"> <img class="d-inline-block align-top perfil clickable"
+                    src=".\assets\images\tres-pontos.svg" width="20" height="18" (click)="irAtividade(atividade.atividadeId)" />
+                  </td>
 
                 </tr>
               </tbody>
             </table>
+
 
             <div class="col-12" *ngIf="atividades.length == 0">
               <div class="mt-3 mb-3 aviso">
@@ -60,8 +60,7 @@
               </div>
             </div>
 
-            
-          </div>
+
         </div>
 
         <div class="titulo mt-5">
