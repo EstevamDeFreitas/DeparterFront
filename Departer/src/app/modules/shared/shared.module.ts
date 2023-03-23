@@ -18,6 +18,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ModalAdicionarFuncionariosComponent } from './components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
 import { ModalAdicionarCategoriaComponent } from './components/modal-adicionar-categoria/modal-adicionar-categoria.component';
 import { ModalInformacoesComponent } from './components/modal-informacoes/modal-informacoes.component';
+import { ResumoHorasComponent } from './components/resumo-horas/resumo-horas.component';
 
 
 const routes: Routes = [];
@@ -31,7 +32,7 @@ const routes: Routes = [];
     ModalAdicionarFuncionariosComponent,
     ModalAdicionarCategoriaComponent,
     ModalInformacoesComponent,
-  
+    ResumoHorasComponent
   ],
     imports: [
       RouterModule.forChild(routes),
@@ -50,12 +51,12 @@ const routes: Routes = [];
      CommonModule,
      NavBarComponent,
      MatIconModule,
-     SnackbarComponent
+     SnackbarComponent,
+     ResumoHorasComponent
     ],
     entryComponents: [
-      
+
     ],
     providers: [SnackbarComponent]
   })
   export class SharedModule { }
-  

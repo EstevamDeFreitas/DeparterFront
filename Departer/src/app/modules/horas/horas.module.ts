@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { HorasRoutingModule } from './horas-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HorasRoutingModule
+    HorasRoutingModule,
+    SharedModule
   ]
 })
 export class HorasModule { }

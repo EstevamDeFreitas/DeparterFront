@@ -6,50 +6,7 @@
         </div>
     </div>
 
-    <div class="container-fluid">
-
-        <div class="row">
-
-            <div class="col bloco text-center ">
-                <div class="mt-4">
-                    <p class="tituloTempo">Mês passado</p>
-                </div>
-                <div class="mt-1">
-                    <span class="tempo">{{transformarMinutosEmHoras(horasResumo.minutosMesPassado)}}</span>
-                </div>
-                <div class="mt-1 mb-4">
-                    <span class="descricao laranja">2h 15min acima da média</span>
-                </div>
-            </div>
-
-            <div class="col bloco text-center ">
-                <div class="mt-4">
-                    <p class="tituloTempo">Mês vigente</p>
-                </div>
-                <div class="mt-1">
-                    <span class="tempo">{{transformarMinutosEmHoras(horasResumo.minutosMesVigente)}}</span>
-                </div>
-                <div class="mt-1 mb-4">
-                    <span class="descricao verde">{{transformarMinutosEmHoras(horasResumo.minutosMesRestantes)}} restantes</span>
-                </div>
-            </div>
-
-            <div class="col bloco text-center ">
-                <div class="mt-4">
-                    <p class="tituloTempo">Hoje</p>
-                </div>
-                <div class="mt-1">
-                    <span class="tempo">{{transformarMinutosEmHoras(horasResumo.minutosHoje)}}</span>
-                </div>
-                <div class="mt-1 mb-4">
-                    <span class="descricao laranja">{{transformarMinutosEmHoras(horasResumo.minutosHojeRestantes)}} restantes</span>
-                </div>
-            </div>
-
-
-        </div>
-
-    </div>
+    <app-resumo-horas></app-resumo-horas>
 
     <div class="card mt-4 mb-4">
 

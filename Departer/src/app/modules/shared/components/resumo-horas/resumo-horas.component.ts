@@ -1,44 +1,31 @@
 import { ResumoDto } from './../../../atividades/models/resumoDto';
-import { HorasGetByFuncionarioDto } from './../../../atividades/models/horasDto';
-import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
+import { FuncionarioService } from './../../../configuracoes/services/funcionario.service';
 import { HorasService } from './../../../atividades/services/horas.service';
 import { Component, OnInit } from '@angular/core';
-import { ResumoHorasComponent } from 'src/app/modules/shared/components/resumo-horas/resumo-horas.component';
 
 @Component({
-  selector: 'app-horas-usuario',
-  templateUrl: './horas-usuario.component.html',
-  styleUrls: ['./horas-usuario.component.scss']
+  selector: 'app-resumo-horas',
+  templateUrl: './resumo-horas.component.html',
+  styleUrls: ['./resumo-horas.component.scss']
 })
-export class HorasUsuarioComponent implements OnInit {
+export class ResumoHorasComponent implements OnInit {
 
   funcionarioId: string = "";
-  horas: HorasGetByFuncionarioDto[] = [];
   horasResumo = {} as ResumoDto;
 
   constructor(private horasService: HorasService, private funcionarioService: FuncionarioService) { }
 
   ngOnInit(): void {
-    this.getFuncionario()
+    this.getFuncionario();
   }
 
   public getFuncionario(): void{
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionarioId = res.data.id;
-        this.getHorasFuncionario();
+        this.getResumo();
       },
       (err) => {}
-    )
-  }
-
-  public getHorasFuncionario(): void{
-    this.horasService.getHorasByfuncionarioId(this.funcionarioId).subscribe(
-      (res) => {
-        this.horas = res.data;
-        console.log(this.horas);
-      },
-      () => {}
     )
   }
 
@@ -58,5 +45,16 @@ export class HorasUsuarioComponent implements OnInit {
     return '' + horas + 'h ' + minutos + 'm';
 
   }
+
+  public getResumo(): void{
+    this.horasService.getResumoHoras(this.funcionarioId).subscribe(
+      (res) =>{
+        this.horasResumo = res.data;
+        console.log(this.horasResumo);
+      },
+      () =>{}
+    )
+  }
+
 
 }
