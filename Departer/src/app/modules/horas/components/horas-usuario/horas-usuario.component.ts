@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ResumoDto } from './../../../atividades/models/resumoDto';
 import { HorasGetByFuncionarioDto } from './../../../atividades/models/horasDto';
 import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
@@ -16,7 +17,7 @@ export class HorasUsuarioComponent implements OnInit {
   horas: HorasGetByFuncionarioDto[] = [];
   horasResumo = {} as ResumoDto;
 
-  constructor(private horasService: HorasService, private funcionarioService: FuncionarioService) { }
+  constructor(private horasService: HorasService, private funcionarioService: FuncionarioService, private router: Router) { }
 
   ngOnInit(): void {
     this.getFuncionario()
@@ -57,6 +58,10 @@ export class HorasUsuarioComponent implements OnInit {
 
     return '' + horas + 'h ' + minutos + 'm';
 
+  }
+
+  irAtividade(id: string) {
+    this.router.navigate([`/atividades/atividade/${id}`]);
   }
 
 }
