@@ -26,8 +26,8 @@ export class NovoDepartamentoComponent implements OnInit {
     return this.departamentoForm.controls;
   }
 
-  constructor(private router: Router,private route: ActivatedRoute,public dialog: MatDialog,
-    private departamentoService: DepartamentoService,private readonly snackbarComponent: SnackbarComponent) { }
+  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog,
+    private departamentoService: DepartamentoService, private readonly snackbarComponent: SnackbarComponent) { }
 
   ngOnInit(): void {
     this.formValidation();
@@ -53,7 +53,7 @@ export class NovoDepartamentoComponent implements OnInit {
             }
           }
 
-          if(len == 3 && e.keyCode > 53){
+          if (len == 3 && e.keyCode > 53) {
             e.preventDefault();
           }
 
@@ -85,7 +85,7 @@ export class NovoDepartamentoComponent implements OnInit {
             }
           }
 
-          if(len == 3 && e.keyCode > 53){
+          if (len == 3 && e.keyCode > 53) {
             e.preventDefault();
           }
 
@@ -101,17 +101,18 @@ export class NovoDepartamentoComponent implements OnInit {
   }
 
   public formValidation() {
-   
+
     this.departamentoForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
       descricao: new FormControl('', [Validators.required]),
+      imageUrl: new FormControl(''),
       maximoHorasDiarias: new FormControl('', [Validators.required]),
       maximoHorasMensais: new FormControl('', [Validators.required]),
     });
   }
 
   public openFuncionarioDialog() {
-    
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
@@ -148,7 +149,7 @@ export class NovoDepartamentoComponent implements OnInit {
 
     this.dialog.open(ModalInformacoesComponent, dialogConfig);
   }
- 
+
   public cssValidator(campoForm: FormControl): any {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
@@ -161,8 +162,8 @@ export class NovoDepartamentoComponent implements OnInit {
     return resultadoFinal;
   }
 
-  criarDepartamento(){
-    
+  criarDepartamento() {
+
     if (this.departamentoForm.valid && this.funcionariosLista.length >= 1) {
 
       let departamentoPost: DepartamentoDto = { ...this.departamentoForm.value };
@@ -171,22 +172,29 @@ export class NovoDepartamentoComponent implements OnInit {
       departamentoPost.maximoHorasDiarias = this.calcularHorasPrevistas(this.f.maximoHorasDiarias.value);
       departamentoPost.maximoHorasMensais = this.calcularHorasPrevistas(this.f.maximoHorasMensais.value);
 
-      let listaIds : { funcionarioId: string }[] = [
-    ]
+      if (departamentoPost.imageUrl == "") {
+        departamentoPost.imageUrl = "https://cdn.shopify.com/s/files/1/0305/4075/9177/products/papel-de-parede-adesivo-degrade-roxo-e-azul-n05175-745864.jpg?v=1643338826";
+      }
 
-      this.funcionariosId.forEach(function(entry) {
+      let listaIds: { funcionarioId: string }[] = [
+      ]
+
+      this.funcionariosId.forEach(function (entry) {
         let singleObj: any = {};
         singleObj['funcionarioId'] = entry;
 
         listaIds.push(singleObj);
-    });
+      });
 
       departamentoPost.departamentoFuncionarios = listaIds;
 
 
+      console.log(departamentoPost)
+
+
       this.departamentoService.createDepartamento(departamentoPost).subscribe({
         next: (response) => {
-          this.snackbarComponent.openSnackBar("Cadastro realizado com sucesso!",SnackBarTheme.success,3000);
+          this.snackbarComponent.openSnackBar("Cadastro realizado com sucesso!", SnackBarTheme.success, 3000);
           this.voltar();
         },
         error: (response) => {
@@ -194,13 +202,13 @@ export class NovoDepartamentoComponent implements OnInit {
         }
       })
 
-    }else{
+    } else {
       this.snackbarComponent.openSnackBar("Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
     }
-   
+
   }
 
-  voltar(){
+  voltar() {
     this.router.navigate(['/departamentos/lista-departamentos']);
   }
 

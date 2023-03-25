@@ -64,9 +64,17 @@ export class EditarDepartamentoComponent implements OnInit {
 
         this.nomeDepartamento = response.data.nome;
 
+        let imagem;
+
+        if(response.data.imageUrl == "https://cdn.shopify.com/s/files/1/0305/4075/9177/products/papel-de-parede-adesivo-degrade-roxo-e-azul-n05175-745864.jpg?v=1643338826"){
+          imagem = "";
+        }else{
+          imagem = response.data.imageUrl;
+        }
+
         this.departamentoForm.patchValue({
           id: this.idDepartamento, nome: this.nomeDepartamento, descricao: response.data.descricao,
-          maximoHorasDiarias: maximoHorasDiarias, maximoHorasMensais: maximoHorasMensais
+          maximoHorasDiarias: maximoHorasDiarias, maximoHorasMensais: maximoHorasMensais, imageUrl: imagem
         });
       },
       error: (response) => {
@@ -80,7 +88,7 @@ export class EditarDepartamentoComponent implements OnInit {
       id: new FormControl('', [Validators.required]),
       nome: new FormControl('', [Validators.required]),
       descricao: new FormControl('', [Validators.required]),
-      imagemUrl: new FormControl(''),
+      imageUrl: new FormControl(''),
       maximoHorasDiarias: new FormControl('', [Validators.required]),
       maximoHorasMensais: new FormControl('', [Validators.required]),
     });
@@ -229,6 +237,10 @@ export class EditarDepartamentoComponent implements OnInit {
       departamentoPut.maximoHorasDiarias = this.calcularHorasPrevistas(this.f.maximoHorasDiarias.value);
       departamentoPut.maximoHorasMensais = this.calcularHorasPrevistas(this.f.maximoHorasMensais.value);
 
+      if (departamentoPut.imageUrl == "") {
+        departamentoPut.imageUrl = "https://cdn.shopify.com/s/files/1/0305/4075/9177/products/papel-de-parede-adesivo-degrade-roxo-e-azul-n05175-745864.jpg?v=1643338826";
+      }
+
       let listaIdsAdicionar: string[] = [
       ]
 
@@ -254,9 +266,7 @@ export class EditarDepartamentoComponent implements OnInit {
         listaIdsRetirar.push(singleObj);
       });
 
-      console.log(listaIdsRetirar);
-      console.log(listaIdsAdicionar);
-
+    
       this.departamentoService.editarDepartamento(departamentoPut).subscribe({
         next: (response) => {
           this.snackbarComponent.openSnackBar("Departamento atualizado com sucesso!", SnackBarTheme.success, 3000);

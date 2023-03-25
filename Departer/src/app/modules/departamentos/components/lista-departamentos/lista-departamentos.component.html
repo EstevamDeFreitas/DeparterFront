@@ -17,7 +17,8 @@
 
         <div class="col-auto" *ngFor="let departamento of departamentos">
         <mat-card class="example-card mt-3 clickable" (click)="detalhesDepartamento(departamento.id)">
-            <img *ngIf="departamento.imagem != ''"  mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+            <img *ngIf="departamento.imageUrl == ''"  mat-card-image src="https://cdn.shopify.com/s/files/1/0305/4075/9177/products/papel-de-parede-adesivo-degrade-roxo-e-azul-n05175-745864.jpg?v=1643338826" >
+            <img *ngIf="departamento.imageUrl != ''"  mat-card-image src="{{departamento.imageUrl}}" >
             <mat-card-content>
               <h1 class="text-center texto-card">
                 {{departamento.nome}}

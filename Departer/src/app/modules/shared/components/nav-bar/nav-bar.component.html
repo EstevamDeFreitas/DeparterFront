@@ -12,6 +12,8 @@
           height="32" id="seta" />
       </a>
     </div>
+
+    <!--
     <div class="col-5">
       <form class="d-flex" role="search">
         <div id="icone" class="custom-input d-flex align-items-center">
@@ -20,8 +22,9 @@
         </div>
       </form>
     </div>
+  -->
 
-    <div class="col-2"></div>
+    <div class="col-7"></div>
 
     <div class="col d-flex justify-content-center">
       <div class="align-self-center me-4">
@@ -30,9 +33,9 @@
       </div>
       <div class="dropdown" tabindex="0" id="drop">
 
-        <img *ngIf="funcionario.imagem == ''" class="d-inline-block clickable" src=".\assets\images\Perfil.svg" width="46" height="46"
+        <img *ngIf="userImg == ''" class="d-inline-block clickable" src=".\assets\images\Perfil.svg" width="46" height="46"
         class="nav-link dropdown-toggle imagem" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" />
-        <img *ngIf="funcionario.imagem != ''" class="d-inline-block clickable" src="{{funcionario.imagem}}" width="46" height="46"
+        <img *ngIf="userImg != ''" class="d-inline-block clickable" src="{{userImg}}" width="46" height="46"
         class="nav-link dropdown-toggle imagem" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" />
 
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink" >

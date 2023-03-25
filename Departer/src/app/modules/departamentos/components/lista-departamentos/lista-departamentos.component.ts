@@ -18,6 +18,7 @@ export class ListaDepartamentosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDepartamentos();
+    this.getDepartamentos();
   }
 
   getDepartamentos(){
