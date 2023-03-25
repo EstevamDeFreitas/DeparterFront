@@ -1,3 +1,4 @@
+import { ErrorInterceptor } from './modules/shared/services/error.interceptor';
 import { ModoAdminService } from './modules/shared/services/modo-admin.service';
 import { AuthInterceptor } from './modules/autentificacao/services/auth.interceptor';
 import { AuthService } from './modules/autentificacao/services/auth.service';
@@ -24,7 +25,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     HttpClientModule
 
   ],
-  providers: [SnackbarComponent, AuthService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},{provide: MAT_DATE_LOCALE, useValue: 'pt-br'}],
+  providers: [SnackbarComponent, AuthService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, {provide: MAT_DATE_LOCALE, useValue: 'pt-br'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

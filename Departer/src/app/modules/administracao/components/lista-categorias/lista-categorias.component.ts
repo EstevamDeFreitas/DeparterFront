@@ -31,10 +31,7 @@ export class ListaCategoriasComponent implements OnInit {
       (res) => {
         this.categorias = res.data;
       },
-      (err) => {
-        this.hasError = true;
-        this.errorMessage = err.error.message;
-      },
+      () => {},
       () => {
       }
     );
@@ -48,10 +45,7 @@ export class ListaCategoriasComponent implements OnInit {
 
     this.categoriaService.deleteCategoria(id).subscribe(
       (res) => console.log(res.message),
-      (err) => {
-        this.hasError = true;
-        this.errorMessage = err.error.message;
-      },
+      () => {},
       () => this.ngOnInit()
     );
 

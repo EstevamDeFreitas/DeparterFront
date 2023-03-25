@@ -44,11 +44,7 @@ export class LoginComponent implements OnInit {
         next: (res) =>{
           AuthService.setToken(res.data);
         },
-        error: (err) => {
-          this.hasError = true;
-          this.errorMessage = err.error.message;
-          this.snackbarComponent.openSnackBar("Senha ou email incorreto !", SnackBarTheme.error, 3000);
-        },
+        error: (err) => {},
         complete: () => {
           this.snackbarComponent.openSnackBar("Login realizado com sucesso !",SnackBarTheme.success,3000);
           this.irParaDashboard();

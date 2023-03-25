@@ -75,10 +75,7 @@ export class EditarAtividadeComponent implements OnInit {
         this.getFuncionarios(res.data.atividadeFuncionarios);
         this.getCategorias(res.data.atividadeCategorias);
       },
-      (err) => {
-        this.hasError = true;
-        this.errorMessage = err.error.message;
-      }
+      () => {}
     )
   }
 
@@ -314,11 +311,7 @@ export class EditarAtividadeComponent implements OnInit {
           this.router.navigate(['/atividades/lista-atividades']);
           this.snackbarComponent.openSnackBar("Atividade alterada com sucesso !",SnackBarTheme.success,3000);
         },
-        (error) => {
-          this.hasError = true;
-          this.errorMessage = error.error.message;
-          this.snackbarComponent.openSnackBar(`Erro ao tentar editar atividade !`, SnackBarTheme.error, 3000);
-        }
+        () => {}
       )
 
     } else {

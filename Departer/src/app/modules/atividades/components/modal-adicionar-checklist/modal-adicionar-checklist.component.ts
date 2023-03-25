@@ -72,10 +72,7 @@ export class ModalAdicionarChecklistComponent implements OnInit {
           (res) => {
             this.dialogRef.close("adicionada");
           },
-          (err) => {
-            this.hasError = true;
-            this.errorMessage = err.error.message;
-          }
+          () => {}
         );
       } else {
         checklistFinal.id = this.checklist.id
@@ -83,10 +80,7 @@ export class ModalAdicionarChecklistComponent implements OnInit {
           (res) => {
             this.dialogRef.close("alterada");
           },
-          (err) => {
-            this.hasError = true;
-            this.errorMessage = err.error.message;
-          }
+          () => {}
         );
       }
 

@@ -47,10 +47,7 @@ export class PerfilComponent implements OnInit {
       (res) => {
         this.funcionario = res.data;
       },
-      (err) => {
-        this.hasError = true;
-        this.errorMessage = err.error.message;
-      },
+      () => {},
       () => this.userValidation()
     )
   }
@@ -88,11 +85,7 @@ export class PerfilComponent implements OnInit {
         (res) => {
           this.snackbarComponent.openSnackBar("Usúario alterado com sucesso !",SnackBarTheme.success,3000);
         },
-        (err) => {
-          this.hasError = true;
-          this.errorMessage = err.error.message;
-          this.snackbarComponent.openSnackBar("Erro ao alterar usúario", SnackBarTheme.error, 3000);
-        },
+        () => {},
         () => {this.ngOnInit();}
       );
 
@@ -118,7 +111,7 @@ export class PerfilComponent implements OnInit {
     dialogConfig.autoFocus = false;
 
     dialogConfig.data = this.funcionario;
-    
+
     const dialogRef = this.dialog.open(ModalEditarPerfilImgComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
@@ -139,6 +132,6 @@ export class PerfilComponent implements OnInit {
 
   }
 
-  
+
 
 }

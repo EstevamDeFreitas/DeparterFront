@@ -72,10 +72,7 @@ export class CadastrarCategoriasComponent implements OnInit {
           this.categoriaForm.patchValue(this.categoria);
           this.corAtual = this.categoria.cor;
         },
-        (err) => {
-          this.hasError = true;
-          this.errorMessage = err.error.message;
-        },
+        () => {},
         () => { }
       )
     }
@@ -97,11 +94,7 @@ export class CadastrarCategoriasComponent implements OnInit {
           (res) => {
             this.snackbarComponent.openSnackBar("Categoria adicionada com sucesso !",SnackBarTheme.success,3000);
           },
-          (err) => {
-            this.hasError = true;
-            this.errorMessage = err.error.message;
-            this.snackbarComponent.openSnackBar("Erro ao adicionar categoria !", SnackBarTheme.error, 3000);
-          },
+          () => {},
           () => {
             this.irParaCategorias();
           }
@@ -111,11 +104,7 @@ export class CadastrarCategoriasComponent implements OnInit {
           (res) => {
             this.snackbarComponent.openSnackBar("Categoria alterada com sucesso !",SnackBarTheme.success,3000);
           },
-          (err) => {
-            this.hasError = true;
-            this.errorMessage = err.error.message;
-            this.snackbarComponent.openSnackBar("Erro ao alterar categoria !", SnackBarTheme.error, 3000);
-          },
+          () => {},
           () => {
             this.irParaCategorias();
           }

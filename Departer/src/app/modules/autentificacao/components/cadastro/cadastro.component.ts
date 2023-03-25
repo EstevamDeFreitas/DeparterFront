@@ -60,14 +60,7 @@ export class CadastroComponent implements OnInit {
 
       this.authService.register(funcionario).subscribe(
         (res) => {},
-        (err) => {
-          this.errorMessage = err.error.message;
-          this.snackbarComponent.openSnackBar(`${this.errorMessage}`, SnackBarTheme.error, 3000);
-
-          if(this.errorMessage == undefined){
-            this.snackbarComponent.openSnackBar(`Erro desconhecido! Tente novamente mais tarde.`, SnackBarTheme.error, 3000);
-          }
-        },
+        () => {},
         () => {
           this.goToLogin();
           this.snackbarComponent.openSnackBar("Cadastro realizado com sucesso !", SnackBarTheme.success, 3000);

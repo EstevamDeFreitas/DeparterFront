@@ -70,10 +70,7 @@ export class NovaAtividadeComponent implements OnInit {
 
         this.getAllDepartamentos();
       },
-      (err) => {
-        this.hasError = true;
-        this.errorMessage = err.error.message;
-      }
+      () => {}
     )
   }
 
@@ -280,11 +277,7 @@ export class NovaAtividadeComponent implements OnInit {
           this.router.navigate(['/atividades/lista-atividades']);
           this.snackbarComponent.openSnackBar("Atividade criada com sucesso !",SnackBarTheme.success,3000);
         },
-        (error) => {
-          this.hasError = true;
-          this.errorMessage = error.error.message;
-          this.snackbarComponent.openSnackBar("Erro ao tentar criar atividade !", SnackBarTheme.error, 3000);
-        }
+        () => {}
       )
 
     } else {

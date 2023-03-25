@@ -52,10 +52,7 @@ export class ModalAdicionarCategoriaComponent implements OnInit {
         this.categoriaSegundaMetade = categoriaResponse.splice(-meioDoArray);
 
       },
-      (err) => {
-        this.hasError = true;
-        this.errorMessage = err.error.message;
-      },
+      () => {},
     )
   }
 
