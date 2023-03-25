@@ -6,7 +6,7 @@
     <th>Status</th>
   </thead>
   <tbody>
-    <tr *ngFor="let atividade of atividades; let i = index">
+    <tr *ngFor="let atividade of atividades.slice(0, 3); let i = index">
       <td class="atividadeTexto">
         {{atividade.dataEntrega | date: 'dd/MM/yyyy'}}
       </td>

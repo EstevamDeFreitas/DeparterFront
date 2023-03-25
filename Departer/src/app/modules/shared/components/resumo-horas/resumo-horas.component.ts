@@ -50,7 +50,6 @@ export class ResumoHorasComponent implements OnInit {
     this.horasService.getResumoHoras(this.funcionarioId).subscribe(
       (res) =>{
         this.horasResumo = res.data;
-        console.log(this.horasResumo);
       },
       () =>{}
     )

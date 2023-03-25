@@ -2,7 +2,8 @@
 
 
 .card {
-    height: max-content;
+    max-height: 15rem;
+    overflow-x: auto;
 }
 
 .botao {

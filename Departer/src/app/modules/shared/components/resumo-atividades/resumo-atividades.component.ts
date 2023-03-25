@@ -36,6 +36,8 @@ export class ResumoAtividadesComponent implements OnInit {
 
         });
 
+        console.log(this.atividades)
+
       },
       () => {}
     )

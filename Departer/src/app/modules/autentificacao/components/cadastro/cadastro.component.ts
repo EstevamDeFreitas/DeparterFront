@@ -1,3 +1,5 @@
+import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
+import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { FuncionarioDto } from '../../../shared/models/funcionarioDto';
 import { ValidatorField } from './../../../../helpers/ValidatorField';
 import { AuthService } from './../../services/auth.service';
@@ -22,7 +24,7 @@ export class CadastroComponent implements OnInit {
     return this.registerForm.controls;
   }
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private readonly snackbarComponent: SnackbarComponent) { }
 
 
 
@@ -59,15 +61,20 @@ export class CadastroComponent implements OnInit {
       this.authService.register(funcionario).subscribe(
         (res) => {},
         (err) => {
-          this.hasError = true;
           this.errorMessage = err.error.message;
+          this.snackbarComponent.openSnackBar(`${this.errorMessage}`, SnackBarTheme.error, 3000);
+
+          if(this.errorMessage == undefined){
+            this.snackbarComponent.openSnackBar(`Erro desconhecido! Tente novamente mais tarde.`, SnackBarTheme.error, 3000);
+          }
         },
         () => {
-          this.goToLogin()
+          this.goToLogin();
+          this.snackbarComponent.openSnackBar("Cadastro realizado com sucesso !", SnackBarTheme.success, 3000);
         }
       )
     } else {
-      //aqui sera chamado um alerta/toastr.
+      this.snackbarComponent.openSnackBar("Preencha todos os campos corretamente para cadastrar-se !", SnackBarTheme.error, 3000);
     }
   }
 
@@ -79,7 +86,7 @@ export class CadastroComponent implements OnInit {
     if(this.f.nome.valid && this.f.email.valid && this.f.senha.valid && this.f.confirmarSenha.valid){
       this.changeRegisterSection()
     } else {
-      //aqui sera chamado um alerta/toastr
+      this.snackbarComponent.openSnackBar("Preencha todos os campos para continuar !", SnackBarTheme.error, 3000);
     }
   }
 
