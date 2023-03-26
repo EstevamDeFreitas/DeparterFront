@@ -142,7 +142,7 @@ export class AtividadeComponent implements OnInit {
   }
 
   public getFuncionarioHoras(): void {
-    this.horasService.getHorasByfuncionarioIdAndAtividadeId(this.funcionarioAtual.id, this.atividade.id).subscribe(
+    this.horasService.getHorasByfuncionarioIdAndAtividadeId(this.funcionarioAtual.id, this.atividadeId).subscribe(
       (res) => {
         let contadorDeMinutos = 0;
         res.data.forEach(x => {
