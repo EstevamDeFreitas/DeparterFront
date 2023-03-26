@@ -1,10 +1,10 @@
-import { Router } from '@angular/router';
 import { ResumoDto } from './../../../atividades/models/resumoDto';
 import { HorasGetByFuncionarioDto } from './../../../atividades/models/horasDto';
 import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
 import { HorasService } from './../../../atividades/services/horas.service';
 import { Component, OnInit } from '@angular/core';
 import { ResumoHorasComponent } from 'src/app/modules/shared/components/resumo-horas/resumo-horas.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-horas-usuario',

@@ -18,6 +18,8 @@ export class NavBarComponent implements OnInit {
   opened: boolean = true;
   modoAdmin: boolean = true;
 
+  userImg: string = "";
+
   constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent, 
     private funcionarioService: FuncionarioService) { }
 
@@ -32,6 +34,7 @@ export class NavBarComponent implements OnInit {
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionario = res.data;
+        this.userImg = this.funcionario.imagem;
       },
       (err) => {
         
