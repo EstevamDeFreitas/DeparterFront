@@ -20,7 +20,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let hora of horas">
+              <tr *ngFor="let hora of horas" class="clickable"
+              (click)="irParaAtividadeHora(hora.atividadeId)">
                 <td class="itensTabela">{{hora.atividade.titulo}}</td>
                 <td class="itensTabela">{{transformarMinutosEmHoras(hora.minutos)}} </td>
                 <td class="itensTabela">Eu</td>
