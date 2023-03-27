@@ -1,4 +1,3 @@
-import { ModoAdminService } from './../../../shared/services/modo-admin.service';
 import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
 import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { DepartamentoDto } from './../../../departamentos/models/departamentoDto';
@@ -37,8 +36,6 @@ export class NovaAtividadeComponent implements OnInit {
   atividadePaiId: string = "";
   estadoSalvar: string = "semPai";
 
-  modoAdmin: boolean = false;
-
   atividadeForm!: FormGroup;
 
   hasError = false;
@@ -48,19 +45,13 @@ export class NovaAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private departamentoService: DepartamentoService, private readonly snackbarComponent: SnackbarComponent, private modoAdminService: ModoAdminService) {
+  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private departamentoService: DepartamentoService, private readonly snackbarComponent: SnackbarComponent) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
   ngOnInit(): void {
 
-    this.modoAdminService.modoAdmin$.subscribe(
-      modoAdmin => {
-        this.modoAdmin = modoAdmin;
-
-        this.getFuncionarioLogado();
-      }
-    );
+    this.getFuncionarioLogado();
 
     this.formValidation();
     this.identificarModoPost();
@@ -74,15 +65,13 @@ export class NovaAtividadeComponent implements OnInit {
       (res) =>{
         res.data.nivelAcesso = 4;
         this.funcionariosLista.push(res.data)
-
-        this.getAllDepartamentos();
       },
       () => {}
     )
   }
 
   public getAllDepartamentos(){
-    this.departamentoService.getDepartamentos(this.modoAdmin).subscribe(
+    this.departamentoService.getDepartamentos().subscribe(
       (res)=>{
         this.departamentos = res.data;
         console.log(this.departamentos);

@@ -130,7 +130,7 @@
                     (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [disabled]="i == 0"><span
                     class="me-2">4</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="5" id="radio5{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="i == 0"><span
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [disabled]="i>0" [checked]="i == 0"><span
                     class="me-2">5</span>
                 </td>
                 <td>

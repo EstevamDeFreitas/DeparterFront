@@ -11,7 +11,7 @@
         {{atividade.dataEntrega | date: 'dd/MM/yyyy'}}
       </td>
       <td class="atividadeTexto">
-        {{atividade.titulo}}
+        {{atividade.titulo | slice:0:25}}{{atividade.titulo.length > 25 ? '...' : ''}}
       </td>
       <td class="align-middle">
         <div class="d-flex">
