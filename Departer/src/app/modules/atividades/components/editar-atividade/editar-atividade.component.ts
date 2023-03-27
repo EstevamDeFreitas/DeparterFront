@@ -1,3 +1,4 @@
+import { DepartamentoService } from './../../../departamentos/services/departamento.service';
 import { DepartamentoDto } from './../../../departamentos/models/departamentoDto';
 import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
 import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
@@ -35,6 +36,7 @@ export class EditarAtividadeComponent implements OnInit {
   categorias: CategoriaDto[] = [];
   funcionarios: FuncionarioDto[] = [];
   atividadesFilha: AtividadeDto[] = [];
+  departamentoNome: string = "";
 
   atividadeForm!: FormGroup;
   atividade = {} as AtividadeDto;
@@ -46,7 +48,7 @@ export class EditarAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private categoriaService: CategoriaService, private readonly snackbarComponent: SnackbarComponent) {
+  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private categoriaService: CategoriaService, private readonly snackbarComponent: SnackbarComponent, private departamentoService:DepartamentoService) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
@@ -74,6 +76,7 @@ export class EditarAtividadeComponent implements OnInit {
 
         this.getFuncionarios(res.data.atividadeFuncionarios);
         this.getCategorias(res.data.atividadeCategorias);
+        this.getDepartamentoNome();
       },
       () => {}
     )
@@ -102,6 +105,15 @@ export class EditarAtividadeComponent implements OnInit {
       )
     });
 
+  }
+
+  getDepartamentoNome(): void {
+    this.departamentoService.getDepartamentoById(this.atividade.departamentoId).subscribe(
+      (res) =>{
+        this.departamentoNome = res.data.nome;
+      },
+      () =>{}
+    )
   }
 
 

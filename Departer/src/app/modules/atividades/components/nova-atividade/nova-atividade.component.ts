@@ -62,25 +62,27 @@ export class NovaAtividadeComponent implements OnInit {
 
   public getFuncionarioLogado(): void {
     this.funcionarioService.getFuncionarioLogado().subscribe(
-      (res) =>{
+      (res) => {
         res.data.nivelAcesso = 4;
         this.funcionariosLista.push(res.data)
+
+        this.getAllDepartamentos();
       },
-      () => {}
+      () => { }
     )
   }
 
-  public getAllDepartamentos(){
+  public getAllDepartamentos() {
     this.departamentoService.getDepartamentos().subscribe(
-      (res)=>{
+      (res) => {
         this.departamentos = res.data;
         console.log(this.departamentos);
       },
-      ()=>{}
+      () => { }
     )
   }
 
-  public identificarModoPost(){
+  public identificarModoPost() {
     this.atividadePaiId = this.route.snapshot.paramMap.get('idAtividadePai')!;
 
     if (this.atividadePaiId !== null && this.atividadePaiId !== "") {
@@ -144,7 +146,7 @@ export class NovaAtividadeComponent implements OnInit {
             }
           }
 
-          if(len == 3 && e.keyCode > 53){
+          if (len == 3 && e.keyCode > 53) {
             e.preventDefault();
           }
 
@@ -161,7 +163,7 @@ export class NovaAtividadeComponent implements OnInit {
     hourInputMask(input);
   }
 
-  changeDepartamento(event: any){
+  changeDepartamento(event: any) {
     let id = event.target.value;
     this.departamentoId = id;
   }
@@ -185,22 +187,32 @@ export class NovaAtividadeComponent implements OnInit {
   }
 
   public openFuncionarioDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = false;
+    if (this.departamentoId != "") {
 
-    dialogConfig.data = this.funcionariosLista;
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = false;
 
-    const dialogRef = this.dialog.open(ModalAdicionarFuncionariosComponent, dialogConfig);
+      dialogConfig.data = {
+        funcionariosLista: this.funcionariosLista,
+        departamentoId: this.departamentoId
+      };
 
-    dialogRef.afterClosed().subscribe(data => {
+      const dialogRef = this.dialog.open(ModalAdicionarFuncionariosComponent, dialogConfig);
 
-      data.forEach((element: FuncionarioDto) => {
-        element.nivelAcesso = 0;
-        this.funcionariosLista.push(element);
+      dialogRef.afterClosed().subscribe(data => {
+
+        data.forEach((element: FuncionarioDto) => {
+          element.nivelAcesso = 0;
+          this.funcionariosLista.push(element);
+        });
+
       });
 
-    });
+    } else {
+      this.snackbarComponent.openSnackBar("Selecione um departamento antes de adicionar funcionarios !", SnackBarTheme.error, 3000);
+    }
+
   }
 
   public openInfoDialog() {
@@ -262,7 +274,7 @@ export class NovaAtividadeComponent implements OnInit {
         atividadePost.atividadeFuncionarios.push(funcionarioToAtivFuncionarios);
       })
 
-      if(this.estadoSalvar == "comPai"){
+      if (this.estadoSalvar == "comPai") {
         atividadePost.atividadePaiId = this.atividadePaiId
       }
 
@@ -271,9 +283,9 @@ export class NovaAtividadeComponent implements OnInit {
       this.atividadeService.postAtividade(atividadePost).subscribe(
         (res) => {
           this.router.navigate(['/atividades/lista-atividades']);
-          this.snackbarComponent.openSnackBar("Atividade criada com sucesso !",SnackBarTheme.success,3000);
+          this.snackbarComponent.openSnackBar("Atividade criada com sucesso !", SnackBarTheme.success, 3000);
         },
-        () => {}
+        () => { }
       )
 
     } else {
@@ -295,7 +307,7 @@ export class NovaAtividadeComponent implements OnInit {
   }
 
   public cancelar() {
-    if(this.estadoSalvar == "semPai")
+    if (this.estadoSalvar == "semPai")
       this.router.navigate(['/atividades/lista-atividades']);
     else
       this.router.navigate([`/atividades/atividade/${this.atividadePaiId}`]);

@@ -1,3 +1,5 @@
+import { DepartamentoService } from './../../../departamentos/services/departamento.service';
+import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/departamentoFuncionariosDto';
 import { Component, Inject, OnInit } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FuncionarioService } from "src/app/modules/configuracoes/services/funcionario.service";
@@ -18,6 +20,9 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
 
   public funcionariosResult: FuncionarioDto[] = [];
   public funcionariosJaAdicionados: FuncionarioDto[] = [];
+  public funcionariosDepartamento: DepartamentoFuncionariosDto[] = [];
+
+  public departamentoId: string = "";
 
   private _filtroLista: string = "";
 
@@ -38,12 +43,42 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
     );
   }
 
-  constructor(public dialogRef: MatDialogRef<ModalAdicionarFuncionariosComponent>, @Inject(MAT_DIALOG_DATA) public data: FuncionarioDto[], private funcionarioService: FuncionarioService) {
-    this.funcionariosJaAdicionados = data;
+  constructor(public dialogRef: MatDialogRef<ModalAdicionarFuncionariosComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private funcionarioService: FuncionarioService, private departamentoService: DepartamentoService) {
+    this.funcionariosJaAdicionados = data.funcionariosLista;
+    this.departamentoId = data.departamentoId
   }
 
   ngOnInit(): void {
     this.getFuncionarios();
+    this.carregarDepartamento();
+  }
+
+
+  carregarDepartamento(){
+
+    this.departamentoService.getDepartamentoById(this.departamentoId).subscribe({
+      next: (response) => {
+        this.funcionariosDepartamento = response.data.departamentoFuncionarios;
+        console.log(this.funcionariosDepartamento)
+
+        for (let funcionario of this.funcionariosJaAdicionados) {
+
+          let funcionarioASerExcluido = this.funcionariosDepartamento.find(element => element.funcionarioId === funcionario.id);
+
+          if(funcionarioASerExcluido != undefined) {
+            let index = this.funcionariosDepartamento.map(e=>e.funcionarioId).indexOf(funcionarioASerExcluido.funcionarioId);
+            this.funcionariosDepartamento.splice(index, 1);
+          }
+
+        }
+
+        console.log(this.funcionariosDepartamento)
+
+        //this.funcionarios = this.funcionariosDepartamento;
+        //this.funcionariosFiltrados = this.funcionarios;
+
+      }
+    })
   }
 
   getFuncionarios(): void {
