@@ -6,11 +6,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ModoAdminService {
 
-constructor() { }
-private modoAdminSubject = new BehaviorSubject<boolean>(false);
-modoAdmin$ = this.modoAdminSubject.asObservable();
+  constructor() { }
+  private modoAdminSubject = new BehaviorSubject<boolean>(false);
+  modoAdmin$ = this.modoAdminSubject.asObservable();
 
-alterarModoAdmin(estado: boolean) {
-  this.modoAdminSubject.next(estado);
-}
+  alterarModoAdmin(estado: boolean) {
+    this.modoAdminSubject.next(estado);
+  }
 }

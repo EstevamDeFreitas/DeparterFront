@@ -85,10 +85,14 @@ export class NavBarComponent implements OnInit {
   alternarModoAdmin() {
     this.modoAdminService.alterarModoAdmin(!this.modoAdmin);
 
-    if(this.modoAdmin)
+    if(this.modoAdmin) {
       this.snackbarComponent.openSnackBar("Modo Administrador está ativado !",SnackBarTheme.success,3000);
-    else
+    }
+    else {
       this.snackbarComponent.openSnackBar("Modo Administrador está desativado !",SnackBarTheme.success,3000);
+      this.router.navigateByUrl("/home/dashboard")
+    }
+
   }
 
 
