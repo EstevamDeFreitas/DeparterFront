@@ -38,10 +38,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let funcionario of funcionariosFiltrados; let i = index">
-            <td>{{funcionario.imagem}}</td>
-            <td>{{funcionario.apelido}}</td>
+            <td>{{funcionario.funcionario.imagem}}</td>
+            <td>{{funcionario.funcionario.apelido}}</td>
             <td>
-              <input class="form-check-input" type="checkbox" id="funcionario{{i}}" (change)="changeNoCheckbox($event, funcionario)">
+              <input class="form-check-input" type="checkbox" id="funcionario{{i}}" (change)="changeNoCheckbox($event, funcionario.funcionario)">
             </td>
           </tr>
         </tbody>

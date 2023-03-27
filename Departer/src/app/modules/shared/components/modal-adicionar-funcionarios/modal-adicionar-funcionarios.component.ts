@@ -15,12 +15,12 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
   hasError = false;
   errorMessage = "";
 
-  public funcionarios: FuncionarioDto[] = [];
-  public funcionariosFiltrados: FuncionarioDto[] = [];
+  public funcionariosDepartamento: DepartamentoFuncionariosDto[] = [];
+  public funcionariosFiltrados: DepartamentoFuncionariosDto[] = [];
 
   public funcionariosResult: FuncionarioDto[] = [];
   public funcionariosJaAdicionados: FuncionarioDto[] = [];
-  public funcionariosDepartamento: DepartamentoFuncionariosDto[] = [];
+
 
   public departamentoId: string = "";
 
@@ -32,14 +32,14 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
 
   public set filtroLista(value: string) {
     this._filtroLista = value;
-    this.funcionariosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.funcionarios;
+    this.funcionariosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.funcionariosDepartamento;
   }
 
-  public filtrarEventos(filtrarPor: string): FuncionarioDto[] {
+  public filtrarEventos(filtrarPor: string): DepartamentoFuncionariosDto[] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
 
-    return this.funcionarios.filter(
-      (funcionario: any) => funcionario.apelido.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    return this.funcionariosDepartamento.filter(
+      (element: any) => element.funcionario.apelido.toLocaleLowerCase().indexOf(filtrarPor) !== -1
     );
   }
 
@@ -49,7 +49,6 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getFuncionarios();
     this.carregarDepartamento();
   }
 
@@ -59,7 +58,6 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
     this.departamentoService.getDepartamentoById(this.departamentoId).subscribe({
       next: (response) => {
         this.funcionariosDepartamento = response.data.departamentoFuncionarios;
-        console.log(this.funcionariosDepartamento)
 
         for (let funcionario of this.funcionariosJaAdicionados) {
 
@@ -71,34 +69,10 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
           }
 
         }
-
-        console.log(this.funcionariosDepartamento)
-
-        //this.funcionarios = this.funcionariosDepartamento;
-        //this.funcionariosFiltrados = this.funcionarios;
+        this.funcionariosFiltrados = this.funcionariosDepartamento;
 
       }
     })
-  }
-
-  getFuncionarios(): void {
-    this.funcionarioService.getAll().subscribe(result => {
-
-      let funcionarioResponse = result.data;
-
-        for (let funcionario of this.funcionariosJaAdicionados) {
-
-          let funcionarioASerExcluido = funcionarioResponse.find(element => element.id === funcionario.id);
-
-          if(funcionarioASerExcluido != undefined) {
-            let index = funcionarioResponse.map(e=>e.id).indexOf(funcionarioASerExcluido.id);
-            funcionarioResponse.splice(index, 1);
-          }
-
-        }
-        this.funcionarios = funcionarioResponse;
-        this.funcionariosFiltrados = this.funcionarios;
-    });
   }
 
   public changeNoCheckbox(evento: any, funcionario: FuncionarioDto) {
