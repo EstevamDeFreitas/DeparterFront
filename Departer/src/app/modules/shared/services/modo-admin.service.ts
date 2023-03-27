@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,9 +7,10 @@ import { Injectable } from '@angular/core';
 export class ModoAdminService {
 
 constructor() { }
-  modoAdmin: boolean = true;
+private modoAdminSubject = new BehaviorSubject<boolean>(false);
+modoAdmin$ = this.modoAdminSubject.asObservable();
 
-  alterarModoAdmin(estado: boolean) {
-    this.modoAdmin = estado;
-  }
+alterarModoAdmin(estado: boolean) {
+  this.modoAdminSubject.next(estado);
+}
 }

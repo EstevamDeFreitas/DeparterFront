@@ -1,3 +1,4 @@
+import { ModoAdminService } from './../../../shared/services/modo-admin.service';
 import { DepartamentoService } from './../../services/departamento.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,15 +15,24 @@ export class ListaDepartamentosComponent implements OnInit {
 
   departamentos: any;
 
-  constructor(private router: Router,private route: ActivatedRoute,private departamentoService: DepartamentoService,private readonly snackbarComponent: SnackbarComponent) { }
+  modoAdmin: boolean = false;
+
+  constructor(private router: Router,private route: ActivatedRoute,private departamentoService: DepartamentoService,private readonly snackbarComponent: SnackbarComponent, private modoAdminService: ModoAdminService) { }
 
   ngOnInit(): void {
-    this.getDepartamentos();
-    this.getDepartamentos();
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => {
+        this.modoAdmin = modoAdmin;
+
+        this.getDepartamentos();
+      }
+    );
+
+
   }
 
   getDepartamentos(){
-    this.departamentoService.getDepartamentos().subscribe({
+    this.departamentoService.getDepartamentos(this.modoAdmin).subscribe({
       next: (response) => {
         console.log(response);
         this.departamentos = response.data;

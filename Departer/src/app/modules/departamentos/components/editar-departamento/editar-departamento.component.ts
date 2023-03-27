@@ -1,3 +1,4 @@
+import { ModoAdminService } from './../../../shared/services/modo-admin.service';
 import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/departamentoFuncionariosDto';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -26,21 +27,30 @@ export class EditarDepartamentoComponent implements OnInit {
   departamentoFuncionariosLista: DepartamentoFuncionariosDto[] = [];
   funcionariosLista: FuncionarioDto[] = [];
 
+  modoAdmin: boolean = false;
+
 
   get f(): any {
     return this.departamentoForm.controls;
   }
 
   constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog,
-    private departamentoService: DepartamentoService, private readonly snackbarComponent: SnackbarComponent) { }
+    private departamentoService: DepartamentoService, private readonly snackbarComponent: SnackbarComponent, private modoAdminService:ModoAdminService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(x => {
       this.idDepartamento = x[`id`];
     });
 
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => {
+        this.modoAdmin = modoAdmin;
+        this.carregarDepartamento();
+      }
+    );
+
     this.formValidation();
-    this.carregarDepartamento();
+
 
     this.maskHour();
     this.maskHour2();
@@ -48,7 +58,7 @@ export class EditarDepartamentoComponent implements OnInit {
 
   carregarDepartamento() {
 
-    this.departamentoService.getDepartamentoById(this.idDepartamento).subscribe({
+    this.departamentoService.getDepartamentoById(this.idDepartamento, this.modoAdmin).subscribe({
       next: (response) => {
         console.log(response);
 
@@ -266,7 +276,7 @@ export class EditarDepartamentoComponent implements OnInit {
         listaIdsRetirar.push(singleObj);
       });
 
-    
+
       this.departamentoService.editarDepartamento(departamentoPut).subscribe({
         next: (response) => {
           this.snackbarComponent.openSnackBar("Departamento atualizado com sucesso!", SnackBarTheme.success, 3000);

@@ -20,16 +20,18 @@ export class NavBarComponent implements OnInit {
 
   userImg: string = "";
 
-  constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent, 
+  constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent,
     private funcionarioService: FuncionarioService) { }
 
   ngOnInit(): void {
-    this.modoAdmin = this.modoAdminService.modoAdmin;
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => this.modoAdmin = modoAdmin
+    );
     console.log(this.modoAdmin);
     this.getUser();
   }
 
-  
+
   public getUser(): void {
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
@@ -37,7 +39,7 @@ export class NavBarComponent implements OnInit {
         this.userImg = this.funcionario.imagem;
       },
       (err) => {
-        
+
       }
     )
   }
@@ -82,7 +84,6 @@ export class NavBarComponent implements OnInit {
 
   alternarModoAdmin() {
     this.modoAdminService.alterarModoAdmin(!this.modoAdmin);
-    this.modoAdmin = this.modoAdminService.modoAdmin;
 
     if(this.modoAdmin)
       this.snackbarComponent.openSnackBar("Modo Administrador está ativado !",SnackBarTheme.success,3000);

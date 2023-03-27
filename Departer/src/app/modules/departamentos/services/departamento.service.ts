@@ -1,6 +1,6 @@
 import { GetAtividadeByDepartamentoId } from './../models/atividadeDto';
 import { DepartamentoDto } from './../models/departamentoDto';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ResponseBase } from '../../shared/models/response';
@@ -15,16 +15,26 @@ export class DepartamentoService {
 
   constructor(private http: HttpClient) { }
 
-  public getDepartamentos(): Observable<ResponseBase<DepartamentoDto[]>> {
-    return this.http.get<ResponseBase<DepartamentoDto[]>>(`${this.API}/Departamento`);
+  public getDepartamentos(isAdminSearch?: boolean): Observable<ResponseBase<DepartamentoDto[]>> {
+    let params = new HttpParams();
+    if (isAdminSearch) {
+      params = params.set('isAdminSearch', isAdminSearch);
+    }
+
+    return this.http.get<ResponseBase<DepartamentoDto[]>>(`${this.API}/Departamento`, { params });
   }
 
   public createDepartamento(departamento: DepartamentoDto): Observable<ResponseBase<DepartamentoDto>> {
     return this.http.post<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento`, departamento);
   }
 
-  public getDepartamentoById(id: string): Observable<ResponseBase<DepartamentoDto>> {
-    return this.http.get<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento/${id}`);
+  public getDepartamentoById(id: string, isAdminSearch?: boolean): Observable<ResponseBase<DepartamentoDto>> {
+    let params = new HttpParams();
+    if (isAdminSearch) {
+      params = params.set('isAdminSearch', isAdminSearch);
+    }
+
+    return this.http.get<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento/${id}`, { params });
   }
 
   public deleteDepartamentoById(id: string): Observable<ResponseBase<DepartamentoDto>> {

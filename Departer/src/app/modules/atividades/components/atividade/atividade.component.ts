@@ -1,3 +1,4 @@
+import { ModoAdminService } from './../../../shared/services/modo-admin.service';
 import { DepartamentoService } from './../../../departamentos/services/departamento.service';
 import { HorasPostDto } from './../../models/horasDto';
 import { HorasService } from './../../services/horas.service';
@@ -39,21 +40,28 @@ export class AtividadeComponent implements OnInit {
 
   departamentoNome: string = "";
 
+  modoAdmin: boolean = false;
+
   get f(): any {
     return this.horasForm.controls;
   }
 
   constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService, private readonly snackbarComponent: SnackbarComponent,
-    private horasService: HorasService, private departamentoService: DepartamentoService) { }
+    private horasService: HorasService, private departamentoService: DepartamentoService, private modoAdminService: ModoAdminService) { }
 
   ngOnInit(): void {
 
+
+
     this.route.params.subscribe(params => {
-      // Recupera o ID da atividade a partir dos parâmetros da rota
       this.atividadeId = params['id'];
 
-      // Recarrega os dados da atividade com o novo ID
-      this.getAtividade();
+      this.modoAdminService.modoAdmin$.subscribe(
+        modoAdmin => {
+          this.modoAdmin = modoAdmin;
+          this.getAtividade(this.modoAdmin);
+        }
+      );
     });
 
     this.getFuncionarioAtual();
@@ -62,10 +70,10 @@ export class AtividadeComponent implements OnInit {
 
   }
 
-  public getAtividade(): void {
+  public getAtividade(modoAdmin: boolean): void {
 
     if (this.atividadeId != null) {
-      this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
+      this.atividadeService.getAtividadeById(this.atividadeId, modoAdmin).subscribe(
         (res) => {
           this.atividade = res.data;
           console.log(this.atividade);
@@ -122,7 +130,7 @@ export class AtividadeComponent implements OnInit {
   }
 
   getDepartamentoNome(): void {
-    this.departamentoService.getDepartamentoById(this.atividade.departamentoId).subscribe(
+    this.departamentoService.getDepartamentoById(this.atividade.departamentoId, this.modoAdmin).subscribe(
       (res) =>{
         this.departamentoNome = res.data.nome;
       },

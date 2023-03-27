@@ -1,3 +1,4 @@
+import { ModoAdminService } from './../../../shared/services/modo-admin.service';
 import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/departamentoFuncionariosDto';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -21,18 +22,25 @@ export class DetalhesDepartamentosComponent implements OnInit {
   departamento?: DepartamentoDto;
   funcionariosLista: DepartamentoFuncionariosDto[] = [];
 
+  modoAdmin: boolean = false;
+
 
 
   constructor(private router: Router, private readonly snackbarComponent: SnackbarComponent,private route: ActivatedRoute,
-    private departamentoService: DepartamentoService) { }
+    private departamentoService: DepartamentoService, private modoAdminService: ModoAdminService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(x=>{
       this.idDepartamento = x[`id`];
     });
 
-    this.carregarDepartamento();
-    
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => {
+        this.modoAdmin = modoAdmin;
+        this.carregarDepartamento();
+      }
+    );
+
     this.maskHour();
     this.maskHour2();
   }
@@ -40,7 +48,7 @@ export class DetalhesDepartamentosComponent implements OnInit {
   carregarDepartamento(){
     console.log(this.idDepartamento);
 
-    this.departamentoService.getDepartamentoById(this.idDepartamento).subscribe({
+    this.departamentoService.getDepartamentoById(this.idDepartamento, this.modoAdmin).subscribe({
       next: (response) => {
 
         this.departamento = response.data;

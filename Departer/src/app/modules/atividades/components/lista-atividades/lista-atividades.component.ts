@@ -1,3 +1,4 @@
+import { ModoAdminService } from './../../../shared/services/modo-admin.service';
 import { FuncionarioService } from './../../../configuracoes/services/funcionario.service';
 import { CategoriaService } from './../../../administracao/services/categoria.service';
 import { AtividadeCategorias } from './../../models/atividadeCategorias';
@@ -23,6 +24,8 @@ export class ListaAtividadesComponent implements OnInit {
 
   atividadesCategorias: CategoriaDto[] = [];
   atividadesFuncionarios: FuncionarioDto[] = [];
+
+  modoAdmin: boolean = false;
 
   tipoDeFiltro: string = "titulo";
 
@@ -60,10 +63,15 @@ export class ListaAtividadesComponent implements OnInit {
 
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService, private modoAdminService: ModoAdminService) { }
 
   ngOnInit(): void {
-    this.getAllFuncionarios();
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => {
+        this.modoAdmin = modoAdmin;
+        this.getAllFuncionarios();
+      }
+    );
   }
 
   mudarTipoDeFiltro(tipoDeFiltro: string) {
@@ -71,7 +79,8 @@ export class ListaAtividadesComponent implements OnInit {
   }
 
   getAtividades() {
-    this.atividadeService.getAtividades().subscribe(
+
+    this.atividadeService.getAtividades(this.modoAdmin).subscribe(
       (res) => {
         this.atividades = res.data;
 

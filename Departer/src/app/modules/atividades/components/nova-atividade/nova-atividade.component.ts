@@ -1,3 +1,4 @@
+import { ModoAdminService } from './../../../shared/services/modo-admin.service';
 import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
 import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { DepartamentoDto } from './../../../departamentos/models/departamentoDto';
@@ -36,7 +37,7 @@ export class NovaAtividadeComponent implements OnInit {
   atividadePaiId: string = "";
   estadoSalvar: string = "semPai";
 
-
+  modoAdmin: boolean = false;
 
   atividadeForm!: FormGroup;
 
@@ -47,16 +48,22 @@ export class NovaAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private departamentoService: DepartamentoService, private readonly snackbarComponent: SnackbarComponent) {
+  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private departamentoService: DepartamentoService, private readonly snackbarComponent: SnackbarComponent, private modoAdminService: ModoAdminService) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
   ngOnInit(): void {
+
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => {
+        this.modoAdmin = modoAdmin;
+
+        this.getFuncionarioLogado();
+      }
+    );
+
     this.formValidation();
     this.identificarModoPost();
-    this.getFuncionarioLogado();
-
-
 
     this.maskDate();
     this.maskHour()
@@ -75,7 +82,7 @@ export class NovaAtividadeComponent implements OnInit {
   }
 
   public getAllDepartamentos(){
-    this.departamentoService.getDepartamentos().subscribe(
+    this.departamentoService.getDepartamentos(this.modoAdmin).subscribe(
       (res)=>{
         this.departamentos = res.data;
         console.log(this.departamentos);

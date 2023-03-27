@@ -1,3 +1,4 @@
+import { ModoAdminService } from './../../../shared/services/modo-admin.service';
 
 import { DepartamentoService } from './../../services/departamento.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,20 +22,27 @@ export class TelaDepartamentosComponent implements OnInit {
   funcionariosLista: DepartamentoFuncionariosDto[] = [];
   atividades: GetAtividadeByDepartamentoId[] = [];
 
-  constructor(private router: Router,private route: ActivatedRoute,private departamentoService: DepartamentoService) { }
+  modoAdmin: boolean = false;
+
+  constructor(private router: Router,private route: ActivatedRoute,private departamentoService: DepartamentoService, private modoAdminService:ModoAdminService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(x=>{
       this.idDepartamento = x[`id`];
     });
 
-    this.carregarDepartamento();
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => {
+        this.modoAdmin = modoAdmin;
+        this.carregarDepartamento();
+      }
+    );
 
   }
 
   carregarDepartamento(){
 
-    this.departamentoService.getDepartamentoById(this.idDepartamento).subscribe({
+    this.departamentoService.getDepartamentoById(this.idDepartamento, this.modoAdmin).subscribe({
       next: (response) => {
 
         this.departamento = response.data;

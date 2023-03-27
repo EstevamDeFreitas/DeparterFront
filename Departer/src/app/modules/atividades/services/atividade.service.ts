@@ -2,7 +2,7 @@ import { ChecklistDto } from './../models/checklistDto';
 import { AtividadePostDto, AtividadeDto, AtividadeListDto } from './../models/atividadeDto';
 import { Observable } from 'rxjs';
 import { ResponseBase } from './../../shared/models/response';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
 
@@ -15,16 +15,28 @@ export class AtividadeService {
 
   constructor(private http : HttpClient) { }
 
-  public getAtividades(): Observable<ResponseBase<AtividadeListDto[]>> {
-    return this.http.get<ResponseBase<AtividadeListDto[]>>(this.apiUlr);
+  public getAtividades(isAdminSearch?: boolean): Observable<ResponseBase<AtividadeListDto[]>> {
+    let params = new HttpParams();
+    if (isAdminSearch) {
+      params = params.set('isAdminSearch', isAdminSearch);
+    }
+
+    return this.http.get<ResponseBase<AtividadeListDto[]>>(this.apiUlr, { params });
+
+
   }
 
   public postAtividade(atividade: AtividadePostDto): Observable<ResponseBase<AtividadePostDto>> {
     return this.http.post<ResponseBase<AtividadePostDto>>(this.apiUlr, atividade)
   }
 
-  public getAtividadeById(id: string): Observable<ResponseBase<AtividadeDto>> {
-    return this.http.get<ResponseBase<AtividadeDto>>(`${this.apiUlr}/${id}`);
+  public getAtividadeById(id: string, isAdminSearch?: boolean): Observable<ResponseBase<AtividadeDto>> {
+    let params = new HttpParams();
+    if (isAdminSearch) {
+      params = params.set('isAdminSearch', isAdminSearch);
+    }
+
+    return this.http.get<ResponseBase<AtividadeDto>>(`${this.apiUlr}/${id}`, { params });
   }
 
   public updateAtividade(atividade: AtividadeDto): Observable<ResponseBase<AtividadeDto>> {
