@@ -15,27 +15,33 @@
   <div class="row">
 
     <div class="col-lg-7 col-12 mt-5">
-      <div class="col-lg-11 col-12">
+      <div class="col-12 d-flex justify-content-between">
         <div class="titulo">
           Horas
         </div>
+        <div class="titulo botao clickable" (click)="irParaHoras()">
+          Ver mais
+        </div>
+      </div>
         <div class="card mt-4">
           <app-resumo-horas></app-resumo-horas>
         </div>
-      </div>
-
     </div>
+
     <div class="col-lg-5 col-12 mt-5">
-      <div class="col-12">
+      <div class="col-12 d-flex justify-content-between">
         <div class="titulo">
           Atividades
+        </div>
+        <div class="titulo botao clickable" (click)="irParaAtividades()">
+          Ver mais
         </div>
       </div>
       <div class="card mt-4">
         <app-resumo-atividades></app-resumo-atividades>
       </div>
-
     </div>
+
   </div>
 
 </div>
