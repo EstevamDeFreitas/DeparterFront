@@ -21,11 +21,13 @@ export class NavBarComponent implements OnInit {
 
   userImg: string = "";
 
+  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
+
   constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent,
     private funcionarioService: FuncionarioService, private commonTasksService: CommonTasksService) { }
 
 
- 
+
   ngOnInit(): void {
     this.commonTasksService.imagemAtualizada$.subscribe(
       imagem => {
@@ -35,7 +37,7 @@ export class NavBarComponent implements OnInit {
     this.modoAdminService.modoAdmin$.subscribe(
       modoAdmin => this.modoAdmin = modoAdmin
     );
-   
+
     console.log(this.modoAdmin);
     this.getUser();
   }
@@ -51,6 +53,12 @@ export class NavBarComponent implements OnInit {
 
       }
     )
+  }
+
+  public substituirImagem(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = this.imagemPadrao;
   }
 
 

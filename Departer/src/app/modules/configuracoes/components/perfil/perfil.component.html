@@ -17,12 +17,10 @@
     <div class="row">
       <div class="col-lg-5 col-12 mt-3">
         <div class="text-center" *ngIf="modoEditar">
-          <img *ngIf="funcionario.imagem == ''" (click)="changeUserImg()" class="d-inline-block align-top perfil imagem clickable" src=".\assets\images\Perfil.svg" width="280" height="280" />
-          <img *ngIf="funcionario.imagem != ''" (click)="changeUserImg()" class="d-inline-block align-top perfil imagem clickable" src="{{funcionario.imagem}}" width="280" height="280" />
+          <img *ngIf="funcionario.imagem != ''" (click)="changeUserImg()" class="d-inline-block align-top perfil imagem clickable" src="{{funcionario.imagem}}" width="280" height="280" (error)="substituirImagem($event)"/>
         </div>
         <div class="text-center" *ngIf="!modoEditar">
-          <img *ngIf="funcionario?.imagem == ''" class="d-inline-block align-top perfil imagem " src=".\assets\images\Perfil.svg" width="280" height="280" />
-          <img *ngIf="funcionario?.imagem != ''" class="d-inline-block align-top perfil imagem " src="{{funcionario!.imagem}}" width="280" height="280" />
+          <img *ngIf="funcionario?.imagem != ''" class="d-inline-block align-top perfil imagem " src="{{funcionario!.imagem}}" width="280" height="280" (error)="substituirImagem($event)"/>
         </div>
       </div>
       <div class="col-lg-7 col-12 mt-3" *ngIf="funcionario">

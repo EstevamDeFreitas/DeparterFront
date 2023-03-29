@@ -30,6 +30,8 @@ export class PerfilComponent implements OnInit {
   image: string = "";
   compare: boolean = false;
 
+  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
+
   get f(): any {
     return this.editUserForm.controls;
   }
@@ -140,6 +142,12 @@ export class PerfilComponent implements OnInit {
 
     // depois de atualizar a imagem, chama o método do serviço para emitir o evento
     this.commonTasksService.atualizarImagem(imagem);
+  }
+
+  public substituirImagem(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = this.imagemPadrao;
   }
 
 
