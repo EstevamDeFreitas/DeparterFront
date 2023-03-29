@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
 import { FuncionarioDto } from '../../models/funcionarioDto';
+import { CommonTasksService } from '../../services/common-tasks.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -21,12 +22,20 @@ export class NavBarComponent implements OnInit {
   userImg: string = "";
 
   constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent,
-    private funcionarioService: FuncionarioService) { }
+    private funcionarioService: FuncionarioService, private commonTasksService: CommonTasksService) { }
 
+
+ 
   ngOnInit(): void {
+    this.commonTasksService.imagemAtualizada$.subscribe(
+      imagem => {
+        this.userImg = imagem;
+      }
+    );
     this.modoAdminService.modoAdmin$.subscribe(
       modoAdmin => this.modoAdmin = modoAdmin
     );
+   
     console.log(this.modoAdmin);
     this.getUser();
   }

@@ -9,6 +9,7 @@ import { FuncionarioService } from './../../services/funcionario.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
+import { CommonTasksService } from 'src/app/modules/shared/services/common-tasks.service';
 
 @Component({
   selector: 'app-perfil',
@@ -33,7 +34,8 @@ export class PerfilComponent implements OnInit {
     return this.editUserForm.controls;
   }
 
-  constructor(private funcionarioService: FuncionarioService, private router: Router, private readonly snackbarComponent: SnackbarComponent, public dialog: MatDialog) { }
+  constructor(private funcionarioService: FuncionarioService, private router: Router, private readonly snackbarComponent: SnackbarComponent, public dialog: MatDialog,
+    private commonTasksService : CommonTasksService) { }
 
   ngOnInit(): void {
     this.modoEditar = false;
@@ -83,6 +85,7 @@ export class PerfilComponent implements OnInit {
 
       this.funcionarioService.putFuncionario(funcionarioPut).subscribe(
         (res) => {
+          this.atualizarFuncionario(funcionarioPut.imagem);
           this.snackbarComponent.openSnackBar("Usúario alterado com sucesso !",SnackBarTheme.success,3000);
         },
         () => {},
@@ -132,6 +135,12 @@ export class PerfilComponent implements OnInit {
 
   }
 
+  atualizarFuncionario(imagem: string) {
+    // chama o serviço para atualizar a imagem do funcionário
+
+    // depois de atualizar a imagem, chama o método do serviço para emitir o evento
+    this.commonTasksService.atualizarImagem(imagem);
+  }
 
 
 }
