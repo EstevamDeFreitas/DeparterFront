@@ -1,3 +1,4 @@
+import { AuthService } from './../../../autentificacao/services/auth.service';
 import { SnackBarTheme } from './../../models/snackbat.theme.enum';
 import { SnackbarComponent } from './../snackbar/snackbar.component';
 import { ModoAdminService } from './../../services/modo-admin.service';
@@ -93,6 +94,7 @@ export class NavBarComponent implements OnInit {
 
   public logoff(): void {
     this.router.navigate([""]);
+    AuthService.removeToken();
   }
 
   public irParaDashboard(): void {

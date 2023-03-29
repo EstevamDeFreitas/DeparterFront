@@ -23,6 +23,10 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
+  static removeToken() {
+    localStorage.removeItem('token');
+  }
+
   public login(user : loginDto) : Observable<ResponseBase<string>>{
     return this.http.post<ResponseBase<string>>(this.apiUlr + "/login", user);
   }
