@@ -55,8 +55,7 @@
 }
 
 .image-circle{
-  position: relative;
-  filter: invert(57%) sepia(90%) saturate(2182%) hue-rotate(3deg) brightness(109%) contrast(102%);
+  border-radius: 50%;
 }
 
 .form-control {
