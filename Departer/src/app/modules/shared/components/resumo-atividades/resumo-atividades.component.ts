@@ -13,7 +13,9 @@ import { Component, OnInit } from '@angular/core';
 export class ResumoAtividadesComponent implements OnInit {
 
   public atividades: AtividadeListDto[] = [];
-  allFuncionarios: FuncionarioDto[] = []
+  allFuncionarios: FuncionarioDto[] = [];
+
+  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
 
   constructor(private atividadeService: AtividadeService, private router: Router, private funcionarioService: FuncionarioService) { }
 
@@ -70,6 +72,12 @@ export class ResumoAtividadesComponent implements OnInit {
 
   irAtividade(id: string) {
     this.router.navigate([`/atividades/atividade/${id}`]);
+  }
+
+  public substituirImagem(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = this.imagemPadrao;
   }
 
 }

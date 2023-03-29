@@ -194,9 +194,9 @@
 
             <div class="default-text mt-2">
               <div class="box-scroll-funcionarios">
-                <div class="d-flex mb-3 mt-1" *ngFor="let funcionario of funcionarios">
-                  <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
-                  {{funcionario.apelido}}
+                <div class="d-flex mb-3 mt-1 align-items-center" *ngFor="let funcionario of funcionarios">
+                  <img class="image-funcionario me-2" src="{{funcionario.imagem}}" (error)="substituirImagem($event)" width="33" height="31" />
+                  <span class="d-flex justify-content-center">{{funcionario.apelido}}</span>
                 </div>
               </div>
             </div>

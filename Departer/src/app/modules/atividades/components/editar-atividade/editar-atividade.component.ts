@@ -44,6 +44,8 @@ export class EditarAtividadeComponent implements OnInit {
   hasError = false;
   errorMessage = "";
 
+  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
+
   get f(): any {
     return this.atividadeForm.controls;
   }
@@ -210,7 +212,10 @@ export class EditarAtividadeComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
 
-    dialogConfig.data = this.funcionarios;
+    dialogConfig.data = {
+      funcionariosLista: this.funcionarios,
+      departamentoId: this.atividade.departamentoId
+    };
 
     const dialogRef = this.dialog.open(ModalAdicionarFuncionariosComponent, dialogConfig);
 
@@ -363,6 +368,12 @@ export class EditarAtividadeComponent implements OnInit {
 
   cancelar() {
     this.router.navigate([`/atividades/atividade/${this.atividadeId}`]);
+  }
+
+  public substituirImagem(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = this.imagemPadrao;
   }
 
 }

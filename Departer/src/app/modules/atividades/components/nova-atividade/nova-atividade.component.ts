@@ -41,6 +41,8 @@ export class NovaAtividadeComponent implements OnInit {
   hasError = false;
   errorMessage = "";
 
+  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
+
   get f(): any {
     return this.atividadeForm.controls;
   }
@@ -311,6 +313,12 @@ export class NovaAtividadeComponent implements OnInit {
       this.router.navigate(['/atividades/lista-atividades']);
     else
       this.router.navigate([`/atividades/atividade/${this.atividadePaiId}`]);
+  }
+
+  public substituirImagem(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = this.imagemPadrao;
   }
 
 }

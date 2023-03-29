@@ -42,6 +42,8 @@ export class AtividadeComponent implements OnInit {
 
   modoAdmin: boolean = false;
 
+  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
+
   get f(): any {
     return this.horasForm.controls;
   }
@@ -326,6 +328,12 @@ export class AtividadeComponent implements OnInit {
 
   public cssValidator(campoForm: FormControl): any {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
+  }
+
+  public substituirImagem(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = this.imagemPadrao;
   }
 
 

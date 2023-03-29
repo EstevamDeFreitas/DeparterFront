@@ -113,10 +113,10 @@
             <tbody>
               <tr *ngFor="let funcionario of funcionariosLista; let i = index">
                 <td>
-                  <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                  <img class="image-circle me-2" src="{{funcionario.imagem}}" (error)="substituirImagem($event)" width="33" height="31" />
                 </td>
-                <td>{{funcionario.apelido}} <span class="role-text ms-1" *ngIf="i == 0">Você</span></td>
-                <td class="text-center">
+                <td class="align-middle">{{funcionario.apelido}} <span class="role-text ms-1" *ngIf="i == 0">Você</span></td>
+                <td class="text-center align-middle">
                   <input type="radio" name="radio{{i}}" class="me-1" value="1" id="radio1{{i}}"
                     (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="i != 0"
                     [disabled]="i == 0"><span class="me-2">1</span>

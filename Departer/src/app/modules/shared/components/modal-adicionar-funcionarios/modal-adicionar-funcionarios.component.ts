@@ -21,6 +21,8 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
   public funcionariosResult: FuncionarioDto[] = [];
   public funcionariosJaAdicionados: FuncionarioDto[] = [];
 
+  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
+
 
   public departamentoId: string = "";
 
@@ -82,6 +84,12 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
       let index = this.funcionariosResult.map(e => e.id).indexOf(funcionario.id);
       this.funcionariosResult.splice(index, 1);
     }
+  }
+
+  public substituirImagem(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = this.imagemPadrao;
   }
 
 

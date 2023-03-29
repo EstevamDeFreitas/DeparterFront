@@ -38,9 +38,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let funcionario of funcionariosFiltrados; let i = index">
-            <td>{{funcionario.funcionario.imagem}}</td>
-            <td>{{funcionario.funcionario.apelido}}</td>
-            <td>
+            <td><img class="image-circle me-2" src="{{funcionario.funcionario.imagem}}" width="33" height="31"
+              *ngIf="i<2" (error)="substituirImagem($event)"/></td>
+            <td class="align-middle">{{funcionario.funcionario.apelido}}</td>
+            <td class="align-middle">
               <input class="form-check-input" type="checkbox" id="funcionario{{i}}" (change)="changeNoCheckbox($event, funcionario.funcionario)">
             </td>
           </tr>

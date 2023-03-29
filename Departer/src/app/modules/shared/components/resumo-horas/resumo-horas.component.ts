@@ -13,7 +13,16 @@ export class ResumoHorasComponent implements OnInit {
   funcionarioId: string = "";
   horasResumo = {} as ResumoDto;
 
-  constructor(private horasService: HorasService, private funcionarioService: FuncionarioService) { }
+  constructor(private horasService: HorasService, private funcionarioService: FuncionarioService) {
+    this.horasResumo = {
+      mediaMensalMinutos: 0,
+      minutosMesPassado: 0,
+      minutosMesVigente: 0,
+      minutosMesRestantes: 0,
+      minutosHoje: 0,
+      minutosHojeRestantes: 0
+    };
+  }
 
   ngOnInit(): void {
     this.getFuncionario();
