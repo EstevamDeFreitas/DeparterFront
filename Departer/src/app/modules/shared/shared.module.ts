@@ -34,7 +34,7 @@ const routes: Routes = [];
     ModalAdicionarCategoriaComponent,
     ModalInformacoesComponent,
     ResumoHorasComponent,
-    ResumoAtividadesComponent
+    ResumoAtividadesComponent,
   ],
     imports: [
       RouterModule.forChild(routes),
