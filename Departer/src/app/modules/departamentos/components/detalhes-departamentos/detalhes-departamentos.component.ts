@@ -22,6 +22,8 @@ export class DetalhesDepartamentosComponent implements OnInit {
   departamento?: DepartamentoDto;
   funcionariosLista: DepartamentoFuncionariosDto[] = [];
 
+  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
+
   modoAdmin: boolean = false;
 
 
@@ -53,6 +55,7 @@ export class DetalhesDepartamentosComponent implements OnInit {
 
         this.departamento = response.data;
         this.funcionariosLista = this.departamento.departamentoFuncionarios;
+        console.log(this.funcionariosLista)
 
         this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
@@ -156,6 +159,12 @@ export class DetalhesDepartamentosComponent implements OnInit {
         this.snackbarComponent.openSnackBar("Falha ao Desativar!", SnackBarTheme.error, 3000);
       }
     })
+  }
+
+  public substituirImagem(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = this.imagemPadrao;
   }
 
   public irParaEditarDepartamento(id: string){

@@ -214,7 +214,8 @@ export class EditarAtividadeComponent implements OnInit {
 
     dialogConfig.data = {
       funcionariosLista: this.funcionarios,
-      departamentoId: this.atividade.departamentoId
+      departamentoId: this.atividade.departamentoId,
+      tipoAdicionar: 1
     };
 
     const dialogRef = this.dialog.open(ModalAdicionarFuncionariosComponent, dialogConfig);

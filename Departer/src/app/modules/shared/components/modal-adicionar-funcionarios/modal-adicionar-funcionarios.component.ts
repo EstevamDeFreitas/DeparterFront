@@ -47,7 +47,7 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ModalAdicionarFuncionariosComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private funcionarioService: FuncionarioService, private departamentoService: DepartamentoService) {
     this.funcionariosJaAdicionados = data.funcionariosLista;
-    this.departamentoId = data.departamentoId
+    this.departamentoId = data.departamentoId;
   }
 
   ngOnInit(): void {
@@ -71,6 +71,7 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
           }
 
         }
+        console.log(this.funcionariosDepartamento)
         this.funcionariosFiltrados = this.funcionariosDepartamento;
 
       }

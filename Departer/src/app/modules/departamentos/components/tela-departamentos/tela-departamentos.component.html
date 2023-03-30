@@ -27,7 +27,7 @@
               <thead>
                 <th>Entrega</th>
                 <th>Descrição</th>
-                <th>Usuário</th>
+                <th>Criador</th>
                 <th>Status</th>
               </thead>
               <tbody>
@@ -91,8 +91,8 @@
               <tr *ngFor="let funcionario of funcionariosLista; let i = index">
                 <td class="apelidoFuncionario">
                   <span class="apelidoFuncionario">
-                    <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
-                    {{funcionario.funcionario.apelido}}
+                    <img class="image-funcionario me-2" src="{{funcionario.funcionario.imagem}}" (error)="substituirImagem($event)" width="33" height="31" />
+                    {{funcionario.funcionario.nome}}
                   </span>
                 </td>
 
