@@ -1,3 +1,4 @@
+import { ModalAdicionarFuncionarioDepartamentoComponent } from './../../../shared/components/modal-adicionar-funcionario-departamento/modal-adicionar-funcionario-departamento.component';
 import { ModoAdminService } from './../../../shared/services/modo-admin.service';
 import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/departamentoFuncionariosDto';
 import { Component, OnInit } from '@angular/core';
@@ -26,6 +27,8 @@ export class EditarDepartamentoComponent implements OnInit {
   departamentoForm!: FormGroup;
   departamentoFuncionariosLista: DepartamentoFuncionariosDto[] = [];
   funcionariosLista: FuncionarioDto[] = [];
+
+  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
 
   modoAdmin: boolean = false;
 
@@ -178,7 +181,7 @@ export class EditarDepartamentoComponent implements OnInit {
 
     dialogConfig.data = this.funcionariosLista;
 
-    const dialogRef = this.dialog.open(ModalAdicionarFuncionariosComponent, dialogConfig);
+    const dialogRef = this.dialog.open(ModalAdicionarFuncionarioDepartamentoComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
 
@@ -312,6 +315,12 @@ export class EditarDepartamentoComponent implements OnInit {
       this.snackbarComponent.openSnackBar("Verifique se todos os campos foram preenchidos corretamente!", SnackBarTheme.error, 3000);
     }
 
+  }
+
+  public substituirImagem(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = this.imagemPadrao;
   }
 
   voltar() {
