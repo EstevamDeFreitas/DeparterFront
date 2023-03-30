@@ -1,3 +1,4 @@
+import { ModalAdicionarFuncionarioDepartamentoComponent } from './../../../shared/components/modal-adicionar-funcionario-departamento/modal-adicionar-funcionario-departamento.component';
 import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DepartamentoService } from './../../services/departamento.service';
@@ -20,6 +21,8 @@ export class NovoDepartamentoComponent implements OnInit {
   departamentoForm!: FormGroup;
   funcionariosId: Array<string> = [];
   funcionariosLista: FuncionarioDto[] = [];
+
+  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
 
 
   get f(): any {
@@ -116,10 +119,11 @@ export class NovoDepartamentoComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
+    console.log(this.funcionariosLista)
 
     dialogConfig.data = this.funcionariosLista;
 
-    const dialogRef = this.dialog.open(ModalAdicionarFuncionariosComponent, dialogConfig);
+    const dialogRef = this.dialog.open(ModalAdicionarFuncionarioDepartamentoComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
 
@@ -210,6 +214,12 @@ export class NovoDepartamentoComponent implements OnInit {
 
   voltar() {
     this.router.navigate(['/departamentos/lista-departamentos']);
+  }
+
+  public substituirImagem(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = this.imagemPadrao;
   }
 
 

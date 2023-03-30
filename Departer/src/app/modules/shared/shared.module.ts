@@ -20,6 +20,7 @@ import { ModalAdicionarCategoriaComponent } from './components/modal-adicionar-c
 import { ModalInformacoesComponent } from './components/modal-informacoes/modal-informacoes.component';
 import { ResumoHorasComponent } from './components/resumo-horas/resumo-horas.component';
 import { ResumoAtividadesComponent } from './components/resumo-atividades/resumo-atividades.component';
+import { ModalAdicionarFuncionarioDepartamentoComponent } from './components/modal-adicionar-funcionario-departamento/modal-adicionar-funcionario-departamento.component';
 
 
 const routes: Routes = [];
@@ -35,6 +36,7 @@ const routes: Routes = [];
     ModalInformacoesComponent,
     ResumoHorasComponent,
     ResumoAtividadesComponent,
+    ModalAdicionarFuncionarioDepartamentoComponent,
   ],
     imports: [
       RouterModule.forChild(routes),

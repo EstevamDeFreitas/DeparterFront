@@ -81,10 +81,9 @@ th {
 
 /* Imagens */
 .image-circle{
-  position: relative;
-  bottom: 0.1rem;
-  filter: invert(57%) sepia(90%) saturate(2182%) hue-rotate(3deg) brightness(109%) contrast(102%);
+  border-radius: 50%;
 }
+
 
 .apelidoFuncionario {
   font-weight: 625!important;

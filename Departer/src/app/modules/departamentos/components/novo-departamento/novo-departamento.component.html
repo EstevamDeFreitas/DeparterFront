@@ -66,12 +66,12 @@
             <tbody>
               <tr *ngFor="let funcionario of funcionariosLista; let i = index">
                 <td class="apelidoFuncionario">
-                  <span class="apelidoFuncionario">   
-                      <img class="image-circle me-2" src=".\assets\images\icone.circulo.svg" width="25" height="23" />
+                  <span class="apelidoFuncionario">
+                      <img class="image-circle me-2" src="{{funcionario.imagem}}" (error)="substituirImagem($event)" width="33" height="31" />
                       {{funcionario.apelido}}
                   </span>
                 </td>
-                <td>
+                <td class="align-middle">
                   <i class="fa-regular fa-x text-danger clickable" (click)="excluirFuncionario(funcionario.id)"></i>
                 </td>
               </tr>
@@ -117,7 +117,7 @@
 
             <div class="subtitulo mt-5 row">
               <div class="col-6 mt-3">
-                Máximo de horas extras por mês: 
+                Máximo de horas extras por mês:
               </div>
               <div class="col-4 form-floating p-0">
                 <input type="text" id="horas2" class="form-control form-control-lg" autocomplete="off" maxlength="5"
