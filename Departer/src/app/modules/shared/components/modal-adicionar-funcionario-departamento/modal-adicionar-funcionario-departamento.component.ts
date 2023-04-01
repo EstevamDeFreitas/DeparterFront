@@ -17,8 +17,6 @@ export class ModalAdicionarFuncionarioDepartamentoComponent implements OnInit {
   public funcionariosResult: FuncionarioDto[] = [];
   public funcionariosJaAdicionados: FuncionarioDto[] = [];
 
-  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
-
   private _filtroLista: string = "";
   public get filtroLista(): string {
     return this._filtroLista;
@@ -78,7 +76,7 @@ export class ModalAdicionarFuncionarioDepartamentoComponent implements OnInit {
   public substituirImagem(evento: Event): void {
     const imagem = evento.target as HTMLImageElement;
     imagem.onerror = null;
-    imagem.src = this.imagemPadrao;
+    imagem.src = "../../../../../assets/images/default-image.png";
   }
 
   onConfirm(): void {

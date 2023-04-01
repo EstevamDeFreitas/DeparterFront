@@ -24,7 +24,6 @@ export class NavBarComponent implements OnInit {
 
   adminExpanded = false;
 
-  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
 
   constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent,
     private funcionarioService: FuncionarioService, private commonTasksService: CommonTasksService) { }
@@ -61,7 +60,7 @@ export class NavBarComponent implements OnInit {
   public substituirImagem(evento: Event): void {
     const imagem = evento.target as HTMLImageElement;
     imagem.onerror = null;
-    imagem.src = this.imagemPadrao;
+    imagem.src = "../../../../../assets/images/default-image.png";
   }
 
 

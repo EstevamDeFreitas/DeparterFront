@@ -22,8 +22,6 @@ export class NovoDepartamentoComponent implements OnInit {
   funcionariosId: Array<string> = [];
   funcionariosLista: FuncionarioDto[] = [];
 
-  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
-
 
   get f(): any {
     return this.departamentoForm.controls;
@@ -219,7 +217,7 @@ export class NovoDepartamentoComponent implements OnInit {
   public substituirImagem(evento: Event): void {
     const imagem = evento.target as HTMLImageElement;
     imagem.onerror = null;
-    imagem.src = this.imagemPadrao;
+    imagem.src = "../../../../../assets/images/default-image.png";
   }
 
 

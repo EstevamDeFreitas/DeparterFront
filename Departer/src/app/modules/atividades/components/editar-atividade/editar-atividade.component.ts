@@ -44,8 +44,6 @@ export class EditarAtividadeComponent implements OnInit {
   hasError = false;
   errorMessage = "";
 
-  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
-
   get f(): any {
     return this.atividadeForm.controls;
   }
@@ -79,6 +77,11 @@ export class EditarAtividadeComponent implements OnInit {
         this.getFuncionarios(res.data.atividadeFuncionarios);
         this.getCategorias(res.data.atividadeCategorias);
         this.getDepartamentoNome();
+
+
+        if (this.route.snapshot.queryParamMap.get('adicionarFuncionario') === 'true') {
+          this.openFuncionarioDialog();
+        }
       },
       () => {}
     )
@@ -90,6 +93,7 @@ export class EditarAtividadeComponent implements OnInit {
         (res) => {
           res.data.nivelAcesso = funcionario.nivelAcesso;
           this.funcionarios.push(res.data);
+
         },
         () => { }
       )
@@ -374,7 +378,7 @@ export class EditarAtividadeComponent implements OnInit {
   public substituirImagem(evento: Event): void {
     const imagem = evento.target as HTMLImageElement;
     imagem.onerror = null;
-    imagem.src = this.imagemPadrao;
+    imagem.src = "../../../../../assets/images/default-image.png";
   }
 
 }

@@ -42,8 +42,6 @@ export class AtividadeComponent implements OnInit {
 
   modoAdmin: boolean = false;
 
-  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
-
   get f(): any {
     return this.horasForm.controls;
   }
@@ -317,6 +315,10 @@ export class AtividadeComponent implements OnInit {
     this.router.navigate([`/atividades/editar-atividade/${this.atividadeId}`]);
   }
 
+  public AdicionarFuncionario() {
+    this.router.navigate([`/atividades/editar-atividade/${this.atividadeId}`], { queryParams: { adicionarFuncionario: true } });
+  }
+
   public adicionarAtividadeFilho() {
     this.router.navigate([`/atividades/nova-atividade/${this.atividadeId}`]);
   }
@@ -333,7 +335,7 @@ export class AtividadeComponent implements OnInit {
   public substituirImagem(evento: Event): void {
     const imagem = evento.target as HTMLImageElement;
     imagem.onerror = null;
-    imagem.src = this.imagemPadrao;
+    imagem.src = "../../../../../assets/images/default-image.png";
   }
 
 

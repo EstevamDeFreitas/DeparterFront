@@ -22,8 +22,6 @@ export class DetalhesDepartamentosComponent implements OnInit {
   departamento?: DepartamentoDto;
   funcionariosLista: DepartamentoFuncionariosDto[] = [];
 
-  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
-
   modoAdmin: boolean = false;
 
 
@@ -164,7 +162,7 @@ export class DetalhesDepartamentosComponent implements OnInit {
   public substituirImagem(evento: Event): void {
     const imagem = evento.target as HTMLImageElement;
     imagem.onerror = null;
-    imagem.src = this.imagemPadrao;
+    imagem.src = "../../../../../assets/images/default-image.png";
   }
 
   public irParaEditarDepartamento(id: string){

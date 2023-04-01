@@ -15,8 +15,6 @@ export class ResumoAtividadesComponent implements OnInit {
   public atividades: AtividadeListDto[] = [];
   allFuncionarios: FuncionarioDto[] = [];
 
-  public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
-
   constructor(private atividadeService: AtividadeService, private router: Router, private funcionarioService: FuncionarioService) { }
 
   ngOnInit(): void {
@@ -77,7 +75,7 @@ export class ResumoAtividadesComponent implements OnInit {
   public substituirImagem(evento: Event): void {
     const imagem = evento.target as HTMLImageElement;
     imagem.onerror = null;
-    imagem.src = this.imagemPadrao;
+    imagem.src = "../../../../../assets/images/default-image.png";
   }
 
 }
