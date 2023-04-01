@@ -22,6 +22,8 @@ export class NavBarComponent implements OnInit {
 
   userImg: string = "";
 
+  adminExpanded = false;
+
   public imagemPadrao = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png';
 
   constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent,
@@ -99,6 +101,18 @@ export class NavBarComponent implements OnInit {
 
   public irParaDashboard(): void {
     this.router.navigate(["/home/dashboard"]);
+  }
+
+  toggleAdmin() {
+    this.adminExpanded = !this.adminExpanded;
+  }
+
+  irParaConfiguracaoUsuarios() {
+    // Lógica para ir para a tela de usuários
+  }
+
+  irParaCategorias() {
+    this.router.navigate(["/administracao/categorias"]);
   }
 
   alternarModoAdmin() {

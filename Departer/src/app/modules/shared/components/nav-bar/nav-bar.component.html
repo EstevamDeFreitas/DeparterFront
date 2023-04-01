@@ -73,6 +73,23 @@
         <img class="d-inline-block align-top perfil" src=".\assets\images\icone.horas.svg" width="20" height="20" />
         Horas
       </div>
+
+      <div class="opcao-menu clickable mt-5" (click)="toggleAdmin()">
+        <img class="d-inline-block align-top perfil" src=".\assets\images\icone.administracao.svg" width="20" height="20" />
+        Administração
+        <i class="seta fas fa-chevron-down ms-3"></i>
+      </div>
+      <div class="admin-options" *ngIf="adminExpanded">
+        <div class="opcao-menu clickable mt-3" (click)="irParaConfiguracaoUsuarios()">
+          <img class="d-inline-block align-top perfil" src=".\assets\images\icone.config.usuarios.svg" width="20" height="20" />
+          Configurar Horas
+        </div>
+        <div class="opcao-menu clickable mt-3" (click)="irParaCategorias()">
+          <img class="d-inline-block align-top perfil" src=".\assets\images\icone.categorias.svg" width="20" height="20" />
+          Categorias
+        </div>
+      </div>
+
     </div>
 
 
