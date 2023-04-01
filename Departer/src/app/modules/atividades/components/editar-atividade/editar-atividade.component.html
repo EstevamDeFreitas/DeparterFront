@@ -126,7 +126,7 @@
                   <input type="radio" name="radio{{i}}" class="me-1" value="5" id="radio5{{i}}"
                     (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 4" [disabled]="true"><span class="me-2">5</span>
                 </td>
-                <td>
+                <td class="align-middle">
                   <i class="fa-regular fa-x text-danger clickable" [hidden]="funcionario.nivelAcesso == 4" (click)="excluirFuncionario(funcionario.id)"></i>
                 </td>
               </tr>
@@ -135,7 +135,7 @@
         </div>
 
         <div class="mt-4">
-          <button class="light-button" (click)="openFuncionarioDialog()"> + Adicionar </button>
+          <button class="light-button" #buttonRef (click)="openFuncionarioDialog()"> + Adicionar </button>
         </div>
 
       </div>

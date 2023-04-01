@@ -78,7 +78,6 @@ export class EditarAtividadeComponent implements OnInit {
         this.getCategorias(res.data.atividadeCategorias);
         this.getDepartamentoNome();
 
-
         if (this.route.snapshot.queryParamMap.get('adicionarFuncionario') === 'true') {
           this.openFuncionarioDialog();
         }
