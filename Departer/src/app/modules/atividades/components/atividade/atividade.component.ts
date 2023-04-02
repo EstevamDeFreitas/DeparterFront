@@ -344,8 +344,7 @@ export class AtividadeComponent implements OnInit {
   }
 
   public checarSeFuncionarioEstaPresente(){
-    const funcionarioEncontrado = this.atividade.atividadeFuncionarios.find(funcionario => funcionario.funcionarioId === this.funcionarioAtual.id);
-    return funcionarioEncontrado;
+    return this.atividade.atividadeFuncionarios.find(funcionario => funcionario.funcionarioId === this.funcionarioAtual.id);
   }
 
 
