@@ -41,6 +41,7 @@ export class AtividadeComponent implements OnInit {
   departamentoNome: string = "";
 
   modoAdmin: boolean = false;
+  pertenceAAtividade: boolean = false;
 
   get f(): any {
     return this.horasForm.controls;
@@ -50,8 +51,6 @@ export class AtividadeComponent implements OnInit {
     private horasService: HorasService, private departamentoService: DepartamentoService, private modoAdminService: ModoAdminService) { }
 
   ngOnInit(): void {
-
-
 
     this.route.params.subscribe(params => {
       this.atividadeId = params['id'];
@@ -115,7 +114,7 @@ export class AtividadeComponent implements OnInit {
     })
   }
 
-  public getAtividadeHoras(){
+  public getAtividadeHoras() {
     this.horasService.getHorasByAtividadeId(this.atividadeId).subscribe(
       (res) => {
         let contadorDeMinutos = 0;
@@ -125,28 +124,28 @@ export class AtividadeComponent implements OnInit {
         this.atividadeHoras = this.transformarMinutosEmHoras(contadorDeMinutos);
         this.atualizarBarraDeProgresso();
       },
-      (err) => {},
+      (err) => { },
     )
   }
 
   getDepartamentoNome(): void {
     this.departamentoService.getDepartamentoById(this.atividade.departamentoId, this.modoAdmin).subscribe(
-      (res) =>{
+      (res) => {
         this.departamentoNome = res.data.nome;
       },
-      () =>{}
+      () => { }
     )
   }
 
   public getFuncionarioAtual(): void {
     this.funcionarioService.getFuncionarioLogado().subscribe(
-        (res) =>{
-          this.funcionarioAtual = res.data;
+      (res) => {
+        this.funcionarioAtual = res.data;
 
-          this.getFuncionarioHoras();
-        },
-        () => { }
-      )
+        this.getFuncionarioHoras();
+      },
+      () => { }
+    )
   }
 
   public getFuncionarioHoras(): void {
@@ -158,14 +157,14 @@ export class AtividadeComponent implements OnInit {
         })
         this.funcionarioHoras = this.transformarMinutosEmHoras(contadorDeMinutos);
       },
-      () => {}
+      () => { }
     )
   }
 
   public atualizarBarraDeProgresso(): void {
     let porcentagem = (this.calcularHorasPrevistas(this.atividadeHoras) / this.atividade.tempoPrevisto) * 100;
 
-    if(porcentagem>100){
+    if (porcentagem > 100) {
       porcentagem = 100;
     }
 
@@ -241,7 +240,7 @@ export class AtividadeComponent implements OnInit {
     hourInputMask(input);
   }
 
-  public openChecklistDialog(checklist = {} as ChecklistDto ) {
+  public openChecklistDialog(checklist = {} as ChecklistDto) {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -255,59 +254,65 @@ export class AtividadeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
 
-      if(data != false){
+      if (data != false) {
         this.ngOnInit();
-        this.snackbarComponent.openSnackBar(`Subtarefa ${data} com sucesso !`,SnackBarTheme.success,3000);
+        this.snackbarComponent.openSnackBar(`Subtarefa ${data} com sucesso !`, SnackBarTheme.success, 3000);
       } else {
-        this.snackbarComponent.openSnackBar("Erro ao adicionar subtarefa !",SnackBarTheme.success,3000);
+        this.snackbarComponent.openSnackBar("Erro ao adicionar subtarefa !", SnackBarTheme.success, 3000);
       }
 
     });
   }
 
-  public changeChecklistStatus(checkAtual: ChecklistDto){
+  public changeChecklistStatus(checkAtual: ChecklistDto) {
 
     checkAtual.checked = !checkAtual.checked;
 
     this.atividadeService.putAtividadeCheck(checkAtual).subscribe(
-      (res) => {},
-      (err) => {}
+      (res) => { },
+      (err) => { }
     );
 
   }
 
-  public ExcluirChecklist(idCheck: string){
+  public ExcluirChecklist(idCheck: string) {
     this.atividadeService.deleteAtividadeCheck(idCheck).subscribe(
-      ()=>{
+      () => {
         this.ngOnInit();
-        this.snackbarComponent.openSnackBar("Subtarefa excluída com sucesso !",SnackBarTheme.success,3000);
+        this.snackbarComponent.openSnackBar("Subtarefa excluída com sucesso !", SnackBarTheme.success, 3000);
       },
-      ()=>{}
+      () => { }
     )
   }
 
-  public alterarEstadoHoras(){
+  public alterarEstadoHoras() {
     this.estadoHoras = !this.estadoHoras;
   }
 
-  public adicionarHoras(){
+  public adicionarHoras() {
     let horasPost = {} as HorasPostDto;
 
-    horasPost.minutos = this.calcularHorasPrevistas(this.f.minutos.value);
-    horasPost.atividadeId = this.atividadeId;
-    horasPost.funcionarioId = this.funcionarioAtual.id;
-    console.log(horasPost);
+    if (this.checarSeFuncionarioEstaPresente()) {
+      horasPost.minutos = this.calcularHorasPrevistas(this.f.minutos.value);
+      horasPost.atividadeId = this.atividadeId;
+      horasPost.funcionarioId = this.funcionarioAtual.id;
+      console.log(horasPost);
 
-    this.horasService.postHoras(horasPost).subscribe(
-      () => {
-        this.ngOnInit();
-        this.snackbarComponent.openSnackBar("Horas adicionadas com sucesso !",SnackBarTheme.success,3000);
-      },
-      () => {}
-    )
+      this.horasService.postHoras(horasPost).subscribe(
+        () => {
+          this.ngOnInit();
+          this.snackbarComponent.openSnackBar("Horas adicionadas com sucesso !", SnackBarTheme.success, 3000);
+        },
+        () => { }
+      )
+    } else {
+      this.snackbarComponent.openSnackBar("Você não faz parte dessa atividade !", SnackBarTheme.error, 3000);
+    }
+
+
   }
 
-  public pararPropagacao(event: any){
+  public pararPropagacao(event: any) {
     event.stopPropagation();
   }
 
@@ -323,9 +328,9 @@ export class AtividadeComponent implements OnInit {
     this.router.navigate([`/atividades/nova-atividade/${this.atividadeId}`]);
   }
 
-  public irParaAtividadeFilha(id: string){
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-    this.router.navigate([`/atividades/atividade/${id}`]));
+  public irParaAtividadeFilha(id: string) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate([`/atividades/atividade/${id}`]));
   }
 
   public cssValidator(campoForm: FormControl): any {
@@ -336,6 +341,11 @@ export class AtividadeComponent implements OnInit {
     const imagem = evento.target as HTMLImageElement;
     imagem.onerror = null;
     imagem.src = "../../../../../assets/images/default-image.png";
+  }
+
+  public checarSeFuncionarioEstaPresente(){
+    const funcionarioEncontrado = this.atividade.atividadeFuncionarios.find(funcionario => funcionario.funcionarioId === this.funcionarioAtual.id);
+    return funcionarioEncontrado;
   }
 
 
