@@ -14,10 +14,9 @@
             <thead>
               <tr>
                 <th scope="col">Item relacionado</th>
-                <th scope="col">Horas</th>
+                <th scope="col" (click)="ordenarPorDataOuMinutos('minutos')"><span class="clickable">Horas <span [hidden]="ordemAtual == 'data'"><i class="seta fas fa-chevron-down" [hidden]="ordemMinutos == 'desc'"></i><i class="seta fas fa-chevron-up" [hidden]="ordemMinutos == 'asc'"></i></span></span></th>
                 <th scope="col">Usuário</th>
-                <th scope="col">Data</th>
-               
+                <th scope="col" (click)="ordenarPorDataOuMinutos('data')"><span class="clickable">Data <span [hidden]="ordemAtual == 'minutos'"><i class="seta fas fa-chevron-down" [hidden]="ordemData == 'asc'"></i><i class="seta fas fa-chevron-up" [hidden]="ordemData == 'desc'"></i></span></span></th>
               </tr>
             </thead>
             <tbody>
@@ -27,7 +26,7 @@
                 <td class="itensTabela">{{transformarMinutosEmHoras(hora.minutos)}} </td>
                 <td class="itensTabela">Eu</td>
                 <td class="itensTabela">{{hora.dataCriacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
-             
+
               </tr>
             </tbody>
           </table>

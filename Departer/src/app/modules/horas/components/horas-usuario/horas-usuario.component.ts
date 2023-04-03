@@ -17,6 +17,10 @@ export class HorasUsuarioComponent implements OnInit {
   horas: HorasGetByFuncionarioDto[] = [];
   horasResumo = {} as ResumoDto;
 
+  ordemData: 'asc' | 'desc' = 'desc';
+  ordemMinutos: 'asc' | 'desc' = 'desc';
+  ordemAtual: string = 'data';
+
   constructor(private horasService: HorasService, private funcionarioService: FuncionarioService, private router: Router) { }
 
   ngOnInit(): void {
@@ -64,6 +68,30 @@ export class HorasUsuarioComponent implements OnInit {
 
     return '' + horas + 'h ' + minutos + 'm';
 
+  }
+
+  public ordenarPorDataOuMinutos(tipoOrdem: string): void {
+    if (this.horas.length === 0) return;
+
+    this.ordemAtual = tipoOrdem;
+
+    if (this.ordemAtual === 'data') {
+      if (this.ordemData === 'desc') {
+        this.horas.sort((a, b) => new Date(a.dataCriacao).getTime() - new Date(b.dataCriacao).getTime());
+        this.ordemData = 'asc';
+      } else {
+        this.horas.sort((a, b) => new Date(b.dataCriacao).getTime() - new Date(a.dataCriacao).getTime());
+        this.ordemData = 'desc';
+      }
+    } else if (this.ordemAtual === 'minutos') {
+      if (this.ordemMinutos === 'desc') {
+        this.horas.sort((a, b) => b.minutos - a.minutos);
+        this.ordemMinutos = 'asc';
+      } else {
+        this.horas.sort((a, b) => a.minutos - b.minutos);
+        this.ordemMinutos = 'desc';
+      }
+    }
   }
 
   irAtividade(id: string) {
