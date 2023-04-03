@@ -38,6 +38,12 @@ export class HorasUsuarioComponent implements OnInit {
       (res) => {
         this.horas = res.data;
         console.log(this.horas);
+
+        this.horas.sort((a, b) => {
+          const dateA = new Date(a.dataCriacao);
+          const dateB = new Date(b.dataCriacao);
+          return dateB.getTime() - dateA.getTime();
+        });
       },
       () => {}
     )
