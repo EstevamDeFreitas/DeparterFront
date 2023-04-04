@@ -1,3 +1,5 @@
+import { ConfiguracaoDeHoras } from "../../administracao/models/configuracaoDeHoras";
+
 export class FuncionarioDto {
    id: string = "";
    nome: string = "";
@@ -7,4 +9,8 @@ export class FuncionarioDto {
    imagem: string = "";
 
    nivelAcesso?: number;
+}
+
+export interface FuncionarioDtoComConfiguracao extends FuncionarioDto {
+  configuracaoDeHoras: ConfiguracaoDeHoras[];
 }

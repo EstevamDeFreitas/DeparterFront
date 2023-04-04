@@ -1,5 +1,6 @@
 import { AdministracaoComponent } from './components/administracao/administracao.component';
 import { CadastrarCategoriasComponent } from './components/cadastrar-categorias/cadastrar-categorias.component';
+import { ConfiguracaoHorasComponent } from './components/configuracao-horas/configuracao-horas.component';
 import { ListaCategoriasComponent } from './components/lista-categorias/lista-categorias.component';
 
 import { NgModule } from "@angular/core";
@@ -13,7 +14,8 @@ const routes: Routes = [
       { path: `nova-categoria/:id`, component: CadastrarCategoriasComponent },
     ]
   },
-  { path: 'administracao', component: AdministracaoComponent }
+  { path: 'administracao', component: AdministracaoComponent },
+  { path: 'configuracao-horas', component: ConfiguracaoHorasComponent },
 
 ];
 

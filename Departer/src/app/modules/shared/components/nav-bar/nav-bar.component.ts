@@ -107,7 +107,7 @@ export class NavBarComponent implements OnInit {
   }
 
   irParaConfiguracaoUsuarios() {
-    // Lógica para ir para a tela de usuários
+    this.router.navigate(["/administracao/configuracao-horas"]);
   }
 
   irParaCategorias() {

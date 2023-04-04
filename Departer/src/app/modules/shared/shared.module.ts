@@ -4,7 +4,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { PrincipalComponent } from './components/principal/principal.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -21,6 +21,7 @@ import { ModalInformacoesComponent } from './components/modal-informacoes/modal-
 import { ResumoHorasComponent } from './components/resumo-horas/resumo-horas.component';
 import { ResumoAtividadesComponent } from './components/resumo-atividades/resumo-atividades.component';
 import { ModalAdicionarFuncionarioDepartamentoComponent } from './components/modal-adicionar-funcionario-departamento/modal-adicionar-funcionario-departamento.component';
+import { ModalConfigurarHorasComponent } from './components/modal-configurar-horas/modal-configurar-horas.component';
 
 
 const routes: Routes = [];
@@ -37,6 +38,7 @@ const routes: Routes = [];
     ResumoHorasComponent,
     ResumoAtividadesComponent,
     ModalAdicionarFuncionarioDepartamentoComponent,
+    ModalConfigurarHorasComponent,
   ],
     imports: [
       RouterModule.forChild(routes),
@@ -48,7 +50,8 @@ const routes: Routes = [];
       FormsModule,
       MatButtonModule,
       MatTabsModule,
-      MatSnackBarModule
+      MatSnackBarModule,
+      ReactiveFormsModule
     ],
     exports: [
      PrincipalComponent,

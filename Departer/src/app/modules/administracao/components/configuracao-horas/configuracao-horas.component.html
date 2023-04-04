@@ -1,0 +1,61 @@
+<div class="container">
+
+  <div class="d-flex justify-content-between mt-5">
+    <div class="custom-flex">
+      <p class="titulo">Configuração de horas</p>
+    </div>
+
+  </div>
+
+
+
+
+
+  <div class="card mt-4 mb-4">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Imagem</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Configuração Mensal</th>
+          <th scope="col">Configuração Diária</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let funcionario of funcionarios">
+          <td class="align-middle">
+            <img class="image-circle me-2" src="{{funcionario.imagem}}" width="33" height="31" (error)="substituirImagem($event)"/>
+          </td>
+          <td class="align-middle">{{funcionario.nome}}</td>
+          <td class="align-middle">
+            <div *ngIf="checarConfiguracaoMensal(funcionario)" class="d-flex align-items-center">
+              <span class="default-text my-auto me-2">{{devolverHorasMensal(funcionario)}}</span>
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-primary" (click)="openConfigDialog(funcionario.id, 1, devolverConfigMensal(funcionario))"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-sm btn-danger" (click)="openExclusionDialog(devolverConfigMensal(funcionario))"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div *ngIf="!checarConfiguracaoMensal(funcionario)">
+              <button type="button" class="btn btn-primary" (click)="openConfigDialog(funcionario.id, 1)">Configurar</button>
+            </div>
+          </td>
+          <td class="align-middle">
+            <div *ngIf="checarConfiguracaoDiario(funcionario)" class="d-flex align-items-center">
+              <span class="default-text my-auto me-2">{{devolverHorasDiario(funcionario)}}</span>
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-primary" (click)="openConfigDialog(funcionario.id, 0, devolverConfigDiario(funcionario))"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-sm btn-danger" (click)="openExclusionDialog(devolverConfigDiario(funcionario))"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div *ngIf="!checarConfiguracaoDiario(funcionario)">
+              <button type="button" class="btn btn-primary" (click)="openConfigDialog(funcionario.id, 0)">Configurar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+</div>

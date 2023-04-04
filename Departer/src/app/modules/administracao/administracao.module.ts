@@ -10,13 +10,15 @@ import { AdministracaoRoutingModule } from './administracao-routing.module';
 import { ListaCategoriasComponent } from './components/lista-categorias/lista-categorias.component';
 import { CadastrarCategoriasComponent } from './components/cadastrar-categorias/cadastrar-categorias.component';
 import { AdministracaoComponent } from './components/administracao/administracao.component';
+import { ConfiguracaoHorasComponent } from './components/configuracao-horas/configuracao-horas.component';
 
 
 @NgModule({
   declarations: [
     ListaCategoriasComponent,
     CadastrarCategoriasComponent,
-    AdministracaoComponent
+    AdministracaoComponent,
+    ConfiguracaoHorasComponent
   ],
   imports: [
     CommonModule,

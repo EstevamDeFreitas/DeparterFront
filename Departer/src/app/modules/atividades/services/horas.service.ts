@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
+import { ConfiguracaoDeHoras } from '../../administracao/models/configuracaoDeHoras';
+import { ConfiguracaoDeHorasPost } from '../../administracao/models/configuracaoDeHoras';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +46,22 @@ export class HorasService {
       params = params.set('departamentoId', departamentoId);
     }
     return this.http.get<ResponseBase<ResumoDto>>(`${this.apiUlr}/resumo`, { params });
+  }
+
+  public getConfiguracaoHoras(funcionarioId: string): Observable<ResponseBase<ConfiguracaoDeHoras[]>> {
+    return this.http.get<ResponseBase<ConfiguracaoDeHoras[]>>(`${this.apiUlr}/configuracao/funcionario/${funcionarioId}`);
+  }
+
+  public postHorasConfiguracao(configuracao: ConfiguracaoDeHorasPost): Observable<ResponseBase<ConfiguracaoDeHoras>> {
+    return this.http.post<ResponseBase<ConfiguracaoDeHoras>>(`${this.apiUlr}/configuracao`, configuracao)
+  }
+
+  public putHorasConfiguracao(configuracaoPut: ConfiguracaoDeHoras): Observable<ResponseBase<ConfiguracaoDeHoras>> {
+    return this.http.put<ResponseBase<ConfiguracaoDeHoras>>(`${this.apiUlr}/configuracao`, configuracaoPut)
+  }
+
+  public deleteHorasConfiguracao(configuracaoId: string): Observable<ResponseBase<ConfiguracaoDeHoras>> {
+    return this.http.delete<ResponseBase<ConfiguracaoDeHoras>>(`${this.apiUlr}/configuracao/${configuracaoId}`)
   }
 
 }

@@ -1,0 +1,48 @@
+<div class="modal-card">
+  <header>
+    <mat-icon class="close" mat-dialog-close (click)="onCancel()">close</mat-icon>
+    <div class="text-center dialog-title w-100" mat-dialog-title>
+      Configurar Horas {{tipoConfiguracao}}
+    </div>
+  </header>
+
+
+  <div mat-dialog-content>
+
+    <div class="text-center dialog-text mb-4">
+      Digite quantas horas {{tipoConfiguracao | lowercase}} o usuário deverá trabalhar.
+    </div>
+
+    <form [formGroup]="horasForm">
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="form-floating">
+            <input type="text" id="horas" class="form-control form-control-lg" autocomplete="off" maxlength="5"
+              (keyup.enter)="maskHour()" (input)="maskHour()" [ngClass]="cssValidator(f.configHoras)"
+              placeholder="categoria" formControlName="configHoras" />
+            <label for="inputCategoria" class="label-input">Ex: 00:30 / 01:25</label>
+            <div *ngIf="f.configHoras.errors?.required && f.configHoras.touched" class="invalid-feedback">
+              Horas é obrigatorio.
+            </div>
+            <div *ngIf="f.configHoras.errors?.minlength && f.configHoras.touched" class="invalid-feedback">
+              Horas deve ter quatro caracteres. (Ex: 04:30 / Quatro horas e meia)
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+
+  <div class="d-flex justify-content-center mt-4 mb-3" mat-dialog-actions>
+    <div class="col-lg-5 col-12 me-lg-2">
+      <button mat-raised-button class="white-button" (click)="onCancel()">Cancelar</button>
+    </div>
+    <div class="col-lg-5 col-12">
+      <button mat-raised-button class="red-button" (click)="finalizarConfiguracao()">Confirmar</button>
+    </div>
+  </div>
+
+
+</div>
