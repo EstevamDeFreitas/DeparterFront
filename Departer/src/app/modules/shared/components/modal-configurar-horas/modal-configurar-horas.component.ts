@@ -103,13 +103,13 @@ export class ModalConfigurarHorasComponent implements OnInit {
 
       this.horasService.putHorasConfiguracao(putConfig).subscribe(
         () => {
-          this.onConfirm();
+          this.onConfirm("alterada");
         }
       )
     } else {
       this.horasService.postHorasConfiguracao(this.postConfiguracao).subscribe(
         ()=> {
-          this.onConfirm();
+          this.onConfirm("adicionada");
         }
       )
     }
@@ -145,8 +145,8 @@ export class ModalConfigurarHorasComponent implements OnInit {
     return { 'is-invalid': campoForm.errors && campoForm.touched }
   }
 
-  onConfirm(): void {
-    this.dialogRef.close(true);
+  onConfirm(mensagem: string): void {
+    this.dialogRef.close(mensagem);
   }
 
   onCancel(): void {

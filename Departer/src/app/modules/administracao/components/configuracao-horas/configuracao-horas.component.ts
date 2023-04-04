@@ -101,7 +101,7 @@ export class ConfiguracaoHorasComponent implements OnInit {
 
      if (data != false) {
         this.ngOnInit();
-        this.snackbarComponent.openSnackBar(`Configuração adicionada com sucesso !`, SnackBarTheme.success, 3000);
+        this.snackbarComponent.openSnackBar(`Configuração ${data} com sucesso !`, SnackBarTheme.success, 3000);
       } else {
         this.snackbarComponent.openSnackBar("Erro ao adicionar configuração !", SnackBarTheme.error, 3000);
       }
