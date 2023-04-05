@@ -16,6 +16,8 @@ import { AtividadeDto } from './../../models/atividadeDto';
 import { AtividadeService } from './../../services/atividade.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-atividade',
@@ -78,9 +80,12 @@ export class AtividadeComponent implements OnInit {
           console.log(this.atividade);
 
           this.getCategorias();
-          this.getFuncionarios();
           this.getAtividadeHoras();
           this.getDepartamentoNome();
+
+          this.getFuncionarios().subscribe(funcionarios => {
+            this.funcionarios = funcionarios;
+          });
 
           this.horasPrevistasEmString = this.transformarMinutosEmHoras(this.atividade.tempoPrevisto);
         },
@@ -102,17 +107,23 @@ export class AtividadeComponent implements OnInit {
 
   }
 
-  public getFuncionarios(): void {
-    this.funcionarios = [];
-    this.atividade.atividadeFuncionarios.forEach(e => {
-      this.funcionarioService.getFuncionarioById(e.funcionarioId).subscribe(
-        (res) => {
-          res.data.nivelAcesso = e.nivelAcesso;
-          this.funcionarios.push(res.data);
-        },
-        () => { }
-      )
-    })
+  public getFuncionarios(): Observable<FuncionarioDto[]> {
+    const funcionarios: FuncionarioDto[] = [];
+    return forkJoin(
+      this.atividade.atividadeFuncionarios.map(e => {
+        return this.funcionarioService.getFuncionarioById(e.funcionarioId).pipe(
+          map(res => {
+            res.data.nivelAcesso = e.nivelAcesso;
+            funcionarios.push(res.data);
+          })
+        );
+      })
+    ).pipe(
+      map(() => {
+        funcionarios.sort((a, b) => b.nivelAcesso! - a.nivelAcesso!);
+        return funcionarios;
+      })
+    );
   }
 
   public getAtividadeHoras() {
