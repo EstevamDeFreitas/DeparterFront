@@ -258,7 +258,7 @@ export class AtividadeComponent implements OnInit {
         this.ngOnInit();
         this.snackbarComponent.openSnackBar(`Subtarefa ${data} com sucesso !`, SnackBarTheme.success, 3000);
       } else {
-        this.snackbarComponent.openSnackBar("Erro ao adicionar subtarefa !", SnackBarTheme.success, 3000);
+        this.snackbarComponent.openSnackBar("Erro ao adicionar subtarefa !", SnackBarTheme.error, 3000);
       }
 
     });
