@@ -107,6 +107,7 @@ export class AtividadeComponent implements OnInit {
     this.atividade.atividadeFuncionarios.forEach(e => {
       this.funcionarioService.getFuncionarioById(e.funcionarioId).subscribe(
         (res) => {
+          res.data.nivelAcesso = e.nivelAcesso;
           this.funcionarios.push(res.data);
         },
         () => { }
