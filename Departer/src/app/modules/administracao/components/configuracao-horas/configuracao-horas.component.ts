@@ -19,6 +19,26 @@ import { ModalExcluirDesativarComponent } from 'src/app/modules/shared/component
 export class ConfiguracaoHorasComponent implements OnInit {
 
   funcionarios: FuncionarioDtoComConfiguracao[] = [];
+  funcionariosFiltrados: FuncionarioDtoComConfiguracao[] = [];
+
+  private _filtroLista: string = "";
+
+  public get filtroLista(): string {
+    return this._filtroLista;
+  }
+
+  public set filtroLista(value: string) {
+    this._filtroLista = value;
+    this.funcionariosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.funcionarios;
+  }
+
+  public filtrarEventos(filtrarPor: string): FuncionarioDtoComConfiguracao[] {
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+
+    return this.funcionarios.filter(
+      (element: any) => element.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    );
+  }
 
   constructor(private funcionarioService: FuncionarioService, private horasService: HorasService, public dialog: MatDialog, private snackbarComponent:SnackbarComponent) { }
 
@@ -44,6 +64,7 @@ export class ConfiguracaoHorasComponent implements OnInit {
     ).subscribe(
       (funcionariosComConfiguracao) => {
         this.funcionarios = funcionariosComConfiguracao;
+        this.funcionariosFiltrados = this.funcionarios;
         console.log(this.funcionarios)
       },
       ()=>{}

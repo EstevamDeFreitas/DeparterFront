@@ -13,6 +13,16 @@
 
   <div class="card mt-4 mb-4">
 
+    <div class="flex-fill">
+      <div class="input-group mb-2">
+
+        <div class="input-group-text">Filtro:</div>
+
+        <input type="text" class="form-control" placeholder="Filtrar por Nome" [(ngModel)]="filtroLista">
+
+      </div>
+    </div>
+
     <table class="table">
       <thead>
         <tr>
@@ -23,7 +33,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let funcionario of funcionarios">
+        <tr *ngFor="let funcionario of funcionariosFiltrados">
           <td class="align-middle">
             <img class="image-circle me-2" src="{{funcionario.imagem}}" width="33" height="31" (error)="substituirImagem($event)"/>
           </td>
