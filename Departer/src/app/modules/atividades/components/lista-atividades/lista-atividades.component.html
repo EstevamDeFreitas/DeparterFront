@@ -67,7 +67,7 @@
           <th scope="col">Responsáveis</th>
           <th scope="col">Categorias</th>
           <th scope="col">Status</th>
-          <th scope="col">Data de Entrega</th>
+          <th scope="col" (click)="ordenarPorData('data')"><span class="clickable">Data de Entrega <span [hidden]="ordemAtual == 'minutos'"><i class="seta fas fa-chevron-down" [hidden]="ordemData == 'asc'"></i><i class="seta fas fa-chevron-up" [hidden]="ordemData == 'desc'"></i></span></span></th>
           <th scope="col"></th>
         </tr>
       </thead>

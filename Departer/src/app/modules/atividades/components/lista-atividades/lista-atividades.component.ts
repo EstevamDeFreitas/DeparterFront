@@ -27,6 +27,9 @@ export class ListaAtividadesComponent implements OnInit {
 
   modoAdmin: boolean = false;
 
+  ordemData: 'asc' | 'desc' = 'asc';
+  ordemAtual: string = 'data';
+
   tipoDeFiltro: string = "titulo";
 
   private _filtroLista: string = "";
@@ -103,6 +106,13 @@ export class ListaAtividadesComponent implements OnInit {
           });
 
         });
+
+        this.atividades.sort((a, b) => {
+          const dateA = new Date(a.dataEntrega);
+          const dateB = new Date(b.dataEntrega);
+          return dateA.getTime() - dateB.getTime();
+        });
+
         console.log(this.atividades);
         this.atividadesFiltradas = this.atividades;
       },
@@ -158,6 +168,22 @@ export class ListaAtividadesComponent implements OnInit {
     }
 
     return resultado;
+  }
+
+  public ordenarPorData(tipoOrdem: string): void {
+    if (this.atividadesFiltradas.length === 0) return;
+
+    this.ordemAtual = tipoOrdem;
+
+    if (this.ordemAtual === 'data') {
+      if (this.ordemData === 'desc') {
+        this.atividadesFiltradas.sort((a, b) => new Date(a.dataEntrega).getTime() - new Date(b.dataEntrega).getTime());
+        this.ordemData = 'asc';
+      } else {
+        this.atividadesFiltradas.sort((a, b) => new Date(b.dataEntrega).getTime() - new Date(a.dataEntrega).getTime());
+        this.ordemData = 'desc';
+      }
+    }
   }
 
   getNomeStatusAtividade(status: number): string {
