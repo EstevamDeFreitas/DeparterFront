@@ -30,7 +30,7 @@
 
           <div class="d-flex justify-content-center justify-content-sm-start mt-3">
             <img class="image-clock" src=".\assets\images\icone.relogio.svg" width="20" height="23" />
-            <span class="text-created-date ms-2">Criada em: 22/10/2022 7:00</span>
+            <span class="text-created-date ms-2">Criada em: {{atividade.dataCriacao | date:'dd/MM/yyyy HH:mm:ss'}}</span>
           </div>
 
           <div class="side-column">
@@ -41,7 +41,7 @@
               </div>
 
               <div class="d-flex d-md-none flex-row-reverse purple-text mt-2 justify-content-center">
-                <span class="ps-1 text-center">Previsto para: 11/11/2022 11:30</span><img class="image-calendar"
+                <span class="ps-1 text-center">Previsto para: {{atividade.dataEntrega | date:'dd/MM/yyyy HH:mm:ss'}}</span><img class="image-calendar"
                   src=".\assets\images\icone.planejamento.svg" width="20" height="23" />
               </div>
 
@@ -177,7 +177,7 @@
         <div class="me-md-3">
 
           <div class="d-none d-md-flex flex-row-reverse purple-text">
-            <span class="ps-1">Previsto para: 11/11/2022 11:30</span><img class="image-calendar"
+            <span class="ps-1">Previsto para: {{atividade.dataEntrega | date:'dd/MM/yyyy'}}</span><img class="image-calendar"
               src=".\assets\images\icone.planejamento.svg" width="20" height="23" />
           </div>
 

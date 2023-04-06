@@ -67,7 +67,7 @@
           <th scope="col">Responsáveis</th>
           <th scope="col">Categorias</th>
           <th scope="col">Status</th>
-          <th scope="col">Progressão</th>
+          <th scope="col">Data de Entrega</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -99,8 +99,13 @@
               </div>
             </div>
           </td>
-          <td class="align-middle">Fazendo</td>
-          <td></td>
+          <td class="align-middle">
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-circle icon-circle me-2" [style.color]="getCorStatusAtividade(atividade.statusAtividade)"></i>
+              {{ getNomeStatusAtividade(atividade.statusAtividade) }}
+            </div>
+          </td>
+          <td class="align-middle">{{atividade.dataEntrega | date:'dd/MM/yyyy'}}</td>
           <td class="align-middle"> <img class="d-inline-block align-top perfil clickable"
               src=".\assets\images\tres-pontos.svg" width="20" height="20" (click)="irAtividade(atividade.id)" />
           </td>

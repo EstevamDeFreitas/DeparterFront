@@ -10,6 +10,7 @@ export class AtividadeDto {
   titulo: string = "";
   descricao: string = "";
   dataEntrega: string = "";
+  dataCriacao: string = "";
   tempoPrevisto: number = 0;
   departamentoId: string = "";
   atividadePaiId: string = "";
@@ -42,7 +43,7 @@ export class AtividadeListDto {
   atividadePaiId: string = "";
   atividadeCategorias = {} as AtividadeCategorias[];
   atividadeFuncionarios = {} as AtividadeFuncionarios[];
-  status: number = 0;
+  statusAtividade: number = 0;
 
   categorias: CategoriaDto[] = [];
   funcionarios: FuncionarioDto[] = [];

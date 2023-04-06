@@ -160,6 +160,35 @@ export class ListaAtividadesComponent implements OnInit {
     return resultado;
   }
 
+  getNomeStatusAtividade(status: number): string {
+    switch (status) {
+      case 0:
+        return 'Pendente';
+      case 1:
+        return 'Desenvolvendo';
+      case 2:
+        return 'Concluída';
+      case 3:
+        return 'Atrasada';
+      default:
+        return '';
+    }
+  }
+
+  getCorStatusAtividade(status: number): string {
+    switch (status) {
+      case 0:
+      case 1:
+        return '#FF9900';
+      case 2:
+        return '#35DA3B';
+      case 3:
+        return '#FF3A3A';
+      default:
+        return '';
+    }
+  }
+
   novaAtividade() {
     this.router.navigate(['/atividades/nova-atividade']);
   }
