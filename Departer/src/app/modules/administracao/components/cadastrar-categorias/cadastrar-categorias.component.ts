@@ -17,17 +17,15 @@ export class CadastrarCategoriasComponent implements OnInit {
   categoria = {} as CategoriaDto;
 
   cores: Array<string> = [
-    "#F9C5C5",
-    "#ED7878",
-    "#F84B4B",
-    "#9A1616"
+    "#5245E0",
+    "#45E067",
+    "#B845E0",
   ];
 
   cores2: Array<string> = [
-    "#C5F9E0",
-    "#78ED84",
-    "#59F84B",
-    "#299A16"
+    "#E04545",
+    "#E0B545",
+    "#4596E0",
   ];
 
   corAtual: string = this.cores[0];
