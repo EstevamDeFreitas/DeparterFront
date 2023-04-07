@@ -38,6 +38,8 @@ export class EditarAtividadeComponent implements OnInit {
   atividadesFilha: AtividadeDto[] = [];
   departamentoNome: string = "";
 
+  funcionarioAtual = {} as FuncionarioDto;
+
   atividadeForm!: FormGroup;
   atividade = {} as AtividadeDto;
 
@@ -48,7 +50,7 @@ export class EditarAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private categoriaService: CategoriaService, private readonly snackbarComponent: SnackbarComponent, private departamentoService:DepartamentoService) {
+  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private categoriaService: CategoriaService, private readonly snackbarComponent: SnackbarComponent, private departamentoService: DepartamentoService) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
@@ -82,7 +84,7 @@ export class EditarAtividadeComponent implements OnInit {
           this.openFuncionarioDialog();
         }
       },
-      () => {}
+      () => { }
     )
   }
 
@@ -92,7 +94,38 @@ export class EditarAtividadeComponent implements OnInit {
         (res) => {
           res.data.nivelAcesso = funcionario.nivelAcesso;
           this.funcionarios.push(res.data);
+        },
+        () => { },
+        () => {
+          this.getFuncionarioAtual();
+        }
+      )
+    });
 
+
+
+  }
+
+  public getFuncionarioAtual(): void {
+    this.funcionarioService.getFuncionarioLogado().subscribe(
+      (res) => {
+        this.funcionarioAtual = res.data;
+
+        const funcionarioEncontrado = this.funcionarios.find((funcionario) => funcionario.id === this.funcionarioAtual.id);
+        this.funcionarioAtual.nivelAcesso = funcionarioEncontrado?.nivelAcesso;
+
+        console.log(this.funcionarioAtual);
+
+      },
+      () => { }
+    )
+  }
+
+  public getCategorias(categoriasList: AtividadeCategorias[]): void {
+    categoriasList.forEach((categoria) => {
+      this.categoriaService.getCategoriaById(categoria.categoriaId).subscribe(
+        (res) => {
+          this.categorias.push(res.data);
         },
         () => { }
       )
@@ -100,24 +133,12 @@ export class EditarAtividadeComponent implements OnInit {
 
   }
 
-  public getCategorias(categoriasList: AtividadeCategorias[]): void {
-    categoriasList.forEach((categoria) => {
-      this.categoriaService.getCategoriaById(categoria.categoriaId).subscribe(
-        (res) =>{
-          this.categorias.push(res.data);
-        },
-        () =>{}
-      )
-    });
-
-  }
-
   getDepartamentoNome(): void {
     this.departamentoService.getDepartamentoById(this.atividade.departamentoId).subscribe(
-      (res) =>{
+      (res) => {
         this.departamentoNome = res.data.nome;
       },
-      () =>{}
+      () => { }
     )
   }
 
@@ -211,26 +232,32 @@ export class EditarAtividadeComponent implements OnInit {
   }
 
   public openFuncionarioDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = false;
 
-    dialogConfig.data = {
-      funcionariosLista: this.funcionarios,
-      departamentoId: this.atividade.departamentoId,
-      tipoAdicionar: 1
-    };
+    if (this.funcionarioAtual.nivelAcesso! >= 3) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = false;
 
-    const dialogRef = this.dialog.open(ModalAdicionarFuncionariosComponent, dialogConfig);
+      dialogConfig.data = {
+        funcionariosLista: this.funcionarios,
+        departamentoId: this.atividade.departamentoId,
+        tipoAdicionar: 1
+      };
 
-    dialogRef.afterClosed().subscribe(data => {
+      const dialogRef = this.dialog.open(ModalAdicionarFuncionariosComponent, dialogConfig);
 
-      data.forEach((element: FuncionarioDto) => {
-        element.nivelAcesso = 0;
-        this.funcionarios.push(element);
+      dialogRef.afterClosed().subscribe(data => {
+
+        data.forEach((element: FuncionarioDto) => {
+          element.nivelAcesso = 0;
+          this.funcionarios.push(element);
+        });
+
       });
+    } else {
+      this.snackbarComponent.openSnackBar("Voc� n�o tem acesso para adicionar funcionarios !", SnackBarTheme.error, 3000);
+    }
 
-    });
   }
 
   public openInfoDialog() {
@@ -268,27 +295,32 @@ export class EditarAtividadeComponent implements OnInit {
 
   public desativarAtividade() {
 
-    let dataDialog = {
-      title: "Você realmente deseja desativar?",
-      message: "Você pode ativar novamente caso queira ou seja necessário.",
-      cancel: "Não, gostaria de voltar",
-      confirm: "Sim, desejo desativar"
-    }
+    if (this.funcionarioAtual.nivelAcesso! >= 2) {
 
-    const dialogRef = this.dialog.open(ModalExcluirDesativarComponent, {
-      panelClass: 'custom-modal',
-      backdropClass: 'backdrop-blur',
-      width: '600px',
-      height: 'auto',
-      data: dataDialog,
-    }).afterClosed().subscribe(result => {
-
-      if (result == true) {
-
+      let dataDialog = {
+        title: "Você realmente deseja desativar?",
+        message: "Você pode ativar novamente caso queira ou seja necessário.",
+        cancel: "Não, gostaria de voltar",
+        confirm: "Sim, desejo desativar"
       }
 
+      const dialogRef = this.dialog.open(ModalExcluirDesativarComponent, {
+        panelClass: 'custom-modal',
+        backdropClass: 'backdrop-blur',
+        width: '600px',
+        height: 'auto',
+        data: dataDialog,
+      }).afterClosed().subscribe(result => {
 
-    });
+        if (result == true) {
+          this.snackbarComponent.openSnackBar("Atividade desativada com sucesso !", SnackBarTheme.error, 3000);
+        }
+
+
+      });
+    } else {
+      this.snackbarComponent.openSnackBar("Voc� n�o tem acesso para desativar a atividade !", SnackBarTheme.error, 3000);
+    }
   }
 
   public atividadeCriada(): void {
@@ -303,8 +335,8 @@ export class EditarAtividadeComponent implements OnInit {
       atividadePut.tempoPrevisto = this.calcularHorasPrevistas(this.f.tempoPrevisto.value);
 
       atividadePut.atividadeCategorias = [];
-      this.categorias.forEach((element)=>{
-        atividadePut.atividadeCategorias.push({categoriaId: element.id, atividadeId: this.atividadeId})
+      this.categorias.forEach((element) => {
+        atividadePut.atividadeCategorias.push({ categoriaId: element.id, atividadeId: this.atividadeId })
       });
 
       atividadePut.atividadeFuncionarios = [];
@@ -313,7 +345,7 @@ export class EditarAtividadeComponent implements OnInit {
         let funcionarioToAtivFuncionarios;
 
         if (element.nivelAcesso != undefined) {
-          funcionarioToAtivFuncionarios = { funcionarioEmail: element.email, nivelAcesso: element.nivelAcesso, atividadeId: this.atividadeId, funcionarioId: element.id};
+          funcionarioToAtivFuncionarios = { funcionarioEmail: element.email, nivelAcesso: element.nivelAcesso, atividadeId: this.atividadeId, funcionarioId: element.id };
         } else {
           funcionarioToAtivFuncionarios = { funcionarioEmail: element.email, nivelAcesso: 0, atividadeId: this.atividadeId, funcionarioId: element.id };
         }
@@ -330,9 +362,9 @@ export class EditarAtividadeComponent implements OnInit {
       this.atividadeService.updateAtividade(atividadePut).subscribe(
         (res) => {
           this.router.navigate(['/atividades/lista-atividades']);
-          this.snackbarComponent.openSnackBar("Atividade alterada com sucesso !",SnackBarTheme.success,3000);
+          this.snackbarComponent.openSnackBar("Atividade alterada com sucesso !", SnackBarTheme.success, 3000);
         },
-        () => {}
+        () => { }
       )
 
     } else {
