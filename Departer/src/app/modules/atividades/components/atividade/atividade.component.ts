@@ -43,7 +43,6 @@ export class AtividadeComponent implements OnInit {
   departamentoNome: string = "";
 
   modoAdmin: boolean = false;
-  pertenceAAtividade: boolean = false;
 
   get f(): any {
     return this.horasForm.controls;
@@ -65,7 +64,6 @@ export class AtividadeComponent implements OnInit {
       );
     });
 
-    this.getFuncionarioAtual();
     this.maskHour();
     this.formValidation();
 
@@ -85,6 +83,7 @@ export class AtividadeComponent implements OnInit {
 
           this.getFuncionarios().subscribe(funcionarios => {
             this.funcionarios = funcionarios;
+            this.getFuncionarioAtual();
           });
 
           this.horasPrevistasEmString = this.transformarMinutosEmHoras(this.atividade.tempoPrevisto);
@@ -153,6 +152,9 @@ export class AtividadeComponent implements OnInit {
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionarioAtual = res.data;
+
+        const funcionarioEncontrado = this.funcionarios.find((funcionario) => funcionario.id === this.funcionarioAtual.id);
+        this.funcionarioAtual.nivelAcesso = funcionarioEncontrado?.nivelAcesso;
 
         this.getFuncionarioHoras();
       },
@@ -254,47 +256,63 @@ export class AtividadeComponent implements OnInit {
 
   public openChecklistDialog(checklist = {} as ChecklistDto) {
 
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
+    if(this.funcionarioAtual.nivelAcesso! >=1) {
 
-    dialogConfig.data = {
-      checklist: checklist,
-      idAtividade: this.atividadeId
-    };
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
 
-    const dialogRef = this.dialog.open(ModalAdicionarChecklistComponent, dialogConfig);
+      dialogConfig.data = {
+        checklist: checklist,
+        idAtividade: this.atividadeId
+      };
 
-    dialogRef.afterClosed().subscribe(data => {
+      const dialogRef = this.dialog.open(ModalAdicionarChecklistComponent, dialogConfig);
 
-      if (data != false) {
-        this.ngOnInit();
-        this.snackbarComponent.openSnackBar(`Subtarefa ${data} com sucesso !`, SnackBarTheme.success, 3000);
-      } else {
-        this.snackbarComponent.openSnackBar("Erro ao adicionar subtarefa !", SnackBarTheme.error, 3000);
-      }
+      dialogRef.afterClosed().subscribe(data => {
 
-    });
+        if (data != false) {
+          this.ngOnInit();
+          this.snackbarComponent.openSnackBar(`Subtarefa ${data} com sucesso !`, SnackBarTheme.success, 3000);
+        } else {
+          this.snackbarComponent.openSnackBar("Erro ao adicionar subtarefa !", SnackBarTheme.error, 3000);
+        }
+
+      });
+    } else {
+      this.snackbarComponent.openSnackBar("Você não tem acesso para adicionar uma subtarefa !", SnackBarTheme.error, 3000);
+    }
   }
 
   public changeChecklistStatus(checkAtual: ChecklistDto) {
 
-    checkAtual.checked = !checkAtual.checked;
+    if(this.funcionarioAtual.nivelAcesso! >=1) {
 
-    this.atividadeService.putAtividadeCheck(checkAtual).subscribe(
-      (res) => { },
-      (err) => { }
-    );
+      checkAtual.checked = !checkAtual.checked;
+
+      this.atividadeService.putAtividadeCheck(checkAtual).subscribe(
+        (res) => { },
+        (err) => { }
+      );
+    } else {
+      this.snackbarComponent.openSnackBar("Você não tem acesso para alterar a subtarefa !", SnackBarTheme.error, 3000);
+    }
 
   }
 
   public ExcluirChecklist(idCheck: string) {
-    this.atividadeService.deleteAtividadeCheck(idCheck).subscribe(
-      () => {
-        this.ngOnInit();
-        this.snackbarComponent.openSnackBar("Subtarefa excluída com sucesso !", SnackBarTheme.success, 3000);
-      },
-      () => { }
-    )
+
+    if(this.funcionarioAtual.nivelAcesso! >=1) {
+
+      this.atividadeService.deleteAtividadeCheck(idCheck).subscribe(
+        () => {
+          this.ngOnInit();
+          this.snackbarComponent.openSnackBar("Subtarefa excluída com sucesso !", SnackBarTheme.success, 3000);
+        },
+        () => { }
+      )
+    } else {
+      this.snackbarComponent.openSnackBar("Você não tem acesso para excluir a subtarefa !", SnackBarTheme.error, 3000);
+    }
   }
 
   public alterarEstadoHoras() {
@@ -329,15 +347,28 @@ export class AtividadeComponent implements OnInit {
   }
 
   public editar() {
-    this.router.navigate([`/atividades/editar-atividade/${this.atividadeId}`]);
+    if(this.funcionarioAtual.nivelAcesso! >=1){
+      this.router.navigate([`/atividades/editar-atividade/${this.atividadeId}`]);
+    } else {
+      this.snackbarComponent.openSnackBar("Você não tem acesso para editar a atividade !", SnackBarTheme.error, 3000);
+    }
+
   }
 
   public AdicionarFuncionario() {
-    this.router.navigate([`/atividades/editar-atividade/${this.atividadeId}`], { queryParams: { adicionarFuncionario: true } });
+    if(this.funcionarioAtual.nivelAcesso! >=3){
+      this.router.navigate([`/atividades/editar-atividade/${this.atividadeId}`], { queryParams: { adicionarFuncionario: true } });
+    } else {
+      this.snackbarComponent.openSnackBar("Você não tem acesso para adicionar funcionarios !", SnackBarTheme.error, 3000);
+    }
   }
 
   public adicionarAtividadeFilho() {
-    this.router.navigate([`/atividades/nova-atividade/${this.atividadeId}`]);
+    if(this.funcionarioAtual.nivelAcesso! >=1){
+      this.router.navigate([`/atividades/nova-atividade/${this.atividadeId}`]);
+    } else {
+      this.snackbarComponent.openSnackBar("Você não tem acesso para adicionar atividades filhas !", SnackBarTheme.error, 3000);
+    }
   }
 
   public irParaAtividadeFilha(id: string) {
