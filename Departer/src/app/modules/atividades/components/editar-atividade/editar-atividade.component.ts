@@ -1,3 +1,4 @@
+import { HorasService } from './../../services/horas.service';
 import { DepartamentoService } from './../../../departamentos/services/departamento.service';
 import { DepartamentoDto } from './../../../departamentos/models/departamentoDto';
 import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
@@ -50,7 +51,7 @@ export class EditarAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private categoriaService: CategoriaService, private readonly snackbarComponent: SnackbarComponent, private departamentoService: DepartamentoService) {
+  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private categoriaService: CategoriaService, private readonly snackbarComponent: SnackbarComponent, private departamentoService: DepartamentoService, private horasService: HorasService) {
     this.dateAdapter.setLocale('pt-BR');
   }
 
@@ -97,6 +98,7 @@ export class EditarAtividadeComponent implements OnInit {
         },
         () => { },
         () => {
+          this.funcionarios.sort((a, b) => b.nivelAcesso! - a.nivelAcesso!);
           this.getFuncionarioAtual();
         }
       )
@@ -113,8 +115,6 @@ export class EditarAtividadeComponent implements OnInit {
 
         const funcionarioEncontrado = this.funcionarios.find((funcionario) => funcionario.id === this.funcionarioAtual.id);
         this.funcionarioAtual.nivelAcesso = funcionarioEncontrado?.nivelAcesso;
-
-        console.log(this.funcionarioAtual);
 
       },
       () => { }
@@ -255,7 +255,7 @@ export class EditarAtividadeComponent implements OnInit {
 
       });
     } else {
-      this.snackbarComponent.openSnackBar("Voc� n�o tem acesso para adicionar funcionarios !", SnackBarTheme.error, 3000);
+      this.snackbarComponent.openSnackBar("Você não tem acesso para adicionar funcionarios !", SnackBarTheme.error, 3000);
     }
 
   }
@@ -285,7 +285,20 @@ export class EditarAtividadeComponent implements OnInit {
 
   public excluirFuncionario(funcionarioId: string): void {
     let index = this.funcionarios.map(e => e.id).indexOf(funcionarioId);
-    this.funcionarios.splice(index, 1);
+
+    this.horasService.getHorasByAtividadeId(this.atividade.id).subscribe(
+      (res) => {
+        let horasFuncionario = res.data.filter(horas => horas.funcionarioId === funcionarioId);
+        if (horasFuncionario.length > 0) {
+          this.snackbarComponent.openSnackBar(`Não é possível excluir o funcionário ${horasFuncionario[0].funcionario.nome} porque ele já adicionou horas à atividade.`, SnackBarTheme.error, 3000);
+          return;
+        }
+
+        this.funcionarios.splice(index, 1);
+      },
+      () => { },
+      () => { }
+    );
   }
 
   public alterarPermissaoFuncionario(funcionarioId: string, event: any) {
@@ -298,9 +311,9 @@ export class EditarAtividadeComponent implements OnInit {
     if (this.funcionarioAtual.nivelAcesso! >= 2) {
 
       let dataDialog = {
-        title: "Você realmente deseja desativar?",
-        message: "Você pode ativar novamente caso queira ou seja necessário.",
-        cancel: "Não, gostaria de voltar",
+        title: "VocÃª realmente deseja desativar?",
+        message: "VocÃª pode ativar novamente caso queira ou seja necessÃ¡rio.",
+        cancel: "NÃ£o, gostaria de voltar",
         confirm: "Sim, desejo desativar"
       }
 
@@ -319,7 +332,7 @@ export class EditarAtividadeComponent implements OnInit {
 
       });
     } else {
-      this.snackbarComponent.openSnackBar("Voc� n�o tem acesso para desativar a atividade !", SnackBarTheme.error, 3000);
+      this.snackbarComponent.openSnackBar("Você não tem acesso para desativar a atividade !", SnackBarTheme.error, 3000);
     }
   }
 
@@ -357,7 +370,6 @@ export class EditarAtividadeComponent implements OnInit {
       atividadePut.id = this.atividadeId;
       atividadePut.departamentoId = this.atividade.departamentoId;
 
-      console.log(atividadePut);
 
       this.atividadeService.updateAtividade(atividadePut).subscribe(
         (res) => {

@@ -256,7 +256,7 @@ export class AtividadeComponent implements OnInit {
 
   public openChecklistDialog(checklist = {} as ChecklistDto) {
 
-    if(this.funcionarioAtual.nivelAcesso! >=1) {
+    if (this.funcionarioAtual.nivelAcesso! >= 1) {
 
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
@@ -285,7 +285,7 @@ export class AtividadeComponent implements OnInit {
 
   public changeChecklistStatus(checkAtual: ChecklistDto) {
 
-    if(this.funcionarioAtual.nivelAcesso! >=1) {
+    if (this.funcionarioAtual.nivelAcesso! >= 1) {
 
       checkAtual.checked = !checkAtual.checked;
 
@@ -301,7 +301,7 @@ export class AtividadeComponent implements OnInit {
 
   public ExcluirChecklist(idCheck: string) {
 
-    if(this.funcionarioAtual.nivelAcesso! >=1) {
+    if (this.funcionarioAtual.nivelAcesso! >= 1) {
 
       this.atividadeService.deleteAtividadeCheck(idCheck).subscribe(
         () => {
@@ -323,18 +323,23 @@ export class AtividadeComponent implements OnInit {
     let horasPost = {} as HorasPostDto;
 
     if (this.checarSeFuncionarioEstaPresente()) {
-      horasPost.minutos = this.calcularHorasPrevistas(this.f.minutos.value);
-      horasPost.atividadeId = this.atividadeId;
-      horasPost.funcionarioId = this.funcionarioAtual.id;
-      console.log(horasPost);
+      if (this.funcionarioAtual.nivelAcesso! >= 1) {
+        horasPost.minutos = this.calcularHorasPrevistas(this.f.minutos.value);
+        horasPost.atividadeId = this.atividadeId;
+        horasPost.funcionarioId = this.funcionarioAtual.id;
+        console.log(horasPost);
 
-      this.horasService.postHoras(horasPost).subscribe(
-        () => {
-          this.ngOnInit();
-          this.snackbarComponent.openSnackBar("Horas adicionadas com sucesso !", SnackBarTheme.success, 3000);
-        },
-        () => { }
-      )
+        this.horasService.postHoras(horasPost).subscribe(
+          () => {
+            this.ngOnInit();
+            this.snackbarComponent.openSnackBar("Horas adicionadas com sucesso !", SnackBarTheme.success, 3000);
+          },
+          () => { }
+        )
+      } else {
+        this.snackbarComponent.openSnackBar("Você não tem acesso para adicionar horas !", SnackBarTheme.error, 3000);
+      }
+
     } else {
       this.snackbarComponent.openSnackBar("Você não faz parte dessa atividade !", SnackBarTheme.error, 3000);
     }
@@ -347,7 +352,7 @@ export class AtividadeComponent implements OnInit {
   }
 
   public editar() {
-    if(this.funcionarioAtual.nivelAcesso! >=1){
+    if (this.funcionarioAtual.nivelAcesso! >= 1) {
       this.router.navigate([`/atividades/editar-atividade/${this.atividadeId}`]);
     } else {
       this.snackbarComponent.openSnackBar("Você não tem acesso para editar a atividade !", SnackBarTheme.error, 3000);
@@ -356,7 +361,7 @@ export class AtividadeComponent implements OnInit {
   }
 
   public AdicionarFuncionario() {
-    if(this.funcionarioAtual.nivelAcesso! >=3){
+    if (this.funcionarioAtual.nivelAcesso! >= 3) {
       this.router.navigate([`/atividades/editar-atividade/${this.atividadeId}`], { queryParams: { adicionarFuncionario: true } });
     } else {
       this.snackbarComponent.openSnackBar("Você não tem acesso para adicionar funcionarios !", SnackBarTheme.error, 3000);
@@ -364,7 +369,7 @@ export class AtividadeComponent implements OnInit {
   }
 
   public adicionarAtividadeFilho() {
-    if(this.funcionarioAtual.nivelAcesso! >=1){
+    if (this.funcionarioAtual.nivelAcesso! >= 1) {
       this.router.navigate([`/atividades/nova-atividade/${this.atividadeId}`]);
     } else {
       this.snackbarComponent.openSnackBar("Você não tem acesso para adicionar atividades filhas !", SnackBarTheme.error, 3000);
@@ -386,7 +391,7 @@ export class AtividadeComponent implements OnInit {
     imagem.src = "../../../../../assets/images/default-image.png";
   }
 
-  public checarSeFuncionarioEstaPresente(){
+  public checarSeFuncionarioEstaPresente() {
     return this.atividade.atividadeFuncionarios.find(funcionario => funcionario.funcionarioId === this.funcionarioAtual.id);
   }
 

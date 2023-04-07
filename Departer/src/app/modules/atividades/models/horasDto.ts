@@ -1,3 +1,4 @@
+import { FuncionarioDto } from '../../shared/models/funcionarioDto';
 import { AtividadeDto } from './atividadeDto';
 export class HorasPostDto {
   funcionarioId: string = "";
@@ -10,6 +11,8 @@ export class HorasGetByAtividadeDto {
   funcionarioId: string = "";
   atividadeId: string = "";
   minutos: number = 0;
+  
+  funcionario = {} as FuncionarioDto;
 }
 
 export class HorasGetByFuncionarioDto {
