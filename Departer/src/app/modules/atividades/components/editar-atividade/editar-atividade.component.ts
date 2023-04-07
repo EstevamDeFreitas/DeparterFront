@@ -307,33 +307,53 @@ export class EditarAtividadeComponent implements OnInit {
   }
 
   public desativarAtividade() {
+    let atividadeTemHoras: boolean = false;
 
-    if (this.funcionarioAtual.nivelAcesso! >= 2) {
-
-      let dataDialog = {
-        title: "VocÃª realmente deseja desativar?",
-        message: "VocÃª pode ativar novamente caso queira ou seja necessÃ¡rio.",
-        cancel: "NÃ£o, gostaria de voltar",
-        confirm: "Sim, desejo desativar"
-      }
-
-      const dialogRef = this.dialog.open(ModalExcluirDesativarComponent, {
-        panelClass: 'custom-modal',
-        backdropClass: 'backdrop-blur',
-        width: '600px',
-        height: 'auto',
-        data: dataDialog,
-      }).afterClosed().subscribe(result => {
-
-        if (result == true) {
-          this.snackbarComponent.openSnackBar("Atividade desativada com sucesso !", SnackBarTheme.error, 3000);
+    this.horasService.getHorasByAtividadeId(this.atividade.id).subscribe(
+      (res) => {
+        if (res.data.length > 0) {
+          atividadeTemHoras = true;
         }
+      },
+      () => { },
+      () => {
+        if (!atividadeTemHoras) {
+          if (this.funcionarioAtual.nivelAcesso! >= 2) {
 
+            let dataDialog = {
+              title: "Você realmente deseja desativar?",
+              message: "Você pode ativar novamente caso queira ou seja necessário.",
+              cancel: "Não, gostaria de voltar",
+              confirm: "Sim, desejo desativar"
+            }
 
-      });
-    } else {
-      this.snackbarComponent.openSnackBar("Você não tem acesso para desativar a atividade !", SnackBarTheme.error, 3000);
-    }
+            const dialogRef = this.dialog.open(ModalExcluirDesativarComponent, {
+              panelClass: 'custom-modal',
+              backdropClass: 'backdrop-blur',
+              width: '600px',
+              height: 'auto',
+              data: dataDialog,
+            }).afterClosed().subscribe(result => {
+
+              if (result == true) {
+                this.atividadeService.deleteAtividade(this.atividade.id).subscribe(
+                  () => {
+                    this.snackbarComponent.openSnackBar("Atividade desativada com sucesso !", SnackBarTheme.error, 3000);
+                    this.router.navigate(['atividades/lista-atividades'])
+                  }
+                )
+              }
+
+            });
+          } else {
+            this.snackbarComponent.openSnackBar("Você não tem acesso para desativar a atividade !", SnackBarTheme.error, 3000);
+          }
+        } else {
+          this.snackbarComponent.openSnackBar("Não é possivel desativar a atividade, porque ela possui horas trabalhadas !", SnackBarTheme.error, 3000);
+        }
+      }
+    );
+
   }
 
   public atividadeCriada(): void {
