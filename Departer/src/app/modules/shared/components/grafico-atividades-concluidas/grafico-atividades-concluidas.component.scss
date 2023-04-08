@@ -1,0 +1,14 @@
+@import "/src/assets/styles/variables.scss";
+
+.container-fluid {
+    background-color: $color-white !important;
+    border-radius: 5px;
+    height: 14rem;
+}
+
+#chart {
+    width:max-content;
+    height: 500px;
+    padding: 1.875rem;
+  }
+  

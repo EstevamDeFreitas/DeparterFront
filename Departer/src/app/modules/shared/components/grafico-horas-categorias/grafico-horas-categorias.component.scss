@@ -1,0 +1,12 @@
+@import "/src/assets/styles/variables.scss";
+
+.container-fluid {
+    background-color: $color-white !important;
+    border-radius: 5px;
+    height: 14rem;
+}
+
+#chart {
+  max-width: 650px;
+ 
+}

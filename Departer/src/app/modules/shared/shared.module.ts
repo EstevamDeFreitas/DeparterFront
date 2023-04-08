@@ -22,6 +22,9 @@ import { ResumoHorasComponent } from './components/resumo-horas/resumo-horas.com
 import { ResumoAtividadesComponent } from './components/resumo-atividades/resumo-atividades.component';
 import { ModalAdicionarFuncionarioDepartamentoComponent } from './components/modal-adicionar-funcionario-departamento/modal-adicionar-funcionario-departamento.component';
 import { ModalConfigurarHorasComponent } from './components/modal-configurar-horas/modal-configurar-horas.component';
+import { GraficoAtividadesConcluidasComponent } from './components/grafico-atividades-concluidas/grafico-atividades-concluidas.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { GraficoHorasCategoriasComponent } from './components/grafico-horas-categorias/grafico-horas-categorias.component';
 
 
 const routes: Routes = [];
@@ -39,6 +42,8 @@ const routes: Routes = [];
     ResumoAtividadesComponent,
     ModalAdicionarFuncionarioDepartamentoComponent,
     ModalConfigurarHorasComponent,
+    GraficoAtividadesConcluidasComponent,
+    GraficoHorasCategoriasComponent,
   ],
     imports: [
       RouterModule.forChild(routes),
@@ -51,7 +56,9 @@ const routes: Routes = [];
       MatButtonModule,
       MatTabsModule,
       MatSnackBarModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      NgApexchartsModule
+      
     ],
     exports: [
      PrincipalComponent,
@@ -60,7 +67,9 @@ const routes: Routes = [];
      MatIconModule,
      SnackbarComponent,
      ResumoHorasComponent,
-     ResumoAtividadesComponent
+     ResumoAtividadesComponent,
+     GraficoAtividadesConcluidasComponent,
+     GraficoHorasCategoriasComponent
     ],
     entryComponents: [
 
