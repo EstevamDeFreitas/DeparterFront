@@ -1,6 +1,7 @@
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HorasService } from './../../services/horas.service';
 import { DepartamentoService } from './../../../departamentos/services/departamento.service';
-import { DepartamentoDto } from './../../../departamentos/models/departamentoDto';
 import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
 import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { AtividadeFuncionarios } from './../../models/atividadeFuncionarios';
@@ -91,20 +92,24 @@ export class EditarAtividadeComponent implements OnInit {
   }
 
   public getFuncionarios(funcionariosList: AtividadeFuncionarios[]): void {
-    funcionariosList.forEach((funcionario) => {
-      this.funcionarioService.getFuncionarioById(funcionario.funcionarioId).subscribe(
-        (res) => {
+    const observables = funcionariosList.map((funcionario) => {
+      return this.funcionarioService.getFuncionarioById(funcionario.funcionarioId).pipe(
+        map(res => {
           res.data.nivelAcesso = funcionario.nivelAcesso;
-          this.funcionarios.push(res.data);
-        },
-        () => { },
-        () => {
-          this.funcionarios.sort((a, b) => b.nivelAcesso! - a.nivelAcesso!);
-          this.getFuncionarioAtual();
-        }
-      )
+          return res.data;
+        })
+      );
     });
 
+    forkJoin(observables).subscribe(
+      (funcionarios: FuncionarioDto[]) => {
+        this.funcionarios = funcionarios;
+        this.funcionarios.sort((a, b) => b.nivelAcesso! - a.nivelAcesso!);
+        this.getFuncionarioAtual();
+      },
+      () => {},
+      () => {}
+    );
   }
 
   public getFuncionarioAtual(): void {
