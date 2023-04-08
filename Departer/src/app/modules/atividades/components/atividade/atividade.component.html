@@ -24,7 +24,7 @@
           <div class="d-flex justify-content-start box-tags mt-3">
             <div class="d-flex justify-content-center tags-border me-2" [ngStyle]="{'background-color': categoria.cor}"
               *ngFor="let categoria of categorias; let i = index;">
-              <div class="text-center text-break">{{categoria.nome}}</div>
+              <div class="text-center text-break" [ngStyle]="{ color: mudarCorFonteService.mudarCorDaFonte(categoria.cor) }">{{categoria.nome}}</div>
             </div>
           </div>
 

@@ -16,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalAdicionarFuncionariosComponent } from 'src/app/modules/shared/components/modal-adicionar-funcionarios/modal-adicionar-funcionarios.component';
 import { ModalInformacoesComponent } from 'src/app/modules/shared/components/modal-informacoes/modal-informacoes.component';
 import { ModalAdicionarCategoriaComponent } from 'src/app/modules/shared/components/modal-adicionar-categoria/modal-adicionar-categoria.component';
+import { MudarCorFonteService } from 'src/app/modules/shared/services/mudar-cor-fonte.service';
 
 @Component({
   selector: 'app-nova-atividade',
@@ -46,7 +47,7 @@ export class NovaAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private departamentoService: DepartamentoService, private readonly snackbarComponent: SnackbarComponent) {
+  constructor(private router: Router, private route: ActivatedRoute, private dateAdapter: DateAdapter<Date>, public dialog: MatDialog, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private departamentoService: DepartamentoService, private readonly snackbarComponent: SnackbarComponent, public mudarCorFonteService: MudarCorFonteService) {
     this.dateAdapter.setLocale('pt-BR');
   }
 

@@ -1,3 +1,4 @@
+import { MudarCorFonteService } from './../../../shared/services/mudar-cor-fonte.service';
 import { SnackBarTheme } from './../../../shared/models/snackbat.theme.enum';
 import { SnackbarComponent } from './../../../shared/components/snackbar/snackbar.component';
 import { CategoriaDto } from './../../models/categoriaDto';
@@ -18,7 +19,7 @@ export class CadastrarCategoriasComponent implements OnInit {
 
   cores: Array<string> = [
     "#5245E0",
-    "#45E067",
+    "#25da4c",
     "#B845E0",
   ];
 
@@ -43,7 +44,8 @@ export class CadastrarCategoriasComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private categoriaService: CategoriaService,
-    private readonly snackbarComponent: SnackbarComponent) { }
+    private readonly snackbarComponent: SnackbarComponent,
+    public mudarCorFonteService: MudarCorFonteService) { }
 
   ngOnInit(): void {
     this.carregarCategoria();

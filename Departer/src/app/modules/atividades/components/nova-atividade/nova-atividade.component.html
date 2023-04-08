@@ -81,7 +81,7 @@
             <div class="d-flex justify-content-center tags-border me-2 mb-2" id="categoria{{i}}"
               (mouseover)="hoverNaCategoria(i, 1)" (mouseleave)="hoverNaCategoria(i, 2)"
               [ngStyle]="{'background-color': categoria.cor}" *ngFor="let categoria of categorias; let i = index;">
-              <div class="text-center text-break">{{categoria.nome}} <i id="icon{{i}}"
+              <div class="text-center text-break" [ngStyle]="{ color: mudarCorFonteService.mudarCorDaFonte(categoria.cor) }">{{categoria.nome}} <i id="icon{{i}}"
                   class="ms-2 fa fa-trash clickable hide" (click)="excluirCategoria(categoria.id)"></i></div>
             </div>
           </div>

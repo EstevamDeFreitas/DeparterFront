@@ -57,7 +57,7 @@
                 <div class="d-flex justify-content-center align-items-center box">
                     <div class="d-flex justify-content-center tags-border"
                         [ngStyle]="{'background-color': f.nome.value == '' ? 'transparent' : corAtual}">
-                        <div class="text-center text-break">{{f.nome.value}}</div>
+                        <div class="text-center text-break" [ngStyle]="{ color: mudarCorFonteService.mudarCorDaFonte(corAtual) }">{{f.nome.value}}</div>
                     </div>
                 </div>
             </div>

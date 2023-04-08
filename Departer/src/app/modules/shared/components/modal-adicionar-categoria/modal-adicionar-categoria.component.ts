@@ -2,6 +2,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoriaDto } from './../../../administracao/models/categoriaDto';
 import { CategoriaService } from './../../../administracao/services/categoria.service';
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
+import { MudarCorFonteService } from '../../services/mudar-cor-fonte.service';
 
 @Component({
   selector: 'app-modal-adicionar-categoria',
@@ -22,7 +23,7 @@ export class ModalAdicionarCategoriaComponent implements OnInit {
   public categoriasJaAdicionadas: CategoriaDto[] = [];
 
 
-  constructor(public dialogRef: MatDialogRef<ModalAdicionarCategoriaComponent>, @Inject(MAT_DIALOG_DATA) public data: CategoriaDto[], private categoriaService: CategoriaService) {
+  constructor(public dialogRef: MatDialogRef<ModalAdicionarCategoriaComponent>, @Inject(MAT_DIALOG_DATA) public data: CategoriaDto[], private categoriaService: CategoriaService, public mudarCorFonteService: MudarCorFonteService) {
     this.categoriasJaAdicionadas = data;
   }
 

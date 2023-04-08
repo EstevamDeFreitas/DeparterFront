@@ -21,6 +21,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DateAdapter } from '@angular/material/core';
+import { MudarCorFonteService } from 'src/app/modules/shared/services/mudar-cor-fonte.service';
 
 @Component({
   selector: 'app-editar-atividade',
@@ -51,7 +52,7 @@ export class EditarAtividadeComponent implements OnInit {
     return this.atividadeForm.controls;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private categoriaService: CategoriaService, private readonly snackbarComponent: SnackbarComponent, private departamentoService: DepartamentoService, private horasService: HorasService) {
+  constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private dateAdapter: DateAdapter<Date>, private atividadeService: AtividadeService, private funcionarioService: FuncionarioService, private categoriaService: CategoriaService, private readonly snackbarComponent: SnackbarComponent, private departamentoService: DepartamentoService, private horasService: HorasService, public mudarCorFonteService: MudarCorFonteService) {
     this.dateAdapter.setLocale('pt-BR');
   }
 

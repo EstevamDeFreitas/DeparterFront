@@ -18,6 +18,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MudarCorFonteService } from 'src/app/modules/shared/services/mudar-cor-fonte.service';
 
 @Component({
   selector: 'app-atividade',
@@ -49,7 +50,7 @@ export class AtividadeComponent implements OnInit {
   }
 
   constructor(private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService, private readonly snackbarComponent: SnackbarComponent,
-    private horasService: HorasService, private departamentoService: DepartamentoService, private modoAdminService: ModoAdminService) { }
+    private horasService: HorasService, private departamentoService: DepartamentoService, private modoAdminService: ModoAdminService, public mudarCorFonteService: MudarCorFonteService) { }
 
   ngOnInit(): void {
 

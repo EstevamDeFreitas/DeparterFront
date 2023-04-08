@@ -91,7 +91,7 @@
               <div *ngFor="let categoria of atividade.categorias; let i = index">
                 <div class="d-flex justify-content-center tags-border me-2"
                   [ngStyle]="{'background-color': categoria.cor}" *ngIf="i<2">
-                  <div class="text-center text-break">{{categoria.nome}}</div>
+                  <div class="text-center text-break" [ngStyle]="{ color: mudarCorFonteService.mudarCorDaFonte(categoria.cor) }">{{categoria.nome}}</div>
                 </div>
               </div>
               <div class="d-flex justify-content-center tag-add-border me-2" *ngIf="atividade.categorias.length > 2">

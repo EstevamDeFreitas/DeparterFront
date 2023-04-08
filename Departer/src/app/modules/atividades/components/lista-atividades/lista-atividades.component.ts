@@ -8,6 +8,7 @@ import { AtividadeListDto } from './../../models/atividadeDto';
 import { AtividadeService } from './../../services/atividade.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MudarCorFonteService } from 'src/app/modules/shared/services/mudar-cor-fonte.service';
 
 @Component({
   selector: 'app-lista-atividades',
@@ -66,7 +67,7 @@ export class ListaAtividadesComponent implements OnInit {
 
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService, private modoAdminService: ModoAdminService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService, private modoAdminService: ModoAdminService, public mudarCorFonteService: MudarCorFonteService) { }
 
   ngOnInit(): void {
     this.modoAdminService.modoAdmin$.subscribe(

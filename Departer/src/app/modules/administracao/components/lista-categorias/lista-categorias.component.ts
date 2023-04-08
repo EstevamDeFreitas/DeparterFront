@@ -1,3 +1,4 @@
+import { MudarCorFonteService } from './../../../shared/services/mudar-cor-fonte.service';
 import { ModalExcluirDesativarComponent } from './../../../shared/components/modal-excluir-desativar/modal-excluir-desativar.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoriaDto } from './../../models/categoriaDto';
@@ -20,7 +21,8 @@ export class ListaCategoriasComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private categoriaService: CategoriaService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    public mudarCorFonteService: MudarCorFonteService) { }
 
   ngOnInit(): void {
     this.carregarCategorias();

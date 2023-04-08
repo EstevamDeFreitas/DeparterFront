@@ -31,7 +31,7 @@
           </td>
           <td>
             <div class="d-flex justify-content-center tags-border" [ngStyle]="{'background-color': categoria.cor}">
-              <div class="text-center text-break">{{categoria.nome}}</div>
+              <div class="text-center text-break" [ngStyle]="{ color: mudarCorFonteService.mudarCorDaFonte(categoria.cor) }">{{categoria.nome}}</div>
             </div>
           </td>
           <td>
