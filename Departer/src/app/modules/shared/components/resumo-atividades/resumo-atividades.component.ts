@@ -36,6 +36,12 @@ export class ResumoAtividadesComponent implements OnInit {
 
         });
 
+        this.atividades.sort((a, b) => {
+          const dateA = new Date(a.dataEntrega);
+          const dateB = new Date(b.dataEntrega);
+          return dateA.getTime() - dateB.getTime();
+        });
+
         console.log(this.atividades)
 
       },
@@ -76,6 +82,35 @@ export class ResumoAtividadesComponent implements OnInit {
     const imagem = evento.target as HTMLImageElement;
     imagem.onerror = null;
     imagem.src = "../../../../../assets/images/default-image.png";
+  }
+
+  getNomeStatusAtividade(status: number): string {
+    switch (status) {
+      case 0:
+        return 'Pendente';
+      case 1:
+        return 'Desenvolvendo';
+      case 2:
+        return 'Concluída';
+      case 3:
+        return 'Atrasada';
+      default:
+        return '';
+    }
+  }
+
+  getCorStatusAtividade(status: number): string {
+    switch (status) {
+      case 0:
+      case 1:
+        return '#FF9900';
+      case 2:
+        return '#35DA3B';
+      case 3:
+        return '#FF3A3A';
+      default:
+        return '';
+    }
   }
 
 }

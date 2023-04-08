@@ -25,9 +25,11 @@
           </div>
         </div>
       </td>
-      <td class="atividadeTexto">
-        <img class="image-circle me-1" src=".\assets\images\icone.circulo.svg" width="10" height="23" />
-        Finalizado
+      <td class="atividadeTexto align-middle">
+        <div class="d-flex align-items-center">
+          <i class="fa-solid fa-circle icon-circle me-2" [style.color]="getCorStatusAtividade(atividade.statusAtividade)"></i>
+          {{ getNomeStatusAtividade(atividade.statusAtividade) }}
+        </div>
       </td>
       <td class="align-middle"> <img class="d-inline-block align-top perfil clickable"
         src=".\assets\images\tres-pontos.svg" width="20" height="18" (click)="irAtividade(atividade.id)" />

@@ -137,7 +137,7 @@
                     (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 4" [disabled]="true"><span class="me-2">5</span>
                 </td>
                 <td class="align-middle">
-                  <i class="fa-regular fa-x text-danger clickable" [hidden]="funcionario.nivelAcesso == 4" (click)="excluirFuncionario(funcionario.id)"></i>
+                  <i class="fa-regular fa-x text-danger clickable" [hidden]="funcionario.nivelAcesso == 4 || funcionarioAtual.nivelAcesso! < 3" (click)="excluirFuncionario(funcionario.id)"></i>
                 </td>
               </tr>
             </tbody>
