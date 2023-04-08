@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApexChart, ApexDataLabels, ApexNonAxisChartSeries, ApexTitleSubtitle } from 'ng-apexcharts';
+import { GraficosService } from '../../services/graficos.service';
 
 
 @Component({
@@ -8,6 +9,11 @@ import { ApexChart, ApexDataLabels, ApexNonAxisChartSeries, ApexTitleSubtitle } 
   styleUrls: ['./grafico-atividades-concluidas.component.scss']
 })
 export class GraficoAtividadesConcluidasComponent implements OnInit {
+
+  constructor(private graficoService: GraficosService) { }
+
+  ngOnInit(): void {
+  }
 
   chartSeries: ApexNonAxisChartSeries = [40, 32, 28, 55];
 
@@ -30,13 +36,5 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
   chartDataLabels: ApexDataLabels = {
     enabled: true
   };
-
-
-  constructor() { 
-  
-  }
-
-  ngOnInit(): void {
-  }
 
 }

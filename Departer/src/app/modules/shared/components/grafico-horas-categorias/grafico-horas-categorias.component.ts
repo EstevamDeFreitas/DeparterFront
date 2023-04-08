@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ChartComponent,ApexAxisChartSeries,ApexChart,ApexXAxis,ApexDataLabels,ApexTitleSubtitle,ApexStroke,ApexGrid} from "ng-apexcharts";
+import { GraficosService } from '../../services/graficos.service';
 
 @Component({
   selector: 'app-grafico-horas-categorias',
@@ -7,6 +8,11 @@ import {ChartComponent,ApexAxisChartSeries,ApexChart,ApexXAxis,ApexDataLabels,Ap
   styleUrls: ['./grafico-horas-categorias.component.scss']
 })
 export class GraficoHorasCategoriasComponent implements OnInit {
+
+  constructor(private graficoService: GraficosService) { }
+
+  ngOnInit(): void {
+  }
 
   chartSeries: ApexAxisChartSeries = [
     {
@@ -63,9 +69,5 @@ export class GraficoHorasCategoriasComponent implements OnInit {
     ]
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
