@@ -77,12 +77,12 @@ export class ConfiguracaoHorasComponent implements OnInit {
     );
   }
 
-  checarConfiguracaoMensal(fodasse: any): any{
-    return fodasse.configuracaoDeHoras.some((config: any) => config.tipoConfiguracao === 1)
+  checarConfiguracaoMensal(funcionario: any): any{
+    return funcionario.configuracaoDeHoras.some((config: any) => config.tipoConfiguracao === 1)
   }
 
-  devolverHorasMensal(fodasse: any): any {
-    return this.transformarMinutosEmHoras(fodasse.configuracaoDeHoras.find((config: any) => config.tipoConfiguracao === 1)?.minutos)
+  devolverHorasMensal(funcionario: any): any {
+    return this.transformarMinutosEmHoras(funcionario.configuracaoDeHoras.find((config: any) => config.tipoConfiguracao === 1)?.minutos)
   }
 
   devolverConfigMensal(algo: any) {
@@ -90,12 +90,12 @@ export class ConfiguracaoHorasComponent implements OnInit {
     return configuracaoEncontrada;
   }
 
-  checarConfiguracaoDiario(fodasse: any): any{
-    return fodasse.configuracaoDeHoras.some((config: any) => config.tipoConfiguracao === 0)
+  checarConfiguracaoDiario(funcionario: any): any{
+    return funcionario.configuracaoDeHoras.some((config: any) => config.tipoConfiguracao === 0)
   }
 
-  devolverHorasDiario(fodasse: any): any {
-    return this.transformarMinutosEmHoras(fodasse.configuracaoDeHoras.find((config: any) => config.tipoConfiguracao === 0)?.minutos)
+  devolverHorasDiario(funcionario: any): any {
+    return this.transformarMinutosEmHoras(funcionario.configuracaoDeHoras.find((config: any) => config.tipoConfiguracao === 0)?.minutos)
   }
 
   devolverConfigDiario(algo: any) {

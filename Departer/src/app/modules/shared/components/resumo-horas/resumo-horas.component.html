@@ -22,7 +22,8 @@
               <span class="tempo">{{transformarMinutosEmHoras(horasResumo.minutosMesVigente)}}</span>
           </div>
           <div class="mt-1 mb-4">
-              <span class="descricao verde">{{transformarMinutosEmHoras(horasResumo.minutosMesRestantes)}} restantes</span>
+              <span *ngIf="horasResumo.minutosMesRestantes > 0" class="descricao verde">{{transformarMinutosEmHoras(horasResumo.minutosMesRestantes)}} restantes</span>
+              <span *ngIf="horasResumo.minutosMesRestantes <= 0" class="descricao vermelho">Não configurado</span>
           </div>
       </div>
 
@@ -34,7 +35,8 @@
               <span class="tempo">{{transformarMinutosEmHoras(horasResumo.minutosHoje)}}</span>
           </div>
           <div class="mt-1 mb-4">
-              <span class="descricao laranja">{{transformarMinutosEmHoras(horasResumo.minutosHojeRestantes)}} restantes</span>
+              <span *ngIf="horasResumo.minutosHojeRestantes > 0" class="descricao laranja">{{transformarMinutosEmHoras(horasResumo.minutosHojeRestantes)}} restantes</span>
+              <span *ngIf="horasResumo.minutosHojeRestantes <= 0" class="descricao vermelho">Não configurado</span>
           </div>
       </div>
 
