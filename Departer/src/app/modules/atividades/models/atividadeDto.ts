@@ -19,6 +19,8 @@ export class AtividadeDto {
   atividadeFuncionarios = {} as AtividadeFuncionarios[];
   atividades = {} as AtividadeDto[];
   departamento = {} as DepartamentoDto;
+
+  statusAtividade: number = 0;
 }
 
 export class AtividadePostDto {

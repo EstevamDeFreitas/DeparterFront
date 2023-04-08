@@ -193,7 +193,7 @@ export class ListaAtividadesComponent implements OnInit {
       case 1:
         return 'Desenvolvendo';
       case 2:
-        return 'Concluída';
+        return 'ConcluÃ­da';
       case 3:
         return 'Atrasada';
       default:

@@ -73,7 +73,7 @@ export class EditarAtividadeComponent implements OnInit {
         let dataEntrega = new Date(res.data.dataEntrega);
         let tempoPrevisto = this.transformarMinutosEmHoras(res.data.tempoPrevisto);
 
-        this.atividadeForm.patchValue({ titulo: res.data.titulo, descricao: res.data.descricao, tempoPrevisto: tempoPrevisto, dataEntrega: dataEntrega });
+        this.atividadeForm.patchValue({ titulo: res.data.titulo, descricao: res.data.descricao, tempoPrevisto: tempoPrevisto, dataEntrega: dataEntrega, statusAtividade: res.data.statusAtividade });
 
         this.atividade = res.data;
 
@@ -149,6 +149,7 @@ export class EditarAtividadeComponent implements OnInit {
       descricao: new FormControl('', [Validators.required]),
       dataEntrega: new FormControl('', [Validators.required]),
       tempoPrevisto: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
+      statusAtividade: new FormControl('', [Validators.required])
     });
   }
 
@@ -366,6 +367,9 @@ export class EditarAtividadeComponent implements OnInit {
       atividadePut.dataEntrega = data!;
 
       atividadePut.tempoPrevisto = this.calcularHorasPrevistas(this.f.tempoPrevisto.value);
+
+      atividadePut.statusAtividade = +this.f.statusAtividade.value;
+      console.log(atividadePut);
 
       atividadePut.atividadeCategorias = [];
       this.categorias.forEach((element) => {
