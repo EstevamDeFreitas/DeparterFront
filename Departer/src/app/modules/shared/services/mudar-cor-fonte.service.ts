@@ -9,8 +9,6 @@ export class MudarCorFonteService {
 
   mudarCorDaFonte(cor: string){
 
-    console.log(cor)
-
     switch(cor){
       case "#5245E0":
         return "#d6d3f8"

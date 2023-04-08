@@ -105,8 +105,6 @@ export class EditarAtividadeComponent implements OnInit {
       )
     });
 
-
-
   }
 
   public getFuncionarioAtual(): void {

@@ -126,13 +126,13 @@
                 <td class="align-middle">{{funcionario.apelido}}</td>
                 <td class="text-center align-middle">
                   <input type="radio" name="radio{{i}}" class="me-1" value="1" id="radio1{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 0" [disabled]="funcionario.nivelAcesso == 4"><span class="me-2">1</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 0" [disabled]="funcionario.nivelAcesso == 4 || funcionarioAtual.nivelAcesso! < 3"><span class="me-2">1</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="2" id="radio2{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 1" [disabled]="funcionario.nivelAcesso == 4"><span class="me-2">2</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 1" [disabled]="funcionario.nivelAcesso == 4 || funcionarioAtual.nivelAcesso! < 3"><span class="me-2">2</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="3" id="radio3{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 2" [disabled]="funcionario.nivelAcesso == 4"><span class="me-2">3</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 2" [disabled]="funcionario.nivelAcesso == 4 || funcionarioAtual.nivelAcesso! < 3"><span class="me-2">3</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="4" id="radio4{{i}}"
-                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 3" [disabled]="funcionario.nivelAcesso == 4"><span class="me-2">4</span>
+                    (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 3" [disabled]="funcionario.nivelAcesso == 4 || funcionarioAtual.nivelAcesso! < 3"><span class="me-2">4</span>
                   <input type="radio" name="radio{{i}}" class="me-1" value="5" id="radio5{{i}}"
                     (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 4" [disabled]="true"><span class="me-2">5</span>
                 </td>
