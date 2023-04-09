@@ -83,9 +83,6 @@ export class EditarAtividadeComponent implements OnInit {
         this.getCategorias(res.data.atividadeCategorias);
         this.getDepartamentoNome();
 
-        if (this.route.snapshot.queryParamMap.get('adicionarFuncionario') === 'true') {
-          this.openFuncionarioDialog();
-        }
       },
       () => { }
     )
@@ -119,6 +116,10 @@ export class EditarAtividadeComponent implements OnInit {
 
         const funcionarioEncontrado = this.funcionarios.find((funcionario) => funcionario.id === this.funcionarioAtual.id);
         this.funcionarioAtual.nivelAcesso = funcionarioEncontrado?.nivelAcesso;
+
+        if (this.route.snapshot.queryParamMap.get('adicionarFuncionario') === 'true') {
+          this.openFuncionarioDialog();
+        }
 
       },
       () => { }
