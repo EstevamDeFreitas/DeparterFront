@@ -46,9 +46,19 @@ export class TelaDepartamentosComponent implements OnInit {
       next: (response) => {
 
         this.departamento = response.data;
+        console.log(this.departamento)
+
+        this.atividades = this.departamento.atividades;
+        console.log(this.atividades)
 
         this.funcionariosLista = this.departamento.departamentoFuncionarios;
         console.log(this.funcionariosLista);
+
+        this.atividades.sort((a, b) => {
+          const dateA = new Date(a.dataEntrega);
+          const dateB = new Date(b.dataEntrega);
+          return dateA.getTime() - dateB.getTime();
+        });
 
         this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
@@ -57,16 +67,7 @@ export class TelaDepartamentosComponent implements OnInit {
       }
     })
 
-    this.departamentoService.getAtividadesbyDepartamentoId(this.idDepartamento).subscribe({
-      next: (response) => {
 
-        this.atividades = response.data;
-
-
-      },
-      error: (response) => {
-      }
-    })
   }
 
 
@@ -92,6 +93,36 @@ export class TelaDepartamentosComponent implements OnInit {
     imagem.onerror = null;
     imagem.src = "../../../../../assets/images/default-image.png";
   }
+
+  getNomeStatusAtividade(status: number): string {
+    switch (status) {
+      case 0:
+        return 'Pendente';
+      case 1:
+        return 'Desenvolvendo';
+      case 2:
+        return 'Concluída';
+      case 3:
+        return 'Atrasada';
+      default:
+        return '';
+    }
+  }
+
+  getCorStatusAtividade(status: number): string {
+    switch (status) {
+      case 0:
+      case 1:
+        return '#FF9900';
+      case 2:
+        return '#35DA3B';
+      case 3:
+        return '#FF3A3A';
+      default:
+        return '';
+    }
+  }
+
 
   detalhesDepartamento(id: string){
     this.router.navigate([`/departamentos/detalhes-departamentos/${id}`]);
