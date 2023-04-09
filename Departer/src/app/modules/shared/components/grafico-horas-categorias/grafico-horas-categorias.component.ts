@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {ChartComponent,ApexAxisChartSeries,ApexChart,ApexXAxis,ApexDataLabels,ApexTitleSubtitle,ApexStroke,ApexGrid} from "ng-apexcharts";
 import { GraficosService } from '../../services/graficos.service';
+import { GraficoHorasCategoriasDto } from '../../models/graficosDto';
 
 @Component({
   selector: 'app-grafico-horas-categorias',
@@ -9,12 +10,14 @@ import { GraficosService } from '../../services/graficos.service';
 })
 export class GraficoHorasCategoriasComponent implements OnInit {
 
-  constructor(private graficoService: GraficosService) { }
+  @Input() funcionarioId: string = "";
+  @Input() departamentoId?: string = "";
 
-  ngOnInit(): void {
-  }
+  horasCategorias: GraficoHorasCategoriasDto[] = [];
 
+  
   chartSeries: ApexAxisChartSeries = [
+    /*
     {
       name: "Desktops",
       data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
@@ -22,7 +25,7 @@ export class GraficoHorasCategoriasComponent implements OnInit {
     {
       name: "Samrtphones",
       data: [7, 25, 8, 1, 49, 62, 32, 256, 148]
-    }
+    }*/
   ];
 
   chartDetails: ApexChart = {
@@ -56,6 +59,7 @@ export class GraficoHorasCategoriasComponent implements OnInit {
   }
 
   chartXaxis: ApexXAxis = {
+    /*
     categories: [
       "Jan",
       "Feb",
@@ -66,7 +70,32 @@ export class GraficoHorasCategoriasComponent implements OnInit {
       "Jul",
       "Aug",
       "Sep"
-    ]
+    ]*/
+  }
+
+  constructor(private graficoService: GraficosService) { }
+
+  ngOnInit(): void {
+    this.getHorasCategorias();
+  }
+
+  getHorasCategorias(){
+
+    this.graficoService.getHorasPorcategoria(this.funcionarioId,this.departamentoId).subscribe({
+      next: (response) => {
+        this.horasCategorias = response.data;
+        console.log(this.horasCategorias);
+      },
+      error: (response) => {
+        
+      }
+    });
+
+
+  }
+
+  montarGrafico(){
+
   }
 
 

@@ -18,6 +18,6 @@ export class GraficosService {
   }
 
   getHorasPorcategoria(idFuncionario: string, idDepartamento?: string): Observable<ResponseBase<any>>{
-    return this.http.get<ResponseBase<any>>(`${this.API}/Horas/resumo?funcionarioId=${idFuncionario}&departamentoId=${idDepartamento}`);
+    return this.http.get<ResponseBase<any>>(`${this.API}/Horas/agrupamento/categorias?funcionarioId=${idFuncionario}&departamentoId=${idDepartamento}`);
   }
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ApexChart, ApexDataLabels, ApexNonAxisChartSeries, ApexTitleSubtitle } from 'ng-apexcharts';
 import { GraficosService } from '../../services/graficos.service';
+import { GraficoAtividadesConcluidasDto } from '../../models/graficosDto';
 
 
 @Component({
@@ -10,12 +11,12 @@ import { GraficosService } from '../../services/graficos.service';
 })
 export class GraficoAtividadesConcluidasComponent implements OnInit {
 
-  constructor(private graficoService: GraficosService) { }
+  @Input() funcionarioId: string = "";
+  @Input() departamentoId?: string = "";
 
-  ngOnInit(): void {
-  }
+  atividadesConcluidas!: GraficoAtividadesConcluidasDto;
 
-  chartSeries: ApexNonAxisChartSeries = [40, 32, 28, 55];
+  chartSeries: ApexNonAxisChartSeries = [];
 
   chartDetails: ApexChart = {
     type: 'donut',
@@ -24,7 +25,7 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
     }
   };
 
-  chartLabels = ["Apple", "Microsoft", "Facebook", "Google"];
+  chartLabels = ["Finalizadas", "Atrasadas", "Pendente"];
 
   /*
   chartTitle: ApexTitleSubtitle = {
@@ -36,5 +37,36 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
   chartDataLabels: ApexDataLabels = {
     enabled: true
   };
+
+  constructor(private graficoService: GraficosService) { }
+
+  ngOnInit(): void {
+    this.getAtividadesConcluidas();
+
+  }
+
+  getAtividadesConcluidas(){
+
+    this.graficoService.getAtividadeResumo(0,this.funcionarioId,this.departamentoId).subscribe({
+      next: (response) => {
+        this.atividadesConcluidas = response.data;
+        console.log(this.atividadesConcluidas);
+        this.getGraficoMontado();
+      },
+      error: (response) => {
+        
+      }
+    });
+
+
+  }
+
+  getGraficoMontado(){
+
+    this.chartSeries = [this.atividadesConcluidas.finalizadas,this.atividadesConcluidas.atrasadas,this.atividadesConcluidas.pendente]
+
+  }
+
+
 
 }
