@@ -14,7 +14,8 @@ export class GraficoHorasCategoriasComponent implements OnInit {
   @Input() departamentoId?: string = "";
 
   horasCategorias: GraficoHorasCategoriasDto[] = [];
-
+  series: any[] = [];
+  categories: any[] = [];
   
   chartSeries: ApexAxisChartSeries = [
     /*
@@ -71,6 +72,8 @@ export class GraficoHorasCategoriasComponent implements OnInit {
       "Aug",
       "Sep"
     ]*/
+
+    categories: []
   }
 
   constructor(private graficoService: GraficosService) { }
@@ -85,6 +88,7 @@ export class GraficoHorasCategoriasComponent implements OnInit {
       next: (response) => {
         this.horasCategorias = response.data;
         console.log(this.horasCategorias);
+        this.montarGrafico();
       },
       error: (response) => {
         
@@ -96,6 +100,25 @@ export class GraficoHorasCategoriasComponent implements OnInit {
 
   montarGrafico(){
 
+    this.horasCategorias.forEach((value) => {
+      let obj = {
+        name: "",
+        data: [0]
+      }
+
+      obj.name = value.categoria;
+      obj.data.push(value.horas)
+
+      this.series.push(obj)
+
+      this.categories.push(value.categoria)
+    }
+    );
+
+    console.log(this.series)
+    this.chartSeries = this.series;
+    this.chartXaxis.categories = this.categories; 
+    
   }
 
 
