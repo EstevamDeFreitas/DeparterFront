@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackbarComponent } from './modules/shared/components/snackbar/snackbar.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
+
 @NgModule({
   declarations: [
     AppComponent,

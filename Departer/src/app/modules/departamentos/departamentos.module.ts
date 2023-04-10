@@ -12,6 +12,7 @@ import { TelaDepartamentosComponent } from './components/tela-departamentos/tela
 import { DetalhesDepartamentosComponent } from './components/detalhes-departamentos/detalhes-departamentos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarDepartamentoComponent } from './components/editar-departamento/editar-departamento.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -32,7 +33,8 @@ import { EditarDepartamentoComponent } from './components/editar-departamento/ed
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    SharedModule
   ]
 })
 export class DepartamentosModule { }

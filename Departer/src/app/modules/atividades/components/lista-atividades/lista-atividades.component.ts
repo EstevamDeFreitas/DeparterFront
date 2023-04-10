@@ -6,7 +6,7 @@ import { FuncionarioDto } from './../../../shared/models/funcionarioDto';
 import { CategoriaDto } from './../../../administracao/models/categoriaDto';
 import { AtividadeListDto } from './../../models/atividadeDto';
 import { AtividadeService } from './../../services/atividade.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MudarCorFonteService } from 'src/app/modules/shared/services/mudar-cor-fonte.service';
 
@@ -68,7 +68,11 @@ export class ListaAtividadesComponent implements OnInit {
   }
 
   constructor(private router: Router, private route: ActivatedRoute, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService, private modoAdminService: ModoAdminService, public mudarCorFonteService: MudarCorFonteService) { }
+  @Output() funcionarioId: string = "";
 
+  funcionario!: FuncionarioDto;
+
+  
   ngOnInit(): void {
     this.modoAdminService.modoAdmin$.subscribe(
       modoAdmin => {
@@ -76,6 +80,17 @@ export class ListaAtividadesComponent implements OnInit {
         this.getAllFuncionarios();
       }
     );
+
+    this.getUser();
+  }
+
+  public getUser(): void {
+    this.funcionarioService.getFuncionarioLogado().subscribe(
+      (res) => {
+        this.funcionario = res.data;
+        this.funcionarioId = this.funcionario.id;
+      }
+    )
   }
 
   public substituirImagem(evento: Event): void {
