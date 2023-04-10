@@ -123,7 +123,7 @@
                 <td>
                   <img class="image-circle me-2" src="{{funcionario.imagem}}" (error)="substituirImagem($event)" width="33" height="31" />
                 </td>
-                <td class="align-middle">{{funcionario.apelido}}</td>
+                <td class="align-middle">{{funcionario.apelido}}<span class="role-text ms-1" *ngIf="funcionario.nivelAcesso == 4">Criador</span></td>
                 <td class="text-center align-middle">
                   <input type="radio" name="radio{{i}}" class="me-1" value="1" id="radio1{{i}}"
                     (change)="alterarPermissaoFuncionario(funcionario.id, $event)" [checked]="funcionario.nivelAcesso == 0" [disabled]="funcionario.nivelAcesso == 4 || funcionarioAtual.nivelAcesso! < 3"><span class="me-2">1</span>
