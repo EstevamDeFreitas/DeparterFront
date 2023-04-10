@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <div id="chart"  *ngIf="dadosGrafico == true">
+<div class="container-fluid" *ngIf="dadosGrafico == true">
+  <div id="chart"  >
     <!--
       <apx-chart [series]="chartSeries" [chart]="chartDetails" [labels]="chartLabels" [title]="chartTitle" [dataLabels]="chartDataLabels"></apx-chart>
       -->
@@ -7,10 +7,15 @@
       [dataLabels]="chartDataLabels"></apx-chart>
   </div>
 
-  
-  <div class="col-12 text-center" *ngIf="dadosGrafico == false" >
+
+
+</div>
+<div class="container-fluid d-flex align-items-center justify-content-center" *ngIf="dadosGrafico == false" >
+
+    
+  <div class="col-12 text-center">
     <div class="mt-3 mb-3 aviso">
-      Não existe nenhuma registro de atividade!
+      Não existe nenhum registro de atividade!
     </div>
   </div>
 
