@@ -1,8 +1,17 @@
 <div class="container-fluid">
-    <div id="chart">
-      <!--
+  <div id="chart"  *ngIf="dadosGrafico == true">
+    <!--
       <apx-chart [series]="chartSeries" [chart]="chartDetails" [labels]="chartLabels" [title]="chartTitle" [dataLabels]="chartDataLabels"></apx-chart>
       -->
-      <apx-chart [series]="chartSeries" [chart]="chartDetails" [labels]="chartLabels" [dataLabels]="chartDataLabels"></apx-chart>
-      </div>      
+    <apx-chart [series]="chartSeries" [chart]="chartDetails" [labels]="chartLabels"
+      [dataLabels]="chartDataLabels"></apx-chart>
+  </div>
+
+  
+  <div class="col-12 text-center" *ngIf="dadosGrafico == false" >
+    <div class="mt-3 mb-3 aviso">
+      Não existe nenhuma registro de atividade!
+    </div>
+  </div>
+
 </div>

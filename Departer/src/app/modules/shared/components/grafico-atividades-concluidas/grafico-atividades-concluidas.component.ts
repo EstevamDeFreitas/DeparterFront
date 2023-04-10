@@ -16,6 +16,8 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
   @Input() funcionarioId: string = "";
   @Input() departamentoId?: string = "";
 
+  dadosGrafico: boolean = false;
+
   funcionario!: FuncionarioDto;
 
   atividadesConcluidas!: GraficoAtividadesConcluidasDto;
@@ -72,7 +74,6 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
 
   getAtividadesConcluidas2(){
 
-    console.log("usbudbdbdbdubdubduybd")
 
     let funcionarioId = "";
 
@@ -102,7 +103,13 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
 
   getGraficoMontado(){
 
-    this.chartSeries = [this.atividadesConcluidas.finalizadas,this.atividadesConcluidas.atrasadas,this.atividadesConcluidas.pendente]
+    if(this.atividadesConcluidas.finalizadas == 0 && this.atividadesConcluidas.atrasadas == 0 && this.atividadesConcluidas.pendente == 0){
+      this.dadosGrafico = false;
+
+    }else{
+      this.dadosGrafico = true;
+    this.chartSeries = [this.atividadesConcluidas.finalizadas,this.atividadesConcluidas.atrasadas,this.atividadesConcluidas.pendente];
+    }
 
   }
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {ChartComponent,ApexAxisChartSeries,ApexChart,ApexXAxis,ApexDataLabels,ApexTitleSubtitle,ApexStroke,ApexGrid} from "ng-apexcharts";
+import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexXAxis, ApexDataLabels, ApexTitleSubtitle, ApexStroke, ApexGrid } from "ng-apexcharts";
 import { GraficosService } from '../../services/graficos.service';
 import { GraficoHorasCategoriasDto } from '../../models/graficosDto';
 import { FuncionarioDto } from '../../models/funcionarioDto';
@@ -15,12 +15,14 @@ export class GraficoHorasCategoriasComponent implements OnInit {
   @Input() funcionarioId: string = "";
   @Input() departamentoId?: string = "";
 
+  dadosGrafico: boolean = false;
+
   funcionario!: FuncionarioDto;
 
   horasCategorias: GraficoHorasCategoriasDto[] = [];
   series: any[] = [];
   categories: any[] = [];
-  
+
   chartSeries: ApexAxisChartSeries = [
     /*
     {
@@ -46,7 +48,7 @@ export class GraficoHorasCategoriasComponent implements OnInit {
   }
 
   chartStroke: ApexStroke = {
-    curve:"straight"
+    curve: "straight"
   }
 
   /*
@@ -83,35 +85,47 @@ export class GraficoHorasCategoriasComponent implements OnInit {
   constructor(private graficoService: GraficosService, private funcionarioService: FuncionarioService) { }
 
   ngOnInit(): void {
-    if(this.funcionarioId == undefined){
+    if (this.funcionarioId == undefined) {
       this.getHorasCategorias();
-      }else{
-        this.getHorasCategorias2();
-      }
-  
+    } else {
+      this.getHorasCategorias2();
+    }
+
     this.getHorasCategorias();
   }
 
-  getHorasCategorias(){
+  getHorasCategorias() {
 
-    
-    console.log("usbudbdbdbdubdubduybd")
+    this.graficoService.getHorasPorcategoria(this.funcionarioId, this.departamentoId).subscribe({
+      next: (response) => {
+        this.horasCategorias = response.data;
+        console.log(this.horasCategorias);
+        this.montarGrafico();
+      },
+      error: (response) => {
+
+      }
+    });
+
+  }
+
+  getHorasCategorias2() {
 
     let funcionarioId = "";
 
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionario = res.data;
-        funcionarioId= this.funcionario.id;
+        funcionarioId = this.funcionario.id;
 
-        this.graficoService.getHorasPorcategoria(funcionarioId,this.departamentoId).subscribe({
+        this.graficoService.getHorasPorcategoria(funcionarioId, this.departamentoId).subscribe({
           next: (response) => {
             this.horasCategorias = response.data;
             console.log(this.horasCategorias);
             this.montarGrafico();
           },
           error: (response) => {
-            
+
           }
         });
 
@@ -121,11 +135,14 @@ export class GraficoHorasCategoriasComponent implements OnInit {
 
   }
 
-  getHorasCategorias2(){
+  montarGrafico() {
 
-  }
+    if(this.horasCategorias.length == 0){
+      this.dadosGrafico = false;
 
-  montarGrafico(){
+    }else{
+
+      this.dadosGrafico = true;
 
     this.horasCategorias.forEach((value) => {
       let obj = {
@@ -144,9 +161,10 @@ export class GraficoHorasCategoriasComponent implements OnInit {
 
     console.log(this.series)
     this.chartSeries = this.series;
-    this.chartXaxis.categories = this.categories; 
-    
+    this.chartXaxis.categories = this.categories;
+
   }
 
+}
 
 }
