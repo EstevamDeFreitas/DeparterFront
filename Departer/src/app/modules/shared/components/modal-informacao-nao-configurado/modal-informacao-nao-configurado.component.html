@@ -1,0 +1,29 @@
+<div class="modal-card">
+  <header>
+    <mat-icon class="close" mat-dialog-close (click)="onConfirm()">close</mat-icon>
+    <div class="text-center dialog-title w-100" mat-dialog-title>
+      O que "não configurado" quer dizer?
+    </div>
+  </header>
+
+
+  <div>
+
+    <pre class="dialog-text-2">
+      Caso a mensagem "não configurado" esteja aparecendo no seu resumo de horas, não se preucupe!
+      Essa mensagem indica que o seu administrador ainda não configurou suas horas mensais/diárias.
+
+      Caso queira configurar suas quantas horas você deve trabalhar por dia/mês, informe seus superiores.
+    </pre>
+
+  </div>
+
+
+  <div class="d-flex justify-content-center mb-3" mat-dialog-actions>
+    <div class="col-lg-5 col-12">
+      <button mat-raised-button class="blue-button" (click)="onConfirm()">Confirmar</button>
+    </div>
+  </div>
+
+
+</div>

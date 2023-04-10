@@ -2,6 +2,8 @@ import { ResumoDto } from './../../../atividades/models/resumoDto';
 import { FuncionarioService } from './../../../configuracoes/services/funcionario.service';
 import { HorasService } from './../../../atividades/services/horas.service';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModalInformacaoNaoConfiguradoComponent } from '../modal-informacao-nao-configurado/modal-informacao-nao-configurado.component';
 
 @Component({
   selector: 'app-resumo-horas',
@@ -13,7 +15,7 @@ export class ResumoHorasComponent implements OnInit {
   funcionarioId: string = "";
   horasResumo = {} as ResumoDto;
 
-  constructor(private horasService: HorasService, private funcionarioService: FuncionarioService) {
+  constructor(private horasService: HorasService, private funcionarioService: FuncionarioService, public dialog: MatDialog) {
     this.horasResumo = {
       mediaMensalMinutos: 0,
       minutosMesPassado: 0,
@@ -62,6 +64,13 @@ export class ResumoHorasComponent implements OnInit {
       },
       () =>{}
     )
+  }
+
+  public openInfoDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    this.dialog.open(ModalInformacaoNaoConfiguradoComponent, dialogConfig);
   }
 
 

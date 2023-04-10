@@ -22,6 +22,7 @@ import { ResumoHorasComponent } from './components/resumo-horas/resumo-horas.com
 import { ResumoAtividadesComponent } from './components/resumo-atividades/resumo-atividades.component';
 import { ModalAdicionarFuncionarioDepartamentoComponent } from './components/modal-adicionar-funcionario-departamento/modal-adicionar-funcionario-departamento.component';
 import { ModalConfigurarHorasComponent } from './components/modal-configurar-horas/modal-configurar-horas.component';
+import { ModalInformacaoNaoConfiguradoComponent } from './components/modal-informacao-nao-configurado/modal-informacao-nao-configurado.component';
 
 
 const routes: Routes = [];
@@ -39,6 +40,7 @@ const routes: Routes = [];
     ResumoAtividadesComponent,
     ModalAdicionarFuncionarioDepartamentoComponent,
     ModalConfigurarHorasComponent,
+    ModalInformacaoNaoConfiguradoComponent,
   ],
     imports: [
       RouterModule.forChild(routes),
