@@ -205,8 +205,9 @@ export class ListaAtividadesComponent implements OnInit {
   getCorStatusAtividade(status: number): string {
     switch (status) {
       case 0:
-      case 1:
         return '#FF9900';
+      case 1:
+        return '#4596E0';
       case 2:
         return '#35DA3B';
       case 3:
