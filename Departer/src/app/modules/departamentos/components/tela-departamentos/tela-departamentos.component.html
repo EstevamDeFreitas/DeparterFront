@@ -23,43 +23,55 @@
         </div>
         <div class="card mt-4">
 
-            <table class="table table-borderless">
-              <thead>
-                <th>Entrega</th>
-                <th>Descrição</th>
-                <th>Criador</th>
-                <th>Status</th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let atividade of atividades; let i = index">
-                  <td class="atividadeTexto">
-                    {{atividade.dataEntrega | date: 'dd/MM/yyyy'}}
-                  </td>
-                  <td class="atividadeTexto">
-                    {{atividade.descricao}}
-                  </td>
-                  <td class="atividadeTexto">
-                    {{atividade.funcionario}}
-                  </td>
-                  <td class="atividadeTexto">
-                    <img class="image-circle me-1" src=".\assets\images\icone.circulo.svg" width="10" height="23" />
-                    {{atividade.status}}
-                  </td>
-                  <td class="align-middle"> <img class="d-inline-block align-top perfil clickable"
-                    src=".\assets\images\tres-pontos.svg" width="20" height="18" (click)="irAtividade(atividade.atividadeId)" />
-                  </td>
+          <table class="table table-borderless">
+            <thead>
+              <th>Entrega</th>
+              <th>Descrição</th>
+              <th>Criador</th>
+              <th>Status</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let atividade of atividades; let i = index">
+                <td class="atividadeTexto">
+                  {{atividade.dataEntrega | date: 'dd/MM/yyyy'}}
+                </td>
+                <td class="atividadeTexto">
+                  {{atividade.descricao}}
+                </td>
+                <td class="atividadeTexto">
+                  {{atividade.funcionario}}
+                </td>
+                <td class="atividadeTexto">
+                  <img class="image-circle me-1" src=".\assets\images\icone.circulo.svg" width="10" height="23" />
+                  {{atividade.status}}
+                </td>
+                <td class="align-middle"> <img class="d-inline-block align-top perfil clickable"
+                    src=".\assets\images\tres-pontos.svg" width="20" height="18"
+                    (click)="irAtividade(atividade.atividadeId)" />
+                </td>
 
-                </tr>
-              </tbody>
-            </table>
+              </tr>
+            </tbody>
+          </table>
 
 
-            <div class="col-12" *ngIf="atividades.length == 0">
-              <div class="mt-3 mb-3 aviso">
-                Não existe nenhuma atividade nesse departamento!
-              </div>
+          <div class="col-12" *ngIf="atividades.length == 0">
+            <div class="mt-3 mb-3 aviso">
+              Não existe nenhuma atividade nesse departamento!
             </div>
+          </div>
 
+
+        </div>
+
+
+        <div class="row">
+          <div class="col-lg-6 col-12 mt-5">
+            <app-grafico-atividades-concluidas  [departamentoId]="departamentoId"></app-grafico-atividades-concluidas>
+          </div>
+          <div class="col-lg-6 col-12 mt-5">
+            <app-grafico-horas-categorias  [departamentoId]="departamentoId"></app-grafico-horas-categorias>
+          </div>
 
         </div>
 
@@ -91,7 +103,8 @@
               <tr *ngFor="let funcionario of funcionariosLista; let i = index">
                 <td class="apelidoFuncionario">
                   <span class="apelidoFuncionario">
-                    <img class="image-funcionario me-2" src="{{funcionario.funcionario.imagem}}" (error)="substituirImagem($event)" width="33" height="31" />
+                    <img class="image-funcionario me-2" src="{{funcionario.funcionario.imagem}}"
+                      (error)="substituirImagem($event)" width="33" height="31" />
                     {{funcionario.funcionario.nome}}
                   </span>
                 </td>

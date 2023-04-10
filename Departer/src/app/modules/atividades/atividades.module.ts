@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AtividadesRoutingModule } from './atividades-routing.module';
@@ -34,7 +35,8 @@ import { ModalAdicionarChecklistComponent } from './components/modal-adicionar-c
     MatButtonModule,
     MatNativeDateModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class AtividadesModule { }

@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import {ChartComponent,ApexAxisChartSeries,ApexChart,ApexXAxis,ApexDataLabels,ApexTitleSubtitle,ApexStroke,ApexGrid} from "ng-apexcharts";
 import { GraficosService } from '../../services/graficos.service';
 import { GraficoHorasCategoriasDto } from '../../models/graficosDto';
+import { FuncionarioDto } from '../../models/funcionarioDto';
+import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
 
 @Component({
   selector: 'app-grafico-horas-categorias',
@@ -12,6 +14,8 @@ export class GraficoHorasCategoriasComponent implements OnInit {
 
   @Input() funcionarioId: string = "";
   @Input() departamentoId?: string = "";
+
+  funcionario!: FuncionarioDto;
 
   horasCategorias: GraficoHorasCategoriasDto[] = [];
   series: any[] = [];
@@ -76,25 +80,48 @@ export class GraficoHorasCategoriasComponent implements OnInit {
     categories: []
   }
 
-  constructor(private graficoService: GraficosService) { }
+  constructor(private graficoService: GraficosService, private funcionarioService: FuncionarioService) { }
 
   ngOnInit(): void {
+    if(this.funcionarioId == undefined){
+      this.getHorasCategorias();
+      }else{
+        this.getHorasCategorias2();
+      }
+  
     this.getHorasCategorias();
   }
 
   getHorasCategorias(){
 
-    this.graficoService.getHorasPorcategoria(this.funcionarioId,this.departamentoId).subscribe({
-      next: (response) => {
-        this.horasCategorias = response.data;
-        console.log(this.horasCategorias);
-        this.montarGrafico();
-      },
-      error: (response) => {
-        
-      }
-    });
+    
+    console.log("usbudbdbdbdubdubduybd")
 
+    let funcionarioId = "";
+
+    this.funcionarioService.getFuncionarioLogado().subscribe(
+      (res) => {
+        this.funcionario = res.data;
+        funcionarioId= this.funcionario.id;
+
+        this.graficoService.getHorasPorcategoria(funcionarioId,this.departamentoId).subscribe({
+          next: (response) => {
+            this.horasCategorias = response.data;
+            console.log(this.horasCategorias);
+            this.montarGrafico();
+          },
+          error: (response) => {
+            
+          }
+        });
+
+      }
+    );
+
+
+  }
+
+  getHorasCategorias2(){
 
   }
 
