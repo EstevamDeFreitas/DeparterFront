@@ -24,7 +24,7 @@
               (click)="irAtividade(hora.atividadeId)">
                 <td class="itensTabela">{{hora.atividade.titulo}}</td>
                 <td class="itensTabela">{{transformarMinutosEmHoras(hora.minutos)}} </td>
-                <td class="itensTabela">Eu</td>
+                <td class="itensTabela">{{hora.funcionario.apelido}}</td>
                 <td class="itensTabela">{{hora.dataCriacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
 
               </tr>

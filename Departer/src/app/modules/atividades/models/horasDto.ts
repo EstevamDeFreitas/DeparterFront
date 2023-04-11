@@ -11,7 +11,7 @@ export class HorasGetByAtividadeDto {
   funcionarioId: string = "";
   atividadeId: string = "";
   minutos: number = 0;
-  
+
   funcionario = {} as FuncionarioDto;
 }
 
@@ -22,4 +22,5 @@ export class HorasGetByFuncionarioDto {
   minutos: number = 0;
   dataCriacao = {} as Date;
   atividade = {} as AtividadeDto;
+  funcionario = {} as FuncionarioDto;
 }
