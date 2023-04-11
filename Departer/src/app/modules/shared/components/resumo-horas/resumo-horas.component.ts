@@ -40,7 +40,7 @@ export class ResumoHorasComponent implements OnInit {
         if(this.modoAdmin == false){
           this.getFuncionario();
         } else {
-          this.getResumo()
+          this.getResumo("", this.departamentoId)
         }
 
 
