@@ -17,8 +17,8 @@ export class HorasService {
 
   constructor(private http : HttpClient) { }
 
-  public getHoras(): Observable<ResponseBase<HorasPostDto>> {
-    return this.http.get<ResponseBase<HorasPostDto>>(this.apiUlr);
+  public getHoras(): Observable<ResponseBase<HorasGetByFuncionarioDto[]>> {
+    return this.http.get<ResponseBase<HorasGetByFuncionarioDto[]>>(this.apiUlr);
   }
 
   public postHoras(horas: HorasPostDto): Observable<ResponseBase<HorasPostDto>> {

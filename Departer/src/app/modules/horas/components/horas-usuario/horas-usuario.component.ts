@@ -5,6 +5,7 @@ import { HorasService } from './../../../atividades/services/horas.service';
 import { Component, OnInit } from '@angular/core';
 import { ResumoHorasComponent } from 'src/app/modules/shared/components/resumo-horas/resumo-horas.component';
 import { Router } from '@angular/router';
+import { ModoAdminService } from 'src/app/modules/shared/services/modo-admin.service';
 
 @Component({
   selector: 'app-horas-usuario',
@@ -17,14 +18,26 @@ export class HorasUsuarioComponent implements OnInit {
   horas: HorasGetByFuncionarioDto[] = [];
   horasResumo = {} as ResumoDto;
 
+  modoAdmin: boolean = false;
+
   ordemData: 'asc' | 'desc' = 'desc';
   ordemMinutos: 'asc' | 'desc' = 'desc';
   ordemAtual: string = 'data';
 
-  constructor(private horasService: HorasService, private funcionarioService: FuncionarioService, private router: Router) { }
+  constructor(private horasService: HorasService, private funcionarioService: FuncionarioService, private router: Router, private modoAdminService: ModoAdminService) { }
 
   ngOnInit(): void {
-    this.getFuncionario()
+
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => {
+        this.modoAdmin = modoAdmin;
+        if(!this.modoAdmin)
+          this.getFuncionario();
+        else
+          this.getAllHoras();
+      }
+    );
+
   }
 
   public getFuncionario(): void{
@@ -39,6 +52,22 @@ export class HorasUsuarioComponent implements OnInit {
 
   public getHorasFuncionario(): void{
     this.horasService.getHorasByfuncionarioId(this.funcionarioId).subscribe(
+      (res) => {
+        this.horas = res.data;
+        console.log(this.horas);
+
+        this.horas.sort((a, b) => {
+          const dateA = new Date(a.dataCriacao);
+          const dateB = new Date(b.dataCriacao);
+          return dateB.getTime() - dateA.getTime();
+        });
+      },
+      () => {}
+    )
+  }
+
+  public getAllHoras(): void{
+    this.horasService.getHoras().subscribe(
       (res) => {
         this.horas = res.data;
         console.log(this.horas);
