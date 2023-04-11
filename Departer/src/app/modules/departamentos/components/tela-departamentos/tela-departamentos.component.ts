@@ -28,7 +28,7 @@ export class TelaDepartamentosComponent implements OnInit {
   @Output() funcionarioId: string = "";
   @Output() departamentoId: string = "";
 
-  funcionario!: FuncionarioDto;
+  funcionarioAtual!: FuncionarioDto;
 
   constructor(private router: Router,private route: ActivatedRoute,private departamentoService: DepartamentoService, private modoAdminService:ModoAdminService,
     private funcionarioService: FuncionarioService) { }
@@ -39,33 +39,30 @@ export class TelaDepartamentosComponent implements OnInit {
         this.departamentoId = this.idDepartamento;
         console.log(this.departamentoId)
       });
-    
+
       this.funcionarioService.getFuncionarioLogado().subscribe({
         next: (response) => {
-          this.funcionario = response.data;
-          this.funcionarioId = this.funcionario.id;
-      
-          console.log(this.funcionarioId)
-      
+          this.funcionarioAtual = response.data;
+          this.funcionarioId = this.funcionarioAtual.id;
+
           this.modoAdminService.modoAdmin$.subscribe(
             modoAdmin => {
               this.modoAdmin = modoAdmin;
               this.carregarDepartamento();
             }
           );
-      
+
           console.log(this.funcionarioId)
-          
-          // chama a função aqui
+
           this.carregarDepartamento();
         },
         error: (response) => {
         }
       });
-            
+
     }
 
-   
+
 
   carregarDepartamento(){
 
@@ -89,7 +86,7 @@ export class TelaDepartamentosComponent implements OnInit {
 
         this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
-        
+
       },
       error: (response) => {
       }

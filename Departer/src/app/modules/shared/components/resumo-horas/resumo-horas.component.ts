@@ -18,6 +18,8 @@ export class ResumoHorasComponent implements OnInit {
 
   modoAdmin: boolean = false;
 
+  @Input() departamentoId: string = "";
+
   constructor(private horasService: HorasService, private funcionarioService: FuncionarioService, public dialog: MatDialog, private modoAdminService: ModoAdminService) {
     this.horasResumo = {
       mediaMensalMinutos: 0,
@@ -51,14 +53,14 @@ export class ResumoHorasComponent implements OnInit {
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionarioId = res.data.id;
-        this.getResumo(this.funcionarioId);
+        this.getResumo(this.funcionarioId, this.departamentoId);
       },
       (err) => {}
     )
   }
 
-  public getResumo(funcionarioId?: string): void{
-    this.horasService.getResumoHoras(funcionarioId).subscribe(
+  public getResumo(funcionarioId?: string, departamentoId?: string): void{
+    this.horasService.getResumoHoras(funcionarioId, departamentoId).subscribe(
       (res) =>{
         this.horasResumo = res.data;
       },
