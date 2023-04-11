@@ -3,7 +3,8 @@ import { FuncionarioService } from 'src/app/modules/configuracoes/services/funci
 import { Router } from '@angular/router';
 import { AtividadeListDto } from './../../../atividades/models/atividadeDto';
 import { AtividadeService } from './../../../atividades/services/atividade.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ModoAdminService } from '../../services/modo-admin.service';
 
 @Component({
   selector: 'app-resumo-atividades',
@@ -15,14 +16,24 @@ export class ResumoAtividadesComponent implements OnInit {
   public atividades: AtividadeListDto[] = [];
   allFuncionarios: FuncionarioDto[] = [];
 
-  constructor(private atividadeService: AtividadeService, private router: Router, private funcionarioService: FuncionarioService) { }
+  modoAdmin: boolean = false;
+
+  constructor(private atividadeService: AtividadeService, private router: Router, private funcionarioService: FuncionarioService, private modoAdminService: ModoAdminService) { }
 
   ngOnInit(): void {
-    this.getAllFuncionarios();
+
+
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => {
+        this.modoAdmin = modoAdmin;
+
+        this.getAllFuncionarios();
+      }
+    );
   }
 
   public getAtividade(){
-    this.atividadeService.getAtividades().subscribe(
+    this.atividadeService.getAtividades(this.modoAdmin).subscribe(
       (res) => {
 
         this.atividades = res.data;

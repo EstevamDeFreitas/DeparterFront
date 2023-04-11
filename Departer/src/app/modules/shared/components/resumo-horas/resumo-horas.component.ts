@@ -1,9 +1,10 @@
 import { ResumoDto } from './../../../atividades/models/resumoDto';
 import { FuncionarioService } from './../../../configuracoes/services/funcionario.service';
 import { HorasService } from './../../../atividades/services/horas.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalInformacaoNaoConfiguradoComponent } from '../modal-informacao-nao-configurado/modal-informacao-nao-configurado.component';
+import { ModoAdminService } from '../../services/modo-admin.service';
 
 @Component({
   selector: 'app-resumo-horas',
@@ -15,7 +16,9 @@ export class ResumoHorasComponent implements OnInit {
   funcionarioId: string = "";
   horasResumo = {} as ResumoDto;
 
-  constructor(private horasService: HorasService, private funcionarioService: FuncionarioService, public dialog: MatDialog) {
+  modoAdmin: boolean = false;
+
+  constructor(private horasService: HorasService, private funcionarioService: FuncionarioService, public dialog: MatDialog, private modoAdminService: ModoAdminService) {
     this.horasResumo = {
       mediaMensalMinutos: 0,
       minutosMesPassado: 0,
@@ -27,16 +30,39 @@ export class ResumoHorasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getFuncionario();
+
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => {
+        this.modoAdmin = modoAdmin;
+
+        if(this.modoAdmin == false){
+          this.getFuncionario();
+        } else {
+          this.getResumo()
+        }
+
+
+      }
+    );
+
   }
 
   public getFuncionario(): void{
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionarioId = res.data.id;
-        this.getResumo();
+        this.getResumo(this.funcionarioId);
       },
       (err) => {}
+    )
+  }
+
+  public getResumo(funcionarioId?: string): void{
+    this.horasService.getResumoHoras(funcionarioId).subscribe(
+      (res) =>{
+        this.horasResumo = res.data;
+      },
+      () =>{}
     )
   }
 
@@ -55,15 +81,6 @@ export class ResumoHorasComponent implements OnInit {
 
     return '' + horas + 'h ' + minutos + 'm';
 
-  }
-
-  public getResumo(): void{
-    this.horasService.getResumoHoras(this.funcionarioId).subscribe(
-      (res) =>{
-        this.horasResumo = res.data;
-      },
-      () =>{}
-    )
   }
 
   public openInfoDialog() {
