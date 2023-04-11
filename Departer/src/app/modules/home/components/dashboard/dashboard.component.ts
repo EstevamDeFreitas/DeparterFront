@@ -1,5 +1,7 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
+import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  @Output() funcionarioId: string = "";
+
+  funcionario!: FuncionarioDto;
+
+  constructor(private router: Router,private funcionarioService: FuncionarioService) { }
 
   ngOnInit(): void {
+
+    this.getUser();
+
+  }
+
+  public getUser(): void {
+    this.funcionarioService.getFuncionarioLogado().subscribe(
+      (res) => {
+        this.funcionario = res.data;
+        this.funcionarioId = this.funcionario.id;
+      }
+    )
   }
 
   public irParaAtividades(): void {

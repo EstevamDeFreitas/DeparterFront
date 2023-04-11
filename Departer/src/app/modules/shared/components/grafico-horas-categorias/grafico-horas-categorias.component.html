@@ -1,0 +1,17 @@
+<div class="container-fluid" *ngIf="dadosGrafico == true">
+    <div id="chart2">
+        <!--
+        <apx-chart [series]="chartSeries" [chart]="chartDetails" [xaxis]="chartXaxis" [dataLabels]="chartLabels" [grid]="chartGrid" [stroke]="chartStroke" [title]="chartTitle"></apx-chart>
+        -->
+        <apx-chart [series]="chartSeries" [chart]="chartDetails" [xaxis]="chartXaxis" [dataLabels]="chartLabels" [grid]="chartGrid" [stroke]="chartStroke"></apx-chart>
+    </div>      
+
+      
+</div>
+<div class="container-fluid d-flex align-items-center justify-content-center" *ngIf="dadosGrafico == false" >
+    <div class="col-12 text-center" >
+        <div class="mt-3 mb-3 aviso">
+          Não existe nenhum registro de horas!
+        </div>
+      </div>
+</div>
