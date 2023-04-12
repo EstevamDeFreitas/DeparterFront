@@ -1,0 +1,42 @@
+<div class="modal-card">
+  <header>
+    <mat-icon class="close" mat-dialog-close (click)="onConfirm()">close</mat-icon>
+    <div class="text-center dialog-title w-100" mat-dialog-title>
+      O que significa o símbolo <img class="d-inline-block " src=".\assets\images\shield-svgrepo-com.svg" width="32" height="32">
+    </div>
+  </header>
+
+
+  <div>
+
+    <pre class="dialog-text-2">
+      Essa funcionalidade é chamada de <b>"Modo Administrador"</b>, e está disponível apenas para funcionários administradores.
+      Ela pode ser ligada e desligada a qualquer momento apenas clicando no símbolo de escudo.
+
+      <b>O que faz essa função?</b>
+      Quando está desativada, o sistema funcionará normalmente, mostrando suas atividades, suas horas trabalhadas
+      e seus departamentos.
+      Quando esta ativa, o sistema passará a mostrar todas as atividades (até mesmo as que você não está presente),
+      todas as horas trabalhadas de todos os funcionários, e todos os departamentos.
+
+      Enquanto a função estiver ativa, você não terá acesso para alterar, adicionar horas, e outras funcionalidades
+      de tarefas que você não faz parte, apenas poderá visualizá-las.
+
+      Os gráficos do sistema também serão atualizados de acordo com Modo Administrador, caso esteja ligado, os gráficos
+      terão dados de todos os funcionários, e não apenas os seus.
+
+      Observação: Por motivos de segurança, sempre que o Modo Administrador for desligado, você será redirecionado
+      para a tela de Dashboard.
+    </pre>
+
+  </div>
+
+
+  <div class="d-flex justify-content-center mb-3" mat-dialog-actions>
+    <div class="col-lg-5 col-12">
+      <button mat-raised-button class="blue-button" (click)="onConfirm()">Confirmar</button>
+    </div>
+  </div>
+
+
+</div>

@@ -26,6 +26,7 @@ import { ModalInformacaoNaoConfiguradoComponent } from './components/modal-infor
 import { GraficoAtividadesConcluidasComponent } from './components/grafico-atividades-concluidas/grafico-atividades-concluidas.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { GraficoHorasCategoriasComponent } from './components/grafico-horas-categorias/grafico-horas-categorias.component';
+import { ModalInformacoesModoAdminComponent } from './components/modal-informacoes-modo-admin/modal-informacoes-modo-admin.component';
 
 
 const routes: Routes = [];
@@ -46,6 +47,7 @@ const routes: Routes = [];
     ModalInformacaoNaoConfiguradoComponent,
     GraficoAtividadesConcluidasComponent,
     GraficoHorasCategoriasComponent,
+    ModalInformacoesModoAdminComponent,
   ],
     imports: [
       RouterModule.forChild(routes),

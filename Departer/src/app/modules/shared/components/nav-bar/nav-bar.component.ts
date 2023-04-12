@@ -7,6 +7,8 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
 import { FuncionarioDto } from '../../models/funcionarioDto';
 import { CommonTasksService } from '../../services/common-tasks.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModalInformacoesModoAdminComponent } from '../modal-informacoes-modo-admin/modal-informacoes-modo-admin.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -26,7 +28,7 @@ export class NavBarComponent implements OnInit {
 
 
   constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent,
-    private funcionarioService: FuncionarioService, private commonTasksService: CommonTasksService) { }
+    private funcionarioService: FuncionarioService, private commonTasksService: CommonTasksService, public dialog: MatDialog) { }
 
 
 
@@ -96,6 +98,13 @@ export class NavBarComponent implements OnInit {
   public logoff(): void {
     this.router.navigate([""]);
     AuthService.removeToken();
+  }
+
+  public openInfoDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    this.dialog.open(ModalInformacoesModoAdminComponent, dialogConfig);
   }
 
   public irParaDashboard(): void {

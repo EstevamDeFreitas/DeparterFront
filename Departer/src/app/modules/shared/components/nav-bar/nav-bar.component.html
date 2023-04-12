@@ -30,6 +30,7 @@
       <div class="align-self-center me-4">
         <img class="d-inline-block clickable" src=".\assets\images\shield-svgrepo-com.svg" width="32" height="32"
           (click)="alternarModoAdmin()" [ngClass]="{'admin-icon-purple': modoAdmin, 'admin-icon-black': !modoAdmin}">
+          <i class="fa-regular fa-circle-question text-primary clickable question-symbol" (click)="openInfoDialog()"></i>
       </div>
       <div class="dropdown" tabindex="0" id="drop">
 
