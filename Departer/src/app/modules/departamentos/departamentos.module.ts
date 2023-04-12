@@ -13,7 +13,7 @@ import { DetalhesDepartamentosComponent } from './components/detalhes-departamen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarDepartamentoComponent } from './components/editar-departamento/editar-departamento.component';
 import { SharedModule } from '../shared/shared.module';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -34,7 +34,8 @@ import { SharedModule } from '../shared/shared.module';
     MatInputModule,
     MatNativeDateModule,
     MatCardModule,
-    SharedModule
+    SharedModule,
+    MatPaginatorModule
   ]
 })
 export class DepartamentosModule { }

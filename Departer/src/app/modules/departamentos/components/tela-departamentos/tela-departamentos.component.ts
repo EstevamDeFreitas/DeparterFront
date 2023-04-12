@@ -8,6 +8,7 @@ import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
 import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/departamentoFuncionariosDto';
 import { AtividadeDto, GetAtividadeByDepartamentoId } from '../../models/atividadeDto';
 import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-tela-departamentos',
@@ -22,49 +23,54 @@ export class TelaDepartamentosComponent implements OnInit {
   departamento?: DepartamentoDto;
   funcionariosLista: DepartamentoFuncionariosDto[] = [];
   atividades: GetAtividadeByDepartamentoId[] = [];
+  atividadesPaginadas: GetAtividadeByDepartamentoId[] = [];
+
 
   modoAdmin: boolean = false;
+
+  pageSize = 3;
+  pageSizeOptions: number[] = [3];
 
   @Output() funcionarioId: string = "";
   @Output() departamentoId: string = "";
 
   funcionarioAtual!: FuncionarioDto;
 
-  constructor(private router: Router,private route: ActivatedRoute,private departamentoService: DepartamentoService, private modoAdminService:ModoAdminService,
+  constructor(private router: Router, private route: ActivatedRoute, private departamentoService: DepartamentoService, private modoAdminService: ModoAdminService,
     private funcionarioService: FuncionarioService) { }
 
-    ngOnInit(): void {
-      this.route.params.subscribe(x => {
-        this.idDepartamento = x[`id`];
-        this.departamentoId = this.idDepartamento;
-        console.log(this.departamentoId)
-      });
+  ngOnInit(): void {
+    this.route.params.subscribe(x => {
+      this.idDepartamento = x[`id`];
+      this.departamentoId = this.idDepartamento;
+      console.log(this.departamentoId)
+    });
 
-      this.funcionarioService.getFuncionarioLogado().subscribe({
-        next: (response) => {
-          this.funcionarioAtual = response.data;
-          this.funcionarioId = this.funcionarioAtual.id;
+    this.funcionarioService.getFuncionarioLogado().subscribe({
+      next: (response) => {
+        this.funcionarioAtual = response.data;
+        this.funcionarioId = this.funcionarioAtual.id;
 
-          this.modoAdminService.modoAdmin$.subscribe(
-            modoAdmin => {
-              this.modoAdmin = modoAdmin;
-              this.carregarDepartamento();
-            }
-          );
+        this.modoAdminService.modoAdmin$.subscribe(
+          modoAdmin => {
+            this.modoAdmin = modoAdmin;
+            this.carregarDepartamento();
+          }
+        );
 
-          console.log(this.funcionarioId)
+        console.log(this.funcionarioId)
 
-          this.carregarDepartamento();
-        },
-        error: (response) => {
-        }
-      });
+        this.carregarDepartamento();
+      },
+      error: (response) => {
+      }
+    });
 
-    }
+  }
 
 
 
-  carregarDepartamento(){
+  carregarDepartamento() {
 
     this.departamentoService.getDepartamentoById(this.idDepartamento, this.modoAdmin).subscribe({
       next: (response) => {
@@ -84,15 +90,30 @@ export class TelaDepartamentosComponent implements OnInit {
           return dateA.getTime() - dateB.getTime();
         });
 
-        this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
-        this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
+        this.atividadesPaginadas = this.atividades;
+
+        const defaultPage = {
+          pageIndex: 0,
+          pageSize: this.pageSize,
+          length: this.atividades.length
+        };
+
+        this.onPageChange(defaultPage);
+
+        //this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
+        //this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
 
       },
       error: (response) => {
       }
     })
 
+  }
 
+  onPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    const endIndex = startIndex + event.pageSize;
+    this.atividadesPaginadas = this.atividades.slice(startIndex, endIndex);
   }
 
 
@@ -150,7 +171,7 @@ export class TelaDepartamentosComponent implements OnInit {
   }
 
 
-  detalhesDepartamento(id: string){
+  detalhesDepartamento(id: string) {
     this.router.navigate([`/departamentos/detalhes-departamentos/${id}`]);
   }
   irAtividade(id: string) {

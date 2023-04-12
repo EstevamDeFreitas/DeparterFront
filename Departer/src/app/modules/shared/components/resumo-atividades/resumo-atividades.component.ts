@@ -5,6 +5,7 @@ import { AtividadeListDto } from './../../../atividades/models/atividadeDto';
 import { AtividadeService } from './../../../atividades/services/atividade.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ModoAdminService } from '../../services/modo-admin.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-resumo-atividades',
@@ -14,9 +15,13 @@ import { ModoAdminService } from '../../services/modo-admin.service';
 export class ResumoAtividadesComponent implements OnInit {
 
   public atividades: AtividadeListDto[] = [];
+  public atividadesPaginadas: AtividadeListDto[] = [];
   allFuncionarios: FuncionarioDto[] = [];
 
   modoAdmin: boolean = false;
+
+  pageSize = 3;
+  pageSizeOptions: number[] = [3];
 
   constructor(private atividadeService: AtividadeService, private router: Router, private funcionarioService: FuncionarioService, private modoAdminService: ModoAdminService) { }
 
@@ -53,7 +58,20 @@ export class ResumoAtividadesComponent implements OnInit {
           return dateA.getTime() - dateB.getTime();
         });
 
-        console.log(this.atividades)
+        const indexMaximo = 9;
+        if (this.atividades.length > indexMaximo) {
+          this.atividades.splice(indexMaximo, this.atividades.length - indexMaximo);
+        }
+
+        this.atividadesPaginadas = this.atividades;
+
+        const defaultPage = {
+          pageIndex: 0,
+          pageSize: this.pageSize,
+          length: this.atividades.length
+        };
+
+        this.onPageChange(defaultPage);
 
       },
       () => {}
@@ -87,6 +105,12 @@ export class ResumoAtividadesComponent implements OnInit {
 
   irAtividade(id: string) {
     this.router.navigate([`/atividades/atividade/${id}`]);
+  }
+
+  onPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    const endIndex = startIndex + event.pageSize;
+    this.atividadesPaginadas = this.atividades.slice(startIndex, endIndex);
   }
 
   public substituirImagem(evento: Event): void {

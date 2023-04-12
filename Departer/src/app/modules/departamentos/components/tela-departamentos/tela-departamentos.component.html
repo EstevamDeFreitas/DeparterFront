@@ -30,7 +30,7 @@
                 <th>Status</th>
               </thead>
               <tbody>
-                <tr *ngFor="let atividade of atividades; let i = index">
+                <tr *ngFor="let atividade of atividadesPaginadas; let i = index">
                   <td class="atividadeTexto">
                     {{atividade.titulo}}
                   </td>
@@ -57,6 +57,12 @@
               Não existe nenhuma atividade nesse departamento!
             </div>
           </div>
+
+          <mat-paginator [length]="atividades.length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="onPageChange($event)">
+          </mat-paginator>
 
 
         </div>

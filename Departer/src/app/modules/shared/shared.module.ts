@@ -27,7 +27,7 @@ import { GraficoAtividadesConcluidasComponent } from './components/grafico-ativi
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { GraficoHorasCategoriasComponent } from './components/grafico-horas-categorias/grafico-horas-categorias.component';
 import { ModalInformacoesModoAdminComponent } from './components/modal-informacoes-modo-admin/modal-informacoes-modo-admin.component';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [];
 
@@ -61,8 +61,9 @@ const routes: Routes = [];
       MatTabsModule,
       MatSnackBarModule,
       ReactiveFormsModule,
-      NgApexchartsModule
-      
+      NgApexchartsModule,
+      MatPaginatorModule
+
     ],
     exports: [
      PrincipalComponent,
