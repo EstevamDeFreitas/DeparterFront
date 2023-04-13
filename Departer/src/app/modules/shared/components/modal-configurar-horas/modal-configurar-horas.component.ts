@@ -1,9 +1,11 @@
+import { SnackbarComponent } from 'src/app/modules/shared/components/snackbar/snackbar.component';
 import { HorasService } from './../../../atividades/services/horas.service';
 import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ConfiguracaoDeHoras, ConfiguracaoDeHorasPost } from 'src/app/modules/administracao/models/configuracaoDeHoras';
+import { SnackBarTheme } from '../../models/snackbat.theme.enum';
 
 @Component({
   selector: 'app-modal-configurar-horas',
@@ -24,14 +26,13 @@ export class ModalConfigurarHorasComponent implements OnInit {
     return this.horasForm.controls;
   }
 
-  constructor(public dialogRef: MatDialogRef<ModalConfigurarHorasComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private horasService: HorasService)
-  {
+  constructor(public dialogRef: MatDialogRef<ModalConfigurarHorasComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private horasService: HorasService, private snackbarComponent: SnackbarComponent) {
     this.postConfiguracao = data.configuracaoHoras;
     this.configuracao = data.configuracao;
     console.log(this.configuracao);
 
 
-    if(data.configuracaoHoras.tipoConfiguracao == 0)
+    if (data.configuracaoHoras.tipoConfiguracao == 0)
       this.tipoConfiguracao = "Diárias"
     else
       this.tipoConfiguracao = "Mensais"
@@ -46,7 +47,7 @@ export class ModalConfigurarHorasComponent implements OnInit {
   public formValidation() {
     let valorParaHoras: string = "";
 
-    if(this.configuracao != undefined)
+    if (this.configuracao != undefined)
       valorParaHoras = this.transformarMinutosEmHoras(this.configuracao.minutos);
 
     this.horasForm = new FormGroup({
@@ -88,31 +89,37 @@ export class ModalConfigurarHorasComponent implements OnInit {
   }
 
   finalizarConfiguracao() {
-    const configHorasValue = this.calcularHorasPrevistas(this.horasForm.get('configHoras')!.value);
 
-    this.postConfiguracao.minutos = configHorasValue;
+    if (this.horasForm.valid) {
+      const configHorasValue = this.calcularHorasPrevistas(this.horasForm.get('configHoras')!.value);
 
-    if(this.configuracao != undefined) {
+      this.postConfiguracao.minutos = configHorasValue;
 
-      let putConfig: ConfiguracaoDeHoras = {
-        funcionarioId: this.postConfiguracao.funcionarioId,
-        id: this.configuracao.id,
-        minutos: configHorasValue,
-        tipoConfiguracao: this.postConfiguracao.tipoConfiguracao
+      if (this.configuracao != undefined) {
+
+        let putConfig: ConfiguracaoDeHoras = {
+          funcionarioId: this.postConfiguracao.funcionarioId,
+          id: this.configuracao.id,
+          minutos: configHorasValue,
+          tipoConfiguracao: this.postConfiguracao.tipoConfiguracao
+        }
+
+        this.horasService.putHorasConfiguracao(putConfig).subscribe(
+          () => {
+            this.onConfirm("alterada");
+          }
+        )
+      } else {
+        this.horasService.postHorasConfiguracao(this.postConfiguracao).subscribe(
+          () => {
+            this.onConfirm("adicionada");
+          }
+        )
       }
-
-      this.horasService.putHorasConfiguracao(putConfig).subscribe(
-        () => {
-          this.onConfirm("alterada");
-        }
-      )
     } else {
-      this.horasService.postHorasConfiguracao(this.postConfiguracao).subscribe(
-        ()=> {
-          this.onConfirm("adicionada");
-        }
-      )
+      this.snackbarComponent.openSnackBar("Preencha todo o formulário !", SnackBarTheme.error, 3000);
     }
+
 
   }
 
