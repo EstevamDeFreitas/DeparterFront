@@ -61,6 +61,9 @@ export class ListaAtividadesComponent implements OnInit {
       atividadesFiltradas = this.atividades.filter(atividade => {
         return atividade.funcionarios.some(func => func.apelido.toLowerCase().includes(filtrarPor));
       });
+    } else if (this.tipoDeFiltro === "status") {
+      const statusNum = this.mapearStatusParaNumero(filtrarPor);
+      atividadesFiltradas = this.atividades.filter(atividade => atividade.statusAtividade === statusNum);
     }
 
     return atividadesFiltradas;
@@ -72,7 +75,7 @@ export class ListaAtividadesComponent implements OnInit {
 
   funcionario!: FuncionarioDto;
 
-  
+
   ngOnInit(): void {
     this.modoAdminService.modoAdmin$.subscribe(
       modoAdmin => {
@@ -215,6 +218,23 @@ export class ListaAtividadesComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  private mapearStatusParaNumero(status: string): number {
+    const statusOptions: any = {
+      pendente: 0,
+      desenvolvendo: 1,
+      concluida: 2,
+      atrasada: 3,
+    };
+
+    for (const option in statusOptions) {
+      if (option.includes(status)) {
+        return statusOptions[option];
+      }
+    }
+
+    return -1;
   }
 
   getCorStatusAtividade(status: number): string {
