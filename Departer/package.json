@@ -24,6 +24,7 @@
     "apexcharts": "^3.37.3",
     "bootstrap": "^5.2.1",
     "ng-apexcharts": "^1.7.4",
+    "ngx-mask": "^14.2.4",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
