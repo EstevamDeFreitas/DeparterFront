@@ -34,9 +34,9 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
   chartLabels = ["Finalizadas", "Atrasadas", "Pendente"];
 
   colors = [ 
-    "#90ee7e",
-    "#f48024",
-    "#69d2e7"
+    "#35DA3B",
+    "#FF3A3A",
+    "#FFF700"
 ];
 
 
