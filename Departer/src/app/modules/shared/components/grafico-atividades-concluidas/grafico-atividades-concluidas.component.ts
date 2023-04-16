@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ApexChart, ApexDataLabels, ApexNonAxisChartSeries, ApexTitleSubtitle } from 'ng-apexcharts';
+import { ApexChart, ApexDataLabels, ApexNonAxisChartSeries, ApexOptions, ApexPlotOptions, ApexTitleSubtitle } from 'ng-apexcharts';
 import { GraficosService } from '../../services/graficos.service';
 import { GraficoAtividadesConcluidasDto } from '../../models/graficosDto';
 import { FuncionarioDto } from '../../models/funcionarioDto';
@@ -28,10 +28,19 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
     type: 'donut',
     toolbar: {
       show: false
-    }
+    },
+    
   };
 
   chartLabels = ["Finalizadas", "Atrasadas", "Pendente"];
+
+  colors = [ 
+    "#35DA3B",
+    "#FF3A3A",
+    "#FFF700"
+];
+
+
 
   /*
   chartTitle: ApexTitleSubtitle = {
@@ -41,7 +50,8 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
   */
 
   chartDataLabels: ApexDataLabels = {
-    enabled: true
+    enabled: true,
+    
   };
 
   constructor(private graficoService: GraficosService, private funcionarioService: FuncionarioService) { }
@@ -112,6 +122,54 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
     }
 
   }
+
+  plotOptions: ApexPlotOptions = {
+    pie: {
+      startAngle: 0,
+      endAngle: 360,
+      expandOnClick: true,
+      offsetX: 0,
+      offsetY: 0,
+      customScale: 1,
+      dataLabels: {
+          offset: 0,
+          minAngleToShowLabel: 10
+      }, 
+      donut: {
+        size: '65%',
+        background: 'transparent',
+        labels: {
+          show: true,
+          name: {
+            show: true,
+            fontSize: '12px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 600,
+            color: undefined,
+            offsetY: -5,
+          },
+          value: {
+            show: true,
+            fontSize: '18px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 600,
+            color: '#676767',
+            offsetY: 10,
+          },
+          total: {
+            show: true,
+            showAlways: false,
+            label: 'Total',
+            fontSize: '20px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 600,
+            color: '#676767',
+            
+          }
+        }
+      },      
+    }
+  }  
 
 
 

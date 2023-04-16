@@ -7,6 +7,10 @@ export class GraficoAtividadesConcluidasDto {
  
  export class GraficoHorasCategoriasDto {
     categoria: string = "";
-    horas: number = 0;
+    horasPorMes: HorasPorMesDTO[] = [];
  }
  
+ export class HorasPorMesDTO {
+   data: string = "";
+   valor: any[] = [];
+ }
