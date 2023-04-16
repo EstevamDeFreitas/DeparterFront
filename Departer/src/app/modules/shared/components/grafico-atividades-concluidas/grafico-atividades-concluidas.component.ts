@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ApexChart, ApexDataLabels, ApexNonAxisChartSeries, ApexTitleSubtitle } from 'ng-apexcharts';
+import { ApexChart, ApexDataLabels, ApexNonAxisChartSeries, ApexOptions, ApexTitleSubtitle } from 'ng-apexcharts';
 import { GraficosService } from '../../services/graficos.service';
 import { GraficoAtividadesConcluidasDto } from '../../models/graficosDto';
 import { FuncionarioDto } from '../../models/funcionarioDto';
@@ -32,6 +32,14 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
   };
 
   chartLabels = ["Finalizadas", "Atrasadas", "Pendente"];
+
+  colors = [ 
+    "#90ee7e",
+    "#f48024",
+    "#69d2e7"
+];
+
+
 
   /*
   chartTitle: ApexTitleSubtitle = {
