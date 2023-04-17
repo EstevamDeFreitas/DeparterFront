@@ -1,24 +1,13 @@
 <div class="container">
 
-  <div class="d-flex justify-content-between mt-5">
-    <div></div>
-    <div class="custom-flex">
-      <a>
-        <div class="titulo botao clickable">
-          + Personalizar Dashboard
-        </div>
-      </a>
-    </div>
-  </div>
-
+ 
   <div class="row">
+    <div class="col-lg-7 col-12 mt-5">
+      <app-grafico-horas-categorias [funcionarioId]="funcionarioId"></app-grafico-horas-categorias>
+    </div>
     <div class="col-lg-4 col-12 mt-5">
       <app-grafico-atividades-concluidas [funcionarioId]="funcionarioId"></app-grafico-atividades-concluidas>
     </div>
-    <div class="col-lg-6 col-12 mt-5">
-      <app-grafico-horas-categorias [funcionarioId]="funcionarioId"></app-grafico-horas-categorias>
-    </div>
-
   </div>
 
   <div class="row">
