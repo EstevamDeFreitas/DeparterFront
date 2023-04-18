@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   @Output() funcionarioId: string = "";
 
   funcionario!: FuncionarioDto;
+  nomeFunc: string = "";
 
   constructor(private router: Router,private funcionarioService: FuncionarioService) { }
 
@@ -26,6 +27,7 @@ export class DashboardComponent implements OnInit {
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionario = res.data;
+        this.nomeFunc = this.funcionario.nome;
         this.funcionarioId = this.funcionario.id;
       }
     )

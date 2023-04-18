@@ -145,6 +145,7 @@ export class GraficoHorasCategoriasComponent implements OnInit {
 
   montarGrafico() {
 
+
     if (this.horasCategorias.length == 0) {
       this.dadosGrafico = false;
 
@@ -173,12 +174,24 @@ export class GraficoHorasCategoriasComponent implements OnInit {
     }
     );*/
 
-      for (let i = 0; i < this.horasCategorias.length - 1; i++) {
+    let entrada: number = 0;
+
+    if(this.horasCategorias.length == 0){
+
+    }else if(this.horasCategorias.length == 1){
+      entrada = entrada + 1;
+    }else{
+      entrada = this.horasCategorias.length - 1;
+    }
+
+      for (let i = 0; i < entrada; i++) {
 
         let obj: {
           name: string,
           data: any
         } = { name: "", data: [] }
+
+        console.log(this.horasCategorias[this.cont].categoria);
 
         obj.name = this.horasCategorias[this.cont].categoria;
         obj.data.push(this.horasCategorias[this.cont].horasPorMes)
@@ -189,6 +202,7 @@ export class GraficoHorasCategoriasComponent implements OnInit {
         this.cont = this.cont + 1;
       }
 
+     console.log(this.categories)
       if (this.cont == this.horasCategorias.length) {
         this.finalizarGrafico();
       }

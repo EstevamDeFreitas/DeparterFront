@@ -93,6 +93,10 @@ mat-sidenav {
   font-weight: 450;
   color: $color-black;
 }
+.opcao-menu:hover {
+  font-weight: 500;
+  color: $color-purple;
+}
 
 .config {
   margin-top: 20rem;
