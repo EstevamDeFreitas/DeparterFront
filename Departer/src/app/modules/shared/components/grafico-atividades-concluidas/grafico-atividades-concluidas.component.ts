@@ -32,12 +32,13 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
     
   };
 
-  chartLabels = ["Finalizadas", "Atrasadas", "Pendente"];
+  chartLabels = ["Finalizadas", "Atrasadas", "Pendente", "Em Desenvolvimento"];
 
   colors = [ 
     "#35DA3B",
     "#FF3A3A",
-    "#FFF700"
+    "#FFF700",
+    "#542FEA"
 ];
 
 
@@ -113,12 +114,12 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
 
   getGraficoMontado(){
 
-    if(this.atividadesConcluidas.finalizadas == 0 && this.atividadesConcluidas.atrasadas == 0 && this.atividadesConcluidas.pendente == 0){
+    if(this.atividadesConcluidas.finalizadas == 0 && this.atividadesConcluidas.atrasadas == 0 && this.atividadesConcluidas.pendente == 0 && this.atividadesConcluidas.emDesenvolvimento){
       this.dadosGrafico = false;
 
     }else{
       this.dadosGrafico = true;
-    this.chartSeries = [this.atividadesConcluidas.finalizadas,this.atividadesConcluidas.atrasadas,this.atividadesConcluidas.pendente];
+    this.chartSeries = [this.atividadesConcluidas.finalizadas,this.atividadesConcluidas.atrasadas,this.atividadesConcluidas.pendente,this.atividadesConcluidas.emDesenvolvimento];
     }
 
   }

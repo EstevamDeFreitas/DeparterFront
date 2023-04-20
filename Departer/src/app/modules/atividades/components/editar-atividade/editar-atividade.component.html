@@ -61,7 +61,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Escolha a data</mat-label>
               <input matInput [matDatepicker]="picker" placeholder="dd/mm/aaaa" class="mask-date" maxlength="10"
-                autocomplete="off" [min]="dataAtual" [ngClass]="cssValidator(f.dataEntrega)" [(ngModel)]="data"
+                autocomplete="off"  [ngClass]="cssValidator(f.dataEntrega)" [(ngModel)]="data"
                 (keyup.enter)="maskDate()" (input)="maskDate()" (dateChange)="maskDate()" formControlName="dataEntrega">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>

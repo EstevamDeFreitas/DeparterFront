@@ -182,23 +182,23 @@ export class GraficoHorasCategoriasComponent implements OnInit {
       entrada = entrada + 1;
     }else{
       entrada = this.horasCategorias.length - 1;
+      entrada = entrada + 1;
     }
 
-      for (let i = 0; i < entrada; i++) {
+      for (let i = 0; i < entrada ; i++) {
 
         let obj: {
           name: string,
           data: any
         } = { name: "", data: [] }
 
-        console.log(this.horasCategorias[this.cont].categoria);
 
-        obj.name = this.horasCategorias[this.cont].categoria;
-        obj.data.push(this.horasCategorias[this.cont].horasPorMes)
+        obj.name = this.horasCategorias[this.cont]?.categoria;
+        obj.data.push(this.horasCategorias[this.cont]?.horasPorMes)
 
         this.series.push(obj)
 
-        this.categories.push(this.horasCategorias[this.cont].categoria);
+        this.categories.push(this.horasCategorias[this.cont]?.categoria);
         this.cont = this.cont + 1;
       }
 
