@@ -114,7 +114,7 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
 
   getGraficoMontado(){
 
-    if(this.atividadesConcluidas.finalizadas == 0 && this.atividadesConcluidas.atrasadas == 0 && this.atividadesConcluidas.pendente == 0 && this.atividadesConcluidas.emDesenvolvimento){
+    if(this.atividadesConcluidas.finalizadas == 0 && this.atividadesConcluidas.atrasadas == 0 && this.atividadesConcluidas.pendente == 0 && this.atividadesConcluidas.emDesenvolvimento == 0){
       this.dadosGrafico = false;
 
     }else{
