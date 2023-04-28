@@ -1,3 +1,4 @@
+import { ModoAdminService } from 'src/app/modules/shared/services/modo-admin.service';
 import { HorasPorMesDTO } from './../../models/graficosDto';
 import { Component, Input, OnInit } from '@angular/core';
 import { ChartComponent, ApexAxisChartSeries, ApexChart, ApexXAxis, ApexDataLabels, ApexTitleSubtitle, ApexStroke, ApexGrid, ApexTooltip } from "ng-apexcharts";
@@ -13,10 +14,12 @@ import { FuncionarioService } from 'src/app/modules/configuracoes/services/funci
 })
 export class GraficoHorasCategoriasComponent implements OnInit {
 
-  @Input() funcionarioId: string = "";
+  funcionarioId: string = "";
   @Input() departamentoId?: string = "";
 
   dadosGrafico: boolean = false;
+
+  modoAdmin: boolean = false;
 
   funcionario!: FuncionarioDto;
 
@@ -86,61 +89,58 @@ export class GraficoHorasCategoriasComponent implements OnInit {
   }
 
   chartXaxis: ApexXAxis = {
-   
+
     type: "datetime"
   }
 
-  constructor(private graficoService: GraficosService, private funcionarioService: FuncionarioService) { }
+  constructor(private graficoService: GraficosService, private funcionarioService: FuncionarioService, private modoAdminService:ModoAdminService) { }
 
   ngOnInit(): void {
-    if (this.funcionarioId == undefined) {
-      this.getHorasCategorias();
-    } else {
-      this.getHorasCategorias2();
-    }
 
-    this.getHorasCategorias();
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => {
+        this.modoAdmin = modoAdmin;
+
+        this.cont = 0;
+        this.series = [];
+        this.series2 = [];
+        this.categories = [];
+        this.horasCategorias = [];
+
+
+        if(this.modoAdmin == false){
+          this.getFuncionario();
+        }else{
+          this.getHorasCategorias("");
+        }
+
+      }
+    );
+
   }
 
-  getHorasCategorias() {
+  public getFuncionario(): void{
+    this.funcionarioService.getFuncionarioLogado().subscribe(
+      (res) => {
+        this.funcionarioId = res.data.id;
+        this.getHorasCategorias(this.funcionarioId);
+      },
+      (err) => {}
+    )
+  }
 
-    this.graficoService.getHorasPorcategoria(this.funcionarioId, this.departamentoId).subscribe({
+  getHorasCategorias(funcionarioId: string) {
+
+    this.graficoService.getHorasPorcategoria(funcionarioId, this.departamentoId).subscribe({
       next: (response) => {
         this.horasCategorias = response.data;
-        console.log(this.horasCategorias);
+        //console.log(this.horasCategorias);
         this.montarGrafico();
       },
       error: (response) => {
 
       }
     });
-
-  }
-
-  getHorasCategorias2() {
-
-    let funcionarioId = "";
-
-    this.funcionarioService.getFuncionarioLogado().subscribe(
-      (res) => {
-        this.funcionario = res.data;
-        funcionarioId = this.funcionario.id;
-
-        this.graficoService.getHorasPorcategoria(funcionarioId, this.departamentoId).subscribe({
-          next: (response) => {
-            this.horasCategorias = response.data;
-            console.log(this.horasCategorias);
-            this.montarGrafico();
-          },
-          error: (response) => {
-
-          }
-        });
-
-      }
-    );
-
-
   }
 
   montarGrafico() {
@@ -166,7 +166,7 @@ export class GraficoHorasCategoriasComponent implements OnInit {
 
       obj.name = value.categoria;
       obj.data.push(value.horasPorMes)
-      
+
       console.log(this.series)
       this.series.push(obj)
 
@@ -175,6 +175,7 @@ export class GraficoHorasCategoriasComponent implements OnInit {
     );*/
 
     let entrada: number = 0;
+
 
     if(this.horasCategorias.length == 0){
 
@@ -202,7 +203,9 @@ export class GraficoHorasCategoriasComponent implements OnInit {
         this.cont = this.cont + 1;
       }
 
-     console.log(this.categories)
+     //console.log(this.categories)
+     console.log(this.horasCategorias.length)
+     console.log(this.cont);
       if (this.cont == this.horasCategorias.length) {
         this.finalizarGrafico();
       }
@@ -216,7 +219,7 @@ export class GraficoHorasCategoriasComponent implements OnInit {
       valor: number;
     }
 
-    console.log(this.series.length)
+    //console.log(this.series.length)
 
     for (let z = 0; z < this.series.length; z++) {
       let teste = this.series[z].data[0];
@@ -233,14 +236,14 @@ export class GraficoHorasCategoriasComponent implements OnInit {
 
     console.log(this.series2)
 
-    
+
       for (let x = 0; x < this.series2.length; x++) {
         this.series[x].data = this.series2[x];
       }
 
       console.log(this.series)
       this.chartSeries = this.series;
-      
+
   }
 
 }
