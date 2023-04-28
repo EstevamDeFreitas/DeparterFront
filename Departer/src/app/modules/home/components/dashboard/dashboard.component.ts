@@ -10,7 +10,6 @@ import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
 })
 export class DashboardComponent implements OnInit {
 
-  @Output() funcionarioId: string = "";
 
   funcionario!: FuncionarioDto;
   nomeFunc: string = "";
@@ -28,7 +27,6 @@ export class DashboardComponent implements OnInit {
       (res) => {
         this.funcionario = res.data;
         this.nomeFunc = this.funcionario.nome;
-        this.funcionarioId = this.funcionario.id;
       }
     )
   }

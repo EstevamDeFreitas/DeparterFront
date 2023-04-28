@@ -71,7 +71,6 @@ export class ListaAtividadesComponent implements OnInit {
   }
 
   constructor(private router: Router, private route: ActivatedRoute, private atividadeService: AtividadeService, private categoriaService: CategoriaService, private funcionarioService: FuncionarioService, private modoAdminService: ModoAdminService, public mudarCorFonteService: MudarCorFonteService) { }
-  @Output() funcionarioId: string = "";
 
   funcionario!: FuncionarioDto;
 
@@ -84,17 +83,9 @@ export class ListaAtividadesComponent implements OnInit {
       }
     );
 
-    this.getUser();
   }
 
-  public getUser(): void {
-    this.funcionarioService.getFuncionarioLogado().subscribe(
-      (res) => {
-        this.funcionario = res.data;
-        this.funcionarioId = this.funcionario.id;
-      }
-    )
-  }
+
 
   public substituirImagem(evento: Event): void {
     const imagem = evento.target as HTMLImageElement;

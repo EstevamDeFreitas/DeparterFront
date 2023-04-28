@@ -1,3 +1,4 @@
+import { ModoAdminService } from 'src/app/modules/shared/services/modo-admin.service';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ApexChart, ApexDataLabels, ApexNonAxisChartSeries, ApexOptions, ApexPlotOptions, ApexTitleSubtitle } from 'ng-apexcharts';
 import { GraficosService } from '../../services/graficos.service';
@@ -13,8 +14,10 @@ import { FuncionarioService } from 'src/app/modules/configuracoes/services/funci
 })
 export class GraficoAtividadesConcluidasComponent implements OnInit {
 
-  @Input() funcionarioId: string = "";
+  funcionarioId: string = "";
   @Input() departamentoId?: string = "";
+
+  modoAdmin: boolean = false;
 
   dadosGrafico: boolean = false;
 
@@ -29,12 +32,12 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
     toolbar: {
       show: false
     },
-    
+
   };
 
   chartLabels = ["Finalizadas", "Atrasadas", "Pendente", "Em Desenvolvimento"];
 
-  colors = [ 
+  colors = [
     "#35DA3B",
     "#FF3A3A",
     "#FFF700",
@@ -52,63 +55,52 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
 
   chartDataLabels: ApexDataLabels = {
     enabled: true,
-    
+
   };
 
-  constructor(private graficoService: GraficosService, private funcionarioService: FuncionarioService) { }
+  constructor(private graficoService: GraficosService, private funcionarioService: FuncionarioService, private modoAdminService:ModoAdminService ) { }
 
   ngOnInit(): void {
-    if(this.funcionarioId == undefined){
-    this.getAtividadesConcluidas();
-    }else{
-      this.getAtividadesConcluidas2();
-    }
+
+    this.modoAdminService.modoAdmin$.subscribe(
+      modoAdmin => {
+        this.modoAdmin = modoAdmin;
+
+        if(this.modoAdmin == false){
+          this.getFuncionario();
+        }else{
+          this.getAtividadesConcluidas("");
+        }
+
+      }
+    );
 
   }
 
+  public getFuncionario(): void{
+    this.funcionarioService.getFuncionarioLogado().subscribe(
+      (res) => {
+        this.funcionarioId = res.data.id;
+        this.getAtividadesConcluidas(this.funcionarioId);
+      },
+      (err) => {}
+    )
+  }
 
-  getAtividadesConcluidas(){
-    
 
-    this.graficoService.getAtividadeResumo(0,this.funcionarioId,this.departamentoId).subscribe({
+  getAtividadesConcluidas(funcionarioId: string){
+
+
+    this.graficoService.getAtividadeResumo(0,funcionarioId,this.departamentoId).subscribe({
       next: (response) => {
         this.atividadesConcluidas = response.data;
         console.log(this.atividadesConcluidas);
         this.getGraficoMontado();
       },
       error: (response) => {
-        
+
       }
     });
-
-  }
-
-  getAtividadesConcluidas2(){
-
-
-    let funcionarioId = "";
-
-    this.funcionarioService.getFuncionarioLogado().subscribe(
-      (res) => {
-        this.funcionario = res.data;
-        funcionarioId= this.funcionario.id;
-
-
-        this.graficoService.getAtividadeResumo(0,funcionarioId,this.departamentoId).subscribe({
-          next: (response) => {
-            this.atividadesConcluidas = response.data;
-            console.log(this.atividadesConcluidas);
-            this.getGraficoMontado();
-          },
-          error: (response) => {
-            
-          }
-        });
-        
-
-      }
-    );
-
 
   }
 
@@ -135,7 +127,7 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
       dataLabels: {
           offset: 0,
           minAngleToShowLabel: 10
-      }, 
+      },
       donut: {
         size: '65%',
         background: 'transparent',
@@ -165,12 +157,12 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
             fontFamily: 'Helvetica, Arial, sans-serif',
             fontWeight: 600,
             color: '#676767',
-            
+
           }
         }
-      },      
+      },
     }
-  }  
+  }
 
 
 
