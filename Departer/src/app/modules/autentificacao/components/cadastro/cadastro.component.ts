@@ -45,7 +45,6 @@ export class CadastroComponent implements OnInit {
       senha: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirmarSenha: new FormControl('', [Validators.required]),
       apelido: new FormControl('', [Validators.required]),
-      imagem: new FormControl('', [Validators.required]),
     }, formOptions);
   }
 
@@ -57,6 +56,7 @@ export class CadastroComponent implements OnInit {
     if (this.registerForm.valid) {
 
       let funcionario: FuncionarioDto = this.registerForm.value;
+      funcionario.imagem = "";
 
       this.authService.register(funcionario).subscribe(
         (res) => {},

@@ -38,7 +38,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let funcionario of funcionariosFiltrados; let i = index">
-            <td><img class="image-circle me-2" src="{{funcionario.funcionario.imagem}}" width="33" height="31"
+            <td><img class="image-circle me-2" [src]="'https://localhost:7178/resources/images/' + funcionario.funcionario.imagem" width="33" height="31"
               (error)="substituirImagem($event)"/></td>
             <td class="align-middle">{{funcionario.funcionario.apelido}}</td>
             <td class="align-middle">

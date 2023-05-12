@@ -63,7 +63,7 @@
           <td class="align-middle">
             <div class="d-flex">
               <div *ngFor="let funcionario of atividade.funcionarios; let i = index">
-                <img class="image-circle me-2" src="{{funcionario.imagem}}" width="33" height="31"
+                <img class="image-circle me-2" [src]="'https://localhost:7178/resources/images/' + funcionario.imagem" width="33" height="31"
                   *ngIf="i<2" [title]="funcionario.nome" (error)="substituirImagem($event)"/>
               </div>
               <div class="d-flex justify-content-center more-funcionarios-circle me-2"

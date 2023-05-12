@@ -121,7 +121,7 @@
             <tbody>
               <tr *ngFor="let funcionario of funcionarios; let i = index">
                 <td>
-                  <img class="image-circle me-2" src="{{funcionario.imagem}}" (error)="substituirImagem($event)" width="33" height="31" />
+                  <img class="image-circle me-2" [src]="'https://localhost:7178/resources/images/' + funcionario.imagem" (error)="substituirImagem($event)" width="33" height="31" />
                 </td>
                 <td class="align-middle">{{funcionario.apelido}}<span class="role-text ms-1" *ngIf="funcionario.nivelAcesso == 4">Criador</span></td>
                 <td class="text-center align-middle">

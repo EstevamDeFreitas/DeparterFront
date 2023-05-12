@@ -16,11 +16,17 @@
   <div class="card mt-3">
     <div class="row">
       <div class="col-lg-5 col-12 mt-3">
+        <div class="form-row">
+          <div class="form-group m-0">
+            <input type="file" (change)="onFileChange($event)" #file class="form-control is-invalid" placeholder=""
+              style="display: none">
+          </div>
+        </div>
         <div class="text-center" *ngIf="modoEditar">
-          <img *ngIf="funcionario.imagem != ''" (click)="changeUserImg()" class="d-inline-block align-top perfil imagem clickable" src="{{funcionario.imagem}}" width="280" height="280" (error)="substituirImagem($event)"/>
+          <img (click)="file.click()" class="d-inline-block align-top perfil imagem clickable" src="{{image}}" width="280" height="280" (error)="substituirImagem($event)"/>
         </div>
         <div class="text-center" *ngIf="!modoEditar">
-          <img *ngIf="funcionario?.imagem != ''" class="d-inline-block align-top perfil imagem " src="{{funcionario!.imagem}}" width="280" height="280" (error)="substituirImagem($event)"/>
+          <img class="d-inline-block align-top perfil imagem " src="{{image}}" width="280" height="280" (error)="substituirImagem($event)"/>
         </div>
       </div>
       <div class="col-lg-7 col-12 mt-3" *ngIf="funcionario">

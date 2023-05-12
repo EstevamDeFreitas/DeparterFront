@@ -106,7 +106,7 @@
               <tr *ngFor="let funcionario of funcionariosLista; let i = index">
                 <td class="apelidoFuncionario">
                   <span class="apelidoFuncionario">
-                    <img class="image-funcionario me-2" src="{{funcionario.funcionario.imagem}}"
+                    <img class="image-funcionario me-2" [src]="'https://localhost:7178/resources/images/' + funcionario.funcionario.imagem"
                       (error)="substituirImagem($event)" width="33" height="31" />
                     {{funcionario.funcionario.nome}}<span class="role-text ms-1" *ngIf="funcionarioAtual.id == funcionario.funcionarioId">Você</span>
                   </span>

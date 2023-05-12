@@ -25,7 +25,7 @@
                       <div *ngIf="f.nome.errors?.required && f.nome.touched" class="invalid-feedback">
                         Nome é obrigatorio.
                       </div>
-                      <div *ngIf="f.nome.errors?.minLength && f.nome.touched" class="invalid-feedback">
+                      <div *ngIf="f.nome.errors?.minlength && f.nome.touched" class="invalid-feedback">
                         Nome deve ter mais que 5 caracteres.
                       </div>
                     </div>
@@ -83,14 +83,6 @@
                       <label for="inputApelido">Apelido</label>
                       <div *ngIf="f.apelido.errors?.required && f.apelido.touched" class="invalid-feedback">
                         Apelido é obrigatorio.
-                      </div>
-                    </div>
-                    <div class="form-floating mb-3">
-                      <input type="text" id="inputImagem" class="form-control form-control-lg"
-                        [ngClass]="cssValidator(f.imagem)" placeholder="url" formControlName="imagem" />
-                      <label for="inputImagem">Imagem</label>
-                      <div *ngIf="f.imagem.errors?.required && f.imagem.touched" class="invalid-feedback">
-                        Imagem é obrigatoria.
                       </div>
                     </div>
                     <button class="previous-button mb-3" (click)="changeRegisterSection()">&#8592; Voltar</button>

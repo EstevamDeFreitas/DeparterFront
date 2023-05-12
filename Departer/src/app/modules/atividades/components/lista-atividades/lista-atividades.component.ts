@@ -9,6 +9,7 @@ import { AtividadeService } from './../../services/atividade.service';
 import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MudarCorFonteService } from 'src/app/modules/shared/services/mudar-cor-fonte.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-lista-atividades',

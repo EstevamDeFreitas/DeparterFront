@@ -3,7 +3,6 @@ import { ResponseBase } from './../../shared/models/response';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { AuthService } from './../../autentificacao/services/auth.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -30,5 +29,14 @@ export class FuncionarioService {
   public getFuncionarioById(id: string): Observable<ResponseBase<FuncionarioDto>>{
     return this.http.get<ResponseBase<FuncionarioDto>>(`${this.apiUlr}?id=${id}`);
   }
+
+  public postUpload(funcionarioId: string, file: any): Observable<ResponseBase<FuncionarioDto>> {
+    const fileToUpload = file[0] as File;
+    const formData = new FormData();
+    formData.append('file', fileToUpload);
+
+    return this.http.post<ResponseBase<FuncionarioDto>>(`${this.apiUlr}/upload-image/${funcionarioId}`, formData);
+  }
+
 
 }

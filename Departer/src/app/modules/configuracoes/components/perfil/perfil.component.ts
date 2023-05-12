@@ -10,6 +10,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
 import { CommonTasksService } from 'src/app/modules/shared/services/common-tasks.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil',
@@ -28,6 +29,8 @@ export class PerfilComponent implements OnInit {
   errorMessage = "";
 
   image: string = "";
+  file: any;
+
   compare: boolean = false;
 
 
@@ -41,7 +44,6 @@ export class PerfilComponent implements OnInit {
   ngOnInit(): void {
     this.modoEditar = false;
     this.compare = false;
-    this.image = "";
     this.getUser();
   }
 
@@ -49,6 +51,7 @@ export class PerfilComponent implements OnInit {
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionario = res.data;
+        this.image = environment.images + "/" + res.data.imagem;
       },
       () => {},
       () => this.userValidation()
@@ -137,10 +140,30 @@ export class PerfilComponent implements OnInit {
   }
 
   atualizarFuncionario(imagem: string) {
-    // chama o serviço para atualizar a imagem do funcionário
-
-    // depois de atualizar a imagem, chama o método do serviço para emitir o evento
     this.commonTasksService.atualizarImagem(imagem);
+  }
+
+  onFileChange(evento: any): void {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => this.image = event.target.result
+
+    this.file = evento.target.files;
+    reader.readAsDataURL(this.file[0]);
+
+    this.uploadImagem();
+  }
+
+  uploadImagem(): void {
+    this.funcionarioService.postUpload(this.funcionario.id, this.file).subscribe(
+      ()=>{
+
+      },
+      (error: any)=>{
+
+        console.error(error);
+      },
+    )
   }
 
   public substituirImagem(evento: Event): void {

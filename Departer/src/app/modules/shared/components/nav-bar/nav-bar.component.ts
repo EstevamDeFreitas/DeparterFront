@@ -9,6 +9,7 @@ import { FuncionarioDto } from '../../models/funcionarioDto';
 import { CommonTasksService } from '../../services/common-tasks.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalInformacoesModoAdminComponent } from '../modal-informacoes-modo-admin/modal-informacoes-modo-admin.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-nav-bar',
@@ -51,7 +52,7 @@ export class NavBarComponent implements OnInit {
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionario = res.data;
-        this.userImg = this.funcionario.imagem;
+        this.userImg = environment.images + "/" + res.data.imagem;
       },
       (err) => {
 
