@@ -31,9 +31,6 @@ export class PerfilComponent implements OnInit {
   image: string = "";
   file: any;
 
-  compare: boolean = false;
-
-
   get f(): any {
     return this.editUserForm.controls;
   }
@@ -43,7 +40,6 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.modoEditar = false;
-    this.compare = false;
     this.getUser();
   }
 
@@ -69,8 +65,7 @@ export class PerfilComponent implements OnInit {
       email: new FormControl(this.funcionario.email, [Validators.required, Validators.email]),
       apelido: new FormControl(this.funcionario.apelido, [Validators.required]),
       senha: new FormControl(this.funcionario.senha, [Validators.required, Validators.minLength(6)]),
-      confirmarSenha: new FormControl(this.funcionario.senha, [Validators.required]),
-      imagem: new FormControl(this.funcionario.imagem),
+      confirmarSenha: new FormControl(this.funcionario.senha, [Validators.required])
     }, formOptions);
   }
 
@@ -78,18 +73,13 @@ export class PerfilComponent implements OnInit {
     if(this.editUserForm.valid){
       let funcionarioPut = this.editUserForm.value;
       funcionarioPut.id = this.funcionario.id;
-
-      console.log(this.compare)
-      if(this.compare){
-        funcionarioPut.imagem = this.image;
-        console.log(funcionarioPut)
-      }
+      funcionarioPut.imagem = this.funcionario.imagem;
+      funcionarioPut.isAdmin = this.funcionario.isAdmin;
 
       console.log(funcionarioPut)
 
       this.funcionarioService.putFuncionario(funcionarioPut).subscribe(
         (res) => {
-          this.atualizarFuncionario(funcionarioPut.imagem);
           this.snackbarComponent.openSnackBar("Usúario alterado com sucesso !",SnackBarTheme.success,3000);
         },
         () => {},
@@ -112,33 +102,6 @@ export class PerfilComponent implements OnInit {
     this.userValidation();
   }
 
-  public changeUserImg(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = false;
-
-    dialogConfig.data = this.funcionario;
-
-    const dialogRef = this.dialog.open(ModalEditarPerfilImgComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(data => {
-
-      console.log(data)
-
-      if(data == false){
-        this.compare = false;
-      }else{
-        if(data == true){
-          this.image = "";
-        }else{
-        this.image = data;
-        }
-        this.compare = true;
-      }
-    });
-
-  }
-
   atualizarFuncionario(imagem: string) {
     this.commonTasksService.atualizarImagem(imagem);
   }
@@ -157,7 +120,9 @@ export class PerfilComponent implements OnInit {
   uploadImagem(): void {
     this.funcionarioService.postUpload(this.funcionario.id, this.file).subscribe(
       ()=>{
-
+        this.snackbarComponent.openSnackBar("Imagem alterada com sucesso !",SnackBarTheme.success,3000);
+        this.atualizarFuncionario(this.image);
+        this.ngOnInit();
       },
       (error: any)=>{
 

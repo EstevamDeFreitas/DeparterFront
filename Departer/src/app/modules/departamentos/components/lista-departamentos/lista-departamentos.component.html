@@ -4,7 +4,7 @@
         <div class="custom-flex">
             <p class="titulo">Meus Departamentos</p>
         </div>
-        <div class="custom-flex" [hidden]="funcionario.isAdmin == false">
+        <div class="custom-flex" [hidden]="funcionario && funcionario.isAdmin == false">
             <a>
                 <div class="titulo botao" (click)="novoDepartamento()">
                    <b>+</b> Novo Departamento

@@ -65,7 +65,7 @@
               </div>
             </div>
 
-            <div class="row" [hidden]="funcionario.isAdmin == false">
+            <div class="row" [hidden]="funcionario && funcionario.isAdmin == false">
               <div class="col-6 mt-5">
                 <button class="red-button" (click)="excluirDepartamento()">Desativar Departamento</button>
               </div>

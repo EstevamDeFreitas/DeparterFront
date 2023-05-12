@@ -22,11 +22,8 @@
               style="display: none">
           </div>
         </div>
-        <div class="text-center" *ngIf="modoEditar">
+        <div class="text-center">
           <img (click)="file.click()" class="d-inline-block align-top perfil imagem clickable" src="{{image}}" width="280" height="280" (error)="substituirImagem($event)"/>
-        </div>
-        <div class="text-center" *ngIf="!modoEditar">
-          <img class="d-inline-block align-top perfil imagem " src="{{image}}" width="280" height="280" (error)="substituirImagem($event)"/>
         </div>
       </div>
       <div class="col-lg-7 col-12 mt-3" *ngIf="funcionario">

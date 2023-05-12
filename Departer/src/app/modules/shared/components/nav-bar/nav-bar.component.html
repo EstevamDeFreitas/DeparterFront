@@ -22,7 +22,7 @@
     <div class="col-7"></div>
 
     <div class="col d-flex justify-content-center">
-      <div class="align-self-center me-4" [hidden]="funcionario.isAdmin == false">
+      <div class="align-self-center me-4" [hidden]="funcionario && funcionario.isAdmin == false">
         <div class="d-flex">
           <img class="d-inline-block clickable" src=".\assets\images\shield-svgrepo-com.svg" width="32" height="32"
           (click)="alternarModoAdmin()" [ngClass]="{'admin-icon-purple': modoAdmin, 'admin-icon-black': !modoAdmin}">
@@ -68,7 +68,7 @@
         Horas
       </div>
 
-      <div class="opcao-menu clickable mt-5" (click)="toggleAdmin()" [hidden]="funcionario.isAdmin == false">
+      <div class="opcao-menu clickable mt-5" (click)="toggleAdmin()" [hidden]="funcionario && funcionario.isAdmin == false">
         <img class="d-inline-block align-top perfil" src=".\assets\images\icone.administracao.svg" width="20" height="20" />
         Administração
         <i class="seta fas fa-chevron-down ms-3"></i>
