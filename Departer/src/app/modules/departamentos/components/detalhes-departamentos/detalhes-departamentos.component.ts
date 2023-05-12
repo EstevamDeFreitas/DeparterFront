@@ -1,3 +1,4 @@
+import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
 import { ModoAdminService } from './../../../shared/services/modo-admin.service';
 import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/departamentoFuncionariosDto';
 import { Component, OnInit } from '@angular/core';
@@ -25,10 +26,12 @@ export class DetalhesDepartamentosComponent implements OnInit {
 
   modoAdmin: boolean = false;
 
+  funcionario!: FuncionarioDto;
+
   public environment = environment;
 
   constructor(private router: Router, private readonly snackbarComponent: SnackbarComponent,private route: ActivatedRoute,
-    private departamentoService: DepartamentoService, private modoAdminService: ModoAdminService) { }
+    private departamentoService: DepartamentoService, private modoAdminService: ModoAdminService, private funcionarioService: FuncionarioService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(x=>{
@@ -39,6 +42,7 @@ export class DetalhesDepartamentosComponent implements OnInit {
       modoAdmin => {
         this.modoAdmin = modoAdmin;
         this.carregarDepartamento();
+        this.getFuncionarioLogado();
       }
     );
 
@@ -63,6 +67,16 @@ export class DetalhesDepartamentosComponent implements OnInit {
       error: (response) => {
       }
     })
+  }
+
+  getFuncionarioLogado(){
+    this.funcionarioService.getFuncionarioLogado().subscribe(
+      (res) => {
+        this.funcionario = res.data;
+      },
+      (err) => {
+      }
+    )
   }
 
 

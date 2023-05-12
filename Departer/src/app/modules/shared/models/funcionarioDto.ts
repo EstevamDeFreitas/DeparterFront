@@ -7,6 +7,7 @@ export class FuncionarioDto {
    senha: string = "";
    apelido: string = "";
    imagem: string = "";
+   isAdmin: boolean = false;
 
    nivelAcesso?: number;
 }

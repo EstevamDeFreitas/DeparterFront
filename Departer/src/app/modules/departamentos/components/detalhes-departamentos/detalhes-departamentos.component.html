@@ -3,13 +3,6 @@
         <div class="custom-flex">
             <p class="titulo">{{departamento?.nome}}</p>
         </div>
-        <div class="custom-flex">
-            <a>
-                <div class="titulo botao clickable" (click)="irParaEditarDepartamento(idDepartamento)">
-                    Editar
-                </div>
-            </a>
-        </div>
     </div>
 
     <div class="card mt-3">
@@ -72,8 +65,13 @@
               </div>
             </div>
 
-            <div class="col-12 mt-5">
-                <button class="red-button" (click)="excluirDepartamento()"> Desativar Departamento </button>
+            <div class="row" [hidden]="funcionario.isAdmin == false">
+              <div class="col-6 mt-5">
+                <button class="red-button" (click)="excluirDepartamento()">Desativar Departamento</button>
+              </div>
+              <div class="col-6 mt-5">
+                <button class="blue-button" (click)="irParaEditarDepartamento(idDepartamento)">Editar</button>
+              </div>
             </div>
 
           </div>
