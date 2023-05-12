@@ -1,3 +1,4 @@
+import { environment } from './../../../../../environments/environment';
 import { SnackbarComponent } from 'src/app/modules/shared/components/snackbar/snackbar.component';
 import { HorasService } from './../../../atividades/services/horas.service';
 import { FuncionarioDto, FuncionarioDtoComConfiguracao } from './../../../shared/models/funcionarioDto';
@@ -17,6 +18,8 @@ import { ModalExcluirDesativarComponent } from 'src/app/modules/shared/component
   styleUrls: ['./configuracao-horas.component.scss']
 })
 export class ConfiguracaoHorasComponent implements OnInit {
+
+  public environment = environment;
 
   funcionarios: FuncionarioDtoComConfiguracao[] = [];
   funcionariosFiltrados: FuncionarioDtoComConfiguracao[] = [];

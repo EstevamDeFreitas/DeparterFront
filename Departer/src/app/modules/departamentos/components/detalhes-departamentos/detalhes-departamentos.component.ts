@@ -8,6 +8,7 @@ import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
 import { SnackBarTheme } from 'src/app/modules/shared/models/snackbat.theme.enum';
 import { DepartamentoDto } from '../../models/departamentoDto';
 import { DepartamentoService } from '../../services/departamento.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-detalhes-departamentos',
@@ -24,7 +25,7 @@ export class DetalhesDepartamentosComponent implements OnInit {
 
   modoAdmin: boolean = false;
 
-
+  public environment = environment;
 
   constructor(private router: Router, private readonly snackbarComponent: SnackbarComponent,private route: ActivatedRoute,
     private departamentoService: DepartamentoService, private modoAdminService: ModoAdminService) { }

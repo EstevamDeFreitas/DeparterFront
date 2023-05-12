@@ -20,6 +20,7 @@ export class ListaAtividadesComponent implements OnInit {
 
   public atividades: AtividadeListDto[] = [];
   public atividadesFiltradas: AtividadeListDto[] = [];
+  public environment = environment;
 
   allCategorias: CategoriaDto[] = [];
   allFuncionarios: FuncionarioDto[] = []

@@ -12,6 +12,7 @@ import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
 import { SnackBarTheme } from 'src/app/modules/shared/models/snackbat.theme.enum';
 import { DepartamentoDto } from '../../models/departamentoDto';
 import { DepartamentoService } from '../../services/departamento.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-editar-departamento',
@@ -29,6 +30,8 @@ export class EditarDepartamentoComponent implements OnInit {
   funcionariosLista: FuncionarioDto[] = [];
 
   modoAdmin: boolean = false;
+
+  public environment = environment;
 
 
   get f(): any {

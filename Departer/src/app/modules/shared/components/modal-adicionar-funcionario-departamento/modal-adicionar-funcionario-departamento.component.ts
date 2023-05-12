@@ -3,6 +3,7 @@ import { FuncionarioService } from './../../../configuracoes/services/funcionari
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuncionarioDto } from './../../models/funcionarioDto';
 import { Component, OnInit, Inject } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-modal-adicionar-funcionario-departamento',
@@ -13,6 +14,8 @@ export class ModalAdicionarFuncionarioDepartamentoComponent implements OnInit {
 
   public funcionarios: FuncionarioDto[] = [];
   public funcionariosFiltrados: FuncionarioDto[] = [];
+
+  public environment = environment;
 
   public funcionariosResult: FuncionarioDto[] = [];
   public funcionariosJaAdicionados: FuncionarioDto[] = [];

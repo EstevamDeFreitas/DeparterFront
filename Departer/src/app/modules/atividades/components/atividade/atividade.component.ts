@@ -19,6 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MudarCorFonteService } from 'src/app/modules/shared/services/mudar-cor-fonte.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-atividade',
@@ -44,6 +45,8 @@ export class AtividadeComponent implements OnInit {
   departamentoNome: string = "";
 
   modoAdmin: boolean = false;
+
+  public environment = environment;
 
   get f(): any {
     return this.horasForm.controls;

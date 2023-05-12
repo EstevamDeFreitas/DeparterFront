@@ -9,6 +9,7 @@ import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/depar
 import { AtividadeDto, GetAtividadeByDepartamentoId } from '../../models/atividadeDto';
 import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
 import { PageEvent } from '@angular/material/paginator';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tela-departamentos',
@@ -24,6 +25,8 @@ export class TelaDepartamentosComponent implements OnInit {
   funcionariosLista: DepartamentoFuncionariosDto[] = [];
   atividades: GetAtividadeByDepartamentoId[] = [];
   atividadesPaginadas: GetAtividadeByDepartamentoId[] = [];
+
+  public environment = environment;
 
 
   modoAdmin: boolean = false;

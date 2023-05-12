@@ -1,3 +1,4 @@
+import { environment } from './../../../../../environments/environment';
 import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
 import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
 import { Router } from '@angular/router';
@@ -22,6 +23,8 @@ export class ResumoAtividadesComponent implements OnInit {
 
   pageSize = 3;
   pageSizeOptions: number[] = [3];
+
+  public environment = environment;
 
   constructor(private atividadeService: AtividadeService, private router: Router, private funcionarioService: FuncionarioService, private modoAdminService: ModoAdminService) { }
 

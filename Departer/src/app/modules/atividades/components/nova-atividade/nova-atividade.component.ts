@@ -17,6 +17,7 @@ import { ModalAdicionarFuncionariosComponent } from 'src/app/modules/shared/comp
 import { ModalInformacoesComponent } from 'src/app/modules/shared/components/modal-informacoes/modal-informacoes.component';
 import { ModalAdicionarCategoriaComponent } from 'src/app/modules/shared/components/modal-adicionar-categoria/modal-adicionar-categoria.component';
 import { MudarCorFonteService } from 'src/app/modules/shared/services/mudar-cor-fonte.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-nova-atividade',
@@ -42,6 +43,7 @@ export class NovaAtividadeComponent implements OnInit {
   hasError = false;
   errorMessage = "";
 
+  public environment = environment;
 
   get f(): any {
     return this.atividadeForm.controls;

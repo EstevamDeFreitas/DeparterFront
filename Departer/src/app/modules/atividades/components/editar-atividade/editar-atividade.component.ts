@@ -23,6 +23,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DateAdapter } from '@angular/material/core';
 import { MudarCorFonteService } from 'src/app/modules/shared/services/mudar-cor-fonte.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-editar-atividade',
@@ -48,6 +49,8 @@ export class EditarAtividadeComponent implements OnInit {
 
   hasError = false;
   errorMessage = "";
+
+  public environment = environment;
 
   get f(): any {
     return this.atividadeForm.controls;

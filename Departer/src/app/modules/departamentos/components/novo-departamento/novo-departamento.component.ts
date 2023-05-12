@@ -10,6 +10,7 @@ import { ModalAdicionarFuncionariosComponent } from 'src/app/modules/shared/comp
 import { ModalInformacoesComponent } from 'src/app/modules/shared/components/modal-informacoes/modal-informacoes.component';
 import { DepartamentoDto } from '../../models/departamentoDto';
 import { SnackBarTheme } from 'src/app/modules/shared/models/snackbat.theme.enum';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-novo-departamento',
@@ -21,6 +22,8 @@ export class NovoDepartamentoComponent implements OnInit {
   departamentoForm!: FormGroup;
   funcionariosId: Array<string> = [];
   funcionariosLista: FuncionarioDto[] = [];
+
+  public environment = environment;
 
 
   get f(): any {

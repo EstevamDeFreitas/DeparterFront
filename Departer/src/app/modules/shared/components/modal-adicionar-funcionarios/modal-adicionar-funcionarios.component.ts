@@ -4,6 +4,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FuncionarioService } from "src/app/modules/configuracoes/services/funcionario.service";
 import { FuncionarioDto } from "../../models/funcionarioDto";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-modal-adicionar-funcionarios',
@@ -14,6 +15,8 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
 
   hasError = false;
   errorMessage = "";
+
+  public environment = environment;
 
   public funcionariosDepartamento: DepartamentoFuncionariosDto[] = [];
   public funcionariosFiltrados: DepartamentoFuncionariosDto[] = [];
