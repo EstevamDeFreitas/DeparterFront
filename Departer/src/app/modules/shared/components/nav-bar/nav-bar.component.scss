@@ -94,6 +94,10 @@ mat-sidenav {
   color: $color-black;
 }
 .opcao-menu:hover {
+  font-size: 1.175rem;
+}
+
+.active {
   font-weight: 500;
   color: $color-purple;
 }

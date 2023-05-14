@@ -2,7 +2,7 @@ import { AuthService } from './../../../autentificacao/services/auth.service';
 import { SnackBarTheme } from './../../models/snackbat.theme.enum';
 import { SnackbarComponent } from './../snackbar/snackbar.component';
 import { ModoAdminService } from './../../services/modo-admin.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
 import { FuncionarioDto } from '../../models/funcionarioDto';
@@ -27,13 +27,18 @@ export class NavBarComponent implements OnInit {
 
   adminExpanded = false;
 
+  opcaoNoDash: number = 0;
 
-  constructor(private router: Router, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent,
+
+  constructor(private router: Router,  private route: ActivatedRoute, private modoAdminService: ModoAdminService, private readonly snackbarComponent: SnackbarComponent,
     private funcionarioService: FuncionarioService, private commonTasksService: CommonTasksService, public dialog: MatDialog) { }
 
 
 
   ngOnInit(): void {
+
+    let teste = "";
+
     this.commonTasksService.imagemAtualizada$.subscribe(
       imagem => {
         this.userImg = imagem;
@@ -45,6 +50,28 @@ export class NavBarComponent implements OnInit {
 
     console.log(this.modoAdmin);
     this.getUser();
+
+    teste = this.router.url;
+
+    console.log(teste)
+
+    if(teste == "/home/dashboard"){
+      this.opcaoNoDash = 0;
+    }else if(teste == "/atividades/lista-atividades"){
+      this.opcaoNoDash = 1;
+    }else if(teste == "/departamentos/lista-departamentos"){
+      this.opcaoNoDash = 2;
+    }else if(teste == "/horas"){
+      this.opcaoNoDash = 3;
+    }else if(teste == "/administracao/configuracao-horas"){
+      this.opcaoNoDash = 4;
+    }else if(teste == "/administracao/categorias"){
+      this.opcaoNoDash = 5;
+    }else {
+      this.opcaoNoDash = 0;
+    }
+
+
   }
 
 
@@ -78,14 +105,18 @@ export class NavBarComponent implements OnInit {
 
   public irParaHoras(): void {
     this.router.navigate(["/horas"]);
+    this.opcaoNoDash = 3;
   }
 
   public irParaAtividades(): void {
+    
     this.router.navigate(["/atividades/lista-atividades"]);
+    
   }
 
   public irParaDepartamentos(): void {
     this.router.navigate(["/departamentos/lista-departamentos"]);
+   
   }
 
   public irParaAdministracao(): void {
@@ -110,6 +141,7 @@ export class NavBarComponent implements OnInit {
 
   public irParaDashboard(): void {
     this.router.navigate(["/home/dashboard"]);
+   
   }
 
   toggleAdmin() {
@@ -117,10 +149,12 @@ export class NavBarComponent implements OnInit {
   }
 
   irParaConfiguracaoUsuarios() {
+    this.opcaoNoDash = 4;
     this.router.navigate(["/administracao/configuracao-horas"]);
   }
 
   irParaCategorias() {
+    this.opcaoNoDash = 5;
     this.router.navigate(["/administracao/categorias"]);
   }
 

@@ -51,19 +51,19 @@
 
 
     <div class="caixa-menu ">
-      <div class="opcao-menu clickable" (click)="irParaDashboard()">
+      <div class="opcao-menu clickable" [ngClass]="opcaoNoDash == 0 ? 'active' : ''" (click)="irParaDashboard()"  >
         <img class="d-inline-block align-top perfil" src=".\assets\images\icone.dashboard.svg" width="20" height="20" />
         Dashboard
       </div>
-      <div class="opcao-menu clickable mt-4" (click)="irParaAtividades()">
+      <div class="opcao-menu clickable mt-4"  [ngClass]="opcaoNoDash == 1 ? 'active' : ''" (click)="irParaAtividades()" >
         <img class="d-inline-block align-top perfil" src=".\assets\images\icone.atividade.svg" width="20" height="20" />
         Atividades
       </div>
-      <div class="opcao-menu clickable mt-4" (click)="irParaDepartamentos()">
+      <div class="opcao-menu clickable mt-4" (click)="irParaDepartamentos()" [ngClass]="opcaoNoDash == 2 ? 'active' : ''" >
         <img class="d-inline-block align-top perfil" src=".\assets\images\icone.departamentos.svg" width="20"
           height="20" /> Departamentos
       </div>
-      <div class="opcao-menu clickable mt-4" (click)="irParaHoras()">
+      <div class="opcao-menu clickable mt-4" (click)="irParaHoras()" [ngClass]="opcaoNoDash == 3 ? 'active' : ''" >
         <img class="d-inline-block align-top perfil" src=".\assets\images\icone.horas.svg" width="20" height="20" />
         Horas
       </div>
@@ -74,11 +74,11 @@
         <i class="seta fas fa-chevron-down ms-3"></i>
       </div>
       <div class="admin-options" *ngIf="adminExpanded">
-        <div class="opcao-menu clickable mt-3" (click)="irParaConfiguracaoUsuarios()">
+        <div class="opcao-menu clickable mt-3" (click)="irParaConfiguracaoUsuarios()" [ngClass]="opcaoNoDash == 4 ? 'active' : ''" >
           <img class="d-inline-block align-top perfil" src=".\assets\images\icone.config.usuarios.svg" width="20" height="20" />
           Configurar Horas
         </div>
-        <div class="opcao-menu clickable mt-3" (click)="irParaCategorias()">
+        <div class="opcao-menu clickable mt-3" (click)="irParaCategorias()" [ngClass]="opcaoNoDash == 5 ? 'active' : ''" >
           <img class="d-inline-block align-top perfil" src=".\assets\images\icone.categorias.svg" width="20" height="20" />
           Categorias
         </div>
