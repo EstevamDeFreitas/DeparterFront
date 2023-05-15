@@ -56,4 +56,12 @@ export class DepartamentoService {
   public getAtividadesbyDepartamentoId(departamentoId: string): Observable<ResponseBase<GetAtividadeByDepartamentoId[]>>{
     return this.http.get<ResponseBase<GetAtividadeByDepartamentoId[]>>(`${this.API}/Departamento/${departamentoId}/atividades/resumo`);
   }
+
+  public postUpload(departamentoId: string, file: any): Observable<ResponseBase<DepartamentoDto>> {
+    const fileToUpload = file[0] as File;
+    const formData = new FormData();
+    formData.append('file', fileToUpload);
+
+    return this.http.post<ResponseBase<DepartamentoDto>>(`${this.API}/Departamento/upload-image/${departamentoId}`, formData);
+  }
 }

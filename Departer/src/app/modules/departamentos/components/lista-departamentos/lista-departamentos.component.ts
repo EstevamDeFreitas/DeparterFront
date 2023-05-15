@@ -7,6 +7,7 @@ import { SnackbarComponent } from 'src/app/modules/shared/components/snackbar/sn
 import { DepartamentoDto } from '../../models/departamentoDto';
 import { SnackBarTheme } from 'src/app/modules/shared/models/snackbat.theme.enum';
 import { FuncionarioDto } from 'src/app/modules/shared/models/funcionarioDto';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-lista-departamentos',
@@ -20,6 +21,8 @@ export class ListaDepartamentosComponent implements OnInit {
   modoAdmin: boolean = false;
 
   funcionario!: FuncionarioDto;
+
+  public environment = environment;
 
   constructor(private router: Router,private route: ActivatedRoute,private departamentoService: DepartamentoService,private readonly snackbarComponent: SnackbarComponent, private modoAdminService: ModoAdminService, private funcionarioService:FuncionarioService) { }
 
@@ -56,6 +59,12 @@ export class ListaDepartamentosComponent implements OnInit {
       (err) => {
       }
     )
+  }
+
+  public substituirImagemDepartamento(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = "../../../../../assets/images/defaultDpto.png";
   }
 
   novoDepartamento(){

@@ -29,6 +29,8 @@ export class EditarDepartamentoComponent implements OnInit {
   departamentoFuncionariosLista: DepartamentoFuncionariosDto[] = [];
   funcionariosLista: FuncionarioDto[] = [];
 
+  imagem?: string = "";
+
   modoAdmin: boolean = false;
 
   public environment = environment;
@@ -78,17 +80,11 @@ export class EditarDepartamentoComponent implements OnInit {
 
         this.nomeDepartamento = response.data.nome;
 
-        let imagem;
-
-        if(response.data.imageUrl == "https://cdn.shopify.com/s/files/1/0305/4075/9177/products/papel-de-parede-adesivo-degrade-roxo-e-azul-n05175-745864.jpg?v=1643338826"){
-          imagem = "";
-        }else{
-          imagem = response.data.imageUrl;
-        }
+        this.imagem = response.data.imageUrl;
 
         this.departamentoForm.patchValue({
           id: this.idDepartamento, nome: this.nomeDepartamento, descricao: response.data.descricao,
-          maximoHorasDiarias: maximoHorasDiarias, maximoHorasMensais: maximoHorasMensais, imageUrl: imagem
+          maximoHorasDiarias: maximoHorasDiarias, maximoHorasMensais: maximoHorasMensais
         });
       },
       error: (response) => {
@@ -102,7 +98,6 @@ export class EditarDepartamentoComponent implements OnInit {
       id: new FormControl('', [Validators.required]),
       nome: new FormControl('', [Validators.required]),
       descricao: new FormControl('', [Validators.required]),
-      imageUrl: new FormControl(''),
       maximoHorasDiarias: new FormControl('', [Validators.required]),
       maximoHorasMensais: new FormControl('', [Validators.required]),
     });
@@ -251,9 +246,7 @@ export class EditarDepartamentoComponent implements OnInit {
       departamentoPut.maximoHorasDiarias = this.calcularHorasPrevistas(this.f.maximoHorasDiarias.value);
       departamentoPut.maximoHorasMensais = this.calcularHorasPrevistas(this.f.maximoHorasMensais.value);
 
-      if (departamentoPut.imageUrl == "") {
-        departamentoPut.imageUrl = "https://cdn.shopify.com/s/files/1/0305/4075/9177/products/papel-de-parede-adesivo-degrade-roxo-e-azul-n05175-745864.jpg?v=1643338826";
-      }
+      departamentoPut.imageUrl = this.imagem;
 
       let listaIdsAdicionar: string[] = [
       ]

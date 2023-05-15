@@ -1,81 +1,82 @@
 <div class="container">
-    <div class="d-flex justify-content-between mt-5">
-        <div class="custom-flex">
-            <p class="titulo">{{departamento?.nome}}</p>
-        </div>
+  <div class="d-flex justify-content-between mt-5">
+    <div class="custom-flex">
+      <p class="titulo">{{departamento?.nome}}</p>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+
+    <div class="col-12 mt-3">
+      <p class="sub-titulo">Descrição</p>
+      <p class="default-text">{{departamento?.descricao}}
+      </p>
     </div>
 
-    <div class="card mt-3">
+    <div class="row mt-3">
+      <div class="col-lg-6 col-12 mb-2">
+        <p class="sub-titulo">Funcionários</p>
 
-          <div class="col-12 mt-3">
-            <p class="sub-titulo">Descrição</p>
-            <p class="default-text">{{departamento?.descricao}}
-            </p>
-          </div>
+        <div class="box-funcionarios mt-2">
+          <table class="table default-text table-borderless" *ngIf="funcionariosLista.length != 0">
+            <thead style="position:sticky">
 
-          <div class="row mt-3">
-            <div class="col-lg-6 col-12 mb-2">
-              <p class="sub-titulo">Funcionários</p>
+              <th></th>
+              <th></th>
 
-              <div class="box-funcionarios mt-2">
-                <table class="table default-text table-borderless" *ngIf="funcionariosLista.length != 0">
-                  <thead style="position:sticky">
-
-                    <th></th>
-                    <th></th>
-
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let funcionario of funcionariosLista; let i = index">
-                      <td class="apelidoFuncionario">
-                        <span class="apelidoFuncionario">
-                            <img class="image-circle me-2" [src]="environment.images + '/' + funcionario.funcionario.imagem" width="33" height="31"
-                            (error)="substituirImagem($event)" />
-                            {{funcionario.funcionario.apelido}}
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            </thead>
+            <tbody>
+              <tr *ngFor="let funcionario of funcionariosLista; let i = index">
+                <td class="apelidoFuncionario">
+                  <span class="apelidoFuncionario">
+                    <img class="image-circle me-2" [src]="environment.images + '/' + funcionario.funcionario.imagem"
+                      width="33" height="31" (error)="substituirImagem($event)" />
+                    {{funcionario.funcionario.apelido}}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
 
-
-            </div>
-
-            <div class="col-lg-6 col-12">
-              <p class="sub-titulo">Regras</p>
-
-              <div class="mt-3">
-
-                <div class="row default-text">
-                  <div class="col-12 mt-3">
-                    Máximo de horas diárias: <b>{{maximoHorasDiarias}}</b>
-                  </div>
-                </div>
-
-
-                <div class="mt-2 row default-text">
-                  <div class="col-12 mt-3">
-                    Máximo de horas extras por mês: <b>{{maximoHorasMensais}}</b>
-                  </div>
-                </div>
-
-
-              </div>
-            </div>
-
-            <div class="row" [hidden]="funcionario && funcionario.isAdmin == false">
-              <div class="col-6 mt-5">
-                <button class="red-button" (click)="excluirDepartamento()">Desativar Departamento</button>
-              </div>
-              <div class="col-6 mt-5">
-                <button class="blue-button" (click)="irParaEditarDepartamento(idDepartamento)">Editar</button>
-              </div>
-            </div>
-
-          </div>
 
       </div>
+
+      <div class="col-lg-6 col-12">
+        <p class="sub-titulo">Visualização</p>
+
+        <div class="mt-3">
+
+          <input type="file" (change)="onFileChange($event)" #file class="form-control is-invalid" placeholder=""
+              style="display: none">
+
+          <div class="col-auto">
+            <mat-card class="example-card mt-3 clickable">
+              <img (click)="file.click()" mat-card-image src="{{image}}" (error)="substituirImagemDepartamento($event)">
+              <mat-card-content>
+                <h1 class="text-center texto-card">
+                  {{departamento?.nome}}
+                </h1>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="row" [hidden]="funcionario && funcionario.isAdmin == false">
+        <div class="col-6 mt-5">
+          <button class="red-button" (click)="excluirDepartamento()">Desativar Departamento</button>
+        </div>
+        <div class="col-6 mt-5">
+          <button class="blue-button" (click)="irParaEditarDepartamento(idDepartamento)">Editar</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
 
 </div>

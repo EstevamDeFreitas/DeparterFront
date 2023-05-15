@@ -28,6 +28,9 @@ export class DetalhesDepartamentosComponent implements OnInit {
 
   funcionario!: FuncionarioDto;
 
+  image: string = "";
+  file: any;
+
   public environment = environment;
 
   constructor(private router: Router, private readonly snackbarComponent: SnackbarComponent,private route: ActivatedRoute,
@@ -58,7 +61,7 @@ export class DetalhesDepartamentosComponent implements OnInit {
 
         this.departamento = response.data;
         this.funcionariosLista = this.departamento.departamentoFuncionarios;
-        console.log(this.funcionariosLista)
+        this.image = environment.images + "/" + response.data.imageUrl;
 
         this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
@@ -174,10 +177,40 @@ export class DetalhesDepartamentosComponent implements OnInit {
     })
   }
 
+  onFileChange(evento: any): void {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => this.image = event.target.result
+
+    this.file = evento.target.files;
+    reader.readAsDataURL(this.file[0]);
+
+    this.uploadImagem();
+  }
+
+  uploadImagem(): void {
+    this.departamentoService.postUpload(this.idDepartamento, this.file).subscribe(
+      ()=>{
+        this.snackbarComponent.openSnackBar("Imagem alterada com sucesso !",SnackBarTheme.success,3000);
+        this.ngOnInit();
+      },
+      (error: any)=>{
+
+        console.error(error);
+      },
+    )
+  }
+
   public substituirImagem(evento: Event): void {
     const imagem = evento.target as HTMLImageElement;
     imagem.onerror = null;
     imagem.src = "../../../../../assets/images/default-image.png";
+  }
+
+  public substituirImagemDepartamento(evento: Event): void {
+    const imagem = evento.target as HTMLImageElement;
+    imagem.onerror = null;
+    imagem.src = "../../../../../assets/images/defaultDpto.png";
   }
 
   public irParaEditarDepartamento(id: string){

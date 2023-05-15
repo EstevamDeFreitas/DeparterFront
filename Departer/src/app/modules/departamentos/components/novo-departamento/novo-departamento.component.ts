@@ -109,9 +109,8 @@ export class NovoDepartamentoComponent implements OnInit {
     this.departamentoForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
       descricao: new FormControl('', [Validators.required]),
-      imageUrl: new FormControl(''),
       maximoHorasDiarias: new FormControl('', [Validators.required]),
-      maximoHorasMensais: new FormControl('', [Validators.required]),
+      maximoHorasMensais: new FormControl('', [Validators.required])
     });
   }
 
@@ -177,9 +176,7 @@ export class NovoDepartamentoComponent implements OnInit {
       departamentoPost.maximoHorasDiarias = this.calcularHorasPrevistas(this.f.maximoHorasDiarias.value);
       departamentoPost.maximoHorasMensais = this.calcularHorasPrevistas(this.f.maximoHorasMensais.value);
 
-      if (departamentoPost.imageUrl == "") {
-        departamentoPost.imageUrl = "https://cdn.shopify.com/s/files/1/0305/4075/9177/products/papel-de-parede-adesivo-degrade-roxo-e-azul-n05175-745864.jpg?v=1643338826";
-      }
+      departamentoPost.imageUrl = "https://cdn.shopify.com/s/files/1/0305/4075/9177/products/papel-de-parede-adesivo-degrade-roxo-e-azul-n05175-745864.jpg?v=1643338826";
 
       let listaIds: { funcionarioId: string }[] = [
       ]
@@ -194,7 +191,7 @@ export class NovoDepartamentoComponent implements OnInit {
       departamentoPost.departamentoFuncionarios = listaIds;
 
 
-      console.log(departamentoPost)
+      console.log(departamentoPost);
 
 
       this.departamentoService.createDepartamento(departamentoPost).subscribe({

@@ -153,3 +153,18 @@ div.dropdown-multicol2>div.dropdown-col {
   font-size: 1.5rem;
   font-weight: 700;
 }
+
+mat-card {
+  border-radius: 20px;
+}
+
+.example-card {
+  max-width: 200px;
+}
+
+.texto-card {
+  font-size: 1.25rem;
+  font-family: Segoe UI, Regular;
+  font-weight: 600;
+  color: $color-black;
+}
