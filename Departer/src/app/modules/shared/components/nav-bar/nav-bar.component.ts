@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 export class NavBarComponent implements OnInit {
 
   funcionario!: FuncionarioDto;
+  funcionarioCarregado: boolean = false;
 
   opened: boolean = true;
   modoAdmin: boolean = true;
@@ -80,6 +81,7 @@ export class NavBarComponent implements OnInit {
       (res) => {
         this.funcionario = res.data;
         this.userImg = environment.images + "/" + res.data.imagem;
+        this.funcionarioCarregado = true;
       },
       (err) => {
 
@@ -109,14 +111,14 @@ export class NavBarComponent implements OnInit {
   }
 
   public irParaAtividades(): void {
-    
+
     this.router.navigate(["/atividades/lista-atividades"]);
-    
+
   }
 
   public irParaDepartamentos(): void {
     this.router.navigate(["/departamentos/lista-departamentos"]);
-   
+
   }
 
   public irParaAdministracao(): void {
@@ -141,7 +143,7 @@ export class NavBarComponent implements OnInit {
 
   public irParaDashboard(): void {
     this.router.navigate(["/home/dashboard"]);
-   
+
   }
 
   toggleAdmin() {
