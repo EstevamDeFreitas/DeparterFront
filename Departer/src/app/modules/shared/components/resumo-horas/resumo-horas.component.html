@@ -22,8 +22,8 @@
               <span class="tempo">{{transformarMinutosEmHoras(horasResumo.minutosMesVigente)}}</span>
           </div>
           <div class="mt-1 mb-4">
-              <span *ngIf="horasResumo.minutosMesRestantes > 0 && modoAdmin == false && departamentoId == ''" class="descricao verde">{{transformarMinutosEmHoras(horasResumo.minutosMesRestantes)}} restantes</span>
-              <span *ngIf="horasResumo.minutosMesRestantes <= 0 && modoAdmin == false && departamentoId == ''" class="descricao vermelho">Não configurado
+              <span *ngIf="temConfigMensal && modoAdmin == false && departamentoId == ''" class="descricao verde">{{transformarMinutosEmHoras(horasResumo.minutosMesRestantes)}} restantes</span>
+              <span *ngIf="!temConfigMensal && modoAdmin == false && departamentoId == ''" class="descricao vermelho">Não configurado
                 <i class="ms-1 fa-regular fa-circle-question clickable" (click)="openInfoDialog()"></i>
               </span>
           </div>
@@ -37,8 +37,8 @@
               <span class="tempo">{{transformarMinutosEmHoras(horasResumo.minutosHoje)}}</span>
           </div>
           <div class="mt-1 mb-4">
-              <span *ngIf="horasResumo.minutosHojeRestantes > 0 && modoAdmin == false && departamentoId == ''" class="descricao laranja">{{transformarMinutosEmHoras(horasResumo.minutosHojeRestantes)}} restantes</span>
-              <span *ngIf="horasResumo.minutosHojeRestantes <= 0 && modoAdmin == false && departamentoId == ''" class="descricao vermelho">Não configurado
+              <span *ngIf="temConfigDiario && modoAdmin == false && departamentoId == ''" class="descricao laranja">{{transformarMinutosEmHoras(horasResumo.minutosHojeRestantes)}} restantes</span>
+              <span *ngIf="!temConfigDiario && modoAdmin == false && departamentoId == ''" class="descricao vermelho">Não configurado
                 <i class="ms-1 fa-regular fa-circle-question clickable" (click)="openInfoDialog()"></i>
               </span>
           </div>
@@ -48,3 +48,6 @@
   </div>
 
 </div>
+
+
+
