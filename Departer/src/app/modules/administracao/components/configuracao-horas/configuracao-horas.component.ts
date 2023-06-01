@@ -25,6 +25,7 @@ export class ConfiguracaoHorasComponent implements OnInit {
   funcionariosFiltrados: FuncionarioDtoComConfiguracao[] = [];
 
   private _filtroLista: string = "";
+  loading: boolean = false;
 
   public get filtroLista(): string {
     return this._filtroLista;
@@ -50,6 +51,7 @@ export class ConfiguracaoHorasComponent implements OnInit {
   }
 
   public getAllFuncionarios(): void {
+    this.loading=true;
     this.funcionarioService.getAll().pipe(
       switchMap(res => {
         const funcionariosComConfiguracao = res.data.map(funcionario => {
@@ -63,14 +65,17 @@ export class ConfiguracaoHorasComponent implements OnInit {
           );
         });
         return forkJoin(funcionariosComConfiguracao);
+        this.loading=false;
       })
     ).subscribe(
       (funcionariosComConfiguracao) => {
         this.funcionarios = funcionariosComConfiguracao;
         this.funcionariosFiltrados = this.funcionarios;
-        console.log(this.funcionarios)
+        this.loading=false;
       },
-      ()=>{}
+      ()=>{
+        this.loading=false;
+      }
     );
   }
 
