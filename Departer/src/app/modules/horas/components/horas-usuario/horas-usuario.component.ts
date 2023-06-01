@@ -59,7 +59,6 @@ export class HorasUsuarioComponent implements OnInit {
     this.horasService.getHorasByfuncionarioId(this.funcionarioId).subscribe(
       (res) => {
         this.horas = res.data;
-        console.log(this.horas);
 
         this.horas.sort((a, b) => {
           const dateA = new Date(a.dataCriacao);
@@ -79,7 +78,6 @@ export class HorasUsuarioComponent implements OnInit {
     this.horasService.getHoras().subscribe(
       (res) => {
         this.horas = res.data;
-        console.log(this.horas);
 
         this.horas.sort((a, b) => {
           const dateA = new Date(a.dataCriacao);

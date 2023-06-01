@@ -46,7 +46,6 @@ export class TelaDepartamentosComponent implements OnInit {
     this.route.params.subscribe(x => {
       this.idDepartamento = x[`id`];
       this.departamentoId = this.idDepartamento;
-      console.log(this.departamentoId)
     });
 
     this.funcionarioService.getFuncionarioLogado().subscribe({
@@ -60,8 +59,6 @@ export class TelaDepartamentosComponent implements OnInit {
             this.carregarDepartamento();
           }
         );
-
-        console.log(this.funcionarioId)
 
         this.carregarDepartamento();
       },
@@ -82,13 +79,10 @@ export class TelaDepartamentosComponent implements OnInit {
       next: (response) => {
 
         this.departamento = response.data;
-        console.log(this.departamento)
 
         this.atividades = this.departamento.atividades;
-        console.log(this.atividades)
 
         this.funcionariosLista = this.departamento.departamentoFuncionarios;
-        console.log(this.funcionariosLista);
 
         this.atividades.sort((a, b) => {
           const dateA = new Date(a.dataEntrega);

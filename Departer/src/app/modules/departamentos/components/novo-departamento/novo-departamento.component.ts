@@ -120,7 +120,6 @@ export class NovoDepartamentoComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
-    console.log(this.funcionariosLista)
 
     dialogConfig.data = this.funcionariosLista;
 
@@ -146,7 +145,6 @@ export class NovoDepartamentoComponent implements OnInit {
   public alterarPermissaoFuncionario(funcionarioId: string, event: any) {
     let index = this.funcionariosLista.map(e => e.id).indexOf(funcionarioId);
     this.funcionariosLista[index].nivelAcesso = event.target.value - 1;
-    console.log(this.funcionariosLista);
   }
   public openInfoDialog() {
 
@@ -193,10 +191,6 @@ export class NovoDepartamentoComponent implements OnInit {
       });
 
       departamentoPost.departamentoFuncionarios = listaIds;
-
-
-      console.log(departamentoPost);
-
 
       this.departamentoService.createDepartamento(departamentoPost).subscribe({
         next: (response) => {

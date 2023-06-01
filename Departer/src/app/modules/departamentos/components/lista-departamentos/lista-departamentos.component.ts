@@ -45,7 +45,6 @@ export class ListaDepartamentosComponent implements OnInit {
     this.loading=true;
     this.departamentoService.getDepartamentos(this.modoAdmin).subscribe({
       next: (response) => {
-        console.log(response);
         this.departamentos = response.data;
         
         this.loading=false;

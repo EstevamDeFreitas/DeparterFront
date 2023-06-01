@@ -69,7 +69,6 @@ export class EditarDepartamentoComponent implements OnInit {
 
     this.departamentoService.getDepartamentoById(this.idDepartamento, this.modoAdmin).subscribe({
       next: (response) => {
-        console.log(response);
 
         this.departamentoFuncionariosLista = response.data.departamentoFuncionarios;
 
@@ -221,7 +220,6 @@ export class EditarDepartamentoComponent implements OnInit {
   public alterarPermissaoFuncionario(funcionarioId: string, event: any) {
     let index = this.funcionariosLista.map(e => e.id).indexOf(funcionarioId);
     this.funcionariosLista[index].nivelAcesso = event.target.value - 1;
-    console.log(this.funcionariosLista);
   }
   public openInfoDialog() {
 

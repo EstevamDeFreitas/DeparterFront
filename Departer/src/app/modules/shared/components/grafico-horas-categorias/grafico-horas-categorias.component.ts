@@ -134,7 +134,6 @@ export class GraficoHorasCategoriasComponent implements OnInit {
     this.graficoService.getHorasPorcategoria(funcionarioId, this.departamentoId).subscribe({
       next: (response) => {
         this.horasCategorias = response.data;
-        //console.log(this.horasCategorias);
         this.montarGrafico();
       },
       error: (response) => {
@@ -162,12 +161,11 @@ export class GraficoHorasCategoriasComponent implements OnInit {
 
       a++;
 
-      console.log(a)
 
       obj.name = value.categoria;
       obj.data.push(value.horasPorMes)
 
-      console.log(this.series)
+      
       this.series.push(obj)
 
       this.categories.push(value.categoria)
@@ -203,9 +201,6 @@ export class GraficoHorasCategoriasComponent implements OnInit {
         this.cont = this.cont + 1;
       }
 
-     //console.log(this.categories)
-     console.log(this.horasCategorias.length)
-     console.log(this.cont);
       if (this.cont == this.horasCategorias.length) {
         this.finalizarGrafico();
       }
@@ -218,8 +213,6 @@ export class GraficoHorasCategoriasComponent implements OnInit {
       data: string;
       valor: number;
     }
-
-    //console.log(this.series.length)
 
     for (let z = 0; z < this.series.length; z++) {
       let teste = this.series[z].data[0];
@@ -234,14 +227,9 @@ export class GraficoHorasCategoriasComponent implements OnInit {
 
     }
 
-    console.log(this.series2)
-
-
       for (let x = 0; x < this.series2.length; x++) {
         this.series[x].data = this.series2[x];
       }
-
-      console.log(this.series)
       this.chartSeries = this.series;
 
   }
