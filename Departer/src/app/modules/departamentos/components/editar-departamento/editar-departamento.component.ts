@@ -28,6 +28,7 @@ export class EditarDepartamentoComponent implements OnInit {
   departamentoForm!: FormGroup;
   departamentoFuncionariosLista: DepartamentoFuncionariosDto[] = [];
   funcionariosLista: FuncionarioDto[] = [];
+  loading: boolean = false;
 
   imagem?: string = "";
 
@@ -64,6 +65,8 @@ export class EditarDepartamentoComponent implements OnInit {
 
   carregarDepartamento() {
 
+    this.loading=true;
+
     this.departamentoService.getDepartamentoById(this.idDepartamento, this.modoAdmin).subscribe({
       next: (response) => {
         console.log(response);
@@ -86,8 +89,11 @@ export class EditarDepartamentoComponent implements OnInit {
           id: this.idDepartamento, nome: this.nomeDepartamento, descricao: response.data.descricao,
           maximoHorasDiarias: maximoHorasDiarias, maximoHorasMensais: maximoHorasMensais
         });
+
+        this.loading=false;
       },
       error: (response) => {
+        this.loading=true;
       }
     })
   }
@@ -237,6 +243,11 @@ export class EditarDepartamentoComponent implements OnInit {
   }
 
   editarDepartamento() {
+
+    
+    this.departamentoForm.controls['maximoHorasDiarias'].setValue('00:00');
+    this.departamentoForm.controls['maximoHorasMensais'].setValue('00:00');
+
 
     if (this.departamentoForm.valid && this.funcionariosLista.length >= 1) {
 

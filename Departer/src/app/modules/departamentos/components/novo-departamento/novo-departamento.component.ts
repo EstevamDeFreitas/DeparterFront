@@ -112,6 +112,7 @@ export class NovoDepartamentoComponent implements OnInit {
       maximoHorasDiarias: new FormControl('', [Validators.required]),
       maximoHorasMensais: new FormControl('', [Validators.required])
     });
+
   }
 
   public openFuncionarioDialog() {
@@ -167,6 +168,9 @@ export class NovoDepartamentoComponent implements OnInit {
   }
 
   criarDepartamento() {
+
+    this.departamentoForm.controls['maximoHorasDiarias'].setValue('00:00');
+    this.departamentoForm.controls['maximoHorasMensais'].setValue('00:00');
 
     if (this.departamentoForm.valid && this.funcionariosLista.length >= 1) {
 

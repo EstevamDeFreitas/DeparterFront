@@ -181,3 +181,19 @@ table.table>thead>tr>th {
 textarea {
   resize: none;
 }
+//Simbolo de loading 
+
+mat-progress-spinner.spinner {
+  position: fixed;
+  z-index: 999;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  circle {
+    stroke: var($color-purple);
+  }
+}
