@@ -80,7 +80,6 @@ export class NovaAtividadeComponent implements OnInit {
     this.departamentoService.getDepartamentos().subscribe(
       (res) => {
         this.departamentos = res.data;
-        console.log(this.departamentos);
       },
       () => { }
     )

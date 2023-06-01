@@ -81,8 +81,6 @@ export class PerfilComponent implements OnInit {
       funcionarioPut.imagem = this.funcionario.imagem;
       funcionarioPut.isAdmin = this.funcionario.isAdmin;
 
-      console.log(funcionarioPut)
-
       this.funcionarioService.putFuncionario(funcionarioPut).subscribe(
         (res) => {
           this.snackbarComponent.openSnackBar("Usúario alterado com sucesso !",SnackBarTheme.success,3000);

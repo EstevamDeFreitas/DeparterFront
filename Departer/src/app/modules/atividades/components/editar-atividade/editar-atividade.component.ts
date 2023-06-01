@@ -76,7 +76,6 @@ export class EditarAtividadeComponent implements OnInit {
 
     this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
       (res) => {
-        console.log(res.data)
 
         let dataEntrega = new Date(res.data.dataEntrega);
         let tempoPrevisto = this.transformarMinutosEmHoras(res.data.tempoPrevisto);
@@ -383,7 +382,6 @@ export class EditarAtividadeComponent implements OnInit {
       atividadePut.tempoPrevisto = this.calcularHorasPrevistas(this.f.tempoPrevisto.value);
 
       atividadePut.statusAtividade = +this.f.statusAtividade.value;
-      console.log(atividadePut);
 
       atividadePut.atividadeCategorias = [];
       this.categorias.forEach((element) => {

@@ -127,7 +127,6 @@ export class ListaAtividadesComponent implements OnInit {
           return dateA.getTime() - dateB.getTime();
         });
 
-        console.log(this.atividades);
         this.atividadesFiltradas = this.atividades;
         
         this.loading=false;
