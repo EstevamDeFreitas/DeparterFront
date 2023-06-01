@@ -19,7 +19,7 @@
               <div class="form-floating">
                   <input type="text" id="inputDesc" class="form-control"
                       placeholder="categoria" formControlName="descricao" [ngClass]="cssValidator(f.descricao)" />
-                  <label for="inputDesc" class="label-input">Definir um horário...</label>
+                  <label for="inputDesc" class="label-input">Participar de reunião...</label>
                   <div *ngIf="f.descricao.errors?.required && f.descricao.touched" class="invalid-feedback">
                       Descrição é obrigatorio.
                   </div>
