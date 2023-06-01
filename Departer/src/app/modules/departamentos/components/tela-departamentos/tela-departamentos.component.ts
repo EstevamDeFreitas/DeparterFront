@@ -28,7 +28,7 @@ export class TelaDepartamentosComponent implements OnInit {
 
   public environment = environment;
 
-
+  loading: boolean = false;
   modoAdmin: boolean = false;
 
   pageSize = 3;
@@ -75,6 +75,9 @@ export class TelaDepartamentosComponent implements OnInit {
 
   carregarDepartamento() {
 
+    
+    this.loading=true;
+
     this.departamentoService.getDepartamentoById(this.idDepartamento, this.modoAdmin).subscribe({
       next: (response) => {
 
@@ -105,9 +108,11 @@ export class TelaDepartamentosComponent implements OnInit {
 
         //this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         //this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
-
+        
+        this.loading=false;
       },
       error: (response) => {
+        this.loading=false;
       }
     })
 

@@ -93,7 +93,7 @@ export class EditarDepartamentoComponent implements OnInit {
         this.loading=false;
       },
       error: (response) => {
-        this.loading=true;
+        this.loading=false;
       }
     })
   }

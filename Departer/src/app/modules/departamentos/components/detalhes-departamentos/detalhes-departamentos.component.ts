@@ -25,6 +25,7 @@ export class DetalhesDepartamentosComponent implements OnInit {
   funcionariosLista: DepartamentoFuncionariosDto[] = [];
 
   modoAdmin: boolean = false;
+  loading: boolean = false;
 
   funcionario!: FuncionarioDto;
 
@@ -54,7 +55,8 @@ export class DetalhesDepartamentosComponent implements OnInit {
   }
 
   carregarDepartamento(){
-    console.log(this.idDepartamento);
+   
+    this.loading=true;
 
     this.departamentoService.getDepartamentoById(this.idDepartamento, this.modoAdmin).subscribe({
       next: (response) => {
@@ -66,8 +68,13 @@ export class DetalhesDepartamentosComponent implements OnInit {
         this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
 
+        
+        this.loading=false;
+
       },
       error: (response) => {
+        
+        this.loading=false;
       }
     })
   }

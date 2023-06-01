@@ -27,6 +27,7 @@ export class PerfilComponent implements OnInit {
 
   hasError = false;
   errorMessage = "";
+  loading: boolean = false;
 
   image: string = "";
   file: any;
@@ -44,18 +45,22 @@ export class PerfilComponent implements OnInit {
   }
 
   public getUser(): void {
+    this.loading = true;
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionario = res.data;
         this.image = environment.images + "/" + res.data.imagem;
+        this.loading=false;
       },
-      () => {},
+      () => { this.loading=false;},
       () => this.userValidation()
     )
+    
   }
 
   public userValidation(): void {
 
+    this.loading=false;
     const formOptions: AbstractControlOptions = {
       validators: ValidatorField.MustMatch('senha', 'confirmarSenha')
     }
