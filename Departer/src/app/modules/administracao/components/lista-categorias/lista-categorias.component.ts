@@ -17,6 +17,7 @@ export class ListaCategoriasComponent implements OnInit {
 
   hasError = false;
   errorMessage = "";
+  loading: boolean = false;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -29,12 +30,17 @@ export class ListaCategoriasComponent implements OnInit {
   }
 
   carregarCategorias(): void {
+    this.loading=true;
     this.categoriaService.getCategorias().subscribe(
       (res) => {
         this.categorias = res.data;
+        this.loading=false;
       },
-      () => {},
       () => {
+        this.loading=false;
+      },
+      () => {
+        this.loading=false;
       }
     );
   }

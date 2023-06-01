@@ -49,12 +49,10 @@ export class NavBarComponent implements OnInit {
       modoAdmin => this.modoAdmin = modoAdmin
     );
 
-    console.log(this.modoAdmin);
     this.getUser();
 
     teste = this.router.url;
 
-    console.log(teste)
 
     if(teste == "/home/dashboard"){
       this.opcaoNoDash = 0;

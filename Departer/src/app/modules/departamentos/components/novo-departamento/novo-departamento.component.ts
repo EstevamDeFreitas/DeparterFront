@@ -112,6 +112,7 @@ export class NovoDepartamentoComponent implements OnInit {
       maximoHorasDiarias: new FormControl('', [Validators.required]),
       maximoHorasMensais: new FormControl('', [Validators.required])
     });
+
   }
 
   public openFuncionarioDialog() {
@@ -119,7 +120,6 @@ export class NovoDepartamentoComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
-    console.log(this.funcionariosLista)
 
     dialogConfig.data = this.funcionariosLista;
 
@@ -145,7 +145,6 @@ export class NovoDepartamentoComponent implements OnInit {
   public alterarPermissaoFuncionario(funcionarioId: string, event: any) {
     let index = this.funcionariosLista.map(e => e.id).indexOf(funcionarioId);
     this.funcionariosLista[index].nivelAcesso = event.target.value - 1;
-    console.log(this.funcionariosLista);
   }
   public openInfoDialog() {
 
@@ -168,6 +167,9 @@ export class NovoDepartamentoComponent implements OnInit {
 
   criarDepartamento() {
 
+    this.departamentoForm.controls['maximoHorasDiarias'].setValue('00:00');
+    this.departamentoForm.controls['maximoHorasMensais'].setValue('00:00');
+
     if (this.departamentoForm.valid && this.funcionariosLista.length >= 1) {
 
       let departamentoPost: DepartamentoDto = { ...this.departamentoForm.value };
@@ -189,10 +191,6 @@ export class NovoDepartamentoComponent implements OnInit {
       });
 
       departamentoPost.departamentoFuncionarios = listaIds;
-
-
-      console.log(departamentoPost);
-
 
       this.departamentoService.createDepartamento(departamentoPost).subscribe({
         next: (response) => {

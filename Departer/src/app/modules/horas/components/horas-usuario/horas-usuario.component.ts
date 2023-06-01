@@ -23,11 +23,13 @@ export class HorasUsuarioComponent implements OnInit {
   ordemData: 'asc' | 'desc' = 'desc';
   ordemMinutos: 'asc' | 'desc' = 'desc';
   ordemAtual: string = 'data';
+  loading: boolean = false;
 
   constructor(private horasService: HorasService, private funcionarioService: FuncionarioService, private router: Router, private modoAdminService: ModoAdminService) { }
 
   ngOnInit(): void {
 
+    this.loading=true;
     this.modoAdminService.modoAdmin$.subscribe(
       modoAdmin => {
         this.modoAdmin = modoAdmin;
@@ -45,8 +47,11 @@ export class HorasUsuarioComponent implements OnInit {
       (res) => {
         this.funcionarioId = res.data.id;
         this.getHorasFuncionario();
+        this.loading=false;
       },
-      (err) => {}
+      (err) => {
+        this.loading=false;
+      }
     )
   }
 
@@ -54,15 +59,18 @@ export class HorasUsuarioComponent implements OnInit {
     this.horasService.getHorasByfuncionarioId(this.funcionarioId).subscribe(
       (res) => {
         this.horas = res.data;
-        console.log(this.horas);
 
         this.horas.sort((a, b) => {
           const dateA = new Date(a.dataCriacao);
           const dateB = new Date(b.dataCriacao);
           return dateB.getTime() - dateA.getTime();
         });
+
+        this.loading=false;
       },
-      () => {}
+      () => {
+        this.loading=false;
+      }
     )
   }
 
@@ -70,15 +78,17 @@ export class HorasUsuarioComponent implements OnInit {
     this.horasService.getHoras().subscribe(
       (res) => {
         this.horas = res.data;
-        console.log(this.horas);
 
         this.horas.sort((a, b) => {
           const dateA = new Date(a.dataCriacao);
           const dateB = new Date(b.dataCriacao);
           return dateB.getTime() - dateA.getTime();
         });
+        this.loading=false;
       },
-      () => {}
+      () => {
+        this.loading=false;
+      }
     )
   }
 

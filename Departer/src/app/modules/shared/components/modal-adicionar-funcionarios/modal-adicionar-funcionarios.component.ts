@@ -72,7 +72,7 @@ export class ModalAdicionarFuncionariosComponent implements OnInit {
           }
 
         }
-        console.log(this.funcionariosDepartamento)
+
         this.funcionariosFiltrados = this.funcionariosDepartamento;
 
       }

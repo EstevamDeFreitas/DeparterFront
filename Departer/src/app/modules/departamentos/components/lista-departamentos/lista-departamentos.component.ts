@@ -21,6 +21,7 @@ export class ListaDepartamentosComponent implements OnInit {
   modoAdmin: boolean = false;
 
   funcionario!: FuncionarioDto;
+  loading: boolean = false;
 
   public environment = environment;
 
@@ -40,13 +41,18 @@ export class ListaDepartamentosComponent implements OnInit {
   }
 
   getDepartamentos(){
+    
+    this.loading=true;
     this.departamentoService.getDepartamentos(this.modoAdmin).subscribe({
       next: (response) => {
-        console.log(response);
         this.departamentos = response.data;
+        
+        this.loading=false;
       },
       error: (response) => {
         this.snackbarComponent.openSnackBar("Não foi encontrado nenhum Departamento cadastrado!", SnackBarTheme.error, 3000);
+        
+        this.loading=false;
       }
     })
   }

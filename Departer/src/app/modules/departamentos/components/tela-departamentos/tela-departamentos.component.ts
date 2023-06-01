@@ -28,7 +28,7 @@ export class TelaDepartamentosComponent implements OnInit {
 
   public environment = environment;
 
-
+  loading: boolean = false;
   modoAdmin: boolean = false;
 
   pageSize = 3;
@@ -46,7 +46,6 @@ export class TelaDepartamentosComponent implements OnInit {
     this.route.params.subscribe(x => {
       this.idDepartamento = x[`id`];
       this.departamentoId = this.idDepartamento;
-      console.log(this.departamentoId)
     });
 
     this.funcionarioService.getFuncionarioLogado().subscribe({
@@ -61,8 +60,6 @@ export class TelaDepartamentosComponent implements OnInit {
           }
         );
 
-        console.log(this.funcionarioId)
-
         this.carregarDepartamento();
       },
       error: (response) => {
@@ -75,17 +72,17 @@ export class TelaDepartamentosComponent implements OnInit {
 
   carregarDepartamento() {
 
+    
+    this.loading=true;
+
     this.departamentoService.getDepartamentoById(this.idDepartamento, this.modoAdmin).subscribe({
       next: (response) => {
 
         this.departamento = response.data;
-        console.log(this.departamento)
 
         this.atividades = this.departamento.atividades;
-        console.log(this.atividades)
 
         this.funcionariosLista = this.departamento.departamentoFuncionarios;
-        console.log(this.funcionariosLista);
 
         this.atividades.sort((a, b) => {
           const dateA = new Date(a.dataEntrega);
@@ -105,9 +102,11 @@ export class TelaDepartamentosComponent implements OnInit {
 
         //this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         //this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
-
+        
+        this.loading=false;
       },
       error: (response) => {
+        this.loading=false;
       }
     })
 

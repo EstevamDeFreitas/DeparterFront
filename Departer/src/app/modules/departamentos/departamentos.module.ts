@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditarDepartamentoComponent } from './components/editar-departamento/editar-departamento.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatNativeDateModule,
     MatCardModule,
     SharedModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ]
 })
 export class DepartamentosModule { }
