@@ -49,6 +49,7 @@ export class EditarAtividadeComponent implements OnInit {
 
   hasError = false;
   errorMessage = "";
+  loading: boolean = false;
 
   public environment = environment;
 
@@ -71,6 +72,8 @@ export class EditarAtividadeComponent implements OnInit {
   public getAtividade(): void {
     this.atividadeId = this.route.snapshot.paramMap.get('id')!;
 
+    this.loading=true;
+
     this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
       (res) => {
         console.log(res.data)
@@ -86,8 +89,11 @@ export class EditarAtividadeComponent implements OnInit {
         this.getCategorias(res.data.atividadeCategorias);
         this.getDepartamentoNome();
 
+        this.loading=false;
       },
-      () => { }
+      () => {
+        this.loading=false;
+       }
     )
   }
 
