@@ -1,7 +1,7 @@
 import { FuncionarioService } from 'src/app/modules/configuracoes/services/funcionario.service';
 import { ModoAdminService } from './../../../shared/services/modo-admin.service';
 import { DepartamentoFuncionariosDto } from 'src/app/modules/shared/models/departamentoFuncionariosDto';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SnackbarComponent } from 'src/app/modules/shared/components/snackbar/snackbar.component';
@@ -28,9 +28,11 @@ export class DetalhesDepartamentosComponent implements OnInit {
   loading: boolean = false;
 
   funcionario!: FuncionarioDto;
+  funcionarioCarregado: boolean = false;
 
   image: string = "";
   file: any;
+  @ViewChild('file') fileElement!: ElementRef;
 
   public environment = environment;
 
@@ -55,7 +57,7 @@ export class DetalhesDepartamentosComponent implements OnInit {
   }
 
   carregarDepartamento(){
-   
+
     this.loading=true;
 
     this.departamentoService.getDepartamentoById(this.idDepartamento, this.modoAdmin).subscribe({
@@ -68,12 +70,12 @@ export class DetalhesDepartamentosComponent implements OnInit {
         this.maximoHorasDiarias = this.transformarMinutosEmHoras(response.data.maximoHorasDiarias);
         this.maximoHorasMensais = this.transformarMinutosEmHoras(response.data.maximoHorasMensais);
 
-        
+
         this.loading=false;
 
       },
       error: (response) => {
-        
+
         this.loading=false;
       }
     })
@@ -83,6 +85,7 @@ export class DetalhesDepartamentosComponent implements OnInit {
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionario = res.data;
+        this.funcionarioCarregado = true;
       },
       (err) => {
       }
@@ -206,6 +209,12 @@ export class DetalhesDepartamentosComponent implements OnInit {
         console.error(error);
       },
     )
+  }
+
+  clickInput() {
+    if (this.funcionario && this.funcionario.isAdmin) {
+      this.fileElement.nativeElement.click();
+    }
   }
 
   public substituirImagem(evento: Event): void {

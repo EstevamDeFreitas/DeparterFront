@@ -52,8 +52,8 @@
               style="display: none">
 
           <div class="col-auto">
-            <mat-card class="example-card mt-3 clickable">
-              <img (click)="file.click()" mat-card-image src="{{image}}" (error)="substituirImagemDepartamento($event)">
+            <mat-card class="example-card mt-3" [ngClass]="{'clickable': funcionario && funcionario.isAdmin}">
+              <img (click)="clickInput()" mat-card-image src="{{image}}" (error)="substituirImagemDepartamento($event)">
               <mat-card-content>
                 <h1 class="text-center texto-card">
                   {{departamento?.nome}}
@@ -66,7 +66,7 @@
         </div>
       </div>
 
-      <div class="row" [hidden]="funcionario && funcionario.isAdmin == false">
+      <div class="row" [hidden]="!funcionarioCarregado || (funcionario && funcionario.isAdmin == false)">
         <div class="col-6 mt-5">
           <button class="red-button" (click)="excluirDepartamento()">Desativar Departamento</button>
         </div>
