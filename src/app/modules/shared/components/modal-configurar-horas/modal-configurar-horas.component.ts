@@ -29,8 +29,6 @@ export class ModalConfigurarHorasComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<ModalConfigurarHorasComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private horasService: HorasService, private snackbarComponent: SnackbarComponent) {
     this.postConfiguracao = data.configuracaoHoras;
     this.configuracao = data.configuracao;
-    console.log(this.configuracao);
-
 
     if (data.configuracaoHoras.tipoConfiguracao == 0)
       this.tipoConfiguracao = "Diárias"

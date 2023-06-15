@@ -94,7 +94,6 @@ export class GraficoAtividadesConcluidasComponent implements OnInit {
     this.graficoService.getAtividadeResumo(0,funcionarioId,this.departamentoId).subscribe({
       next: (response) => {
         this.atividadesConcluidas = response.data;
-        console.log(this.atividadesConcluidas);
         this.getGraficoMontado();
       },
       error: (response) => {

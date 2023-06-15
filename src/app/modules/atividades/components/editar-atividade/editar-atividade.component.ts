@@ -49,6 +49,7 @@ export class EditarAtividadeComponent implements OnInit {
 
   hasError = false;
   errorMessage = "";
+  loading: boolean = false;
 
   public environment = environment;
 
@@ -71,9 +72,10 @@ export class EditarAtividadeComponent implements OnInit {
   public getAtividade(): void {
     this.atividadeId = this.route.snapshot.paramMap.get('id')!;
 
+    this.loading=true;
+
     this.atividadeService.getAtividadeById(this.atividadeId).subscribe(
       (res) => {
-        console.log(res.data)
 
         let dataEntrega = new Date(res.data.dataEntrega);
         let tempoPrevisto = this.transformarMinutosEmHoras(res.data.tempoPrevisto);
@@ -86,8 +88,11 @@ export class EditarAtividadeComponent implements OnInit {
         this.getCategorias(res.data.atividadeCategorias);
         this.getDepartamentoNome();
 
+        this.loading=false;
       },
-      () => { }
+      () => {
+        this.loading=false;
+       }
     )
   }
 
@@ -377,7 +382,6 @@ export class EditarAtividadeComponent implements OnInit {
       atividadePut.tempoPrevisto = this.calcularHorasPrevistas(this.f.tempoPrevisto.value);
 
       atividadePut.statusAtividade = +this.f.statusAtividade.value;
-      console.log(atividadePut);
 
       atividadePut.atividadeCategorias = [];
       this.categorias.forEach((element) => {

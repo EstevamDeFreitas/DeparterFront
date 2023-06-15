@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalAdicionarChecklistComponent } from './components/modal-adicionar-checklist/modal-adicionar-checklist.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ModalAdicionarChecklistComponent } from './components/modal-adicionar-c
     MatNativeDateModule,
     MatDialogModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AtividadesModule { }

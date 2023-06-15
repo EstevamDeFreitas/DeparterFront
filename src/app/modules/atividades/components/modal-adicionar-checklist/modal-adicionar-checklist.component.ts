@@ -65,7 +65,6 @@ export class ModalAdicionarChecklistComponent implements OnInit {
       checklistFinal.checked = false;
       checklistFinal.atividadeId = this.atividadeId
       checklistFinal.descricao = this.checklistForm.controls['descricao'].value;
-      console.log(checklistFinal)
 
       if(this.estado == "post"){
         this.atividadeService.postAtividadeCheck(checklistFinal).subscribe(

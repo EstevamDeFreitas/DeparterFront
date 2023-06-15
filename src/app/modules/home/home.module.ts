@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NgxMaskModule, IConfig }  from  'ngx-mask';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -16,7 +17,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     CommonModule,
     HomeRoutingModule,
     SharedModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    MatProgressSpinnerModule
   ]
 })
 export class HomeModule { }

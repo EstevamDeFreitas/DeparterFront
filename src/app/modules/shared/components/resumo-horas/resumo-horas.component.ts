@@ -16,6 +16,9 @@ export class ResumoHorasComponent implements OnInit {
   funcionarioId: string = "";
   horasResumo = {} as ResumoDto;
 
+  temConfigDiario: boolean = false;
+  temConfigMensal: boolean = false;
+
   modoAdmin: boolean = false;
 
   @Input() departamentoId: string = "";
@@ -54,6 +57,7 @@ export class ResumoHorasComponent implements OnInit {
       (res) => {
         this.funcionarioId = res.data.id;
         this.getResumo(this.funcionarioId, this.departamentoId);
+        this.getConfigHoras(this.funcionarioId);
       },
       (err) => {}
     )
@@ -61,14 +65,36 @@ export class ResumoHorasComponent implements OnInit {
 
   public getResumo(funcionarioId?: string, departamentoId?: string): void{
     this.horasService.getResumoHoras(funcionarioId, departamentoId).subscribe(
-      (res) =>{
+      (res) => {
         this.horasResumo = res.data;
+
+        console.log(this.horasResumo);
+
+      },
+      () =>{}
+    )
+  }
+
+  public getConfigHoras(id: string){
+    this.horasService.getConfiguracaoHoras(id).subscribe(
+      (res) => {
+        console.log(res.data);
+
+        if(res.data.some((config: any) => config.tipoConfiguracao === 1))
+          this.temConfigMensal = true
+
+        if(res.data.some((config: any) => config.tipoConfiguracao === 0))
+          this.temConfigDiario = true
       },
       () =>{}
     )
   }
 
   public transformarMinutosEmHoras(minutosPrevistos: number): string {
+
+    if(minutosPrevistos < 0) {
+      return '00h ' + '00m';
+    }
 
     let horas: number | string = Math.floor(minutosPrevistos / 60);
     let minutos: number | string = minutosPrevistos % 60;

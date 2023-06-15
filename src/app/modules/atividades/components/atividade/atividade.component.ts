@@ -43,6 +43,7 @@ export class AtividadeComponent implements OnInit {
   funcionarioHoras: string = "";
 
   departamentoNome: string = "";
+  loading: boolean = false;
 
   modoAdmin: boolean = false;
 
@@ -75,11 +76,11 @@ export class AtividadeComponent implements OnInit {
 
   public getAtividade(modoAdmin: boolean): void {
 
+    this.loading = true;
     if (this.atividadeId != null) {
       this.atividadeService.getAtividadeById(this.atividadeId, modoAdmin).subscribe(
         (res) => {
           this.atividade = res.data;
-          console.log(this.atividade);
 
           this.getCategorias();
           this.getAtividadeHoras();
@@ -91,8 +92,11 @@ export class AtividadeComponent implements OnInit {
           });
 
           this.horasPrevistasEmString = this.transformarMinutosEmHoras(this.atividade.tempoPrevisto);
+          this.loading=false;
         },
-        () => { },
+        () => {
+          this.loading=false;
+         },
       )
     }
   }
@@ -331,8 +335,7 @@ export class AtividadeComponent implements OnInit {
         horasPost.minutos = this.calcularHorasPrevistas(this.f.minutos.value);
         horasPost.atividadeId = this.atividadeId;
         horasPost.funcionarioId = this.funcionarioAtual.id;
-        console.log(horasPost);
-
+       
         this.horasService.postHoras(horasPost).subscribe(
           () => {
             this.ngOnInit();

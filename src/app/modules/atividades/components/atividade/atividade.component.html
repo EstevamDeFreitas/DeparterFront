@@ -137,7 +137,7 @@
 
               </div>
 
-              <div class="mt-4">
+              <div class="mt-4 invisible">
 
                 <p class="sub-titulo"><b>Histórico</b></p>
 
@@ -268,3 +268,5 @@
 
   </div>
 </div>
+
+<mat-progress-spinner *ngIf="loading" class="spinner" [mode]="'indeterminate'"></mat-progress-spinner>

@@ -11,6 +11,7 @@ import { ListaCategoriasComponent } from './components/lista-categorias/lista-ca
 import { CadastrarCategoriasComponent } from './components/cadastrar-categorias/cadastrar-categorias.component';
 import { AdministracaoComponent } from './components/administracao/administracao.component';
 import { ConfiguracaoHorasComponent } from './components/configuracao-horas/configuracao-horas.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ConfiguracaoHorasComponent } from './components/configuracao-horas/conf
     MatSidenavModule,
     MatCardModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AdministracaoModule { }

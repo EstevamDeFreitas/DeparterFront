@@ -29,6 +29,7 @@ export class ListaAtividadesComponent implements OnInit {
   atividadesFuncionarios: FuncionarioDto[] = [];
 
   modoAdmin: boolean = false;
+  loading: boolean = false;
 
   ordemData: 'asc' | 'desc' = 'asc';
   ordemAtual: string = 'data';
@@ -101,6 +102,7 @@ export class ListaAtividadesComponent implements OnInit {
 
   getAtividades() {
 
+    this.loading=true;
     this.atividadeService.getAtividades(this.modoAdmin).subscribe(
       (res) => {
         this.atividades = res.data;
@@ -125,27 +127,33 @@ export class ListaAtividadesComponent implements OnInit {
           return dateA.getTime() - dateB.getTime();
         });
 
-        console.log(this.atividades);
         this.atividadesFiltradas = this.atividades;
+        
+        this.loading=false;
       },
-      () => { }
+      () => {
+        this.loading=false; }
     )
   }
 
   getAllFuncionarios(): void {
+    
+    this.loading=true;
     this.funcionarioService.getAll().subscribe(
       (res) => {
         this.allFuncionarios = res.data
 
         this.getAllCategorias();
+      
       },
       (err) => {
-
+        this.loading=false;
       }
     )
   }
 
   getAllCategorias(): void {
+    
     this.categoriaService.getCategorias().subscribe(
       (res) => {
         this.allCategorias = res.data;
@@ -153,7 +161,8 @@ export class ListaAtividadesComponent implements OnInit {
         this.getAtividades();
       },
       (err) => {
-
+        
+        this.loading=false;
       }
     );
   }

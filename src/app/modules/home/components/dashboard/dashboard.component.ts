@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
 
   funcionario!: FuncionarioDto;
   nomeFunc: string = "";
+  loading: boolean = false;
 
   constructor(private router: Router,private funcionarioService: FuncionarioService) { }
 
@@ -23,10 +24,12 @@ export class DashboardComponent implements OnInit {
   }
 
   public getUser(): void {
+    this.loading=true;
     this.funcionarioService.getFuncionarioLogado().subscribe(
       (res) => {
         this.funcionario = res.data;
         this.nomeFunc = this.funcionario.nome;
+        this.loading=false;
       }
     )
   }
