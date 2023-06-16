@@ -53,7 +53,7 @@
           </div>
 
           <div class="row">
-            <div class="col-lg-6 col-12 mt-3" [ngClass]="{'col-lg-12': modoEditar}">
+            <div class="col-lg-12 col-12 mt-3">
               <label class="label-text">Apelido</label>
               <div class="input-group">
                 <input type="text" class="form-control" [ngClass]="cssValidator(f.apelido)" [readOnly]="!modoEditar" formControlName="apelido">
@@ -62,14 +62,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 col-12 mt-3">
+            <div class="col-lg-6 col-12 mt-3" *ngIf="modoEditar">
               <label class="label-text">Senha</label>
               <div class="input-group">
                 <input type="password" class="form-control" [ngClass]="cssValidator(f.senha)" [readOnly]="!modoEditar" formControlName="senha">
-                <div *ngIf="f.senha.errors?.required && f.senha.touched" class="invalid-feedback">
-                  Senha é obrigatorio.
-                </div>
-                <div *ngIf="f.senha.errors?.minlength && f.senha.touched" class="invalid-feedback">
+                <div *ngIf="f.senha.errors?.minLength && f.senha.touched" class="invalid-feedback">
                   Senha deve conter no mínimo 6 caracteres.
                 </div>
               </div>
@@ -78,9 +75,6 @@
               <label class="label-text">Confirmar Senha</label>
               <div class="input-group">
                 <input type="password" class="form-control" [ngClass]="cssValidator(f.confirmarSenha)" [readOnly]="!modoEditar" formControlName="confirmarSenha">
-                <div *ngIf="f.confirmarSenha.errors?.required" class="invalid-feedback">
-                  Confirmar senha é obrigatorio.
-                </div>
                 <div *ngIf="f.confirmarSenha.errors?.mustMatch" class="invalid-feedback">
                   As duas senhas devem ser iguais.
                 </div>

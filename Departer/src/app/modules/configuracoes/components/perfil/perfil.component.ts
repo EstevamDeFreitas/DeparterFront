@@ -37,7 +37,7 @@ export class PerfilComponent implements OnInit {
   }
 
   constructor(private funcionarioService: FuncionarioService, private router: Router, private readonly snackbarComponent: SnackbarComponent, public dialog: MatDialog,
-    private commonTasksService : CommonTasksService) { }
+    private commonTasksService: CommonTasksService) { }
 
   ngOnInit(): void {
     this.modoEditar = false;
@@ -50,47 +50,57 @@ export class PerfilComponent implements OnInit {
       (res) => {
         this.funcionario = res.data;
         this.image = environment.images + "/" + res.data.imagem;
-        this.loading=false;
+        this.loading = false;
       },
-      () => { this.loading=false;},
+      () => { this.loading = false; },
       () => this.userValidation()
     )
-    
+
   }
 
   public userValidation(): void {
 
-    this.loading=false;
-    const formOptions: AbstractControlOptions = {
-      validators: ValidatorField.MustMatch('senha', 'confirmarSenha')
-    }
+    this.loading = false;
 
     this.editUserForm = new FormGroup({
       nome: new FormControl(this.funcionario.nome, [Validators.required, Validators.minLength(5)]),
       email: new FormControl(this.funcionario.email, [Validators.required, Validators.email]),
       apelido: new FormControl(this.funcionario.apelido, [Validators.required]),
-      senha: new FormControl(this.funcionario.senha, [Validators.required, Validators.minLength(6)]),
-      confirmarSenha: new FormControl(this.funcionario.senha, [Validators.required])
-    }, formOptions);
+      senha: new FormControl(""),
+      confirmarSenha: new FormControl("")
+    });
   }
 
   public changeFuncionario(): void {
-    if(this.editUserForm.valid){
-      let funcionarioPut = this.editUserForm.value;
-      funcionarioPut.id = this.funcionario.id;
-      funcionarioPut.imagem = this.funcionario.imagem;
-      funcionarioPut.isAdmin = this.funcionario.isAdmin;
+    if (this.editUserForm.valid) {
 
-      this.funcionarioService.putFuncionario(funcionarioPut).subscribe(
-        (res) => {
-          this.snackbarComponent.openSnackBar("Usúario alterado com sucesso !",SnackBarTheme.success,3000);
-        },
-        () => {},
-        () => {this.ngOnInit();}
-      );
+      let senha = this.editUserForm.value.senha;
+      let confirmarSenha = this.editUserForm.value.confirmarSenha;
 
+      if (senha == confirmarSenha) {
+        if (senha.length >= 6 || senha == "") {
+          let funcionarioPut = this.editUserForm.value;
+          funcionarioPut.id = this.funcionario.id;
+          funcionarioPut.imagem = this.funcionario.imagem;
+          funcionarioPut.isAdmin = this.funcionario.isAdmin;
+
+          this.funcionarioService.putFuncionario(funcionarioPut).subscribe(
+            (res) => {
+              this.snackbarComponent.openSnackBar("Usúario alterado com sucesso !", SnackBarTheme.success, 3000);
+            },
+            () => { },
+            () => { this.ngOnInit(); }
+          );
+
+        } else {
+          this.snackbarComponent.openSnackBar("O campo senha deve conter 6 ou mais caracteres !", SnackBarTheme.error, 3000);
+        }
+
+      } else {
+        this.snackbarComponent.openSnackBar("O campo senha deve ser igual ao campo confirmar senha !", SnackBarTheme.error, 3000);
+      }
     } else {
-      //aviso
+      this.snackbarComponent.openSnackBar("Preencha todos campos requeridos !", SnackBarTheme.error, 3000);
     }
   }
 
@@ -100,7 +110,7 @@ export class PerfilComponent implements OnInit {
 
   public changeEditMode(): void {
     this.modoEditar = !this.modoEditar;
-    if(this.modoEditar)
+    if (this.modoEditar)
       this.nome.nativeElement.focus();
     this.userValidation();
   }
@@ -122,12 +132,12 @@ export class PerfilComponent implements OnInit {
 
   uploadImagem(): void {
     this.funcionarioService.postUpload(this.funcionario.id, this.file).subscribe(
-      ()=>{
-        this.snackbarComponent.openSnackBar("Imagem alterada com sucesso !",SnackBarTheme.success,3000);
+      () => {
+        this.snackbarComponent.openSnackBar("Imagem alterada com sucesso !", SnackBarTheme.success, 3000);
         this.atualizarFuncionario(this.image);
         this.ngOnInit();
       },
-      (error: any)=>{
+      (error: any) => {
 
         console.error(error);
       },
