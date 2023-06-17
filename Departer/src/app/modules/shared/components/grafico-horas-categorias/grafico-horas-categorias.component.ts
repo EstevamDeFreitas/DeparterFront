@@ -74,12 +74,12 @@ export class GraficoHorasCategoriasComponent implements OnInit {
     curve: "straight"
   }
 
-  /*
+
   chartTitle: ApexTitleSubtitle = {
-    text: "Product Trends by Month",
+    text: "Horas por categoria",
     align: "left"
   }
-  */
+
 
   chartGrid: ApexGrid = {
     row: {
@@ -165,7 +165,7 @@ export class GraficoHorasCategoriasComponent implements OnInit {
       obj.name = value.categoria;
       obj.data.push(value.horasPorMes)
 
-      
+
       this.series.push(obj)
 
       this.categories.push(value.categoria)
