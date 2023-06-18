@@ -129,6 +129,8 @@ export class NavBarComponent implements OnInit {
 
   public logoff(): void {
     this.router.navigate([""]);
+
+    this.modoAdminService.alterarModoAdmin(false);
     AuthService.removeToken();
   }
 
