@@ -188,7 +188,9 @@
               <div class="box-scroll-funcionarios">
                 <div class="d-flex mb-3 mt-1 align-items-center" *ngFor="let funcionario of funcionarios">
                   <img class="image-funcionario me-2" [src]="environment.images + '/' + funcionario.imagem" (error)="substituirImagem($event)" width="33" height="31" />
-                  <span class="d-flex justify-content-center">{{funcionario.apelido}}</span><span class="role-text ms-1" *ngIf="funcionario.nivelAcesso == 4">Criador</span>
+                  <span class="d-flex justify-content-center">{{funcionario.apelido}}</span>
+                  <span class="role-text ms-1" *ngIf="funcionario.nivelAcesso == 4">Criador</span>
+                  <span class="access-level-text ms-4" *ngIf="funcionario.nivelAcesso != 4">Nível de acesso: <span class="access-level-number-text">{{funcionario.nivelAcesso! + 1}}</span></span>
                 </div>
               </div>
             </div>
